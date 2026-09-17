@@ -696,7 +696,6 @@ button{
 ========================= */
 
 .soundNotice{
-    display:none !important;
     position:absolute;
     z-index:80;
     top:calc(env(safe-area-inset-top) + 116px);
@@ -1049,14 +1048,12 @@ button{
 .commentsError.show{display:block}
 
 
-.pwaSoundGate{position:fixed;z-index:5000;inset:0;display:none;align-items:center;justify-content:center;padding:22px;background:linear-gradient(180deg,rgba(4,17,24,.82),rgba(4,24,34,.94));backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.pwaSoundGate{position:fixed;z-index:5000;inset:0;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(3,18,25,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .pwaSoundGate.show{display:flex}
-.pwaSoundCard{position:relative;overflow:hidden;width:min(100%,410px);padding:34px 24px 25px;border:1px solid rgba(255,255,255,.8);border-radius:30px;background:linear-gradient(160deg,#fff 0%,#f5fcff 100%);color:#15323d;text-align:center;box-shadow:0 30px 90px rgba(0,0,0,.34)}
-.pwaSoundCard:before{content:"";position:absolute;width:180px;height:180px;border-radius:50%;background:rgba(50,183,232,.12);top:-95px;right:-75px}
-.pwaSoundIcon{position:relative;width:76px;height:76px;margin:0 auto 18px;border-radius:24px;display:grid;place-items:center;background:linear-gradient(145deg,#e9f9ff,#d9f3ff);box-shadow:0 12px 32px rgba(50,183,232,.18);font-size:32px}
-.pwaSoundCard h3{position:relative;margin:0 0 9px;font-size:22px;font-weight:900;letter-spacing:-.3px}.pwaSoundCard p{position:relative;margin:0 auto;max-width:310px;color:#70858e;font-size:13px;line-height:1.9}
-.pwaSoundCard button{position:relative;width:100%;height:54px;margin-top:22px;border:0;border-radius:17px;background:linear-gradient(135deg,var(--primary),#179fd4);color:#fff;font-size:15px;font-weight:900;box-shadow:0 12px 30px rgba(50,183,232,.28);cursor:pointer}
-.pwaSoundHint{position:relative;margin-top:17px;color:#8aa0a9;font-size:11px;font-weight:700}.pwaSoundArrow{position:relative;width:38px;height:38px;margin:7px auto 0;display:grid;place-items:center;color:var(--primary);animation:pwaArrow 1.25s ease-in-out infinite}.pwaSoundArrow svg{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}@keyframes pwaArrow{0%,100%{transform:translateY(0);opacity:.65}50%{transform:translateY(7px);opacity:1}}
+.pwaSoundCard{width:min(100%,390px);padding:24px 20px;border-radius:25px;background:#fff;color:#15323d;text-align:center;box-shadow:0 25px 80px rgba(0,0,0,.28)}
+.pwaSoundIcon{width:62px;height:62px;margin:0 auto 14px;border-radius:19px;display:grid;place-items:center;background:#eaf8fd;font-size:28px}
+.pwaSoundCard h3{margin:0 0 7px;font-size:17px}.pwaSoundCard p{margin:0;color:#78909a;font-size:10px;line-height:1.8}
+.pwaSoundCard button{width:100%;height:48px;margin-top:17px;border:0;border-radius:14px;background:var(--primary);color:#fff;font-weight:900;cursor:pointer}
 
 </style>
 </head>
@@ -1424,7 +1421,7 @@ updateInternetStatus();
 
     <nav class="fixedBottomNav">
 
-        <a href="index.html" class="navItem">
+        <a href="shorts.html" class="navItem">
 
             <svg viewBox="0 0 24 24">
                 <path d="M3 10.5 12 3l9 7.5"/>
@@ -1451,17 +1448,12 @@ updateInternetStatus();
             class="navItem"
             onclick="showToast('قسم القرآن قريبًا')">
 
-        <a href="upload.html" class="navItem" aria-label="إضافة مقطع">
+            <svg viewBox="0 0 24 24">
+                <path d="M4 5.5A3.5 3.5 0 0 1 7.5 2H11v17H7.5A3.5 3.5 0 0 0 4 22Z"/>
+                <path d="M20 5.5A3.5 3.5 0 0 0 16.5 2H13v17h3.5A3.5 3.5 0 0 1 20 22Z"/>
+            </svg>
 
-    <svg viewBox="0 0 24 24">
-        <rect x="4" y="4" width="16" height="16" rx="5"/>
-        <path d="M12 8v8"/>
-        <path d="M8 12h8"/>
-    </svg>
-
-    <span>إضافة</span>
-
-</a>
+            <span>القرآن</span>
 
         </button>
 
@@ -1564,12 +1556,10 @@ updateInternetStatus();
 
 <div class="pwaSoundGate" id="pwaSoundGate" aria-hidden="true">
   <div class="pwaSoundCard">
-    <div class="pwaSoundIcon">▶️</div>
-    <h3>استمتع بالمقاطع المفيدة</h3>
-    <p>اضغط للبدء وتشغيل المقطع الأول بالصوت، وبعدها تنقّل بين المقاطع واستمتع بالصوت مباشرة.</p>
-    <button type="button" id="enablePwaSound">ابدأ المشاهدة بالصوت</button>
-    <div class="pwaSoundHint">اضغط للمتابعة</div>
-    <div class="pwaSoundArrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div>
+    <div class="pwaSoundIcon">🔊</div>
+    <h3>تشغيل المقاطع بالصوت</h3>
+    <p>اضغط السماح مرة واحدة لتشغيل صوت المقاطع تلقائيًا أثناء استخدام التطبيق.</p>
+    <button type="button" id="enablePwaSound">السماح وتشغيل الصوت</button>
   </div>
 </div>
 
@@ -1680,30 +1670,6 @@ async function unlockPwaSound(){
 setTimeout(showPwaSoundGate,350);
 document.getElementById("enablePwaSound")?.addEventListener("click",unlockPwaSound);
 
-// إذا سبق للمستخدم السماح بالصوت، لا تظهر شاشة الإذن مرة أخرى.
-if(pwaSoundUnlocked){
-  hidePwaSoundGate();
-}
-
-// حافظ على الصوت عند الانتقال بين المقاطع والعودة إلى الـ PWA.
-function keepPwaSoundOn(){
-  if(!pwaSoundUnlocked) return;
-  soundMuted = false;
-  document.getElementById("soundNotice")?.classList.remove("show");
-  document.querySelectorAll(".short video").forEach(v=>{
-    v.muted = false;
-    v.defaultMuted = false;
-    v.volume = 1;
-  });
-}
-
-document.addEventListener("visibilitychange", ()=>{
-  if(!document.hidden) setTimeout(keepPwaSoundOn, 50);
-});
-document.addEventListener("play", keepPwaSoundOn, true);
-document.addEventListener("loadedmetadata", keepPwaSoundOn, true);
-document.addEventListener("canplay", keepPwaSoundOn, true);
-setInterval(keepPwaSoundOn, 1000);
 
 
 /* =========================
@@ -3146,55 +3112,126 @@ async function releaseZaadWakeLock(){
    PLAY / SOUND
 ========================= */
 
-function playCurrentVideo(firstAttempt=false){
-    getCards().forEach((card,index)=>{
-        const video = card.querySelector("video");
-        if(!video) return;
+function playCurrentVideo(
+    firstAttempt=false
+){
+    forceCurrentVideoSound();
 
-        if(index !== currentIndex){
-            video.pause();
-            return;
-        }
+    getCards().forEach(
+        (card,index)=>{
 
-        // الصوت مطلوب دائمًا. إذا منع المتصفح التشغيل بالصوت،
-        // ننتظر أول تفاعل فقط ثم نعيد تشغيله بالصوت.
-        soundMuted = false;
-        video.muted = false;
-        video.defaultMuted = false;
-        video.volume = 1;
+            const video =
+                card.querySelector(
+                    "video"
+                );
 
-        const promise = video.play();
-        requestZaadWakeLock();
+            if(!video){
+                return;
+            }
 
-        if(promise && typeof promise.catch === "function"){
-            promise.catch(()=>{
-                // لا نحول المقطع إلى مكتوم ولا نظهر رسالة "المس الشاشة".
-                // نبقي طلب الصوت مفعلاً ونحاول مرة أخرى عندما يصبح المقطع جاهزاً.
+            if(index !== currentIndex){
+
+                video.pause();
+                return;
+            }
+
+            if(firstAttempt){
+
+                soundMuted = false;
                 video.muted = false;
-                video.defaultMuted = false;
-                video.volume = 1;
-                const retry = ()=>{
-                    video.muted = false;
-                    video.defaultMuted = false;
-                    video.volume = 1;
-                    video.play().catch(()=>{});
-                };
-                video.addEventListener("canplay", retry, {once:true});
-                setTimeout(retry, 180);
-                setTimeout(retry, 650);
-            });
+
+            }
+            else{
+
+                video.muted =
+                    soundMuted;
+            }
+
+            const promise =
+                video.play();
+
+            requestZaadWakeLock();
+
+            if(
+                promise &&
+                typeof promise.catch ===
+                "function"
+            ){
+
+                promise.catch(
+                    ()=>{
+
+                        /*
+                           Safari/Chrome قد يمنع
+                           التشغيل التلقائي بالصوت.
+                        */
+
+                        video.muted = true;
+
+                        video.play()
+                            .catch(()=>{});
+
+                        enableSoundOnFirstInteraction();
+
+                                        }
+                );
+            }
+
         }
-    });
+    );
 
     updateFixedControls();
 }
 
 function enableSoundOnFirstInteraction(){
-    // تم إلغاء رسالة "المس الشاشة". بعد السماح الأول في PWA
-    // نحافظ على الصوت مفعلاً في جميع المقاطع.
-    waitingForSoundInteraction = false;
-    document.getElementById("soundNotice")?.classList.remove("show");
-    forceCurrentVideoSound();
+
+    if(waitingForSoundInteraction){
+        return;
+    }
+
+    waitingForSoundInteraction =
+        true;
+
+    document
+        .getElementById("soundNotice")
+        .classList.add("show");
+
+    const activateSound =
+        ()=>{
+
+            const video =
+                currentVideo();
+
+            if(video){
+
+                soundMuted = false;
+
+                video.muted = false;
+
+                video.play()
+                    .catch(()=>{});
+
+                        }
+
+            waitingForSoundInteraction =
+                false;
+
+            document
+                .getElementById("soundNotice")
+                .classList.remove("show");
+
+            document.removeEventListener(
+                "pointerdown",
+                activateSound,
+                true
+            );
+        };
+
+    document.addEventListener(
+        "pointerdown",
+        activateSound,
+        true
+    );
 }
 
 function pauseAll(){
@@ -3799,26 +3836,46 @@ function toggleSave(){
 ========================= */
 
 function toggleSound(){
-    const video = currentVideo();
-    if(!video) return;
 
-    // لا يوجد كتم يدوي: الزر يعيد تأكيد تشغيل الصوت فقط.
-    soundMuted = false;
-    waitingForSoundInteraction = false;
+    const video =
+        currentVideo();
 
-    document.querySelectorAll(".short video").forEach(v=>{
-        v.muted = false;
-        v.defaultMuted = false;
-        v.volume = 1;
-    });
+    if(!video){
+        return;
+    }
 
-    video.play().catch(()=>{
-        enableSoundOnFirstInteraction();
-    });
+    if(
+        soundMuted ||
+        video.muted
+    ){
 
-    document.getElementById("soundNotice")?.classList.remove("show");
-    showToast("الصوت يعمل دائمًا");
-    updateSoundIcon();
+        soundMuted = false;
+
+        video.muted = false;
+
+        video.play()
+            .catch(()=>{});
+
+        document
+            .getElementById("soundNotice")
+            .classList.remove("show");
+
+        showToast(
+            "تم تشغيل الصوت"
+        );
+
+    }
+    else{
+
+        soundMuted = true;
+
+        video.muted = true;
+
+        showToast(
+            "تم كتم الصوت"
+        );
+    }
+
 }
 
 function updateSoundIcon(){
@@ -3831,7 +3888,12 @@ function updateSoundIcon(){
     const video =
         currentVideo();
 
-    const muted = false;
+    const muted =
+        soundMuted ||
+        (
+            video &&
+            video.muted
+        );
 
     button.innerHTML =
         muted
@@ -4264,57 +4326,6 @@ document.addEventListener(
 );
 
 if("serviceWorker" in navigator && location.protocol !== "file:"){ window.addEventListener("load",()=>navigator.serviceWorker.register("service-worker.js").catch(()=>{})); }
-
-/* =========================
-   FORCE SOUND ALWAYS
-   بعد أول سماح من المستخدم، لا نسمح للموقع بكتم الصوت مرة أخرى.
-========================= */
-function forceSoundAlways(){
-    soundMuted = false;
-
-    document.querySelectorAll(".short video").forEach(video=>{
-        // لا نفك الكتم المؤقت أثناء انتظار أول تفاعل؛ حتى لا ندخل في حلقة منع autoplay.
-        if(waitingForSoundInteraction) return;
-        video.muted = false;
-        video.defaultMuted = false;
-        video.volume = 1;
-    });
-}
-
-["pointerdown","touchstart","click","keydown"].forEach(eventName=>{
-    document.addEventListener(eventName, ()=>{
-        if(waitingForSoundInteraction) return;
-        forceSoundAlways();
-    }, {capture:true, passive:eventName !== "keydown"});
-});
-
-document.addEventListener("play", event=>{
-    const video = event.target;
-    if(video && video.tagName === "VIDEO" && !waitingForSoundInteraction){
-        video.muted = false;
-        video.defaultMuted = false;
-        video.volume = 1;
-        soundMuted = false;
-    }
-}, true);
-
-document.addEventListener("volumechange", event=>{
-    const video = event.target;
-    if(video && video.tagName === "VIDEO" && !waitingForSoundInteraction){
-        if(video.muted || video.volume !== 1){
-            video.muted = false;
-            video.defaultMuted = false;
-            video.volume = 1;
-            soundMuted = false;
-        }
-    }
-}, true);
-
-setInterval(()=>{
-    if(!document.hidden && !waitingForSoundInteraction){
-        forceSoundAlways();
-    }
-}, 750);
 
 /* =========================
    START
