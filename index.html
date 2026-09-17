@@ -1,1766 +1,2983 @@
 <!doctype html>
+
 <html lang="ar" dir="rtl">
+
 <head>
-<meta charset="utf-8">
+
+<meta charset="UTF-8">
 
 <meta
-  name="viewport"
-  content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+name="viewport"
+content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 
-<meta name="theme-color" content="#07161d">
+<meta
+name="theme-color"
+content="#ffffff">
 
-<title>المقاطع | زاد</title>
+<title>زاد | رفيق المسلم اليومي</title>
+
 
 <style>
+
+/* =====================================================
+   ROOT
+===================================================== */
+
 :root{
-  --blue:#32b8eb;
-  --blue-dark:#0784b7;
-  --white:#fff;
-  --muted:#d9e5e9;
-  --glass:rgba(8,22,29,.48);
-  --border:rgba(255,255,255,.16);
+
+    --primary:#27afe4;
+    --primary-dark:#087fac;
+
+    --primary-soft:#eaf8fe;
+
+    --bg:#f6fafc;
+
+    --card:#ffffff;
+
+    --text:#17313d;
+
+    --muted:#71858e;
+
+    --border:#deedf2;
+
+    --green:#1fa66a;
+
+    --green-soft:#eaf8f1;
+
+    --orange:#e7a73c;
+
+    --shadow:
+        0 12px 35px
+        rgba(20,95,125,.07);
+
 }
+
+
+/* =====================================================
+   RESET
+===================================================== */
 
 *{
-  box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
+
+    box-sizing:border-box;
+
+    margin:0;
+
+    padding:0;
+
+    -webkit-tap-highlight-color:
+        transparent;
+
 }
 
-html,
-body{
-  margin:0;
-  width:100%;
-  height:100%;
-  overflow:hidden;
-  overscroll-behavior:none;
-  background:#000;
-  font-family:Tahoma,Arial,sans-serif;
+
+html{
+
+    scroll-behavior:smooth;
+
 }
 
+
 body{
-  touch-action:pan-y;
-  user-select:none;
-  -webkit-user-select:none;
+
+    min-height:100vh;
+
+    font-family:
+        Tahoma,
+        Arial,
+        sans-serif;
+
+    color:
+        var(--text);
+
+    background:
+
+        radial-gradient(
+            circle at 90% 0%,
+            rgba(39,175,228,.11),
+            transparent 25%
+        ),
+
+        var(--bg);
+
 }
+
+
+button,
+input{
+
+    font:inherit;
+
+}
+
 
 button{
-  font:inherit;
+
+    cursor:pointer;
+
 }
 
-/* =========================
-   APP
-========================= */
 
-.app{
-  position:relative;
-  width:100%;
-  height:100vh;
-  height:100dvh;
-  overflow:hidden;
-  background:#000;
+a{
+
+    text-decoration:none;
+
+    color:inherit;
+
 }
 
-/* =========================
-   FEED
-========================= */
 
-.feed{
-  width:100%;
-  height:100%;
-  overflow-y:auto;
-  overflow-x:hidden;
+.container{
 
-  scroll-snap-type:y mandatory;
-  overscroll-behavior-y:contain;
+    width:
+        min(1150px,92%);
 
-  scrollbar-width:none;
-
-  -webkit-overflow-scrolling:touch;
-}
-
-.feed::-webkit-scrollbar{
-  display:none;
-}
-
-.short{
-  position:relative;
-
-  width:100%;
-  height:100vh;
-  height:100dvh;
-
-  min-height:100vh;
-  min-height:100dvh;
-
-  overflow:hidden;
-
-  scroll-snap-align:start;
-  scroll-snap-stop:always;
-
-  background:#000;
-}
-
-.short video{
-  position:absolute;
-  inset:0;
-
-  width:100%;
-  height:100%;
-
-  object-fit:cover;
-
-  background:#000;
-}
-
-/* =========================
-   GRADIENT
-========================= */
-
-.shade{
-  position:absolute;
-  inset:0;
-
-  pointer-events:none;
-
-  background:
-    linear-gradient(
-      to bottom,
-      rgba(0,0,0,.52) 0%,
-      rgba(0,0,0,.08) 22%,
-      rgba(0,0,0,.02) 48%,
-      rgba(0,0,0,.2) 63%,
-      rgba(0,0,0,.9) 100%
-    );
-}
-
-/* =========================
-   HEADER
-========================= */
-
-.header{
-  position:absolute;
-
-  top:0;
-  right:0;
-  left:0;
-
-  z-index:20;
-
-  padding:
-    calc(env(safe-area-inset-top) + 12px)
-    15px
-    10px;
-
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-
-  pointer-events:none;
-}
-
-.brand{
-  display:flex;
-  align-items:center;
-  gap:10px;
-
-  color:white;
-
-  font-weight:900;
-  font-size:20px;
-
-  pointer-events:auto;
-}
-
-.brandMark{
-  width:38px;
-  height:38px;
-
-  display:grid;
-  place-items:center;
-
-  border-radius:13px;
-
-  background:
-    linear-gradient(
-      135deg,
-      var(--blue-dark),
-      var(--blue)
-    );
-
-  box-shadow:
-    0 7px 25px rgba(0,0,0,.25);
-}
-
-.headerActions{
-  display:flex;
-  gap:8px;
-
-  pointer-events:auto;
-}
-
-/* =========================
-   ICON BUTTON
-========================= */
-
-.iconBtn{
-  width:42px;
-  height:42px;
-
-  border:1px solid var(--border);
-  border-radius:14px;
-
-  display:grid;
-  place-items:center;
-
-  color:white;
-  background:var(--glass);
-
-  backdrop-filter:blur(14px);
-  -webkit-backdrop-filter:blur(14px);
-}
-
-.iconBtn svg{
-  width:21px;
-  height:21px;
-
-  stroke:currentColor;
-  fill:none;
-  stroke-width:1.9;
-  stroke-linecap:round;
-  stroke-linejoin:round;
-}
-
-/* =========================
-   CATEGORIES
-========================= */
-
-.categories{
-  position:absolute;
-
-  z-index:19;
-
-  top:calc(env(safe-area-inset-top) + 66px);
-  right:0;
-  left:0;
-
-  display:flex;
-  gap:7px;
-
-  overflow-x:auto;
-
-  padding:5px 14px 12px;
-
-  scrollbar-width:none;
-
-  pointer-events:auto;
-}
-
-.categories::-webkit-scrollbar{
-  display:none;
-}
-
-.category{
-  flex:none;
-
-  border:1px solid var(--border);
-
-  border-radius:999px;
-
-  padding:8px 14px;
-
-  color:white;
-
-  background:rgba(5,17,23,.36);
-
-  backdrop-filter:blur(12px);
-  -webkit-backdrop-filter:blur(12px);
-
-  font-size:12px;
-}
-
-.category.active{
-  color:#062a39;
-  background:white;
-  border-color:white;
-  font-weight:bold;
-}
-
-/* =========================
-   CONTENT
-========================= */
-
-.content{
-  position:absolute;
-
-  right:17px;
-  left:88px;
-
-  bottom:
-    calc(
-      env(safe-area-inset-bottom) + 86px
-    );
-
-  z-index:15;
-
-  color:white;
-
-  text-shadow:
-    0 2px 12px rgba(0,0,0,.45);
-}
-
-.author{
-  display:flex;
-  align-items:center;
-  gap:9px;
-
-  margin-bottom:11px;
-}
-
-.avatar{
-  width:37px;
-  height:37px;
-
-  display:grid;
-  place-items:center;
-
-  border-radius:50%;
-
-  color:white;
-
-  background:
-    linear-gradient(
-      135deg,
-      var(--blue-dark),
-      var(--blue)
-    );
-
-  border:1px solid rgba(255,255,255,.35);
-
-  font-weight:bold;
-}
-
-.authorText{
-  min-width:0;
-}
-
-.authorName{
-  font-size:13px;
-  font-weight:bold;
-}
-
-.contentType{
-  margin-top:2px;
-
-  color:#d5e9f0;
-
-  font-size:10px;
-}
-
-.title{
-  font-size:17px;
-  line-height:1.6;
-
-  font-weight:800;
-
-  margin-bottom:6px;
-}
-
-.description{
-  color:#edf5f7;
-
-  font-size:12px;
-  line-height:1.7;
-
-  display:-webkit-box;
-  -webkit-line-clamp:2;
-  -webkit-box-orient:vertical;
-  overflow:hidden;
-}
-
-.sourceBtn{
-  margin-top:10px;
-
-  border:1px solid rgba(255,255,255,.18);
-
-  color:white;
-
-  background:rgba(7,22,29,.48);
-
-  border-radius:10px;
-
-  padding:8px 10px;
-
-  display:inline-flex;
-  align-items:center;
-  gap:7px;
-
-  font-size:11px;
-
-  backdrop-filter:blur(10px);
-}
-
-.sourceBtn svg{
-  width:15px;
-  height:15px;
-
-  stroke:currentColor;
-  fill:none;
-  stroke-width:2;
-}
-
-/* =========================
-   ACTIONS
-========================= */
-
-.actions{
-  position:absolute;
-
-  left:13px;
-
-  bottom:
-    calc(
-      env(safe-area-inset-bottom) + 88px
-    );
-
-  z-index:18;
-
-  display:flex;
-  flex-direction:column;
-
-  align-items:center;
-
-  gap:16px;
-}
-
-.action{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-
-  gap:4px;
-
-  color:white;
-
-  font-size:9px;
-}
-
-.actionButton{
-  width:47px;
-  height:47px;
-
-  border:1px solid rgba(255,255,255,.16);
-
-  border-radius:50%;
-
-  display:grid;
-  place-items:center;
-
-  color:white;
-
-  background:rgba(7,20,27,.48);
-
-  backdrop-filter:blur(13px);
-  -webkit-backdrop-filter:blur(13px);
-
-  transition:
-    transform .15s,
-    background .15s;
-}
-
-.actionButton:active{
-  transform:scale(.88);
-}
-
-.actionButton svg{
-  width:22px;
-  height:22px;
-
-  stroke:currentColor;
-  fill:none;
-
-  stroke-width:1.9;
-  stroke-linecap:round;
-  stroke-linejoin:round;
-}
-
-.action.active .actionButton{
-  background:white;
-  color:var(--blue-dark);
-}
-
-/* =========================
-   PLAY
-========================= */
-
-.playState{
-  position:absolute;
-
-  top:50%;
-  left:50%;
-
-  z-index:25;
-
-  transform:
-    translate(-50%,-50%)
-    scale(.85);
-
-  width:70px;
-  height:70px;
-
-  display:grid;
-  place-items:center;
-
-  border-radius:50%;
-
-  color:white;
-
-  background:rgba(0,0,0,.45);
-
-  backdrop-filter:blur(10px);
-
-  opacity:0;
-
-  pointer-events:none;
-
-  transition:.2s;
-}
-
-.playState.show{
-  opacity:1;
-
-  transform:
-    translate(-50%,-50%)
-    scale(1);
-}
-
-.playState svg{
-  width:30px;
-  height:30px;
-
-  stroke:white;
-  fill:white;
-}
-
-/* =========================
-   BOTTOM NAV
-========================= */
-
-.bottomNav{
-  position:absolute;
-
-  right:0;
-  left:0;
-  bottom:0;
-
-  z-index:30;
-
-  height:
-    calc(
-      68px +
-      env(safe-area-inset-bottom)
-    );
-
-  padding:
-    0 8px
-    env(safe-area-inset-bottom);
-
-  display:grid;
-
-  grid-template-columns:
-    repeat(5,1fr);
-
-  align-items:center;
-
-  background:
-    linear-gradient(
-      transparent,
-      rgba(0,0,0,.82)
-    );
-
-  pointer-events:auto;
-}
-
-.navItem{
-  border:0;
-
-  color:#cdd9dd;
-
-  background:transparent;
-
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-
-  gap:4px;
-
-  font-size:9px;
-}
-
-.navItem svg{
-  width:21px;
-  height:21px;
-
-  stroke:currentColor;
-  fill:none;
-
-  stroke-width:1.8;
-  stroke-linecap:round;
-  stroke-linejoin:round;
-}
-
-.navItem.active{
-  color:white;
-  font-weight:bold;
-}
-
-/* =========================
-   POINT TOAST
-========================= */
-
-.toast{
-  position:absolute;
-
-  z-index:100;
-
-  top:
-    calc(
-      env(safe-area-inset-top) + 75px
-    );
-
-  left:50%;
-
-  transform:
-    translate(-50%,-15px);
-
-  padding:10px 15px;
-
-  border-radius:999px;
-
-  color:#06384b;
-  background:white;
-
-  font-size:12px;
-  font-weight:bold;
-
-  opacity:0;
-
-  pointer-events:none;
-
-  transition:.25s;
-
-  box-shadow:
-    0 10px 30px rgba(0,0,0,.2);
-}
-
-.toast.show{
-  opacity:1;
-
-  transform:
-    translate(-50%,0);
-}
-
-/* =========================
-   DESKTOP
-========================= */
-
-@media(min-width:750px){
-
-  body{
-    background:#07141a;
-  }
-
-  .app{
-    max-width:500px;
     margin:auto;
 
-    box-shadow:
-      0 0 70px rgba(0,0,0,.75);
-  }
 }
 
-/* =========================
-   SMALL PHONES
-========================= */
 
-@media(max-height:650px){
+/* =====================================================
+   HEADER
+===================================================== */
 
-  .categories{
-    top:
-      calc(
-        env(safe-area-inset-top) + 57px
-      );
-  }
+.header{
 
-  .content{
-    bottom:
-      calc(
-        env(safe-area-inset-bottom) + 70px
-      );
-  }
+    position:sticky;
 
-  .actions{
-    bottom:
-      calc(
-        env(safe-area-inset-bottom) + 73px
-      );
+    top:0;
+
+    z-index:100;
+
+    background:
+        rgba(255,255,255,.93);
+
+    backdrop-filter:
+        blur(16px);
+
+    -webkit-backdrop-filter:
+        blur(16px);
+
+    border-bottom:
+        1px solid
+        var(--border);
+
+}
+
+
+.nav{
+
+    min-height:70px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:
+        space-between;
+
+    gap:15px;
+
+}
+
+
+.brand{
+
+    display:flex;
+
+    align-items:center;
 
     gap:10px;
-  }
 
-  .actionButton{
-    width:42px;
-    height:42px;
-  }
-
-  .description{
-    -webkit-line-clamp:1;
-  }
 }
+
+
+.brandMark{
+
+    width:42px;
+
+    height:42px;
+
+    display:grid;
+
+    place-items:center;
+
+    border-radius:14px;
+
+    color:white;
+
+    font-size:19px;
+
+    font-weight:900;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            var(--primary-dark),
+            var(--primary)
+        );
+
+    box-shadow:
+
+        0 8px 20px
+        rgba(39,175,228,.22);
+
+}
+
+
+.brandTitle{
+
+    font-size:19px;
+
+    font-weight:900;
+
+}
+
+
+.brandSubtitle{
+
+    margin-top:2px;
+
+    color:
+        var(--muted);
+
+    font-size:10px;
+
+}
+
+
+.headerActions{
+
+    display:flex;
+
+    gap:8px;
+
+}
+
+
+.iconButton{
+
+    width:42px;
+
+    height:42px;
+
+    border:
+
+        1px solid
+        var(--border);
+
+    border-radius:13px;
+
+    display:grid;
+
+    place-items:center;
+
+    background:white;
+
+    color:
+        var(--text);
+
+}
+
+
+.iconButton svg{
+
+    width:20px;
+
+    height:20px;
+
+    fill:none;
+
+    stroke:
+        currentColor;
+
+    stroke-width:1.8;
+
+    stroke-linecap:round;
+
+    stroke-linejoin:round;
+
+}
+
+
+/* =====================================================
+   WELCOME
+===================================================== */
+
+.welcome{
+
+    padding:
+        34px 0 18px;
+
+}
+
+
+.welcomeGrid{
+
+    display:grid;
+
+    grid-template-columns:
+        1.35fr .65fr;
+
+    gap:18px;
+
+}
+
+
+.welcomeCard{
+
+    position:relative;
+
+    overflow:hidden;
+
+    min-height:225px;
+
+    padding:30px;
+
+    border-radius:27px;
+
+    color:white;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #087eaa,
+            #2eb6e9
+        );
+
+    box-shadow:
+
+        0 18px 45px
+        rgba(20,135,180,.18);
+
+}
+
+
+.welcomeCard::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:230px;
+
+    height:230px;
+
+    border-radius:50%;
+
+    left:-70px;
+
+    top:-80px;
+
+    background:
+        rgba(255,255,255,.08);
+
+}
+
+
+.welcomeLabel{
+
+    position:relative;
+
+    z-index:2;
+
+    font-size:13px;
+
+    opacity:.9;
+
+    margin-bottom:10px;
+
+}
+
+
+.welcomeCard h1{
+
+    position:relative;
+
+    z-index:2;
+
+    font-size:
+        clamp(28px,5vw,44px);
+
+    margin-bottom:12px;
+
+}
+
+
+.welcomeCard p{
+
+    position:relative;
+
+    z-index:2;
+
+    max-width:620px;
+
+    line-height:1.9;
+
+    color:
+        #eaf9ff;
+
+    font-size:14px;
+
+}
+
+
+.quickButton{
+
+    position:relative;
+
+    z-index:2;
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    margin-top:20px;
+
+    border:0;
+
+    padding:
+        12px 17px;
+
+    border-radius:13px;
+
+    color:
+        #087da8;
+
+    background:white;
+
+    font-weight:bold;
+
+}
+
+
+.quickButton svg{
+
+    width:18px;
+
+    height:18px;
+
+    fill:none;
+
+    stroke:
+        currentColor;
+
+    stroke-width:2;
+
+}
+
+
+/* =====================================================
+   ACTIVITY
+===================================================== */
+
+.activityCard{
+
+    background:
+        var(--card);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:27px;
+
+    padding:23px;
+
+    box-shadow:
+        var(--shadow);
+
+}
+
+
+.activityTop{
+
+    display:flex;
+
+    justify-content:
+        space-between;
+
+    align-items:flex-start;
+
+    gap:12px;
+
+}
+
+
+.activityIcon{
+
+    width:47px;
+
+    height:47px;
+
+    border-radius:15px;
+
+    display:grid;
+
+    place-items:center;
+
+    color:
+        var(--primary-dark);
+
+    background:
+        var(--primary-soft);
+
+}
+
+
+.activityIcon svg{
+
+    width:23px;
+
+    height:23px;
+
+    stroke:
+        currentColor;
+
+    fill:none;
+
+    stroke-width:1.9;
+
+}
+
+
+.activityTitle{
+
+    color:
+        var(--muted);
+
+    font-size:12px;
+
+}
+
+
+.points{
+
+    margin-top:5px;
+
+    font-size:31px;
+
+    font-weight:900;
+
+}
+
+
+.points small{
+
+    font-size:11px;
+
+    color:
+        var(--muted);
+
+    font-weight:normal;
+
+}
+
+
+.level{
+
+    margin-top:18px;
+
+}
+
+
+.levelInfo{
+
+    display:flex;
+
+    justify-content:
+        space-between;
+
+    font-size:11px;
+
+    margin-bottom:8px;
+
+}
+
+
+.progress{
+
+    height:8px;
+
+    overflow:hidden;
+
+    border-radius:999px;
+
+    background:
+        #edf4f6;
+
+}
+
+
+.progressFill{
+
+    width:0;
+
+    height:100%;
+
+    border-radius:999px;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            var(--primary-dark),
+            var(--primary)
+        );
+
+    transition:
+        width .6s ease;
+
+}
+
+
+.activityNote{
+
+    margin-top:13px;
+
+    color:
+        var(--muted);
+
+    font-size:10px;
+
+    line-height:1.6;
+
+}
+
+
+/* =====================================================
+   SECTION
+===================================================== */
+
+.section{
+
+    padding:
+        20px 0;
+
+}
+
+
+.sectionHeader{
+
+    display:flex;
+
+    justify-content:
+        space-between;
+
+    align-items:flex-end;
+
+    gap:15px;
+
+    margin-bottom:15px;
+
+}
+
+
+.sectionHeader h2{
+
+    font-size:23px;
+
+    margin-bottom:5px;
+
+}
+
+
+.sectionHeader p{
+
+    color:
+        var(--muted);
+
+    font-size:12px;
+
+}
+
+
+.more{
+
+    border:0;
+
+    background:transparent;
+
+    color:
+        var(--primary-dark);
+
+    font-size:12px;
+
+    font-weight:bold;
+
+}
+
+
+/* =====================================================
+   TIP
+===================================================== */
+
+.tipCard{
+
+    display:grid;
+
+    grid-template-columns:
+        65px 1fr auto;
+
+    gap:17px;
+
+    align-items:center;
+
+    padding:22px;
+
+    border:
+
+        1px solid
+        var(--border);
+
+    border-radius:23px;
+
+    background:white;
+
+    box-shadow:
+        var(--shadow);
+
+}
+
+
+.tipIcon{
+
+    width:60px;
+
+    height:60px;
+
+    border-radius:18px;
+
+    display:grid;
+
+    place-items:center;
+
+    background:
+        var(--green-soft);
+
+    color:
+        var(--green);
+
+}
+
+
+.tipIcon svg{
+
+    width:28px;
+
+    height:28px;
+
+    fill:none;
+
+    stroke:
+        currentColor;
+
+    stroke-width:1.8;
+
+}
+
+
+.tipLabel{
+
+    color:
+        var(--green);
+
+    font-size:10px;
+
+    font-weight:bold;
+
+    margin-bottom:5px;
+
+}
+
+
+.tipTitle{
+
+    font-size:17px;
+
+    font-weight:bold;
+
+    line-height:1.6;
+
+}
+
+
+.tipText{
+
+    margin-top:5px;
+
+    color:
+        var(--muted);
+
+    font-size:12px;
+
+    line-height:1.7;
+
+}
+
+
+.sourceButton{
+
+    border:
+        1px solid
+        var(--border);
+
+    padding:
+        10px 13px;
+
+    border-radius:11px;
+
+    background:
+        #f8fbfc;
+
+    color:
+        var(--text);
+
+    font-size:11px;
+
+}
+
+
+/* =====================================================
+   SERVICES
+===================================================== */
+
+.services{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:13px;
+
+}
+
+
+.service{
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:21px;
+
+    padding:20px;
+
+    background:white;
+
+    transition:.2s;
+
+    box-shadow:
+        0 5px 20px
+        rgba(15,90,120,.03);
+
+}
+
+
+.service:hover{
+
+    transform:
+        translateY(-3px);
+
+    border-color:
+        #b9e3f2;
+
+    box-shadow:
+        var(--shadow);
+
+}
+
+
+.serviceIcon{
+
+    width:49px;
+
+    height:49px;
+
+    display:grid;
+
+    place-items:center;
+
+    border-radius:15px;
+
+    margin-bottom:14px;
+
+    color:
+        var(--primary-dark);
+
+    background:
+        var(--primary-soft);
+
+}
+
+
+.serviceIcon svg{
+
+    width:23px;
+
+    height:23px;
+
+    fill:none;
+
+    stroke:
+        currentColor;
+
+    stroke-width:1.8;
+
+    stroke-linecap:round;
+
+    stroke-linejoin:round;
+
+}
+
+
+.service h3{
+
+    font-size:15px;
+
+    margin-bottom:6px;
+
+}
+
+
+.service p{
+
+    color:
+        var(--muted);
+
+    font-size:11px;
+
+    line-height:1.7;
+
+}
+
+
+/* =====================================================
+   DAILY
+===================================================== */
+
+.dailyGrid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:13px;
+
+}
+
+
+.dailyCard{
+
+    padding:20px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:21px;
+
+    background:white;
+
+}
+
+
+.dailyTop{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin-bottom:13px;
+
+}
+
+
+.dailyIcon{
+
+    width:39px;
+
+    height:39px;
+
+    display:grid;
+
+    place-items:center;
+
+    border-radius:12px;
+
+    color:
+        var(--primary-dark);
+
+    background:
+        var(--primary-soft);
+
+}
+
+
+.dailyIcon svg{
+
+    width:19px;
+
+    height:19px;
+
+    stroke:
+        currentColor;
+
+    fill:none;
+
+    stroke-width:1.9;
+
+}
+
+
+.dailyCard h3{
+
+    font-size:14px;
+
+}
+
+
+.dailyCard p{
+
+    min-height:40px;
+
+    color:
+        var(--muted);
+
+    font-size:11px;
+
+    line-height:1.7;
+
+}
+
+
+.dailyAction{
+
+    width:100%;
+
+    margin-top:14px;
+
+    border:0;
+
+    border-radius:11px;
+
+    padding:10px;
+
+    color:
+        var(--primary-dark);
+
+    background:
+        var(--primary-soft);
+
+    font-size:11px;
+
+    font-weight:bold;
+
+}
+
+
+/* =====================================================
+   SHORTS
+===================================================== */
+
+.shorts{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:12px;
+
+}
+
+
+.shortCard{
+
+    position:relative;
+
+    height:310px;
+
+    overflow:hidden;
+
+    border-radius:21px;
+
+    background:
+        #0b1b22;
+
+    cursor:pointer;
+
+}
+
+
+.shortCard video{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+}
+
+
+.shortShade{
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+        linear-gradient(
+            transparent 40%,
+            rgba(0,0,0,.88)
+        );
+
+}
+
+
+.shortPlay{
+
+    position:absolute;
+
+    top:15px;
+
+    left:15px;
+
+    width:36px;
+
+    height:36px;
+
+    border-radius:50%;
+
+    display:grid;
+
+    place-items:center;
+
+    color:white;
+
+    background:
+        rgba(0,0,0,.4);
+
+    backdrop-filter:
+        blur(8px);
+
+}
+
+
+.shortPlay svg{
+
+    width:16px;
+
+    height:16px;
+
+    fill:white;
+
+}
+
+
+.shortInfo{
+
+    position:absolute;
+
+    right:14px;
+
+    left:14px;
+
+    bottom:15px;
+
+    color:white;
+
+}
+
+
+.shortType{
+
+    font-size:9px;
+
+    color:
+        #bfeeff;
+
+    margin-bottom:5px;
+
+}
+
+
+.shortTitle{
+
+    font-size:13px;
+
+    line-height:1.6;
+
+    font-weight:bold;
+
+}
+
+
+/* =====================================================
+   BOTTOM MOBILE NAV
+===================================================== */
+
+.mobileNav{
+
+    display:none;
+
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+.toast{
+
+    position:fixed;
+
+    z-index:1000;
+
+    left:50%;
+
+    bottom:25px;
+
+    transform:
+        translate(-50%,20px);
+
+    opacity:0;
+
+    pointer-events:none;
+
+    padding:
+        11px 17px;
+
+    border-radius:999px;
+
+    background:
+        #17313d;
+
+    color:white;
+
+    font-size:11px;
+
+    transition:.25s;
+
+}
+
+
+.toast.show{
+
+    opacity:1;
+
+    transform:
+        translate(-50%,0);
+
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer{
+
+    margin-top:40px;
+
+    padding:
+        30px 0 100px;
+
+    border-top:
+        1px solid
+        var(--border);
+
+    color:
+        var(--muted);
+
+    background:white;
+
+    text-align:center;
+
+    font-size:11px;
+
+    line-height:1.9;
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:850px){
+
+    .welcomeGrid{
+
+        grid-template-columns:1fr;
+
+    }
+
+
+    .services{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
+
+    .dailyGrid{
+
+        grid-template-columns:1fr;
+
+    }
+
+
+    .shorts{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
+}
+
+
+@media(max-width:550px){
+
+    body{
+
+        padding-bottom:
+            calc(
+                65px +
+                env(safe-area-inset-bottom)
+            );
+
+    }
+
+
+    .container{
+
+        width:92%;
+
+    }
+
+
+    .nav{
+
+        min-height:64px;
+
+    }
+
+
+    .brandMark{
+
+        width:38px;
+
+        height:38px;
+
+    }
+
+
+    .welcome{
+
+        padding-top:20px;
+
+    }
+
+
+    .welcomeCard{
+
+        min-height:205px;
+
+        padding:24px;
+
+        border-radius:23px;
+
+    }
+
+
+    .welcomeCard h1{
+
+        font-size:29px;
+
+    }
+
+
+    .activityCard{
+
+        border-radius:22px;
+
+    }
+
+
+    .tipCard{
+
+        grid-template-columns:
+            50px 1fr;
+
+        padding:17px;
+
+    }
+
+
+    .tipIcon{
+
+        width:48px;
+
+        height:48px;
+
+    }
+
+
+    .sourceButton{
+
+        grid-column:
+            1 / -1;
+
+        width:100%;
+
+    }
+
+
+    .services{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+        gap:10px;
+
+    }
+
+
+    .service{
+
+        padding:16px;
+
+    }
+
+
+    .shorts{
+
+        display:flex;
+
+        overflow-x:auto;
+
+        scroll-snap-type:
+            x mandatory;
+
+        scrollbar-width:none;
+
+        margin-left:-4%;
+
+        margin-right:-4%;
+
+        padding:
+            0 4%;
+
+    }
+
+
+    .shorts::-webkit-scrollbar{
+
+        display:none;
+
+    }
+
+
+    .shortCard{
+
+        flex:
+            0 0 68%;
+
+        height:360px;
+
+        scroll-snap-align:
+            center;
+
+    }
+
+
+    .mobileNav{
+
+        position:fixed;
+
+        z-index:500;
+
+        right:0;
+
+        left:0;
+
+        bottom:0;
+
+        height:
+            calc(
+                64px +
+                env(safe-area-inset-bottom)
+            );
+
+        padding-bottom:
+            env(safe-area-inset-bottom);
+
+        display:grid;
+
+        grid-template-columns:
+            repeat(5,1fr);
+
+        align-items:center;
+
+        background:
+            rgba(255,255,255,.96);
+
+        backdrop-filter:
+            blur(18px);
+
+        border-top:
+            1px solid
+            var(--border);
+
+    }
+
+
+    .mobileNav button,
+    .mobileNav a{
+
+        border:0;
+
+        background:transparent;
+
+        display:flex;
+
+        flex-direction:column;
+
+        align-items:center;
+
+        justify-content:center;
+
+        gap:4px;
+
+        color:
+            var(--muted);
+
+        font-size:9px;
+
+    }
+
+
+    .mobileNav svg{
+
+        width:20px;
+
+        height:20px;
+
+        fill:none;
+
+        stroke:
+            currentColor;
+
+        stroke-width:1.8;
+
+    }
+
+
+    .mobileNav .active{
+
+        color:
+            var(--primary-dark);
+
+        font-weight:bold;
+
+    }
+
+}
+
 </style>
+
 </head>
+
 
 <body>
 
-<div class="app" id="app">
 
-  <main class="feed" id="feed"></main>
-
-  <div class="toast" id="toast"></div>
-
-</div>
-
-<script>
-
-/* =====================================================
-   بيانات المقاطع التجريبية
-
-   لاحقًا admin.html سيضيف هذه البيانات تلقائيًا.
-===================================================== */
-
-const VIDEO_DATA = [
-
-  {
-    id:1,
-
-    title:
-      "ضع عنوان المقطع الديني هنا",
-
-    description:
-      "وصف مختصر وواضح للمقطع يظهر للمستخدم.",
-
-    author:
-      "زاد",
-
-    type:
-      "القرآن",
-
-    category:
-      "quran",
-
-    source:
-      "أضف المصدر",
-
-    video:
-      "https://www.w3schools.com/html/mov_bbb.mp4"
-  },
-
-  {
-    id:2,
-
-    title:
-      "تذكير نافع",
-
-    description:
-      "هذه بيانات تجريبية فقط، ويمكن استبدالها بمقاطعك.",
-
-    author:
-      "زاد",
-
-    type:
-      "مواعظ",
-
-    category:
-      "reminders",
-
-    source:
-      "أضف مصدر المحتوى",
-
-    video:
-      "https://www.w3schools.com/html/movie.mp4"
-  },
-
-  {
-    id:3,
-
-    title:
-      "مقطع من السيرة",
-
-    description:
-      "يمكن إضافة اسم الكتاب أو المرجع المرتبط بالمقطع.",
-
-    author:
-      "زاد",
-
-    type:
-      "السيرة",
-
-    category:
-      "seerah",
-
-    source:
-      "أضف المصدر",
-
-    video:
-      "https://www.w3schools.com/html/mov_bbb.mp4"
-  }
-
-];
-
-
-/* =====================================================
-   SVG
-===================================================== */
-
-const ICONS = {
-
-home:`
-<svg viewBox="0 0 24 24">
-<path d="M3 10.5 12 3l9 7.5"/>
-<path d="M5 9.5V21h14V9.5"/>
-<path d="M9 21v-7h6v7"/>
-</svg>
-`,
-
-video:`
-<svg viewBox="0 0 24 24">
-<rect x="3" y="5" width="18" height="14" rx="3"/>
-<path d="m10 9 5 3-5 3Z"/>
-</svg>
-`,
-
-book:`
-<svg viewBox="0 0 24 24">
-<path d="M4 5.5A3.5 3.5 0 0 1 7.5 2H11v17H7.5A3.5 3.5 0 0 0 4 22Z"/>
-<path d="M20 5.5A3.5 3.5 0 0 0 16.5 2H13v17h3.5A3.5 3.5 0 0 1 20 22Z"/>
-</svg>
-`,
-
-heart:`
-<svg viewBox="0 0 24 24">
-<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/>
-</svg>
-`,
-
-bookmark:`
-<svg viewBox="0 0 24 24">
-<path d="M6 3h12v18l-6-4-6 4Z"/>
-</svg>
-`,
-
-share:`
-<svg viewBox="0 0 24 24">
-<circle cx="18" cy="5" r="3"/>
-<circle cx="6" cy="12" r="3"/>
-<circle cx="18" cy="19" r="3"/>
-<path d="m8.6 10.5 6.8-4"/>
-<path d="m8.6 13.5 6.8 4"/>
-</svg>
-`,
-
-volume:`
-<svg viewBox="0 0 24 24">
-<path d="M11 5 6 9H3v6h3l5 4Z"/>
-<path d="M15 9a4 4 0 0 1 0 6"/>
-<path d="M17.5 6.5a8 8 0 0 1 0 11"/>
-</svg>
-`,
-
-search:`
-<svg viewBox="0 0 24 24">
-<circle cx="11" cy="11" r="7"/>
-<path d="m20 20-4-4"/>
-</svg>
-`,
-
-user:`
-<svg viewBox="0 0 24 24">
-<circle cx="12" cy="8" r="4"/>
-<path d="M4 21a8 8 0 0 1 16 0"/>
-</svg>
-`,
-
-source:`
-<svg viewBox="0 0 24 24">
-<path d="M4 4h12a4 4 0 0 1 4 4v12H8a4 4 0 0 1-4-4Z"/>
-<path d="M8 4v16"/>
-</svg>
-`,
-
-play:`
-<svg viewBox="0 0 24 24">
-<path d="m8 5 11 7-11 7Z"/>
-</svg>
-`
-
-};
-
-
-/* =====================================================
-   STATE
-===================================================== */
-
-let currentCategory = "all";
-
-let liked =
-  JSON.parse(
-    localStorage.getItem(
-      "zaadLikes"
-    ) || "[]"
-  );
-
-let saved =
-  JSON.parse(
-    localStorage.getItem(
-      "zaadSaved"
-    ) || "[]"
-  );
-
-let activityPoints =
-  Number(
-    localStorage.getItem(
-      "zaadPoints"
-    ) || 0
-  );
-
-
-/* =====================================================
-   HEADER
-===================================================== */
-
-function headerHTML(){
-
-return `
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
 <header class="header">
 
-  <div class="brand">
+<div class="container nav">
+
+
+<div class="brand">
 
     <div class="brandMark">
-      ز
+        ز
     </div>
 
-    زاد
+    <div>
 
-  </div>
+        <div class="brandTitle">
+            زاد
+        </div>
+
+        <div class="brandSubtitle">
+            رفيق المسلم اليومي
+        </div>
+
+    </div>
+
+</div>
 
 
-  <div class="headerActions">
+<div class="headerActions">
 
     <button
-      class="iconBtn"
-      aria-label="بحث"
-      onclick="showToast('سيتم إضافة البحث في الصفحة الرئيسية')">
+        class="iconButton"
+        onclick="showToast('سيتم إضافة البحث')"
+        aria-label="بحث">
 
-      ${ICONS.search}
+        <svg viewBox="0 0 24 24">
+
+            <circle
+                cx="11"
+                cy="11"
+                r="7"/>
+
+            <path
+                d="m20 20-4-4"/>
+
+        </svg>
 
     </button>
 
-  </div>
+
+    <button
+        class="iconButton"
+        onclick="showToast('نقاط نشاطك: '+points)"
+        aria-label="الحساب">
+
+        <svg viewBox="0 0 24 24">
+
+            <circle
+                cx="12"
+                cy="8"
+                r="4"/>
+
+            <path
+                d="M4 21a8 8 0 0 1 16 0"/>
+
+        </svg>
+
+    </button>
+
+</div>
+
+
+</div>
 
 </header>
 
 
-<div class="categories">
+<main>
 
-  ${categoryButton(
-    "all",
-    "لك"
-  )}
 
-  ${categoryButton(
-    "quran",
-    "القرآن"
-  )}
+<!-- =====================================================
+     WELCOME
+===================================================== -->
 
-  ${categoryButton(
-    "reminders",
-    "تذكير"
-  )}
+<section class="welcome">
 
-  ${categoryButton(
-    "seerah",
-    "السيرة"
-  )}
+<div class="container welcomeGrid">
+
+
+<div class="welcomeCard">
+
+    <div class="welcomeLabel">
+        السلام عليكم ورحمة الله وبركاته
+    </div>
+
+    <h1>
+        أهلاً بك في زاد
+    </h1>
+
+    <p>
+
+        مساحة تساعدك على الوصول
+        للمحتوى الإسلامي النافع،
+        ومتابعة وردك، وحفظ المقاطع
+        والمصادر التي تريد الرجوع إليها.
+
+    </p>
+
+
+    <a
+        href="shorts.html"
+        class="quickButton">
+
+        شاهد المقاطع
+
+        <svg viewBox="0 0 24 24">
+
+            <path
+                d="m9 18 6-6-6-6"/>
+
+        </svg>
+
+    </a>
 
 </div>
 
-`;
 
-}
+<!-- ACTIVITY -->
 
+<div class="activityCard">
 
-function categoryButton(
-  value,
-  title
-){
+    <div class="activityTop">
 
-return `
+        <div>
 
-<button
-  class="category
-  ${
-    currentCategory === value
-      ? "active"
-      : ""
-  }"
-  onclick="changeCategory('${value}')">
+            <div class="activityTitle">
+                نشاطك في زاد
+            </div>
 
-  ${title}
+            <div class="points">
 
-</button>
+                <span id="points">
+                    0
+                </span>
 
-`;
+                <small>
+                    نقطة نشاط
+                </small>
 
-}
+            </div>
 
-
-/* =====================================================
-   BOTTOM NAV
-===================================================== */
-
-function bottomNavHTML(){
-
-return `
-
-<nav class="bottomNav">
-
-  <button class="navItem">
-    ${ICONS.home}
-    <span>الرئيسية</span>
-  </button>
-
-  <button class="navItem active">
-    ${ICONS.video}
-    <span>المقاطع</span>
-  </button>
-
-  <button class="navItem">
-    ${ICONS.book}
-    <span>القرآن</span>
-  </button>
-
-  <button class="navItem">
-    ${ICONS.book}
-    <span>الأذكار</span>
-  </button>
-
-  <button class="navItem">
-    ${ICONS.user}
-    <span>حسابي</span>
-  </button>
-
-</nav>
-
-`;
-
-}
-
-
-/* =====================================================
-   CARD
-===================================================== */
-
-function videoCard(item){
-
-const isLiked =
-  liked.includes(item.id);
-
-const isSaved =
-  saved.includes(item.id);
-
-
-return `
-
-<section
-  class="short"
-  data-id="${item.id}">
-
-
-  <video
-    src="${safeAttribute(item.video)}"
-    playsinline
-    loop
-    preload="metadata"
-  ></video>
-
-
-  <div class="shade"></div>
-
-
-  ${headerHTML()}
-
-
-  <div class="playState">
-
-    ${ICONS.play}
-
-  </div>
-
-
-  <div class="content">
-
-    <div class="author">
-
-      <div class="avatar">
-        ز
-      </div>
-
-      <div class="authorText">
-
-        <div class="authorName">
-          ${escapeHTML(item.author)}
         </div>
 
-        <div class="contentType">
-          ${escapeHTML(item.type)}
+
+        <div class="activityIcon">
+
+            <svg viewBox="0 0 24 24">
+
+                <path
+                    d="M12 2 15 8l6 .9-4.5 4.4 1.1 6.2L12 16.6 6.4 19.5l1.1-6.2L3 8.9 9 8Z"/>
+
+            </svg>
+
         </div>
 
-      </div>
+    </div>
+
+
+    <div class="level">
+
+        <div class="levelInfo">
+
+            <span id="levelName">
+                بداية
+            </span>
+
+            <span id="levelProgressText">
+                0 / 100
+            </span>
+
+        </div>
+
+
+        <div class="progress">
+
+            <div
+                class="progressFill"
+                id="progressFill">
+            </div>
+
+        </div>
 
     </div>
 
 
-    <div class="title">
-      ${escapeHTML(item.title)}
-    </div>
+    <div class="activityNote">
 
-
-    <div class="description">
-      ${escapeHTML(item.description)}
-    </div>
-
-
-    <button
-      class="sourceBtn"
-      onclick="event.stopPropagation();showSource(${item.id})">
-
-      ${ICONS.source}
-
-      المصدر
-
-    </button>
-
-  </div>
-
-
-  <aside class="actions">
-
-
-    <div
-      class="action
-      ${isLiked ? "active" : ""}"
-      id="like-${item.id}">
-
-      <button
-        class="actionButton"
-        aria-label="إعجاب"
-        onclick="
-          event.stopPropagation();
-          toggleLike(${item.id})
-        ">
-
-        ${ICONS.heart}
-
-      </button>
-
-      <span>إعجاب</span>
+        نقاط النشاط تساعدك على متابعة
+        استخدامك للمنصة فقط، ولا تمثل
+        الحسنات أو مقدار الأجر.
 
     </div>
 
-
-    <div
-      class="action
-      ${isSaved ? "active" : ""}"
-      id="save-${item.id}">
-
-      <button
-        class="actionButton"
-        aria-label="حفظ"
-        onclick="
-          event.stopPropagation();
-          toggleSave(${item.id})
-        ">
-
-        ${ICONS.bookmark}
-
-      </button>
-
-      <span>حفظ</span>
-
-    </div>
+</div>
 
 
-    <div class="action">
-
-      <button
-        class="actionButton"
-        aria-label="مشاركة"
-        onclick="
-          event.stopPropagation();
-          shareVideo(${item.id})
-        ">
-
-        ${ICONS.share}
-
-      </button>
-
-      <span>مشاركة</span>
-
-    </div>
-
-
-    <div class="action">
-
-      <button
-        class="actionButton"
-        aria-label="الصوت"
-        onclick="
-          event.stopPropagation();
-          toggleMute(this)
-        ">
-
-        ${ICONS.volume}
-
-      </button>
-
-      <span>الصوت</span>
-
-    </div>
-
-  </aside>
-
-
-  ${bottomNavHTML()}
+</div>
 
 </section>
 
-`;
 
-}
+<!-- =====================================================
+     TIP
+===================================================== -->
 
+<section class="section">
 
-/* =====================================================
-   RENDER
-===================================================== */
+<div class="container">
 
-function render(){
 
-  const feed =
-    document.getElementById(
-      "feed"
-    );
+<div class="sectionHeader">
 
+    <div>
 
-  let list =
-    VIDEO_DATA;
+        <h2>
+            نصيحة اليوم
+        </h2>
 
+        <p>
+            تذكير بسيط ليومك.
+        </p>
 
-  if(
-    currentCategory !== "all"
-  ){
+    </div>
 
-    list =
-      VIDEO_DATA.filter(
-        item =>
-          item.category ===
-          currentCategory
-      );
+</div>
 
-  }
 
+<div class="tipCard">
 
-  if(!list.length){
 
-    feed.innerHTML = `
+<div class="tipIcon">
 
-    <section class="short">
+    <svg viewBox="0 0 24 24">
 
-      ${headerHTML()}
+        <path
+            d="M9 18h6"/>
 
-      <div
-        style="
-          height:100%;
-          display:grid;
-          place-items:center;
-          color:white;
-          text-align:center;
-          padding:30px;
-        ">
+        <path
+            d="M10 22h4"/>
 
-        لا توجد مقاطع
-        في هذا القسم حاليًا.
+        <path
+            d="M8.5 14.5A7 7 0 1 1 15.5 14.5C14.6 15.2 14 16.1 14 17h-4c0-.9-.6-1.8-1.5-2.5Z"/>
 
-      </div>
+    </svg>
 
-      ${bottomNavHTML()}
+</div>
 
-    </section>
 
-    `;
+<div>
 
-    return;
+    <div class="tipLabel">
+        نصيحة
+    </div>
 
-  }
+    <div class="tipTitle">
+        اجعل لك وقتًا ثابتًا كل يوم
+        للتعلّم والقراءة.
+    </div>
 
+    <div class="tipText">
 
-  feed.innerHTML =
-    list
-      .map(videoCard)
-      .join("");
+        القليل المستمر أسهل في المحافظة
+        عليه من خطة كبيرة يصعب الاستمرار
+        عليها.
 
+    </div>
 
-  bindVideoClicks();
+</div>
 
-  setupAutoplay();
 
-}
+<button
+    class="sourceButton"
+    onclick="showToast('هذه نصيحة عامة وليست نصًا شرعيًا منسوبًا لمصدر')">
 
+    عن النصيحة
 
-/* =====================================================
-   PLAY / PAUSE
-===================================================== */
+</button>
 
-function bindVideoClicks(){
 
-  document
-    .querySelectorAll(
-      ".short video"
-    )
-    .forEach(video=>{
+</div>
 
-      video.addEventListener(
-        "click",
-        ()=>{
+</div>
 
-          const card =
-            video.closest(
-              ".short"
-            );
+</section>
 
-          const state =
-            card.querySelector(
-              ".playState"
-            );
 
+<!-- =====================================================
+     SERVICES
+===================================================== -->
 
-          if(video.paused){
+<section class="section">
 
-            pauseAll(video);
+<div class="container">
 
-            video.play()
-              .catch(()=>{});
 
-          }
-          else{
+<div class="sectionHeader">
 
-            video.pause();
+    <div>
 
-          }
+        <h2>
+            خدمات زاد
+        </h2>
 
+        <p>
+            كل ما تحتاجه في مكان واحد.
+        </p>
 
-          state.classList.add(
-            "show"
-          );
+    </div>
 
+</div>
 
-          setTimeout(
-            ()=>{
 
-              state.classList.remove(
-                "show"
-              );
+<div class="services">
 
-            },
-            450
-          );
 
-        }
-      );
+<!-- QURAN -->
 
-    });
+<button
+    class="service"
+    onclick="comingSoon('القرآن')">
 
-}
+    <div class="serviceIcon">
 
+        <svg viewBox="0 0 24 24">
 
-/* =====================================================
-   AUTOPLAY
-===================================================== */
+            <path
+                d="M4 5.5A3.5 3.5 0 0 1 7.5 2H11v17H7.5A3.5 3.5 0 0 0 4 22Z"/>
 
-let observer;
+            <path
+                d="M20 5.5A3.5 3.5 0 0 0 16.5 2H13v17h3.5A3.5 3.5 0 0 1 20 22Z"/>
 
-function setupAutoplay(){
+        </svg>
 
-  if(observer){
-    observer.disconnect();
-  }
+    </div>
 
+    <h3>
+        القرآن الكريم
+    </h3>
 
-  observer =
-    new IntersectionObserver(
+    <p>
+        قراءة ومتابعة آخر موضع
+        وصلت إليه.
+    </p>
 
-      entries=>{
+</button>
 
-        entries.forEach(
-          entry=>{
 
-            const video =
-              entry.target
-                .querySelector(
-                  "video"
-                );
+<!-- ADHKAR -->
 
-            if(!video){
-              return;
-            }
+<button
+    class="service"
+    onclick="comingSoon('الأذكار')">
 
+    <div class="serviceIcon">
 
-            if(
-              entry.isIntersecting &&
-              entry.intersectionRatio >= .72
-            ){
+        <svg viewBox="0 0 24 24">
 
-              pauseAll(video);
+            <circle
+                cx="12"
+                cy="12"
+                r="9"/>
 
-              video.play()
-                .catch(()=>{});
+            <path
+                d="M12 7v5l3 2"/>
 
-            }
-            else{
+        </svg>
 
-              video.pause();
+    </div>
 
-            }
+    <h3>
+        الأذكار
+    </h3>
 
-          }
-        );
+    <p>
+        أذكار مرتبة مع مصادرها
+        وعدّاد للقراءة.
+    </p>
 
-      },
+</button>
 
-      {
-        threshold:[
-          .25,
-          .72,
-          .95
-        ]
-      }
 
-    );
+<!-- PRAYER -->
 
+<button
+    class="service"
+    onclick="comingSoon('الصلاة')">
 
-  document
-    .querySelectorAll(
-      ".short"
-    )
-    .forEach(card=>{
+    <div class="serviceIcon">
 
-      observer.observe(
-        card
-      );
+        <svg viewBox="0 0 24 24">
 
-    });
+            <path
+                d="M4 21h16"/>
 
-}
+            <path
+                d="M6 21V10l6-6 6 6v11"/>
 
+            <path
+                d="M10 21v-6h4v6"/>
 
-function pauseAll(
-  except=null
-){
+        </svg>
 
-  document
-    .querySelectorAll(
-      ".short video"
-    )
-    .forEach(video=>{
+    </div>
 
-      if(video !== except){
-        video.pause();
-      }
+    <h3>
+        الصلاة
+    </h3>
 
-    });
+    <p>
+        مواقيت الصلاة والتنبيهات
+        اليومية.
+    </p>
 
-}
+</button>
 
 
-/* =====================================================
-   CATEGORY
-===================================================== */
+<!-- SHORTS -->
 
-function changeCategory(
-  category
-){
+<a
+    class="service"
+    href="shorts.html">
 
-  currentCategory =
-    category;
+    <div class="serviceIcon">
 
-  pauseAll();
+        <svg viewBox="0 0 24 24">
 
-  render();
+            <rect
+                x="4"
+                y="3"
+                width="16"
+                height="18"
+                rx="4"/>
 
-  document
-    .getElementById(
-      "feed"
-    )
-    .scrollTo({
-      top:0,
-      behavior:"auto"
-    });
+            <path
+                d="m10 9 5 3-5 3Z"/>
 
-}
+        </svg>
 
+    </div>
 
-/* =====================================================
-   LIKE
-===================================================== */
+    <h3>
+        المقاطع
+    </h3>
 
-function toggleLike(id){
+    <p>
+        مقاطع قصيرة نافعة
+        بتجربة مهيأة للجوال.
+    </p>
 
-  const element =
-    document.getElementById(
-      "like-"+id
-    );
+</a>
 
 
-  if(
-    liked.includes(id)
-  ){
+<!-- LEARN -->
 
-    liked =
-      liked.filter(
-        value =>
-          value !== id
-      );
+<button
+    class="service"
+    onclick="comingSoon('تعلّم')">
 
-  }
-  else{
+    <div class="serviceIcon">
 
-    liked.push(id);
+        <svg viewBox="0 0 24 24">
 
-  }
+            <path
+                d="m3 10 9-5 9 5-9 5Z"/>
 
+            <path
+                d="M7 12.5V17c3 2 7 2 10 0v-4.5"/>
 
-  localStorage.setItem(
-    "zaadLikes",
-    JSON.stringify(liked)
-  );
+        </svg>
 
+    </div>
 
-  if(element){
+    <h3>
+        تعلّم
+    </h3>
 
-    element.classList.toggle(
-      "active",
-      liked.includes(id)
-    );
+    <p>
+        محتوى مبسط ومنظم
+        مع المراجع.
+    </p>
 
-  }
+</button>
 
-}
 
+<!-- SAVED -->
 
-/* =====================================================
-   SAVE
-===================================================== */
+<button
+    class="service"
+    onclick="comingSoon('المحفوظات')">
 
-function toggleSave(id){
+    <div class="serviceIcon">
 
-  const alreadySaved =
-    saved.includes(id);
+        <svg viewBox="0 0 24 24">
 
+            <path
+                d="M6 3h12v18l-6-4-6 4Z"/>
 
-  if(alreadySaved){
+        </svg>
 
-    saved =
-      saved.filter(
-        value =>
-          value !== id
-      );
+    </div>
 
-  }
-  else{
+    <h3>
+        المحفوظات
+    </h3>
 
-    saved.push(id);
+    <p>
+        المقاطع والمحتوى الذي
+        حفظته للرجوع إليه.
+    </p>
 
-    addPoints(
-      2,
-      "+2 نقطة نشاط للحفظ"
-    );
+</button>
 
-  }
 
+<!-- SOURCES -->
 
-  localStorage.setItem(
-    "zaadSaved",
-    JSON.stringify(saved)
-  );
+<button
+    class="service"
+    onclick="comingSoon('المصادر')">
 
+    <div class="serviceIcon">
 
-  const element =
-    document.getElementById(
-      "save-"+id
-    );
+        <svg viewBox="0 0 24 24">
 
+            <path
+                d="M4 4h12a4 4 0 0 1 4 4v12H8a4 4 0 0 1-4-4Z"/>
 
-  if(element){
+            <path
+                d="M8 4v16"/>
 
-    element.classList.toggle(
-      "active",
-      saved.includes(id)
-    );
+        </svg>
 
-  }
+    </div>
 
-}
+    <h3>
+        المصادر
+    </h3>
 
+    <p>
+        الوصول إلى مصادر المحتوى
+        المنشور في زاد.
+    </p>
+
+</button>
+
+
+<!-- NEW MUSLIM -->
+
+<button
+    class="service"
+    onclick="comingSoon('المسلم الجديد')">
+
+    <div class="serviceIcon">
+
+        <svg viewBox="0 0 24 24">
+
+            <path
+                d="M12 3v18"/>
+
+            <path
+                d="M3 12h18"/>
+
+        </svg>
+
+    </div>
+
+    <h3>
+        المسلم الجديد
+    </h3>
+
+    <p>
+        بداية مبسطة ومنظمة
+        للتعرف على الأساسيات.
+    </p>
+
+</button>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     DAILY
+===================================================== -->
+
+<section class="section">
+
+<div class="container">
+
+
+<div class="sectionHeader">
+
+    <div>
+
+        <h2>
+            زاد يومك
+        </h2>
+
+        <p>
+            أنشطة بسيطة تساعدك على الاستمرار.
+        </p>
+
+    </div>
+
+</div>
+
+
+<div class="dailyGrid">
+
+
+<div class="dailyCard">
+
+    <div class="dailyTop">
+
+        <div class="dailyIcon">
+
+            <svg viewBox="0 0 24 24">
+
+                <path
+                    d="M4 5.5A3.5 3.5 0 0 1 7.5 2H11v17H7.5A3.5 3.5 0 0 0 4 22Z"/>
+
+                <path
+                    d="M20 5.5A3.5 3.5 0 0 0 16.5 2H13v17h3.5A3.5 3.5 0 0 1 20 22Z"/>
+
+            </svg>
+
+        </div>
+
+        <h3>
+            ورد القراءة
+        </h3>
+
+    </div>
+
+
+    <p>
+        خصص بضع دقائق للقراءة
+        اليوم.
+    </p>
+
+
+    <button
+        class="dailyAction"
+        onclick="completeDaily(
+            'reading',
+            5,
+            this
+        )">
+
+        تم اليوم
+
+    </button>
+
+</div>
+
+
+<div class="dailyCard">
+
+    <div class="dailyTop">
+
+        <div class="dailyIcon">
+
+            <svg viewBox="0 0 24 24">
+
+                <circle
+                    cx="12"
+                    cy="12"
+                    r="9"/>
+
+                <path
+                    d="M12 7v5l3 2"/>
+
+            </svg>
+
+        </div>
+
+        <h3>
+            وقت للتعلّم
+        </h3>
+
+    </div>
+
+
+    <p>
+        تعلم اليوم شيئًا نافعًا
+        من مصدر موثوق.
+    </p>
+
+
+    <button
+        class="dailyAction"
+        onclick="completeDaily(
+            'learning',
+            5,
+            this
+        )">
+
+        تم اليوم
+
+    </button>
+
+</div>
+
+
+<div class="dailyCard">
+
+    <div class="dailyTop">
+
+        <div class="dailyIcon">
+
+            <svg viewBox="0 0 24 24">
+
+                <path
+                    d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/>
+
+            </svg>
+
+        </div>
+
+        <h3>
+            عمل نافع
+        </h3>
+
+    </div>
+
+
+    <p>
+        افعل اليوم عملًا نافعًا
+        لمن حولك.
+    </p>
+
+
+    <button
+        class="dailyAction"
+        onclick="completeDaily(
+            'good',
+            5,
+            this
+        )">
+
+        تم اليوم
+
+    </button>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     SHORTS
+===================================================== -->
+
+<section class="section">
+
+<div class="container">
+
+
+<div class="sectionHeader">
+
+    <div>
+
+        <h2>
+            أحدث المقاطع
+        </h2>
+
+        <p>
+            محتوى قصير مختار.
+        </p>
+
+    </div>
+
+
+    <a
+        href="shorts.html"
+        class="more">
+
+        عرض الكل
+
+    </a>
+
+</div>
+
+
+<div class="shorts">
+
+
+<a
+    href="shorts.html"
+    class="shortCard">
+
+    <video
+        src="https://www.w3schools.com/html/mov_bbb.mp4"
+        muted
+        playsinline
+        preload="metadata">
+    </video>
+
+    <div class="shortShade"></div>
+
+
+    <div class="shortPlay">
+
+        <svg viewBox="0 0 24 24">
+
+            <path
+                d="m8 5 11 7-11 7Z"/>
+
+        </svg>
+
+    </div>
+
+
+    <div class="shortInfo">
+
+        <div class="shortType">
+            القرآن
+        </div>
+
+        <div class="shortTitle">
+            ضع عنوان المقطع هنا
+        </div>
+
+    </div>
+
+</a>
+
+
+<a
+    href="shorts.html"
+    class="shortCard">
+
+    <video
+        src="https://www.w3schools.com/html/movie.mp4"
+        muted
+        playsinline
+        preload="metadata">
+    </video>
+
+    <div class="shortShade"></div>
+
+
+    <div class="shortPlay">
+
+        <svg viewBox="0 0 24 24">
+
+            <path
+                d="m8 5 11 7-11 7Z"/>
+
+        </svg>
+
+    </div>
+
+
+    <div class="shortInfo">
+
+        <div class="shortType">
+            تذكير
+        </div>
+
+        <div class="shortTitle">
+            مقطع نافع قصير
+        </div>
+
+    </div>
+
+</a>
+
+
+<a
+    href="shorts.html"
+    class="shortCard">
+
+    <video
+        src="https://www.w3schools.com/html/mov_bbb.mp4"
+        muted
+        playsinline
+        preload="metadata">
+    </video>
+
+    <div class="shortShade"></div>
+
+
+    <div class="shortPlay">
+
+        <svg viewBox="0 0 24 24">
+
+            <path
+                d="m8 5 11 7-11 7Z"/>
+
+        </svg>
+
+    </div>
+
+
+    <div class="shortInfo">
+
+        <div class="shortType">
+            السيرة
+        </div>
+
+        <div class="shortTitle">
+            من السيرة النبوية
+        </div>
+
+    </div>
+
+</a>
+
+
+<a
+    href="shorts.html"
+    class="shortCard">
+
+    <video
+        src="https://www.w3schools.com/html/movie.mp4"
+        muted
+        playsinline
+        preload="metadata">
+    </video>
+
+    <div class="shortShade"></div>
+
+
+    <div class="shortPlay">
+
+        <svg viewBox="0 0 24 24">
+
+            <path
+                d="m8 5 11 7-11 7Z"/>
+
+        </svg>
+
+    </div>
+
+
+    <div class="shortInfo">
+
+        <div class="shortType">
+            تعلّم
+        </div>
+
+        <div class="shortTitle">
+            معلومة اليوم
+        </div>
+
+    </div>
+
+</a>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+</main>
+
+
+<!-- =====================================================
+     MOBILE NAV
+===================================================== -->
+
+<nav class="mobileNav">
+
+
+<a
+    href="index.html"
+    class="active">
+
+    <svg viewBox="0 0 24 24">
+
+        <path
+            d="M3 10.5 12 3l9 7.5"/>
+
+        <path
+            d="M5 9.5V21h14V9.5"/>
+
+        <path
+            d="M9 21v-7h6v7"/>
+
+    </svg>
+
+    الرئيسية
+
+</a>
+
+
+<a href="shorts.html">
+
+    <svg viewBox="0 0 24 24">
+
+        <rect
+            x="4"
+            y="3"
+            width="16"
+            height="18"
+            rx="4"/>
+
+        <path
+            d="m10 9 5 3-5 3Z"/>
+
+    </svg>
+
+    المقاطع
+
+</a>
+
+
+<button onclick="comingSoon('القرآن')">
+
+    <svg viewBox="0 0 24 24">
+
+        <path
+            d="M4 5.5A3.5 3.5 0 0 1 7.5 2H11v17H7.5A3.5 3.5 0 0 0 4 22Z"/>
+
+        <path
+            d="M20 5.5A3.5 3.5 0 0 0 16.5 2H13v17h3.5A3.5 3.5 0 0 1 20 22Z"/>
+
+    </svg>
+
+    القرآن
+
+</button>
+
+
+<button onclick="comingSoon('الأذكار')">
+
+    <svg viewBox="0 0 24 24">
+
+        <circle
+            cx="12"
+            cy="12"
+            r="9"/>
+
+        <path
+            d="M12 7v5l3 2"/>
+
+    </svg>
+
+    الأذكار
+
+</button>
+
+
+<button onclick="comingSoon('حسابي')">
+
+    <svg viewBox="0 0 24 24">
+
+        <circle
+            cx="12"
+            cy="8"
+            r="4"/>
+
+        <path
+            d="M4 21a8 8 0 0 1 16 0"/>
+
+    </svg>
+
+    حسابي
+
+</button>
+
+
+</nav>
+
+
+<footer class="footer">
+
+<div class="container">
+
+    <strong>
+        زاد
+    </strong>
+
+    <br>
+
+    منصة للمحتوى الإسلامي النافع
+    والتعلّم والمتابعة اليومية.
+
+    <br>
+
+    نقاط النشاط داخلية للمتابعة فقط
+    ولا تمثل مقدار الأجر أو الحسنات.
+
+</div>
+
+</footer>
+
+
+<div
+class="toast"
+id="toast">
+</div>
+
+
+<script>
 
 /* =====================================================
    POINTS
 ===================================================== */
 
-function addPoints(
-  amount,
-  message
+let points =
+    Number(
+        localStorage.getItem(
+            "zaadPoints"
+        ) || 0
+    );
+
+
+function updateActivity(){
+
+    document.getElementById(
+        "points"
+    ).textContent =
+        points;
+
+
+    let levelName =
+        "بداية";
+
+    let levelStart =
+        0;
+
+    let nextLevel =
+        100;
+
+
+    if(points >= 300){
+
+        levelName =
+            "مستمر";
+
+        levelStart =
+            300;
+
+        nextLevel =
+            600;
+
+    }
+
+
+    if(points >= 600){
+
+        levelName =
+            "نشيط";
+
+        levelStart =
+            600;
+
+        nextLevel =
+            1000;
+
+    }
+
+
+    if(points >= 1000){
+
+        levelName =
+            "متقدم";
+
+        levelStart =
+            1000;
+
+        nextLevel =
+            1500;
+
+    }
+
+
+    const progress =
+        Math.min(
+            100,
+            Math.max(
+                0,
+                (
+                    (
+                        points -
+                        levelStart
+                    )
+                    /
+                    (
+                        nextLevel -
+                        levelStart
+                    )
+                )
+                *100
+            )
+        );
+
+
+    document.getElementById(
+        "levelName"
+    ).textContent =
+        levelName;
+
+
+    document.getElementById(
+        "levelProgressText"
+    ).textContent =
+        points +
+        " / " +
+        nextLevel;
+
+
+    document.getElementById(
+        "progressFill"
+    ).style.width =
+        progress+"%";
+
+}
+
+
+/* =====================================================
+   DAILY
+===================================================== */
+
+function completeDaily(
+    activity,
+    reward,
+    button
 ){
 
-  activityPoints +=
-    amount;
+    const today =
+        new Date()
+            .toISOString()
+            .slice(0,10);
 
 
-  localStorage.setItem(
-    "zaadPoints",
-    activityPoints
-  );
+    const key =
+        "zaadDaily_" +
+        activity +
+        "_" +
+        today;
 
 
-  showToast(message);
+    if(
+        localStorage.getItem(
+            key
+        )
+    ){
+
+        showToast(
+            "تم تسجيل هذا النشاط اليوم"
+        );
+
+        button.textContent =
+            "تم ✓";
+
+        return;
+
+    }
+
+
+    localStorage.setItem(
+        key,
+        "1"
+    );
+
+
+    points +=
+        reward;
+
+
+    localStorage.setItem(
+        "zaadPoints",
+        points
+    );
+
+
+    button.textContent =
+        "تم ✓";
+
+
+    updateActivity();
+
+
+    showToast(
+        "+"+
+        reward+
+        " نقاط نشاط"
+    );
 
 }
 
 
 /* =====================================================
-   SHARE
+   CHECK DAILY BUTTONS
 ===================================================== */
 
-async function shareVideo(id){
+function checkDaily(){
 
-  const item =
-    VIDEO_DATA.find(
-      video =>
-        video.id === id
-    );
-
-
-  if(!item){
-    return;
-  }
+    const today =
+        new Date()
+            .toISOString()
+            .slice(0,10);
 
 
-  const text =
-    item.title +
-    "\n\n" +
-    item.description +
-    "\n\nالمصدر: " +
-    item.source;
+    const activities =
+        [
+            "reading",
+            "learning",
+            "good"
+        ];
 
 
-  if(navigator.share){
+    document
+        .querySelectorAll(
+            ".dailyAction"
+        )
+        .forEach(
+            (
+                button,
+                index
+            )=>{
 
-    try{
+                const key =
+                    "zaadDaily_" +
+                    activities[index] +
+                    "_" +
+                    today;
 
-      await navigator.share({
-        title:item.title,
-        text:text
-      });
 
-    }
-    catch(error){}
+                if(
+                    localStorage.getItem(
+                        key
+                    )
+                ){
 
-  }
-  else{
+                    button.textContent =
+                        "تم ✓";
 
-    try{
+                }
 
-      await navigator.clipboard
-        .writeText(text);
-
-      showToast(
-        "تم نسخ معلومات المقطع"
-      );
-
-    }
-    catch(error){
-
-      showToast(
-        "تعذرت المشاركة"
-      );
-
-    }
-
-  }
+            }
+        );
 
 }
 
 
 /* =====================================================
-   MUTE
+   COMING SOON
 ===================================================== */
 
-function toggleMute(button){
+function comingSoon(name){
 
-  const card =
-    button.closest(
-      ".short"
+    showToast(
+        "قسم "+
+        name+
+        " سنضيفه في المرحلة القادمة"
     );
-
-  const video =
-    card.querySelector(
-      "video"
-    );
-
-
-  video.muted =
-    !video.muted;
-
-
-  showToast(
-    video.muted
-      ? "تم كتم الصوت"
-      : "تم تشغيل الصوت"
-  );
-
-}
-
-
-/* =====================================================
-   SOURCE
-===================================================== */
-
-function showSource(id){
-
-  const item =
-    VIDEO_DATA.find(
-      video =>
-        video.id === id
-    );
-
-
-  if(!item){
-    return;
-  }
-
-
-  alert(
-    "مصدر المحتوى:\n\n" +
-    item.source
-  );
 
 }
 
@@ -1771,70 +2988,42 @@ function showSource(id){
 
 let toastTimer;
 
-function showToast(message){
 
-  const toast =
-    document.getElementById(
-      "toast"
-    );
+function showToast(
+    message
+){
 
-
-  toast.textContent =
-    message;
-
-
-  toast.classList.add(
-    "show"
-  );
-
-
-  clearTimeout(
-    toastTimer
-  );
-
-
-  toastTimer =
-    setTimeout(
-      ()=>{
-
-        toast.classList.remove(
-          "show"
+    const toast =
+        document.getElementById(
+            "toast"
         );
 
-      },
-      1800
+
+    toast.textContent =
+        message;
+
+
+    toast.classList.add(
+        "show"
     );
 
-}
 
-
-/* =====================================================
-   SECURITY HELPERS
-===================================================== */
-
-function escapeHTML(value){
-
-  const div =
-    document.createElement(
-      "div"
+    clearTimeout(
+        toastTimer
     );
 
-  div.textContent =
-    String(value);
 
-  return div.innerHTML;
+    toastTimer =
+        setTimeout(
+            ()=>{
 
-}
+                toast.classList.remove(
+                    "show"
+                );
 
-
-function safeAttribute(value){
-
-  return String(value)
-    .replace(/&/g,"&amp;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#39;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;");
+            },
+            2000
+        );
 
 }
 
@@ -1844,55 +3033,46 @@ function safeAttribute(value){
 ===================================================== */
 
 document.addEventListener(
-  "gesturestart",
-  event=>{
-    event.preventDefault();
-  }
+    "gesturestart",
+    event=>
+        event.preventDefault()
 );
 
 
-document.addEventListener(
-  "gesturechange",
-  event=>{
-    event.preventDefault();
-  }
-);
+let lastTouchEnd =
+    0;
 
 
 document.addEventListener(
-  "gestureend",
-  event=>{
-    event.preventDefault();
-  }
-);
+
+    "touchend",
+
+    event=>{
+
+        const now =
+            Date.now();
 
 
-/* منع double tap zoom */
+        if(
+            now -
+            lastTouchEnd <=
+            300
+        ){
 
-let lastTouchEnd = 0;
+            event.preventDefault();
 
-document.addEventListener(
-  "touchend",
-  event=>{
+        }
 
-    const now =
-      Date.now();
 
-    if(
-      now - lastTouchEnd <= 300
-    ){
+        lastTouchEnd =
+            now;
 
-      event.preventDefault();
+    },
 
+    {
+        passive:false
     }
 
-    lastTouchEnd =
-      now;
-
-  },
-  {
-    passive:false
-  }
 );
 
 
@@ -1900,9 +3080,13 @@ document.addEventListener(
    START
 ===================================================== */
 
-render();
+updateActivity();
+
+checkDaily();
 
 </script>
 
+
 </body>
+
 </html>
