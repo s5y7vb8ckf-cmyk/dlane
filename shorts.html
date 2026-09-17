@@ -933,8 +933,8 @@ button{
     <header class="fixedHeader">
 
         <div class="brand">
-            <div class="brandLogo">ز</div>
-            <span>زاد</span>
+            <div class="brandLogo">د</div>
+            <span> دلني</span>
         </div>
 
         <div class="fixedHeaderActions">
@@ -1186,7 +1186,7 @@ button{
         <div class="loaderContent">
 
             <div class="loaderLogo">
-                ز
+                ارحب
             </div>
 
             <div class="loaderText">
@@ -1279,7 +1279,7 @@ async function downloadCurrentVideo(){
         await new Promise((resolve,reject)=>{ const tx=db.transaction(ZAAD_STORE,"readwrite"); tx.objectStore(ZAAD_STORE).put({...item,blob,downloadedAt:Date.now()}); tx.oncomplete=resolve; tx.onerror=()=>reject(tx.error); });
         showToast("تم تنزيل المقطع للعمل بدون شبكة");
     }catch(error){
-        console.error(error); showToast("تعذر التنزيل؛ استخدم رابط MP4 مباشر يسمح بالتنزيل");
+        console.error(error); showToast("اعتذر قريبا باذن الله");
     }finally{ btn.disabled=false; updateDownloadState(); }
 }
 
@@ -1396,7 +1396,7 @@ async function loadVideos(){
 
             renderMessage(
                 "لا توجد مقاطع",
-                "أضف المقاطع في Google Sheets واجعل الحالة yes."
+                "لايوجد مقاطع"
             );
 
             showLoading(false);
