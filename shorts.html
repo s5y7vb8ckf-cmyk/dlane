@@ -920,6 +920,133 @@ button{
         box-shadow:0 0 90px rgba(0,0,0,.85);
     }
 }
+
+/* =========================
+   COMMENTS
+========================= */
+.commentCount{
+    min-width:18px;
+    text-align:center;
+    font-size:8px;
+    color:#fff;
+}
+.commentsSheet{
+    position:fixed;
+    z-index:1600;
+    inset:0;
+    display:none;
+    align-items:flex-end;
+    justify-content:center;
+    background:rgba(0,0,0,.55);
+    backdrop-filter:blur(4px);
+    -webkit-backdrop-filter:blur(4px);
+}
+.commentsSheet.show{display:flex}
+.commentsPanel{
+    width:min(500px,100%);
+    height:min(72dvh,680px);
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+    border-radius:25px 25px 0 0;
+    background:#fff;
+    color:#15323d;
+    box-shadow:0 -20px 60px rgba(0,0,0,.25);
+}
+.commentsHandle{
+    width:45px;height:4px;flex:none;
+    margin:9px auto 3px;border-radius:99px;background:#d8e3e7;
+}
+.commentsHeader{
+    min-height:55px;flex:none;
+    padding:8px 14px;
+    display:flex;align-items:center;justify-content:space-between;
+    border-bottom:1px solid #e8f0f3;
+}
+.commentsHeader h3{font-size:14px;margin:0}
+.commentsClose{
+    width:38px;height:38px;border:0;border-radius:12px;
+    background:#f2f7f9;color:#29434e;font-size:22px;
+}
+.commentsList{
+    flex:1;overflow-y:auto;padding:12px 14px;
+    -webkit-overflow-scrolling:touch;
+}
+.commentRow{
+    display:flex;gap:10px;padding:10px 0;
+    border-bottom:1px solid #eef3f5;
+}
+.commentAvatar{
+    width:36px;height:36px;flex:none;border-radius:50%;
+    display:grid;place-items:center;
+    background:linear-gradient(135deg,var(--primary-dark),var(--primary));
+    color:#fff;font-weight:900;font-size:13px;
+}
+.commentBody{flex:1;min-width:0}
+.commentMeta{display:flex;align-items:center;gap:7px;margin-bottom:5px}
+.commentName{font-size:11px;font-weight:900;color:#173743}
+.commentTime{font-size:8px;color:#9aaab1}
+.commentText{
+    font-size:11px;line-height:1.8;color:#405963;
+    white-space:pre-wrap;overflow-wrap:anywhere;user-select:text;
+    -webkit-user-select:text;
+}
+.commentsEmpty,.commentsLoading{
+    min-height:180px;display:grid;place-items:center;text-align:center;
+    color:#879aa3;font-size:11px;padding:25px;
+}
+.commentComposer{
+    flex:none;padding:10px 12px calc(10px + env(safe-area-inset-bottom));
+    border-top:1px solid #e5eef1;background:#fff;
+}
+.commentNameInput{
+    width:100%;height:38px;margin-bottom:7px;padding:0 12px;
+    border:1px solid #dce8ec;border-radius:11px;outline:0;
+    background:#f8fbfc;color:#15323d;font-size:11px;
+    user-select:text;-webkit-user-select:text;
+}
+
+.commentAccount{
+    display:flex;align-items:center;gap:9px;
+    margin-bottom:8px;padding:8px 9px;
+    border:1px solid #e2edf1;border-radius:13px;background:#f8fbfc;
+}
+.commentAccountAvatar{
+    width:34px;height:34px;flex:none;border-radius:50%;
+    display:grid;place-items:center;color:#fff;font-size:12px;font-weight:900;
+    background:linear-gradient(135deg,var(--primary-dark),var(--primary));
+}
+.commentAccountInfo{flex:1;min-width:0}
+.commentAccountInfo span{display:block;font-size:8px;color:#91a2aa;margin-bottom:2px}
+.commentAccountInfo strong{
+    display:block;font-size:11px;color:#173743;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.commentAccountEdit{
+    flex:none;padding:7px 9px;border-radius:9px;
+    background:#eaf8fd;color:var(--primary-dark);
+    text-decoration:none;font-size:9px;font-weight:900;
+}
+
+.commentSendRow{display:flex;align-items:flex-end;gap:7px}
+.commentInput{
+    flex:1;min-height:43px;max-height:95px;resize:none;
+    padding:11px 12px;border:1px solid #dce8ec;border-radius:13px;
+    outline:0;background:#f8fbfc;color:#15323d;font-size:11px;
+    line-height:1.6;user-select:text;-webkit-user-select:text;
+}
+.commentSend{
+    width:47px;height:43px;flex:none;border:0;border-radius:13px;
+    background:var(--primary);color:#fff;display:grid;place-items:center;
+}
+.commentSend:disabled{opacity:.55}
+.commentSend svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:2}
+.commentsError{
+    margin:8px 14px;padding:9px 11px;border-radius:11px;
+    background:#fff3f3;color:#a74444;font-size:9px;display:none;
+}
+.commentsError.show{display:block}
+
 </style>
 </head>
 
@@ -1229,11 +1356,14 @@ updateInternetStatus();
 
         </div>
 
-        <div class="actionItem" id="downloadAction">
-            <button class="actionButton" id="downloadButton" onclick="downloadCurrentVideo()" aria-label="تنزيل بدون شبكة">
-                <svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+        <div class="actionItem" id="commentsAction">
+            <button class="actionButton" onclick="openComments()" aria-label="التعليقات">
+                <svg viewBox="0 0 24 24">
+                    <path d="M21 12a8 8 0 0 1-8 8H6l-4 2 1.5-4A9 9 0 1 1 21 12Z"/>
+                </svg>
             </button>
-            <span class="downloadState" id="downloadLabel">تنزيل</span>
+            <span>تعليق</span>
+            <span class="commentCount" id="commentCount">0</span>
         </div>
 
         <div class="actionItem">
@@ -1433,6 +1563,41 @@ updateInternetStatus();
 
 </div>
 
+
+<!-- التعليقات -->
+<div class="commentsSheet" id="commentsSheet" onclick="closeCommentsBackground(event)">
+    <section class="commentsPanel" onclick="event.stopPropagation()">
+        <div class="commentsHandle"></div>
+        <header class="commentsHeader">
+            <h3 id="commentsTitle">التعليقات</h3>
+            <button class="commentsClose" type="button" onclick="closeComments()" aria-label="إغلاق">×</button>
+        </header>
+
+        <div class="commentsError" id="commentsError"></div>
+        <div class="commentsList" id="commentsList">
+            <div class="commentsLoading">جاري تحميل التعليقات...</div>
+        </div>
+
+        <form class="commentComposer" id="commentForm" onsubmit="submitComment(event)">
+            <div class="commentAccount">
+                <div class="commentAccountAvatar" id="commentAccountAvatar">ز</div>
+                <div class="commentAccountInfo">
+                    <span>التعليق باسم</span>
+                    <strong id="commentAccountName">حسابي</strong>
+                </div>
+                <a href="account.html" class="commentAccountEdit">تعديل</a>
+            </div>
+            <div class="commentSendRow">
+                <textarea class="commentInput" id="commentInput" maxlength="500"
+                          placeholder="اكتب تعليقًا نافعًا ومحترمًا..." required></textarea>
+                <button class="commentSend" id="commentSend" type="submit" aria-label="إرسال">
+                    <svg viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+                </button>
+            </div>
+        </form>
+    </section>
+</div>
+
 <!-- المصدر -->
 
 <div
@@ -1520,6 +1685,274 @@ async function downloadCurrentVideo(){
 
 
 
+
+/* =========================
+   COMMENTS API - GOOGLE SHEETS
+   ضع هنا رابط Web App بعد نشر Apps Script
+========================= */
+const COMMENTS_API_URL = "https://script.google.com/macros/s/AKfycbwT_ntNSdR4GyMDaZF4haywYnIvIaVv9kUDFRW9Rl-ISaznjgcKbiBtyKyVyeyMzjmSbA/exec";
+
+let commentsCache = new Map();
+let commentCounts = new Map();
+let commentsLoadingVideoId = null;
+
+function commentsApiReady(){
+    return /^https:\/\/script\.google\.com\/macros\/s\/.+\/exec/i.test(COMMENTS_API_URL);
+}
+
+function escapeCommentHTML(value){
+    return escapeHTML(String(value || ""));
+}
+
+function commentInitial(name){
+    const text = String(name || "زائر").trim();
+    return escapeCommentHTML(text.charAt(0) || "ز");
+}
+
+function formatCommentDate(value){
+    if(!value) return "";
+    const d = new Date(value);
+    if(Number.isNaN(d.getTime())) return escapeCommentHTML(value);
+    try{
+        return new Intl.DateTimeFormat("ar-SA",{
+            year:"numeric",month:"short",day:"numeric",
+            hour:"numeric",minute:"2-digit"
+        }).format(d);
+    }catch(e){ return d.toLocaleString(); }
+}
+
+function renderComments(videoId){
+    const list = document.getElementById("commentsList");
+    const comments = commentsCache.get(videoId) || [];
+
+    if(!comments.length){
+        list.innerHTML = `<div class="commentsEmpty">لا توجد تعليقات بعد.<br>كن أول من يضيف تعليقًا نافعًا.</div>`;
+        return;
+    }
+
+    list.innerHTML = comments.map(c => `
+        <article class="commentRow">
+            <div class="commentAvatar">${commentInitial(c.name)}</div>
+            <div class="commentBody">
+                <div class="commentMeta">
+                    <span class="commentName">${escapeCommentHTML(c.name || "زائر")}</span>
+                    <span class="commentTime">${formatCommentDate(c.createdAt)}</span>
+                </div>
+                <div class="commentText">${escapeCommentHTML(c.comment)}</div>
+            </div>
+        </article>
+    `).join("");
+}
+
+function setCommentsError(message=""){
+    const el = document.getElementById("commentsError");
+    el.textContent = message;
+    el.classList.toggle("show", !!message);
+}
+
+async function fetchComments(videoId, force=false){
+    if(!videoId) return [];
+    if(!force && commentsCache.has(videoId)){
+        renderComments(videoId);
+        return commentsCache.get(videoId);
+    }
+
+    const list = document.getElementById("commentsList");
+    list.innerHTML = `<div class="commentsLoading">جاري تحميل التعليقات...</div>`;
+    setCommentsError("");
+
+    if(!commentsApiReady()){
+        setCommentsError("أضف رابط Apps Script في COMMENTS_API_URL أولًا.");
+        list.innerHTML = `<div class="commentsEmpty">قاعدة التعليقات غير مربوطة بعد.</div>`;
+        return [];
+    }
+
+    commentsLoadingVideoId = videoId;
+
+    try{
+        const url = COMMENTS_API_URL +
+            "?action=list&videoId=" + encodeURIComponent(videoId) +
+            "&_=" + Date.now();
+
+        const response = await fetch(url,{cache:"no-store"});
+        if(!response.ok) throw new Error("HTTP " + response.status);
+
+        const data = await response.json();
+        if(data.result !== "success") throw new Error(data.error || "تعذر تحميل التعليقات");
+
+        const comments = Array.isArray(data.comments) ? data.comments : [];
+        commentsCache.set(videoId, comments);
+        commentCounts.set(videoId, Number(data.count ?? comments.length));
+        updateCommentCount();
+
+        if(currentItem()?.id === videoId && document.getElementById("commentsSheet").classList.contains("show")){
+            renderComments(videoId);
+        }
+        return comments;
+    }catch(error){
+        console.error("Comments:",error);
+        if(currentItem()?.id === videoId){
+            setCommentsError("تعذر تحميل التعليقات حاليًا.");
+            list.innerHTML = `<div class="commentsEmpty">تحقق من الاتصال ثم حاول مرة أخرى.</div>`;
+        }
+        return [];
+    }
+}
+
+async function fetchCommentCount(videoId){
+    if(!videoId || !commentsApiReady()) return;
+    try{
+        const response = await fetch(
+            COMMENTS_API_URL + "?action=count&videoId=" + encodeURIComponent(videoId) + "&_=" + Date.now(),
+            {cache:"no-store"}
+        );
+        if(!response.ok) return;
+        const data = await response.json();
+        if(data.result === "success"){
+            commentCounts.set(videoId, Number(data.count || 0));
+            if(currentItem()?.id === videoId) updateCommentCount();
+        }
+    }catch(e){}
+}
+
+function updateCommentCount(){
+    const item = currentItem();
+    const el = document.getElementById("commentCount");
+    if(!item || !el) return;
+    const count = commentCounts.get(item.id);
+    el.textContent = Number.isFinite(count) ? String(count) : "…";
+    if(!Number.isFinite(count)) fetchCommentCount(item.id);
+}
+
+
+function getZaadAccountName(){
+    // المفتاح الرسمي المقترح لصفحة account.html:
+    // localStorage.setItem("zaadAccountProfile", JSON.stringify({name:"اسم المستخدم"}))
+    const jsonKeys = ["zaadAccountProfile","zaadProfile","zaadUser","userProfile"];
+    for(const key of jsonKeys){
+        try{
+            const data = JSON.parse(localStorage.getItem(key) || "null");
+            if(data && typeof data === "object"){
+                const name = String(data.name || data.fullName || data.username || data.displayName || "").trim();
+                if(name) return name;
+            }
+        }catch(e){}
+    }
+
+    const textKeys = ["zaadAccountName","zaadUserName","userName","profileName"];
+    for(const key of textKeys){
+        const value = String(localStorage.getItem(key) || "").trim();
+        if(value) return value;
+    }
+    return "";
+}
+
+function updateCommentAccountUI(){
+    const name = getZaadAccountName();
+    const nameEl = document.getElementById("commentAccountName");
+    const avatarEl = document.getElementById("commentAccountAvatar");
+    if(nameEl) nameEl.textContent = name || "لم يتم تحديد الاسم";
+    if(avatarEl) avatarEl.textContent = name ? (name.charAt(0) || "ز") : "؟";
+}
+
+function openComments(){
+    const item = currentItem();
+    if(!item) return;
+
+    pauseAll();
+
+    const sheet = document.getElementById("commentsSheet");
+    document.getElementById("commentsTitle").textContent = "التعليقات";
+    updateCommentAccountUI();
+
+    sheet.classList.add("show");
+    sheet.setAttribute("aria-hidden","false");
+
+    fetchComments(item.id);
+}
+
+function closeComments(){
+    document.getElementById("commentsSheet").classList.remove("show");
+    document.getElementById("commentsSheet").setAttribute("aria-hidden","true");
+    setCommentsError("");
+    playCurrentVideo();
+}
+
+function closeCommentsBackground(event){
+    if(event.target === document.getElementById("commentsSheet")) closeComments();
+}
+
+async function submitComment(event){
+    event.preventDefault();
+
+    const item = currentItem();
+    if(!item) return;
+
+    const commentInput = document.getElementById("commentInput");
+    const send = document.getElementById("commentSend");
+
+    const name = getZaadAccountName();
+    const comment = commentInput.value.trim();
+
+    if(!name){
+        setCommentsError("حدد اسمك أولًا من صفحة حسابي.");
+        return;
+    }
+
+    if(comment.length < 2){
+        setCommentsError("اكتب تعليقًا قبل الإرسال.");
+        return;
+    }
+    if(comment.length > 500){
+        setCommentsError("التعليق طويل جدًا.");
+        return;
+    }
+    if(!commentsApiReady()){
+        setCommentsError("أضف رابط Apps Script في COMMENTS_API_URL أولًا.");
+        return;
+    }
+
+    // منع الضغط المتكرر السريع من نفس الجهاز
+    const lastSend = Number(localStorage.getItem("zaadLastCommentAt") || 0);
+    if(Date.now() - lastSend < 5000){
+        setCommentsError("انتظر قليلًا قبل إرسال تعليق آخر.");
+        return;
+    }
+
+    setCommentsError("");
+    send.disabled = true;
+
+    try{
+        const body = new URLSearchParams();
+        body.set("action","add");
+        body.set("videoId",item.id);
+        body.set("videoTitle",item.title || "");
+        body.set("name",name);
+        body.set("comment",comment);
+
+        const response = await fetch(COMMENTS_API_URL,{
+            method:"POST",
+            body
+        });
+
+        if(!response.ok) throw new Error("HTTP " + response.status);
+        const data = await response.json();
+        if(data.result !== "success") throw new Error(data.error || "تعذر الإرسال");
+
+        localStorage.setItem("zaadLastCommentAt",String(Date.now()));
+        commentInput.value = "";
+
+        await fetchComments(item.id,true);
+        showToast("تم نشر تعليقك");
+    }catch(error){
+        console.error("Send comment:",error);
+        setCommentsError("تعذر إرسال التعليق حاليًا. حاول مرة أخرى.");
+    }finally{
+        send.disabled = false;
+    }
+}
+
+
 /* =====================================================
    GOOGLE SHEETS
 
@@ -1533,6 +1966,7 @@ async function downloadCurrentVideo(){
    H = الحالة
    I = موثق
    J = صورة الحساب
+   K = معرف المقطع (ثابت وفريد)
 
    مثال I:
    yes
@@ -1830,6 +2264,9 @@ function convertRowsToVideos(rows){
 
             const avatar = clean(row[9]);
 
+            // العمود K: معرف ثابت للمقطع حتى تبقى التعليقات معه مهما تغيّر الترتيب
+            const videoId = clean(row[10]);
+
             if(
                 status === "no" ||
                 status === "false" ||
@@ -1848,7 +2285,7 @@ function convertRowsToVideos(rows){
 
             result.push({
 
-                id:"sheet-" + index,
+                id: videoId || ("sheet-" + index),
 
                 title,
                 description,
@@ -2892,7 +3329,7 @@ function updateFixedControls(){
         );
 
     updateSoundIcon();
-    updateDownloadState();
+    updateCommentCount();
 
     document
         .getElementById("progressFill")
