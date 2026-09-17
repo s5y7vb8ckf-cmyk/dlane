@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 
 <meta
-  name="viewport"
-  content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+    name="viewport"
+    content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 
 <meta name="theme-color" content="#000000">
 
@@ -13,18 +13,17 @@
 
 <style>
 :root{
-    --primary:#2eb7eb;
-    --primary-dark:#087fae;
-    --white:#ffffff;
-    --glass:rgba(5,17,23,.50);
-    --border:rgba(255,255,255,.17);
+    --primary:#28b6eb;
+    --primary-dark:#087da9;
+    --glass:rgba(4,17,23,.52);
+    --border:rgba(255,255,255,.16);
+    --app-height:100dvh;
 }
 
 *{
     box-sizing:border-box;
     margin:0;
     padding:0;
-
     -webkit-tap-highlight-color:transparent;
 }
 
@@ -32,148 +31,81 @@ html,
 body{
     width:100%;
     height:100%;
-
     overflow:hidden;
-
     background:#000;
-
-    font-family:
-        Tahoma,
-        Arial,
-        sans-serif;
-
+    font-family:Tahoma,Arial,sans-serif;
     overscroll-behavior:none;
+}
 
+body{
     -webkit-user-select:none;
     user-select:none;
 }
 
-button{
+button,
+a{
     font:inherit;
 }
 
-button,
-a{
-    -webkit-tap-highlight-color:transparent;
+button{
+    cursor:pointer;
 }
-
-/* =====================================================
-   APP
-===================================================== */
 
 .app{
     position:relative;
-
     width:100%;
-    height:100vh;
-    height:100dvh;
-
+    height:var(--app-height);
     overflow:hidden;
-
     background:#000;
 }
 
-/* =====================================================
+/* =========================
    FEED
-===================================================== */
+========================= */
 
 .feed{
-    position:relative;
-
-    width:100%;
-    height:100%;
-
+    position:absolute;
+    inset:0;
     overflow:hidden;
-
     background:#000;
-
     touch-action:none;
-
-    overscroll-behavior:none;
 }
-
-/* =====================================================
-   SHORT
-===================================================== */
 
 .short{
     position:absolute;
-
     inset:0;
-
     width:100%;
-
-    height:100vh;
-    height:100dvh;
-
+    height:100%;
     overflow:hidden;
-
     background:#000;
 
-    transform:
-        translate3d(
-            0,
-            100%,
-            0
-        );
+    transform:translate3d(0,100%,0);
 
     transition:
-        transform
-        320ms
-        cubic-bezier(
-            .22,
-            .61,
-            .36,
-            1
-        );
+        transform 320ms
+        cubic-bezier(.22,.61,.36,1);
 
     will-change:transform;
-
     backface-visibility:hidden;
-
-    -webkit-backface-visibility:hidden;
 }
 
 .short.current{
-    transform:
-        translate3d(
-            0,
-            0,
-            0
-        );
-
+    transform:translate3d(0,0,0);
     z-index:3;
 }
 
 .short.previous{
-    transform:
-        translate3d(
-            0,
-            -100%,
-            0
-        );
-
+    transform:translate3d(0,-100%,0);
     z-index:2;
 }
 
 .short.next{
-    transform:
-        translate3d(
-            0,
-            100%,
-            0
-        );
-
+    transform:translate3d(0,100%,0);
     z-index:2;
 }
 
-/* =====================================================
-   VIDEO
-===================================================== */
-
 .short video{
     position:absolute;
-
     inset:0;
 
     width:100%;
@@ -184,13 +116,8 @@ a{
     background:#000;
 }
 
-/* =====================================================
-   SHADE
-===================================================== */
-
-.shade{
+.videoShade{
     position:absolute;
-
     inset:0;
 
     pointer-events:none;
@@ -198,80 +125,186 @@ a{
     background:
         linear-gradient(
             to bottom,
-
-            rgba(0,0,0,.48)
-            0%,
-
-            rgba(0,0,0,.10)
-            20%,
-
-            rgba(0,0,0,.02)
-            48%,
-
-            rgba(0,0,0,.18)
-            65%,
-
-            rgba(0,0,0,.90)
-            100%
+            rgba(0,0,0,.20) 0%,
+            rgba(0,0,0,.04) 40%,
+            rgba(0,0,0,.17) 62%,
+            rgba(0,0,0,.91) 100%
         );
 }
 
-/* =====================================================
-   HEADER
-===================================================== */
+/* =========================
+   MOVING VIDEO INFORMATION
+========================= */
 
-.header{
+.videoContent{
     position:absolute;
+    z-index:8;
+
+    right:16px;
+    left:84px;
+
+    bottom:
+        calc(
+            78px
+            + env(safe-area-inset-bottom)
+        );
+
+    color:white;
+
+    text-shadow:
+        0 2px 12px
+        rgba(0,0,0,.55);
+
+    pointer-events:none;
+}
+
+.publisher{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    margin-bottom:9px;
+}
+
+.publisherAvatar{
+    width:37px;
+    height:37px;
+    border-radius:50%;
+
+    display:grid;
+    place-items:center;
+
+    flex:none;
+
+    font-size:14px;
+    font-weight:900;
+
+    color:white;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary-dark),
+            var(--primary)
+        );
+
+    border:1px solid rgba(255,255,255,.32);
+}
+
+.publisherName{
+    font-size:13px;
+    font-weight:bold;
+}
+
+.publisherCategory{
+    margin-top:3px;
+    font-size:9px;
+    color:#d1eaf4;
+}
+
+.videoTitle{
+    margin-bottom:5px;
+
+    font-size:16px;
+    line-height:1.5;
+
+    font-weight:900;
+}
+
+.videoDescription{
+    max-width:100%;
+
+    font-size:11px;
+    line-height:1.75;
+
+    color:#f2f7f9;
+
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:2;
+
+    overflow:hidden;
+}
+
+.sourceInfo{
+    display:flex;
+    align-items:center;
+    gap:5px;
+
+    margin-top:8px;
+
+    width:max-content;
+    max-width:100%;
+
+    padding:7px 9px;
+
+    border-radius:9px;
+
+    background:rgba(0,0,0,.34);
+
+    border:1px solid rgba(255,255,255,.13);
+
+    font-size:9px;
+
+    color:#edf7fa;
+}
+
+.sourceInfo svg{
+    width:13px;
+    height:13px;
+
+    stroke:currentColor;
+    fill:none;
+    stroke-width:2;
+}
+
+/* =========================
+   FIXED HEADER
+========================= */
+
+.fixedHeader{
+    position:absolute;
+
+    z-index:50;
 
     top:0;
     right:0;
     left:0;
 
-    z-index:25;
-
     padding:
         calc(
             env(safe-area-inset-top)
-            + 11px
+            + 10px
         )
         14px
         8px;
 
     display:flex;
-
-    align-items:center;
-
     justify-content:space-between;
-
-    gap:10px;
+    align-items:center;
 
     pointer-events:none;
 }
 
 .brand{
     display:flex;
-
     align-items:center;
-
     gap:9px;
 
     color:white;
 
     font-size:18px;
-
     font-weight:900;
 
     pointer-events:auto;
 }
 
-.brandMark{
-    width:38px;
-    height:38px;
+.brandLogo{
+    width:39px;
+    height:39px;
 
     border-radius:13px;
 
     display:grid;
-
     place-items:center;
 
     color:white;
@@ -285,328 +318,137 @@ a{
 
     box-shadow:
         0 8px 25px
-        rgba(0,0,0,.25);
+        rgba(0,0,0,.26);
 }
 
-.headerActions{
+.fixedHeaderActions{
     display:flex;
-
-    align-items:center;
-
     gap:7px;
 
     pointer-events:auto;
 }
 
-.iconBtn{
+.glassButton{
     width:41px;
     height:41px;
-
-    border:
-        1px solid
-        var(--border);
 
     border-radius:13px;
 
     display:grid;
-
     place-items:center;
+
+    border:1px solid var(--border);
 
     color:white;
 
-    background:
-        var(--glass);
+    background:var(--glass);
 
-    backdrop-filter:
-        blur(13px);
-
-    -webkit-backdrop-filter:
-        blur(13px);
+    backdrop-filter:blur(13px);
+    -webkit-backdrop-filter:blur(13px);
 }
 
-.iconBtn svg{
+.glassButton svg{
     width:20px;
     height:20px;
 
-    stroke:
-        currentColor;
-
     fill:none;
+    stroke:currentColor;
 
     stroke-width:1.9;
-
     stroke-linecap:round;
-
     stroke-linejoin:round;
 }
 
-/* =====================================================
-   CATEGORIES
-===================================================== */
+/* =========================
+   FIXED CATEGORIES
+========================= */
 
-.categories{
+.fixedCategories{
     position:absolute;
 
-    z-index:24;
+    z-index:49;
 
     top:
         calc(
             env(safe-area-inset-top)
-            + 62px
+            + 61px
         );
 
     right:0;
     left:0;
 
     display:flex;
-
-    align-items:center;
-
     gap:7px;
 
-    padding:
-        7px
-        14px
-        10px;
+    padding:7px 14px 10px;
 
     overflow-x:auto;
 
     scrollbar-width:none;
 
-    pointer-events:auto;
-
     touch-action:pan-x;
 }
 
-.categories::-webkit-scrollbar{
+.fixedCategories::-webkit-scrollbar{
     display:none;
 }
 
-.category{
+.categoryButton{
     flex:none;
-
-    border:
-        1px solid
-        var(--border);
 
     border-radius:999px;
 
-    padding:
-        8px
-        14px;
+    padding:8px 14px;
+
+    border:1px solid var(--border);
 
     color:white;
 
     background:
         rgba(5,17,23,.38);
 
-    backdrop-filter:
-        blur(12px);
-
-    -webkit-backdrop-filter:
-        blur(12px);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
 
     font-size:11px;
 
     white-space:nowrap;
 }
 
-.category.active{
-    color:#062c3d;
-
+.categoryButton.active{
     background:white;
-
+    color:#062d40;
     border-color:white;
-
     font-weight:bold;
 }
 
-/* =====================================================
-   CONTENT
-===================================================== */
+/* =========================
+   FIXED SIDE ACTIONS
+========================= */
 
-.content{
+.fixedActions{
     position:absolute;
 
-    z-index:18;
-
-    right:16px;
-
-    left:85px;
-
-    bottom:
-        calc(
-            env(safe-area-inset-bottom)
-            + 82px
-        );
-
-    color:white;
-
-    text-shadow:
-        0 2px 12px
-        rgba(0,0,0,.48);
-}
-
-.author{
-    display:flex;
-
-    align-items:center;
-
-    gap:9px;
-
-    margin-bottom:10px;
-}
-
-.avatar{
-    width:37px;
-    height:37px;
-
-    flex:none;
-
-    border-radius:50%;
-
-    display:grid;
-
-    place-items:center;
-
-    color:white;
-
-    font-size:14px;
-
-    font-weight:bold;
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--primary-dark),
-            var(--primary)
-        );
-
-    border:
-        1px solid
-        rgba(255,255,255,.35);
-}
-
-.authorName{
-    font-size:13px;
-
-    font-weight:bold;
-}
-
-.type{
-    margin-top:3px;
-
-    color:#cfeaf4;
-
-    font-size:9px;
-}
-
-.title{
-    margin-bottom:5px;
-
-    font-size:16px;
-
-    font-weight:800;
-
-    line-height:1.6;
-}
-
-.description{
-    color:#edf5f7;
-
-    font-size:11px;
-
-    line-height:1.7;
-
-    display:-webkit-box;
-
-    -webkit-line-clamp:2;
-
-    -webkit-box-orient:vertical;
-
-    overflow:hidden;
-}
-
-.sourceButton{
-    margin-top:9px;
-
-    border:
-        1px solid
-        rgba(255,255,255,.18);
-
-    border-radius:10px;
-
-    padding:
-        8px
-        10px;
-
-    display:inline-flex;
-
-    align-items:center;
-
-    gap:6px;
-
-    color:white;
-
-    background:
-        rgba(7,22,29,.48);
-
-    backdrop-filter:
-        blur(10px);
-
-    -webkit-backdrop-filter:
-        blur(10px);
-
-    font-size:10px;
-}
-
-.sourceButton svg{
-    width:14px;
-    height:14px;
-
-    fill:none;
-
-    stroke:
-        currentColor;
-
-    stroke-width:2;
-
-    stroke-linecap:round;
-
-    stroke-linejoin:round;
-}
-
-/* =====================================================
-   ACTIONS
-===================================================== */
-
-.actions{
-    position:absolute;
-
-    z-index:20;
+    z-index:52;
 
     left:12px;
 
     bottom:
         calc(
-            env(safe-area-inset-bottom)
-            + 85px
+            82px
+            + env(safe-area-inset-bottom)
         );
 
     display:flex;
-
     flex-direction:column;
-
     align-items:center;
 
-    gap:14px;
+    gap:13px;
 }
 
-.action{
+.actionItem{
     display:flex;
-
     flex-direction:column;
-
     align-items:center;
 
     gap:4px;
@@ -620,172 +462,53 @@ a{
     width:46px;
     height:46px;
 
-    border:
-        1px solid
-        rgba(255,255,255,.17);
-
     border-radius:50%;
 
     display:grid;
-
     place-items:center;
+
+    border:1px solid rgba(255,255,255,.17);
 
     color:white;
 
     background:
-        rgba(5,17,23,.48);
+        rgba(4,17,23,.50);
 
-    backdrop-filter:
-        blur(13px);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
 
-    -webkit-backdrop-filter:
-        blur(13px);
-
-    transition:
-        transform .12s,
-        background .15s,
-        color .15s;
+    transition:.15s;
 }
 
 .actionButton:active{
-    transform:
-        scale(.87);
+    transform:scale(.88);
 }
 
 .actionButton svg{
     width:21px;
     height:21px;
 
-    stroke:
-        currentColor;
-
     fill:none;
+    stroke:currentColor;
 
     stroke-width:1.9;
-
     stroke-linecap:round;
-
     stroke-linejoin:round;
 }
 
-.action.active
-.actionButton{
-    color:
-        var(--primary-dark);
-
+.actionItem.active .actionButton{
     background:white;
+    color:var(--primary-dark);
 }
 
-/* =====================================================
-   PLAY STATE
-===================================================== */
+/* =========================
+   FIXED BOTTOM NAV
+========================= */
 
-.playState{
+.fixedBottomNav{
     position:absolute;
 
-    z-index:30;
-
-    top:50%;
-    left:50%;
-
-    width:70px;
-    height:70px;
-
-    transform:
-        translate(
-            -50%,
-            -50%
-        )
-        scale(.85);
-
-    border-radius:50%;
-
-    display:grid;
-
-    place-items:center;
-
-    color:white;
-
-    background:
-        rgba(0,0,0,.45);
-
-    backdrop-filter:
-        blur(12px);
-
-    -webkit-backdrop-filter:
-        blur(12px);
-
-    opacity:0;
-
-    pointer-events:none;
-
-    transition:.18s;
-}
-
-.playState.show{
-    opacity:1;
-
-    transform:
-        translate(
-            -50%,
-            -50%
-        )
-        scale(1);
-}
-
-.playState svg{
-    width:29px;
-    height:29px;
-
-    stroke:white;
-
-    fill:white;
-}
-
-/* =====================================================
-   PROGRESS
-===================================================== */
-
-.videoProgress{
-    position:absolute;
-
-    z-index:27;
-
-    right:0;
-    left:0;
-
-    bottom:
-        calc(
-            64px
-            + env(safe-area-inset-bottom)
-        );
-
-    height:2px;
-
-    background:
-        rgba(255,255,255,.18);
-
-    pointer-events:none;
-}
-
-.videoProgressFill{
-    width:0;
-    height:100%;
-
-    background:white;
-
-    transition:
-        width .1s linear;
-}
-
-/* =====================================================
-   BOTTOM NAV
-===================================================== */
-
-.bottomNav{
-    position:absolute;
-
-    z-index:26;
+    z-index:55;
 
     right:0;
     left:0;
@@ -801,143 +524,261 @@ a{
         env(safe-area-inset-bottom);
 
     display:grid;
-
-    grid-template-columns:
-        repeat(5,1fr);
-
-    align-items:center;
+    grid-template-columns:repeat(5,1fr);
 
     background:
         linear-gradient(
             transparent,
-            rgba(0,0,0,.86)
+            rgba(0,0,0,.92)
         );
-
-    pointer-events:auto;
 }
 
 .navItem{
     border:0;
 
-    background:transparent;
+    background:none;
 
-    color:#cbd8dc;
+    color:#cbd9de;
+
+    text-decoration:none;
 
     display:flex;
-
     flex-direction:column;
 
     align-items:center;
-
     justify-content:center;
 
     gap:3px;
 
     font-size:8px;
-
-    text-decoration:none;
 }
 
 .navItem svg{
     width:20px;
     height:20px;
 
-    stroke:
-        currentColor;
-
     fill:none;
+    stroke:currentColor;
 
     stroke-width:1.8;
-
     stroke-linecap:round;
-
     stroke-linejoin:round;
 }
 
 .navItem.active{
     color:white;
-
     font-weight:bold;
 }
 
-/* =====================================================
-   EMPTY
-===================================================== */
+/* =========================
+   VIDEO PROGRESS
+========================= */
 
-.emptyPage{
-    width:100%;
+.videoProgress{
+    position:absolute;
+
+    z-index:48;
+
+    right:0;
+    left:0;
+
+    bottom:
+        calc(
+            64px
+            + env(safe-area-inset-bottom)
+        );
+
+    height:2px;
+
+    background:
+        rgba(255,255,255,.16);
+
+    pointer-events:none;
+}
+
+.videoProgressFill{
+    width:0;
     height:100%;
 
-    display:grid;
+    background:#fff;
+}
 
+/* =========================
+   PLAY INDICATOR
+========================= */
+
+.playIndicator{
+    position:absolute;
+
+    z-index:40;
+
+    top:50%;
+    left:50%;
+
+    width:72px;
+    height:72px;
+
+    border-radius:50%;
+
+    transform:
+        translate(-50%,-50%)
+        scale(.85);
+
+    display:grid;
     place-items:center;
 
-    padding:30px;
+    background:rgba(0,0,0,.44);
 
-    text-align:center;
+    color:white;
+
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transition:.18s;
+}
+
+.playIndicator.show{
+    opacity:1;
+
+    transform:
+        translate(-50%,-50%)
+        scale(1);
+}
+
+.playIndicator svg{
+    width:28px;
+    height:28px;
+
+    stroke:white;
+    fill:white;
+}
+
+/* =========================
+   LOADING
+========================= */
+
+.loadingScreen{
+    position:absolute;
+    inset:0;
+
+    z-index:100;
+
+    display:grid;
+    place-items:center;
 
     color:white;
 
     background:
         radial-gradient(
             circle at top,
-            #103c4e,
-            #061117 65%
+            #133d4d,
+            #050d11 70%
+        );
+
+    transition:.25s;
+}
+
+.loadingScreen.hide{
+    opacity:0;
+    pointer-events:none;
+}
+
+.loaderContent{
+    text-align:center;
+}
+
+.loaderLogo{
+    width:67px;
+    height:67px;
+
+    margin:0 auto 15px;
+
+    border-radius:22px;
+
+    display:grid;
+    place-items:center;
+
+    color:white;
+
+    font-size:27px;
+    font-weight:900;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary-dark),
+            var(--primary)
         );
 }
 
-.emptyIcon{
-    width:75px;
-    height:75px;
+.loaderText{
+    font-size:11px;
+    color:#c7dce4;
+}
 
-    margin:
-        0 auto
-        18px;
+/* =========================
+   ERROR / EMPTY
+========================= */
 
-    border-radius:24px;
+.messagePage{
+    position:absolute;
+    inset:0;
+
+    z-index:15;
 
     display:grid;
-
     place-items:center;
 
+    padding:30px;
+
+    color:white;
+
+    text-align:center;
+
     background:
-        rgba(255,255,255,.08);
-
-    border:
-        1px solid
-        rgba(255,255,255,.1);
+        radial-gradient(
+            circle at top,
+            #12394a,
+            #050d11 68%
+        );
 }
 
-.emptyIcon svg{
-    width:33px;
-    height:33px;
-
-    stroke:white;
-
-    fill:none;
-
-    stroke-width:1.7;
-}
-
-.emptyPage h2{
+.messagePage h2{
     margin-bottom:8px;
-
-    font-size:21px;
+    font-size:20px;
 }
 
-.emptyPage p{
+.messagePage p{
     max-width:330px;
 
-    color:#bfd1d8;
-
     font-size:11px;
-
     line-height:1.8;
+
+    color:#bfd3db;
 }
 
-/* =====================================================
+.retryButton{
+    margin-top:15px;
+
+    padding:10px 18px;
+
+    border:0;
+    border-radius:12px;
+
+    color:#063045;
+
+    background:white;
+
+    font-weight:bold;
+}
+
+/* =========================
    SOURCE MODAL
-===================================================== */
+========================= */
 
 .modal{
     position:fixed;
@@ -947,21 +788,15 @@ a{
     inset:0;
 
     display:none;
-
     align-items:flex-end;
-
     justify-content:center;
 
-    padding:15px;
+    padding:14px;
 
     background:
-        rgba(0,0,0,.58);
+        rgba(0,0,0,.62);
 
-    backdrop-filter:
-        blur(5px);
-
-    -webkit-backdrop-filter:
-        blur(5px);
+    backdrop-filter:blur(5px);
 }
 
 .modal.show{
@@ -969,104 +804,68 @@ a{
 }
 
 .modalCard{
-    width:
-        min(480px,100%);
+    width:min(480px,100%);
 
     padding:20px;
 
     border-radius:23px;
 
-    color:#17313d;
-
     background:white;
 
-    animation:
-        modalUp .22s ease;
-}
-
-@keyframes modalUp{
-
-    from{
-        transform:
-            translateY(30px);
-
-        opacity:0;
-    }
-
-    to{
-        transform:
-            translateY(0);
-
-        opacity:1;
-    }
-
+    color:#15323d;
 }
 
 .modalHandle{
-    width:45px;
+    width:43px;
     height:4px;
 
-    margin:
-        0 auto
-        17px;
+    margin:0 auto 16px;
 
     border-radius:999px;
 
-    background:#d8e2e6;
+    background:#dce4e7;
 }
 
 .modalCard h3{
-    margin-bottom:7px;
-
-    font-size:18px;
+    margin-bottom:8px;
 }
 
 .modalCard p{
-    color:#70838c;
+    color:#71848c;
 
     font-size:11px;
-
     line-height:1.8;
 }
 
 .modalButtons{
-    display:grid;
-
-    grid-template-columns:
-        1fr 1fr;
-
-    gap:8px;
-
     margin-top:17px;
+
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
 }
 
 .modalButton{
-    border:
-        1px solid
-        #dce9ee;
+    padding:11px;
 
     border-radius:12px;
 
-    padding:11px;
+    border:1px solid #dfeaec;
 
-    color:#17313d;
+    color:#193640;
 
-    background:#f8fbfc;
+    background:#f7fbfc;
 }
 
 .modalPrimary{
     color:white;
-
-    border-color:
-        var(--primary-dark);
-
-    background:
-        var(--primary-dark);
+    background:var(--primary-dark);
+    border-color:var(--primary-dark);
 }
 
-/* =====================================================
+/* =========================
    TOAST
-===================================================== */
+========================= */
 
 .toast{
     position:fixed;
@@ -1081,95 +880,55 @@ a{
 
     left:50%;
 
+    transform:
+        translate(-50%,-15px);
+
     max-width:
         calc(100% - 30px);
 
-    transform:
-        translate(
-            -50%,
-            -15px
-        );
-
-    padding:
-        10px
-        15px;
+    padding:10px 15px;
 
     border-radius:999px;
 
-    color:#073247;
+    color:#073248;
 
     background:white;
 
     box-shadow:
         0 10px 35px
-        rgba(0,0,0,.23);
+        rgba(0,0,0,.25);
 
     font-size:10px;
-
     font-weight:bold;
-
-    white-space:nowrap;
 
     opacity:0;
 
     pointer-events:none;
 
-    transition:.22s;
+    transition:.2s;
 }
 
 .toast.show{
     opacity:1;
-
-    transform:
-        translate(
-            -50%,
-            0
-        );
+    transform:translate(-50%,0);
 }
 
-/* =====================================================
-   SMALL PHONE
-===================================================== */
+/* =========================
+   MOBILE SMALL HEIGHT
+========================= */
 
 @media(max-height:680px){
 
-    .header{
-        padding-top:
-            calc(
-                env(safe-area-inset-top)
-                + 7px
-            );
-    }
-
-    .brandMark{
-        width:34px;
-        height:34px;
-    }
-
-    .categories{
+    .fixedCategories{
         top:
             calc(
                 env(safe-area-inset-top)
-                + 52px
+                + 53px
             );
     }
 
-    .content{
-        bottom:
-            calc(
-                env(safe-area-inset-bottom)
-                + 70px
-            );
-    }
-
-    .actions{
-        bottom:
-            calc(
-                env(safe-area-inset-bottom)
-                + 72px
-            );
-
-        gap:9px;
+    .fixedActions{
+        gap:8px;
     }
 
     .actionButton{
@@ -1177,65 +936,343 @@ a{
         height:41px;
     }
 
-    .description{
+    .videoDescription{
         -webkit-line-clamp:1;
     }
-
 }
 
-/* =====================================================
+/* =========================
    DESKTOP
-===================================================== */
+========================= */
 
 @media(min-width:700px){
 
     body{
-        background:#07141a;
+        background:#061319;
     }
 
     .app{
         width:500px;
-
         max-width:100%;
 
         margin:auto;
 
         box-shadow:
-            0 0 80px
-            rgba(0,0,0,.8);
+            0 0 90px
+            rgba(0,0,0,.85);
     }
-
 }
 </style>
 </head>
 
 <body>
 
-<div
-    class="app"
-    id="app">
+<div class="app" id="app">
 
+    <!-- الفيديوهات فقط تتحرك -->
     <main
         class="feed"
         id="feed">
     </main>
 
+
+    <!-- الهيدر ثابت -->
+    <header class="fixedHeader">
+
+        <div class="brand">
+
+            <div class="brandLogo">
+                ز
+            </div>
+
+            <span>
+                زاد
+            </span>
+
+        </div>
+
+
+        <div class="fixedHeaderActions">
+
+            <button
+                class="glassButton"
+                aria-label="تحديث"
+                onclick="loadVideos(true)">
+
+                <svg viewBox="0 0 24 24">
+                    <path d="M20 11a8 8 0 1 0-2.3 5.7"/>
+                    <path d="M20 4v7h-7"/>
+                </svg>
+
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- التصنيفات ثابتة -->
+    <div
+        class="fixedCategories"
+        id="categories">
+    </div>
+
+
+    <!-- أزرار الجانب ثابتة -->
+    <aside class="fixedActions">
+
+        <div
+            class="actionItem"
+            id="likeAction">
+
+            <button
+                class="actionButton"
+                onclick="toggleLike()">
+
+                <svg viewBox="0 0 24 24">
+                    <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/>
+                </svg>
+
+            </button>
+
+            <span>
+                إعجاب
+            </span>
+
+        </div>
+
+
+        <div
+            class="actionItem"
+            id="saveAction">
+
+            <button
+                class="actionButton"
+                onclick="toggleSave()">
+
+                <svg viewBox="0 0 24 24">
+                    <path d="M6 3h12v18l-6-4-6 4Z"/>
+                </svg>
+
+            </button>
+
+            <span>
+                حفظ
+            </span>
+
+        </div>
+
+
+        <div class="actionItem">
+
+            <button
+                class="actionButton"
+                onclick="shareCurrentVideo()">
+
+                <svg viewBox="0 0 24 24">
+                    <circle cx="18" cy="5" r="3"/>
+                    <circle cx="6" cy="12" r="3"/>
+                    <circle cx="18" cy="19" r="3"/>
+                    <path d="m8.6 10.5 6.8-4"/>
+                    <path d="m8.6 13.5 6.8 4"/>
+                </svg>
+
+            </button>
+
+            <span>
+                مشاركة
+            </span>
+
+        </div>
+
+
+        <div class="actionItem">
+
+            <button
+                class="actionButton"
+                id="soundButton"
+                onclick="toggleSound()">
+
+                <svg viewBox="0 0 24 24">
+                    <path d="M11 5 6 9H3v6h3l5 4Z"/>
+                    <path d="M15 9a4 4 0 0 1 0 6"/>
+                    <path d="M17.5 6.5a8 8 0 0 1 0 11"/>
+                </svg>
+
+            </button>
+
+            <span>
+                الصوت
+            </span>
+
+        </div>
+
+
+        <div class="actionItem">
+
+            <button
+                class="actionButton"
+                onclick="showSource()">
+
+                <svg viewBox="0 0 24 24">
+                    <path d="M4 4h12a4 4 0 0 1 4 4v12H8a4 4 0 0 1-4-4Z"/>
+                    <path d="M8 4v16"/>
+                </svg>
+
+            </button>
+
+            <span>
+                المصدر
+            </span>
+
+        </div>
+
+    </aside>
+
+
+    <!-- مؤشر التقدم ثابت -->
+    <div class="videoProgress">
+
+        <div
+            class="videoProgressFill"
+            id="progressFill">
+        </div>
+
+    </div>
+
+
+    <!-- الشريط السفلي ثابت -->
+    <nav class="fixedBottomNav">
+
+        <a
+            href="index.html"
+            class="navItem">
+
+            <svg viewBox="0 0 24 24">
+                <path d="M3 10.5 12 3l9 7.5"/>
+                <path d="M5 9.5V21h14V9.5"/>
+                <path d="M9 21v-7h6v7"/>
+            </svg>
+
+            <span>
+                الرئيسية
+            </span>
+
+        </a>
+
+
+        <button
+            class="navItem active">
+
+            <svg viewBox="0 0 24 24">
+                <rect x="4" y="3" width="16" height="18" rx="4"/>
+                <path d="m10 9 5 3-5 3Z"/>
+            </svg>
+
+            <span>
+                المقاطع
+            </span>
+
+        </button>
+
+
+        <button
+            class="navItem"
+            onclick="showToast('قسم القرآن قريبًا')">
+
+            <svg viewBox="0 0 24 24">
+                <path d="M4 5.5A3.5 3.5 0 0 1 7.5 2H11v17H7.5A3.5 3.5 0 0 0 4 22Z"/>
+                <path d="M20 5.5A3.5 3.5 0 0 0 16.5 2H13v17h3.5A3.5 3.5 0 0 1 20 22Z"/>
+            </svg>
+
+            <span>
+                القرآن
+            </span>
+
+        </button>
+
+
+        <button
+            class="navItem"
+            onclick="showToast('قسم الأذكار قريبًا')">
+
+            <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="8"/>
+                <path d="M12 7v5l3 2"/>
+            </svg>
+
+            <span>
+                الأذكار
+            </span>
+
+        </button>
+
+
+        <button
+            class="navItem"
+            onclick="showToast('قسم حسابي قريبًا')">
+
+            <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M4 21a8 8 0 0 1 16 0"/>
+            </svg>
+
+            <span>
+                حسابي
+            </span>
+
+        </button>
+
+    </nav>
+
+
+    <!-- أيقونة تشغيل/إيقاف -->
+    <div
+        class="playIndicator"
+        id="playIndicator">
+
+        <svg viewBox="0 0 24 24">
+            <path d="m8 5 11 7-11 7Z"/>
+        </svg>
+
+    </div>
+
+
+    <!-- التحميل -->
+    <div
+        class="loadingScreen"
+        id="loadingScreen">
+
+        <div class="loaderContent">
+
+            <div class="loaderLogo">
+                ز
+            </div>
+
+            <div class="loaderText">
+                جاري تحميل المقاطع...
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
 
 
-<!-- SOURCE MODAL -->
+<!-- المصدر -->
 
 <div
     class="modal"
     id="sourceModal"
-    onclick="closeSourceByBackground(event)">
+    onclick="closeSourceBackground(event)">
 
     <div class="modalCard">
 
         <div class="modalHandle"></div>
 
         <h3>
-            مصدر المحتوى
+            مصدر المقطع
         </h3>
 
         <p id="sourceText">
@@ -1254,8 +1291,8 @@ a{
 
             <button
                 class="modalButton modalPrimary"
-                id="openSourceButton"
-                onclick="openSourceURL()">
+                id="sourceOpenButton"
+                onclick="openSource()">
 
                 فتح المصدر
 
@@ -1277,302 +1314,610 @@ a{
 <script>
 
 /* =====================================================
-   ICONS
+   GOOGLE SHEETS
+
+   الأعمدة المتوقعة:
+
+   A العنوان
+   B الوصف
+   C التصنيف
+   D رابط الفيديو
+   E الناشر
+   F المصدر
+   G رابط المصدر
+   H الحالة
+
+   H:
+   yes = يظهر
+   no  = مخفي
 ===================================================== */
 
-const ICONS = {
-
-search:`
-<svg viewBox="0 0 24 24">
-<circle cx="11" cy="11" r="7"/>
-<path d="m20 20-4-4"/>
-</svg>
-`,
-
-heart:`
-<svg viewBox="0 0 24 24">
-<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/>
-</svg>
-`,
-
-bookmark:`
-<svg viewBox="0 0 24 24">
-<path d="M6 3h12v18l-6-4-6 4Z"/>
-</svg>
-`,
-
-share:`
-<svg viewBox="0 0 24 24">
-<circle cx="18" cy="5" r="3"/>
-<circle cx="6" cy="12" r="3"/>
-<circle cx="18" cy="19" r="3"/>
-<path d="m8.6 10.5 6.8-4"/>
-<path d="m8.6 13.5 6.8 4"/>
-</svg>
-`,
-
-volume:`
-<svg viewBox="0 0 24 24">
-<path d="M11 5 6 9H3v6h3l5 4Z"/>
-<path d="M15 9a4 4 0 0 1 0 6"/>
-<path d="M17.5 6.5a8 8 0 0 1 0 11"/>
-</svg>
-`,
-
-mute:`
-<svg viewBox="0 0 24 24">
-<path d="M11 5 6 9H3v6h3l5 4Z"/>
-<path d="m16 9 5 6"/>
-<path d="m21 9-5 6"/>
-</svg>
-`,
-
-source:`
-<svg viewBox="0 0 24 24">
-<path d="M4 4h12a4 4 0 0 1 4 4v12H8a4 4 0 0 1-4-4Z"/>
-<path d="M8 4v16"/>
-</svg>
-`,
-
-play:`
-<svg viewBox="0 0 24 24">
-<path d="m8 5 11 7-11 7Z"/>
-</svg>
-`,
-
-pause:`
-<svg viewBox="0 0 24 24">
-<path d="M9 5v14"/>
-<path d="M15 5v14"/>
-</svg>
-`,
-
-home:`
-<svg viewBox="0 0 24 24">
-<path d="M3 10.5 12 3l9 7.5"/>
-<path d="M5 9.5V21h14V9.5"/>
-<path d="M9 21v-7h6v7"/>
-</svg>
-`,
-
-video:`
-<svg viewBox="0 0 24 24">
-<rect x="4" y="3" width="16" height="18" rx="4"/>
-<path d="m10 9 5 3-5 3Z"/>
-</svg>
-`,
-
-book:`
-<svg viewBox="0 0 24 24">
-<path d="M4 5.5A3.5 3.5 0 0 1 7.5 2H11v17H7.5A3.5 3.5 0 0 0 4 22Z"/>
-<path d="M20 5.5A3.5 3.5 0 0 0 16.5 2H13v17h3.5A3.5 3.5 0 0 1 20 22Z"/>
-</svg>
-`,
-
-user:`
-<svg viewBox="0 0 24 24">
-<circle cx="12" cy="8" r="4"/>
-<path d="M4 21a8 8 0 0 1 16 0"/>
-</svg>
-`
-
-};
+const SHEET_URL =
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vSx1Vn6B_mZ9qnQe7gJxqJAEhFrmYKQP8YG4VGOmKhR_Be7v8FzVFNLnQKp2XsF3AtG_r_gd9OhxFca/pub?gid=0&single=true&output=csv";
 
 
 /* =====================================================
-   DEMO DATA
-
-   تستخدم فقط إذا لم تضف مقاطع من admin.html
+   DATA
 ===================================================== */
 
-const DEMO_VIDEOS = [
+let allVideos = [];
 
-{
-    id:101,
+let visibleVideos = [];
 
-    title:
-        "ضع عنوان المقطع الديني هنا",
+let currentIndex = 0;
 
-    description:
-        "هذه بيانات تجريبية. أضف مقاطعك من لوحة إدارة زاد.",
+let currentCategory = "all";
 
-    author:
-        "زاد",
+let moving = false;
 
-    type:
-        "القرآن",
+let soundMuted = false;
 
-    category:
-        "quran",
+let liked = readStorageArray(
+    "zaadLikes"
+);
 
-    source:
-        "مصدر تجريبي",
+let saved = readStorageArray(
+    "zaadSaved"
+);
 
-    sourceURL:
-        "",
 
-    status:
-        "published",
+/* =====================================================
+   HEIGHT
+===================================================== */
 
-    video:
-        "https://www.w3schools.com/html/mov_bbb.mp4"
-},
+function setAppHeight(){
 
-{
-    id:102,
+    const height =
+        window.visualViewport
+        ?
+        window.visualViewport.height
+        :
+        window.innerHeight;
 
-    title:
-        "تذكير نافع",
 
-    description:
-        "أضف وصفًا مختصرًا للمقطع مع مصدر المحتوى.",
-
-    author:
-        "زاد",
-
-    type:
-        "تذكير",
-
-    category:
-        "reminders",
-
-    source:
-        "أضف المصدر",
-
-    sourceURL:
-        "",
-
-    status:
-        "published",
-
-    video:
-        "https://www.w3schools.com/html/movie.mp4"
-},
-
-{
-    id:103,
-
-    title:
-        "من السيرة",
-
-    description:
-        "يمكنك إضافة مقاطع السيرة والمصادر من لوحة الإدارة.",
-
-    author:
-        "زاد",
-
-    type:
-        "السيرة",
-
-    category:
-        "seerah",
-
-    source:
-        "أضف المصدر",
-
-    sourceURL:
-        "",
-
-    status:
-        "published",
-
-    video:
-        "https://www.w3schools.com/html/mov_bbb.mp4"
+    document
+        .documentElement
+        .style
+        .setProperty(
+            "--app-height",
+            Math.round(height) + "px"
+        );
 }
 
-];
+setAppHeight();
+
+window.addEventListener(
+    "resize",
+    setAppHeight
+);
+
+if(window.visualViewport){
+
+    window.visualViewport.addEventListener(
+        "resize",
+        setAppHeight
+    );
+}
 
 
 /* =====================================================
-   STATE
+   LOAD SHEET
 ===================================================== */
 
-let currentCategory =
-    "all";
+async function loadVideos(
+    manual=false
+){
 
-let currentIndex =
-    0;
+    showLoading(true);
 
-let visibleVideos =
-    [];
-
-let liked =
-    readArray(
-        "zaadLikes"
-    );
-
-let saved =
-    readArray(
-        "zaadSaved"
-    );
-
-let points =
-    Number(
-        localStorage.getItem(
-            "zaadPoints"
-        ) || 0
-    );
-
-let currentSourceURL =
-    "";
-
-
-/* =====================================================
-   GET VIDEOS FROM ADMIN
-===================================================== */
-
-function getAllVideos(){
-
-    let adminVideos = [];
 
     try{
 
-        adminVideos =
-            JSON.parse(
-                localStorage.getItem(
-                    "zaadVideos"
-                ) || "[]"
+        /*
+            cache bust حتى تظهر تعديلات
+            Google Sheets الجديدة بسرعة أكبر
+        */
+
+        const url =
+            SHEET_URL +
+            "&t=" +
+            Date.now();
+
+
+        const response =
+            await fetch(
+                url,
+                {
+                    cache:"no-store"
+                }
             );
+
+
+        if(!response.ok){
+
+            throw new Error(
+                "HTTP " +
+                response.status
+            );
+
+        }
+
+
+        const text =
+            await response.text();
+
+
+        const rows =
+            parseCSV(text);
+
+
+        if(!rows.length){
+
+            throw new Error(
+                "EMPTY"
+            );
+
+        }
+
+
+        allVideos =
+            convertRowsToVideos(
+                rows
+            );
+
+
+        if(
+            !allVideos.length
+        ){
+
+            renderMessage(
+                "لا توجد مقاطع",
+                "أضف المقاطع في Google Sheets واجعل الحالة yes."
+            );
+
+            showLoading(false);
+
+            return;
+        }
+
+
+        currentIndex = 0;
+
+        renderCategories();
+
+        applyCategory();
+
+
+        if(manual){
+
+            showToast(
+                "تم تحديث المقاطع"
+            );
+        }
 
     }
     catch(error){
 
-        adminVideos = [];
-
-    }
+        console.error(error);
 
 
-    /*
-       إذا أضفت مقاطع من admin.html
-       نستخدمها بدل المقاطع التجريبية.
-    */
-
-    if(
-        Array.isArray(adminVideos) &&
-        adminVideos.length
-    ){
-
-        return adminVideos.filter(
-            item =>
-                item.status ===
-                "published"
+        renderMessage(
+            "تعذر تحميل المقاطع",
+            "تأكد أن جدول Google Sheets منشور للعامة وأن روابط الفيديو مباشرة."
         );
 
     }
 
 
-    return DEMO_VIDEOS;
-
+    showLoading(false);
 }
 
 
 /* =====================================================
-   CATEGORY NAME
+   CSV PARSER
+
+   يدعم الفواصل والاقتباسات
 ===================================================== */
 
-function categoryName(category){
+function parseCSV(text){
 
-    const names = {
+    const rows = [];
+
+    let row = [];
+    let value = "";
+
+    let insideQuotes = false;
+
+
+    for(
+        let i = 0;
+        i < text.length;
+        i++
+    ){
+
+        const char =
+            text[i];
+
+
+        const next =
+            text[i + 1];
+
+
+        if(char === '"'){
+
+            if(
+                insideQuotes &&
+                next === '"'
+            ){
+
+                value += '"';
+
+                i++;
+
+            }
+            else{
+
+                insideQuotes =
+                    !insideQuotes;
+
+            }
+
+        }
+        else if(
+            char === "," &&
+            !insideQuotes
+        ){
+
+            row.push(value);
+
+            value = "";
+
+        }
+        else if(
+            (
+                char === "\n" ||
+                char === "\r"
+            )
+            &&
+            !insideQuotes
+        ){
+
+            if(
+                char === "\r" &&
+                next === "\n"
+            ){
+
+                i++;
+            }
+
+
+            row.push(value);
+
+            value = "";
+
+
+            if(
+                row.some(
+                    item =>
+                        String(item)
+                            .trim() !== ""
+                )
+            ){
+
+                rows.push(row);
+            }
+
+
+            row = [];
+
+        }
+        else{
+
+            value += char;
+        }
+    }
+
+
+    row.push(value);
+
+
+    if(
+        row.some(
+            item =>
+                String(item)
+                    .trim() !== ""
+        )
+    ){
+
+        rows.push(row);
+    }
+
+
+    return rows;
+}
+
+
+/* =====================================================
+   CONVERT ROWS
+===================================================== */
+
+function convertRowsToVideos(
+    rows
+){
+
+    /*
+       أول صف عناوين
+    */
+
+    const data =
+        rows.slice(1);
+
+
+    const result = [];
+
+
+    data.forEach(
+        (
+            row,
+            index
+        )=>{
+
+            const title =
+                clean(row[0]);
+
+            const description =
+                clean(row[1]);
+
+            const category =
+                clean(row[2]);
+
+            const videoURL =
+                clean(row[3]);
+
+            const publisher =
+                clean(row[4]) ||
+                "زاد";
+
+            const source =
+                clean(row[5]);
+
+            const sourceURL =
+                clean(row[6]);
+
+            const status =
+                clean(row[7])
+                    .toLowerCase();
+
+
+            /*
+                نخفي no / false / 0
+            */
+
+            if(
+                status === "no" ||
+                status === "false" ||
+                status === "0" ||
+                status === "مخفي"
+            ){
+
+                return;
+            }
+
+
+            if(
+                !title ||
+                !videoURL
+            ){
+
+                return;
+            }
+
+
+            result.push({
+
+                id:
+                    "sheet_" +
+                    index,
+
+                title:
+                    title,
+
+                description:
+                    description,
+
+                category:
+                    normalizeCategory(
+                        category
+                    ),
+
+                categoryLabel:
+                    category ||
+                    "محتوى",
+
+                video:
+                    normalizeVideoURL(
+                        videoURL
+                    ),
+
+                publisher:
+                    publisher,
+
+                source:
+                    source,
+
+                sourceURL:
+                    sourceURL
+            });
+
+        }
+    );
+
+
+    return result;
+}
+
+
+/* =====================================================
+   GOOGLE DRIVE VIDEO URL SUPPORT
+
+   إذا وضعت رابط مشاركة Google Drive
+   يحاول تحويله إلى رابط مباشر.
+===================================================== */
+
+function normalizeVideoURL(
+    url
+){
+
+    url = url.trim();
+
+
+    /*
+       مثال:
+       https://drive.google.com/file/d/FILE_ID/view
+    */
+
+    const driveMatch =
+        url.match(
+            /drive\.google\.com\/file\/d\/([^/]+)/i
+        );
+
+
+    if(driveMatch){
+
+        const fileId =
+            driveMatch[1];
+
+
+        return (
+            "https://drive.google.com/uc?export=download&id=" +
+            encodeURIComponent(
+                fileId
+            )
+        );
+    }
+
+
+    /*
+       ?id=...
+    */
+
+    try{
+
+        const parsed =
+            new URL(url);
+
+
+        if(
+            parsed.hostname
+                .includes(
+                    "drive.google.com"
+                )
+            &&
+            parsed.searchParams.get(
+                "id"
+            )
+        ){
+
+            return (
+                "https://drive.google.com/uc?export=download&id=" +
+                encodeURIComponent(
+                    parsed.searchParams.get(
+                        "id"
+                    )
+                )
+            );
+        }
+
+    }
+    catch(error){}
+
+
+    return url;
+}
+
+
+/* =====================================================
+   CATEGORIES
+===================================================== */
+
+function normalizeCategory(
+    value
+){
+
+    const text =
+        String(value || "")
+            .trim()
+            .toLowerCase();
+
+
+    if(
+        text.includes("قرآن") ||
+        text.includes("القران") ||
+        text === "quran"
+    ){
+
+        return "quran";
+    }
+
+
+    if(
+        text.includes("سنة") ||
+        text.includes("حديث") ||
+        text === "hadith"
+    ){
+
+        return "hadith";
+    }
+
+
+    if(
+        text.includes("ذكر") ||
+        text.includes("أذكار") ||
+        text.includes("اذكار")
+    ){
+
+        return "adhkar";
+    }
+
+
+    if(
+        text.includes("سيرة")
+    ){
+
+        return "seerah";
+    }
+
+
+    if(
+        text.includes("قصة") ||
+        text.includes("قصص")
+    ){
+
+        return "stories";
+    }
+
+
+    if(
+        text.includes("تعلم") ||
+        text.includes("تعلّم")
+    ){
+
+        return "learning";
+    }
+
+
+    return "reminders";
+}
+
+
+function categoryLabel(
+    category
+){
+
+    const labels = {
+
+        all:
+            "لك",
 
         quran:
             "القرآن",
@@ -1594,509 +1939,105 @@ function categoryName(category){
 
         learning:
             "تعلّم"
-
     };
 
 
-    return names[category]
-        || category
-        || "محتوى";
-
+    return labels[category]
+        || category;
 }
 
 
-/* =====================================================
-   HEADER
-===================================================== */
+function renderCategories(){
 
-function headerHTML(){
-
-return `
-
-<header class="header">
-
-    <div class="brand">
-
-        <div class="brandMark">
-            ز
-        </div>
-
-        <span>
-            زاد
-        </span>
-
-    </div>
+    const container =
+        document.getElementById(
+            "categories"
+        );
 
 
-    <div class="headerActions">
-
-        <button
-            class="iconBtn"
-            aria-label="بحث"
-            onclick="
-                event.stopPropagation();
-                showToast('سيتم إضافة البحث')
-            ">
-
-            ${ICONS.search}
-
-        </button>
-
-    </div>
-
-</header>
+    const found =
+        new Set();
 
 
-<div class="categories">
+    allVideos.forEach(
+        item =>{
 
-    ${categoryButton(
-        "all",
-        "لك"
-    )}
+            found.add(
+                item.category
+            );
 
-    ${categoryButton(
-        "quran",
-        "القرآن"
-    )}
-
-    ${categoryButton(
-        "hadith",
-        "السنة"
-    )}
-
-    ${categoryButton(
-        "adhkar",
-        "الأذكار"
-    )}
-
-    ${categoryButton(
-        "seerah",
-        "السيرة"
-    )}
-
-    ${categoryButton(
-        "reminders",
-        "تذكير"
-    )}
-
-    ${categoryButton(
-        "stories",
-        "قصص"
-    )}
-
-    ${categoryButton(
-        "learning",
-        "تعلّم"
-    )}
-
-</div>
-
-`;
-
-}
-
-
-function categoryButton(
-    value,
-    title
-){
-
-return `
-
-<button
-    class="
-        category
-        ${
-            currentCategory === value
-            ?
-            "active"
-            :
-            ""
         }
-    "
-    onclick="
-        event.stopPropagation();
-        changeCategory('${value}')
-    ">
+    );
 
-    ${title}
 
-</button>
+    const categories =
+        [
+            "all",
+            ...found
+        ];
 
-`;
 
-}
-
-
-/* =====================================================
-   NAVIGATION
-===================================================== */
-
-function bottomNavHTML(){
-
-return `
-
-<nav class="bottomNav">
-
-    <a
-        class="navItem"
-        href="index.html">
-
-        ${ICONS.home}
-
-        <span>
-            الرئيسية
-        </span>
-
-    </a>
-
-
-    <button
-        class="navItem active">
-
-        ${ICONS.video}
-
-        <span>
-            المقاطع
-        </span>
-
-    </button>
-
-
-    <button
-        class="navItem"
-        onclick="
-            event.stopPropagation();
-            showToast('قسم القرآن سنكمله لاحقًا')
-        ">
-
-        ${ICONS.book}
-
-        <span>
-            القرآن
-        </span>
-
-    </button>
-
-
-    <button
-        class="navItem"
-        onclick="
-            event.stopPropagation();
-            showToast('قسم الأذكار سنكمله لاحقًا')
-        ">
-
-        ${ICONS.book}
-
-        <span>
-            الأذكار
-        </span>
-
-    </button>
-
-
-    <button
-        class="navItem"
-        onclick="
-            event.stopPropagation();
-            showToast('قسم حسابي سنكمله لاحقًا')
-        ">
-
-        ${ICONS.user}
-
-        <span>
-            حسابي
-        </span>
-
-    </button>
-
-</nav>
-
-`;
-
-}
-
-
-/* =====================================================
-   VIDEO CARD
-===================================================== */
-
-function videoCard(
-    item,
-    index
-){
-
-    const isLiked =
-        liked.includes(
-            Number(item.id)
-        );
-
-    const isSaved =
-        saved.includes(
-            Number(item.id)
-        );
-
-
-return `
-
-<section
-    class="short"
-    data-index="${index}"
-    data-id="${item.id}">
-
-
-    <video
-        src="${safeAttribute(item.video)}"
-        playsinline
-        webkit-playsinline
-        loop
-        preload="${
-            index < 2
-            ?
-            "auto"
-            :
-            "metadata"
-        }">
-    </video>
-
-
-    <div class="shade"></div>
-
-
-    ${headerHTML()}
-
-
-    <div class="playState">
-
-        ${ICONS.play}
-
-    </div>
-
-
-    <div class="content">
-
-        <div class="author">
-
-            <div class="avatar">
-                ز
-            </div>
-
-
-            <div>
-
-                <div class="authorName">
-
-                    ${escapeHTML(
-                        item.author ||
-                        "زاد"
-                    )}
-
-                </div>
-
-
-                <div class="type">
-
-                    ${escapeHTML(
-                        item.type ||
-                        categoryName(
-                            item.category
-                        )
-                    )}
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="title">
-
-            ${escapeHTML(
-                item.title ||
-                "مقطع"
-            )}
-
-        </div>
-
-
-        <div class="description">
-
-            ${escapeHTML(
-                item.description ||
-                ""
-            )}
-
-        </div>
-
+    container.innerHTML =
+        categories
+            .map(
+                category =>`
 
         <button
-            class="sourceButton"
+            class="
+                categoryButton
+                ${
+                    category ===
+                    currentCategory
+                    ?
+                    "active"
+                    :
+                    ""
+                }
+            "
             onclick="
-                event.stopPropagation();
-                showSource(
-                    ${item.id}
+                changeCategory(
+                    '${category}'
                 )
             ">
 
-            ${ICONS.source}
-
-            <span>
-                المصدر
-            </span>
+            ${
+                escapeHTML(
+                    categoryLabel(
+                        category
+                    )
+                )
+            }
 
         </button>
 
-    </div>
-
-
-    <aside class="actions">
-
-
-        <div
-            class="
-                action
-                ${
-                    isLiked
-                    ?
-                    "active"
-                    :
-                    ""
-                }
-            "
-            id="like-${item.id}">
-
-            <button
-                class="actionButton"
-                aria-label="إعجاب"
-                onclick="
-                    event.stopPropagation();
-                    toggleLike(
-                        ${item.id}
-                    )
-                ">
-
-                ${ICONS.heart}
-
-            </button>
-
-            <span>
-                إعجاب
-            </span>
-
-        </div>
-
-
-        <div
-            class="
-                action
-                ${
-                    isSaved
-                    ?
-                    "active"
-                    :
-                    ""
-                }
-            "
-            id="save-${item.id}">
-
-            <button
-                class="actionButton"
-                aria-label="حفظ"
-                onclick="
-                    event.stopPropagation();
-                    toggleSave(
-                        ${item.id}
-                    )
-                ">
-
-                ${ICONS.bookmark}
-
-            </button>
-
-            <span>
-                حفظ
-            </span>
-
-        </div>
-
-
-        <div class="action">
-
-            <button
-                class="actionButton"
-                aria-label="مشاركة"
-                onclick="
-                    event.stopPropagation();
-                    shareVideo(
-                        ${item.id}
-                    )
-                ">
-
-                ${ICONS.share}
-
-            </button>
-
-            <span>
-                مشاركة
-            </span>
-
-        </div>
-
-
-        <div class="action">
-
-            <button
-                class="actionButton"
-                aria-label="الصوت"
-                data-sound-button
-                onclick="
-                    event.stopPropagation();
-                    toggleMute(
-                        this
-                    )
-                ">
-
-                ${ICONS.volume}
-
-            </button>
-
-            <span>
-                الصوت
-            </span>
-
-        </div>
-
-    </aside>
-
-
-    <div class="videoProgress">
-
-        <div
-            class="videoProgressFill">
-        </div>
-
-    </div>
-
-
-    ${bottomNavHTML()}
-
-</section>
-
-`;
-
+        `
+            )
+            .join("");
 }
 
 
-/* =====================================================
-   RENDER
-===================================================== */
+function changeCategory(
+    category
+){
 
-function render(){
+    currentCategory =
+        category;
 
-    const allVideos =
-        getAllVideos();
 
+    currentIndex =
+        0;
+
+
+    pauseAll();
+
+
+    renderCategories();
+
+    applyCategory();
+}
+
+
+function applyCategory(){
 
     if(
         currentCategory ===
@@ -2104,8 +2045,7 @@ function render(){
     ){
 
         visibleVideos =
-            allVideos;
-
+            [...allVideos];
     }
     else{
 
@@ -2115,9 +2055,18 @@ function render(){
                     item.category ===
                     currentCategory
             );
-
     }
 
+
+    renderVideos();
+}
+
+
+/* =====================================================
+   RENDER VIDEOS
+===================================================== */
+
+function renderVideos(){
 
     const feed =
         document.getElementById(
@@ -2131,25 +2080,16 @@ function render(){
 
         feed.innerHTML = `
 
-        <div class="emptyPage">
+        <div class="messagePage">
 
             <div>
-
-                <div class="emptyIcon">
-
-                    ${ICONS.video}
-
-                </div>
 
                 <h2>
                     لا توجد مقاطع
                 </h2>
 
                 <p>
-
-                    لا توجد مقاطع منشورة
-                    في هذا القسم حاليًا.
-
+                    لا توجد مقاطع منشورة في هذا التصنيف حاليًا.
                 </p>
 
             </div>
@@ -2158,8 +2098,10 @@ function render(){
 
         `;
 
-        return;
 
+        updateFixedControls();
+
+        return;
     }
 
 
@@ -2169,11 +2111,133 @@ function render(){
                 (
                     item,
                     index
-                ) =>
-                    videoCard(
-                        item,
-                        index
-                    )
+                ) =>`
+
+        <section
+            class="short"
+            data-index="${index}">
+
+            <video
+                src="${safeAttribute(item.video)}"
+                playsinline
+                webkit-playsinline
+                loop
+                preload="${
+                    index <= 1
+                    ?
+                    "auto"
+                    :
+                    "metadata"
+                }">
+            </video>
+
+
+            <div class="videoShade"></div>
+
+
+            <div class="videoContent">
+
+                <div class="publisher">
+
+                    <div class="publisherAvatar">
+                        ز
+                    </div>
+
+
+                    <div>
+
+                        <div class="publisherName">
+
+                            ${
+                                escapeHTML(
+                                    item.publisher
+                                )
+                            }
+
+                        </div>
+
+
+                        <div class="publisherCategory">
+
+                            ${
+                                escapeHTML(
+                                    item.categoryLabel
+                                )
+                            }
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="videoTitle">
+
+                    ${
+                        escapeHTML(
+                            item.title
+                        )
+                    }
+
+                </div>
+
+
+                ${
+                    item.description
+                    ?
+                    `
+
+                    <div class="videoDescription">
+
+                        ${
+                            escapeHTML(
+                                item.description
+                            )
+                        }
+
+                    </div>
+
+                    `
+                    :
+                    ""
+                }
+
+
+                ${
+                    item.source
+                    ?
+                    `
+
+                    <div class="sourceInfo">
+
+                        <svg viewBox="0 0 24 24">
+                            <path d="M4 4h12a4 4 0 0 1 4 4v12H8a4 4 0 0 1-4-4Z"/>
+                            <path d="M8 4v16"/>
+                        </svg>
+
+                        <span>
+
+                            ${
+                                escapeHTML(
+                                    item.source
+                                )
+                            }
+
+                        </span>
+
+                    </div>
+
+                    `
+                    :
+                    ""
+                }
+
+            </div>
+
+        </section>
+
+        `
             )
             .join("");
 
@@ -2182,105 +2246,31 @@ function render(){
         0;
 
 
-    initShortNavigation();
+    initPositions();
 
     bindVideoEvents();
 
+    updateFixedControls();
+
+    playCurrentVideo();
 }
 
 
 /* =====================================================
-   INITIAL POSITIONS
-===================================================== */
-
-function initShortNavigation(){
-
-    const cards =
-        getCards();
-
-
-    cards.forEach(
-        (
-            card,
-            index
-        )=>{
-
-            card.classList.remove(
-                "current",
-                "previous",
-                "next"
-            );
-
-
-            card.style.transition =
-                "";
-
-            card.style.transform =
-                "";
-
-
-            if(
-                index <
-                currentIndex
-            ){
-
-                card.classList.add(
-                    "previous"
-                );
-
-            }
-            else if(
-                index ===
-                currentIndex
-            ){
-
-                card.classList.add(
-                    "current"
-                );
-
-            }
-            else{
-
-                card.classList.add(
-                    "next"
-                );
-
-            }
-
-        }
-    );
-
-
-    requestAnimationFrame(
-        ()=>{
-            playCurrentVideo();
-        }
-    );
-
-}
-
-
-/* =====================================================
-   GET CARDS
+   CARD POSITIONS
 ===================================================== */
 
 function getCards(){
 
     return [
-        ...document
-            .querySelectorAll(
-                ".short"
-            )
+        ...document.querySelectorAll(
+            ".short"
+        )
     ];
-
 }
 
 
-/* =====================================================
-   UPDATE CARDS
-===================================================== */
-
-function updateCards(){
+function initPositions(){
 
     const cards =
         getCards();
@@ -2293,16 +2283,16 @@ function updateCards(){
         )=>{
 
             card.classList.remove(
-                "current",
                 "previous",
+                "current",
                 "next"
             );
 
 
-            card.style.transition =
+            card.style.transform =
                 "";
 
-            card.style.transform =
+            card.style.transition =
                 "";
 
 
@@ -2314,7 +2304,6 @@ function updateCards(){
                 card.classList.add(
                     "previous"
                 );
-
             }
             else if(
                 index ===
@@ -2324,174 +2313,62 @@ function updateCards(){
                 card.classList.add(
                     "current"
                 );
-
             }
             else{
 
                 card.classList.add(
                     "next"
                 );
-
             }
 
         }
     );
+}
 
+
+function updatePositions(){
+
+    initPositions();
+
+    updateFixedControls();
 
     playCurrentVideo();
-
 }
 
 
 /* =====================================================
-   VIDEO EVENTS
+   CURRENT VIDEO
 ===================================================== */
 
-function bindVideoEvents(){
+function currentItem(){
 
-    document
-        .querySelectorAll(
-            ".short video"
+    return visibleVideos[
+        currentIndex
+    ] || null;
+}
+
+
+function currentVideo(){
+
+    const cards =
+        getCards();
+
+
+    return (
+        cards[
+            currentIndex
+        ]
+        ?.querySelector(
+            "video"
         )
-        .forEach(video=>{
-
-            video.addEventListener(
-                "click",
-                ()=>{
-
-                    const card =
-                        video.closest(
-                            ".short"
-                        );
-
-
-                    if(
-                        !card.classList
-                            .contains(
-                                "current"
-                            )
-                    ){
-                        return;
-                    }
-
-
-                    if(video.paused){
-
-                        pauseAll(
-                            video
-                        );
-
-                        video.play()
-                            .catch(()=>{});
-
-                        showPlayState(
-                            card,
-                            "play"
-                        );
-
-                    }
-                    else{
-
-                        video.pause();
-
-                        showPlayState(
-                            card,
-                            "pause"
-                        );
-
-                    }
-
-                }
-            );
-
-
-            video.addEventListener(
-                "timeupdate",
-                ()=>{
-
-                    const card =
-                        video.closest(
-                            ".short"
-                        );
-
-
-                    const fill =
-                        card.querySelector(
-                            ".videoProgressFill"
-                        );
-
-
-                    if(
-                        !video.duration ||
-                        !fill
-                    ){
-                        return;
-                    }
-
-
-                    const progress =
-                        (
-                            video.currentTime /
-                            video.duration
-                        )
-                        *100;
-
-
-                    fill.style.width =
-                        progress+"%";
-
-                }
-            );
-
-        });
-
+        ||
+        null
+    );
 }
 
 
 /* =====================================================
-   PLAY STATE
-===================================================== */
-
-function showPlayState(
-    card,
-    state
-){
-
-    const element =
-        card.querySelector(
-            ".playState"
-        );
-
-
-    element.innerHTML =
-        state === "pause"
-        ?
-        ICONS.pause
-        :
-        ICONS.play;
-
-
-    element.classList.add(
-        "show"
-    );
-
-
-    setTimeout(
-        ()=>{
-
-            element.classList.remove(
-                "show"
-            );
-
-        },
-        450
-    );
-
-}
-
-
-/* =====================================================
-   PLAY CURRENT VIDEO
+   VIDEO PLAY
 ===================================================== */
 
 function playCurrentVideo(){
@@ -2522,11 +2399,9 @@ function playCurrentVideo(){
                 currentIndex
             ){
 
-                /*
-                   نحاول التشغيل بالصوت أولاً.
-                   بعض المتصفحات ستمنعه.
-                   عندها نجرب muted.
-                */
+                video.muted =
+                    soundMuted;
+
 
                 const promise =
                     video.play();
@@ -2534,87 +2409,225 @@ function playCurrentVideo(){
 
                 if(
                     promise &&
-                    typeof promise.catch ===
-                    "function"
+                    promise.catch
                 ){
 
                     promise.catch(
                         ()=>{
 
+                            soundMuted =
+                                true;
+
                             video.muted =
                                 true;
 
-                            updateSoundButton(
-                                card,
-                                true
-                            );
+                            updateSoundIcon();
 
                             video.play()
-                                .catch(()=>{});
-
+                                .catch(
+                                    ()=>{}
+                                );
                         }
                     );
-
                 }
 
             }
             else{
 
                 video.pause();
-
             }
 
         }
     );
 
+
+    updateFixedControls();
 }
 
 
-/* =====================================================
-   PAUSE ALL
-===================================================== */
-
-function pauseAll(
-    except=null
-){
+function pauseAll(){
 
     document
         .querySelectorAll(
             ".short video"
         )
-        .forEach(video=>{
-
-            if(
-                video !==
-                except
-            ){
-
-                video.pause();
-
-            }
-
-        });
-
+        .forEach(
+            video =>
+                video.pause()
+        );
 }
 
 
 /* =====================================================
-   NEXT
+   VIDEO EVENTS
 ===================================================== */
 
-let moving =
-    false;
+function bindVideoEvents(){
+
+    document
+        .querySelectorAll(
+            ".short video"
+        )
+        .forEach(
+            (
+                video,
+                index
+            )=>{
+
+                video.addEventListener(
+                    "timeupdate",
+                    ()=>{
+
+                        if(
+                            index !==
+                            currentIndex
+                        ){
+
+                            return;
+                        }
 
 
-const TRANSITION_TIME =
-    320;
+                        if(
+                            !video.duration
+                        ){
+
+                            return;
+                        }
+
+
+                        const percentage =
+                            (
+                                video.currentTime /
+                                video.duration
+                            )
+                            * 100;
+
+
+                        document
+                            .getElementById(
+                                "progressFill"
+                            )
+                            .style
+                            .width =
+                            percentage +
+                            "%";
+                    }
+                );
+
+
+                video.addEventListener(
+                    "click",
+                    ()=>{
+
+                        if(
+                            index !==
+                            currentIndex
+                        ){
+
+                            return;
+                        }
+
+
+                        if(video.paused){
+
+                            video.play()
+                                .catch(
+                                    ()=>{}
+                                );
+
+                            showPlayIndicator(
+                                true
+                            );
+                        }
+                        else{
+
+                            video.pause();
+
+                            showPlayIndicator(
+                                false
+                            );
+                        }
+                    }
+                );
+
+            }
+        );
+}
+
+
+/* =====================================================
+   FIXED CONTROLS STATE
+===================================================== */
+
+function updateFixedControls(){
+
+    const item =
+        currentItem();
+
+
+    const likeAction =
+        document.getElementById(
+            "likeAction"
+        );
+
+
+    const saveAction =
+        document.getElementById(
+            "saveAction"
+        );
+
+
+    if(!item){
+
+        likeAction.classList.remove(
+            "active"
+        );
+
+        saveAction.classList.remove(
+            "active"
+        );
+
+        return;
+    }
+
+
+    likeAction.classList.toggle(
+        "active",
+        liked.includes(
+            item.id
+        )
+    );
+
+
+    saveAction.classList.toggle(
+        "active",
+        saved.includes(
+            item.id
+        )
+    );
+
+
+    updateSoundIcon();
+
+
+    document
+        .getElementById(
+            "progressFill"
+        )
+        .style
+        .width =
+        "0%";
+}
+
+
+/* =====================================================
+   NEXT / PREVIOUS
+===================================================== */
+
+const TRANSITION_TIME = 320;
 
 
 function nextVideo(){
-
-    const cards =
-        getCards();
-
 
     if(moving){
         return;
@@ -2623,41 +2636,33 @@ function nextVideo(){
 
     if(
         currentIndex >=
-        cards.length - 1
+        visibleVideos.length - 1
     ){
 
-        bounceEdge(-1);
+        edgeBounce(-1);
 
         return;
     }
 
 
-    moving =
-        true;
-
+    moving = true;
 
     currentIndex++;
 
 
-    updateCards();
+    updatePositions();
 
 
     setTimeout(
         ()=>{
 
-            moving =
-                false;
+            moving = false;
 
         },
         TRANSITION_TIME
     );
-
 }
 
-
-/* =====================================================
-   PREVIOUS
-===================================================== */
 
 function previousVideo(){
 
@@ -2670,146 +2675,66 @@ function previousVideo(){
         currentIndex <= 0
     ){
 
-        bounceEdge(1);
+        edgeBounce(1);
 
         return;
     }
 
 
-    moving =
-        true;
-
+    moving = true;
 
     currentIndex--;
 
 
-    updateCards();
+    updatePositions();
 
 
     setTimeout(
         ()=>{
 
-            moving =
-                false;
+            moving = false;
 
         },
         TRANSITION_TIME
     );
-
 }
 
 
 /* =====================================================
-   EDGE BOUNCE
+   DRAG
 ===================================================== */
 
-function bounceEdge(
-    direction
-){
+let dragging = false;
 
-    const cards =
-        getCards();
+let startY = 0;
 
+let currentY = 0;
 
-    const card =
-        cards[currentIndex];
+let startTime = 0;
 
-
-    if(!card){
-        return;
-    }
-
-
-    card.style.transition =
-        "transform 130ms ease";
-
-
-    card.style.transform =
-        `translate3d(
-            0,
-            ${direction * 17}px,
-            0
-        )`;
-
-
-    setTimeout(
-        ()=>{
-
-            card.style.transform =
-                "translate3d(0,0,0)";
-
-
-            setTimeout(
-                ()=>{
-
-                    card.style.transition =
-                        "";
-
-                    card.style.transform =
-                        "";
-
-                },
-                140
-            );
-
-        },
-        130
-    );
-
-}
-
-
-/* =====================================================
-   TOUCH NAVIGATION
-===================================================== */
-
-let startY =
-    0;
-
-let currentY =
-    0;
-
-let startTime =
-    0;
-
-let dragging =
-    false;
-
-
-/* TOUCH START */
 
 function touchStart(event){
 
-    if(moving){
+    if(
+        moving ||
+        event.touches.length !== 1
+    ){
+
         return;
     }
 
 
-    /*
-       لا نبدأ سحب الفيديو
-       إذا المستخدم يتعامل مع زر
-       أو التصنيفات.
-    */
-
     if(
         event.target.closest(
-            "button,a,.categories"
+            "button,a,.fixedCategories,.fixedActions,.fixedBottomNav,.fixedHeader"
         )
     ){
 
         return;
-
     }
 
 
-    if(
-        event.touches.length !==
-        1
-    ){
-
-        return;
-
-    }
+    dragging = true;
 
 
     startY =
@@ -2823,28 +2748,12 @@ function touchStart(event){
 
     startTime =
         performance.now();
-
-
-    dragging =
-        true;
-
 }
 
-
-/* TOUCH MOVE */
 
 function touchMove(event){
 
     if(!dragging){
-        return;
-    }
-
-
-    if(
-        event.touches.length !==
-        1
-    ){
-
         return;
     }
 
@@ -2859,49 +2768,23 @@ function touchMove(event){
         startY;
 
 
-    const cards =
-        getCards();
-
-
-    /*
-       مقاومة عند البداية والنهاية
-    */
-
     if(
         currentIndex === 0 &&
         delta > 0
     ){
 
-        delta *=
-            .20;
-
+        delta *= .2;
     }
 
 
     if(
         currentIndex ===
-        cards.length - 1 &&
+        visibleVideos.length - 1 &&
         delta < 0
     ){
 
-        delta *=
-            .20;
-
+        delta *= .2;
     }
-
-
-    const height =
-        getScreenHeight();
-
-
-    delta =
-        Math.max(
-            -height,
-            Math.min(
-                height,
-                delta
-            )
-        );
 
 
     moveCardsWithFinger(
@@ -2910,11 +2793,8 @@ function touchMove(event){
 
 
     event.preventDefault();
-
 }
 
-
-/* TOUCH END */
 
 function touchEnd(){
 
@@ -2923,8 +2803,7 @@ function touchEnd(){
     }
 
 
-    dragging =
-        false;
+    dragging = false;
 
 
     const delta =
@@ -2942,28 +2821,19 @@ function touchEnd(){
 
 
     const velocity =
-        Math.abs(delta)
-        /
+        Math.abs(delta) /
         elapsed;
 
 
-    /*
-       السحب الطبيعي
-    */
-
-    const distanceThreshold =
+    const threshold =
         Math.min(
             75,
-            getScreenHeight()
-            * .10
+            getHeight() *
+            .10
         );
 
 
-    /*
-       Flick سريع مثل تطبيقات الشورتز
-    */
-
-    const fastSwipe =
+    const flick =
         velocity > .42 &&
         Math.abs(delta) > 25;
 
@@ -2972,41 +2842,31 @@ function touchEnd(){
 
 
     if(
-        delta <
-        -distanceThreshold ||
+        delta < -threshold ||
         (
             delta < 0 &&
-            fastSwipe
+            flick
         )
     ){
 
         nextVideo();
-
     }
     else if(
-        delta >
-        distanceThreshold ||
+        delta > threshold ||
         (
             delta > 0 &&
-            fastSwipe
+            flick
         )
     ){
 
         previousVideo();
-
     }
     else{
 
-        updateCards();
-
+        updatePositions();
     }
-
 }
 
-
-/* =====================================================
-   MOVE CARDS WITH FINGER
-===================================================== */
 
 function moveCardsWithFinger(
     delta
@@ -3035,7 +2895,7 @@ function moveCardsWithFinger(
 
 
     const height =
-        getScreenHeight();
+        getHeight();
 
 
     if(current){
@@ -3050,7 +2910,6 @@ function moveCardsWithFinger(
                 ${delta}px,
                 0
             )`;
-
     }
 
 
@@ -3069,7 +2928,6 @@ function moveCardsWithFinger(
                 ${height + delta}px,
                 0
             )`;
-
     }
 
 
@@ -3088,63 +2946,100 @@ function moveCardsWithFinger(
                 ${-height + delta}px,
                 0
             )`;
-
     }
-
 }
 
-
-/* =====================================================
-   CLEAR DRAG
-===================================================== */
 
 function clearInlineTransforms(){
 
     getCards()
-        .forEach(card=>{
+        .forEach(
+            card =>{
 
-            card.style.transition =
-                "";
+                card.style.transition =
+                    "";
 
-            card.style.transform =
-                "";
+                card.style.transform =
+                    "";
+            }
+        );
+}
 
-        });
 
+function getHeight(){
+
+    return (
+        window.visualViewport
+        ?.height
+        ||
+        window.innerHeight
+    );
 }
 
 
 /* =====================================================
-   SCREEN HEIGHT
+   EDGE
 ===================================================== */
 
-function getScreenHeight(){
+function edgeBounce(
+    direction
+){
 
-    if(
-        window.visualViewport
-    ){
+    const card =
+        getCards()[
+            currentIndex
+        ];
 
-        return window
-            .visualViewport
-            .height;
 
+    if(!card){
+        return;
     }
 
 
-    return window.innerHeight;
+    card.style.transition =
+        "transform 120ms ease";
 
+
+    card.style.transform =
+        `translate3d(
+            0,
+            ${direction * 16}px,
+            0
+        )`;
+
+
+    setTimeout(
+        ()=>{
+
+            card.style.transform =
+                "translate3d(0,0,0)";
+
+
+            setTimeout(
+                ()=>{
+
+                    card.style.transition =
+                        "";
+
+                    card.style.transform =
+                        "";
+                },
+                130
+            );
+
+        },
+        120
+    );
 }
 
 
 /* =====================================================
-   WHEEL
+   MOUSE WHEEL
 ===================================================== */
 
-let wheelLocked =
-    false;
+let wheelLocked = false;
 
-let wheelAccumulator =
-    0;
+let wheelAmount = 0;
 
 let wheelTimer;
 
@@ -3161,7 +3056,7 @@ function wheelNavigation(
     }
 
 
-    wheelAccumulator +=
+    wheelAmount +=
         event.deltaY;
 
 
@@ -3174,45 +3069,39 @@ function wheelNavigation(
         setTimeout(
             ()=>{
 
-                wheelAccumulator =
+                wheelAmount =
                     0;
-
             },
-            180
+            150
         );
 
 
     if(
         Math.abs(
-            wheelAccumulator
+            wheelAmount
         ) < 45
     ){
 
         return;
-
     }
 
 
-    wheelLocked =
-        true;
+    wheelLocked = true;
 
 
     if(
-        wheelAccumulator > 0
+        wheelAmount > 0
     ){
 
         nextVideo();
-
     }
     else{
 
         previousVideo();
-
     }
 
 
-    wheelAccumulator =
-        0;
+    wheelAmount = 0;
 
 
     setTimeout(
@@ -3222,138 +3111,8 @@ function wheelNavigation(
                 false;
 
         },
-        400
+        390
     );
-
-}
-
-
-/* =====================================================
-   KEYBOARD
-===================================================== */
-
-function keyboardNavigation(
-    event
-){
-
-    if(
-        event.key ===
-        "ArrowDown" ||
-        event.key ===
-        "PageDown"
-    ){
-
-        event.preventDefault();
-
-        nextVideo();
-
-    }
-
-
-    if(
-        event.key ===
-        "ArrowUp" ||
-        event.key ===
-        "PageUp"
-    ){
-
-        event.preventDefault();
-
-        previousVideo();
-
-    }
-
-
-    if(
-        event.key ===
-        " "
-    ){
-
-        event.preventDefault();
-
-        toggleCurrentPlayback();
-
-    }
-
-}
-
-
-/* =====================================================
-   PLAY CURRENT
-===================================================== */
-
-function toggleCurrentPlayback(){
-
-    const cards =
-        getCards();
-
-
-    const card =
-        cards[currentIndex];
-
-
-    if(!card){
-        return;
-    }
-
-
-    const video =
-        card.querySelector(
-            "video"
-        );
-
-
-    if(!video){
-        return;
-    }
-
-
-    if(video.paused){
-
-        video.play()
-            .catch(()=>{});
-
-        showPlayState(
-            card,
-            "play"
-        );
-
-    }
-    else{
-
-        video.pause();
-
-        showPlayState(
-            card,
-            "pause"
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   CATEGORY
-===================================================== */
-
-function changeCategory(
-    category
-){
-
-    pauseAll();
-
-
-    currentCategory =
-        category;
-
-
-    currentIndex =
-        0;
-
-
-    render();
-
 }
 
 
@@ -3361,27 +3120,34 @@ function changeCategory(
    LIKE
 ===================================================== */
 
-function toggleLike(id){
+function toggleLike(){
 
-    id =
-        Number(id);
+    const item =
+        currentItem();
+
+
+    if(!item){
+        return;
+    }
 
 
     if(
-        liked.includes(id)
+        liked.includes(
+            item.id
+        )
     ){
 
         liked =
             liked.filter(
-                value =>
-                    value !== id
+                id =>
+                    id !== item.id
             );
-
     }
     else{
 
-        liked.push(id);
-
+        liked.push(
+            item.id
+        );
     }
 
 
@@ -3393,21 +3159,7 @@ function toggleLike(id){
     );
 
 
-    const element =
-        document.getElementById(
-            "like-"+id
-        );
-
-
-    if(element){
-
-        element.classList.toggle(
-            "active",
-            liked.includes(id)
-        );
-
-    }
-
+    updateFixedControls();
 }
 
 
@@ -3415,33 +3167,62 @@ function toggleLike(id){
    SAVE
 ===================================================== */
 
-function toggleSave(id){
+function toggleSave(){
 
-    id =
-        Number(id);
+    const item =
+        currentItem();
+
+
+    if(!item){
+        return;
+    }
 
 
     if(
-        saved.includes(id)
+        saved.includes(
+            item.id
+        )
     ){
 
         saved =
             saved.filter(
-                value =>
-                    value !== id
+                id =>
+                    id !== item.id
             );
+
+
+        showToast(
+            "تم إلغاء الحفظ"
+        );
 
     }
     else{
 
-        saved.push(id);
-
-
-        addPoints(
-            2,
-            "+2 نقطة نشاط"
+        saved.push(
+            item.id
         );
 
+
+        let points =
+            Number(
+                localStorage.getItem(
+                    "zaadPoints"
+                ) || 0
+            );
+
+
+        points += 2;
+
+
+        localStorage.setItem(
+            "zaadPoints",
+            points
+        );
+
+
+        showToast(
+            "تم الحفظ +2 نقطة نشاط"
+        );
     }
 
 
@@ -3453,47 +3234,96 @@ function toggleSave(id){
     );
 
 
-    const element =
-        document.getElementById(
-            "save-"+id
-        );
-
-
-    if(element){
-
-        element.classList.toggle(
-            "active",
-            saved.includes(id)
-        );
-
-    }
-
+    updateFixedControls();
 }
 
 
 /* =====================================================
-   POINTS
+   SOUND
 ===================================================== */
 
-function addPoints(
-    amount,
-    message
-){
+function toggleSound(){
 
-    points +=
-        amount;
+    soundMuted =
+        !soundMuted;
 
 
-    localStorage.setItem(
-        "zaadPoints",
-        points
-    );
+    const video =
+        currentVideo();
 
 
-    showToast(
-        message
-    );
+    if(video){
 
+        video.muted =
+            soundMuted;
+
+
+        if(!soundMuted){
+
+            video.play()
+                .catch(
+                    ()=>{
+
+                        soundMuted =
+                            true;
+
+                        video.muted =
+                            true;
+
+                        showToast(
+                            "اضغط على الفيديو لتفعيل الصوت"
+                        );
+                    }
+                );
+        }
+    }
+
+
+    updateSoundIcon();
+}
+
+
+function updateSoundIcon(){
+
+    const button =
+        document.getElementById(
+            "soundButton"
+        );
+
+
+    if(soundMuted){
+
+        button.innerHTML = `
+
+        <svg viewBox="0 0 24 24">
+
+            <path d="M11 5 6 9H3v6h3l5 4Z"/>
+
+            <path d="m16 9 5 6"/>
+
+            <path d="m21 9-5 6"/>
+
+        </svg>
+
+        `;
+
+    }
+    else{
+
+        button.innerHTML = `
+
+        <svg viewBox="0 0 24 24">
+
+            <path d="M11 5 6 9H3v6h3l5 4Z"/>
+
+            <path d="M15 9a4 4 0 0 1 0 6"/>
+
+            <path d="M17.5 6.5a8 8 0 0 1 0 11"/>
+
+        </svg>
+
+        `;
+    }
 }
 
 
@@ -3501,15 +3331,10 @@ function addPoints(
    SHARE
 ===================================================== */
 
-async function shareVideo(id){
+async function shareCurrentVideo(){
 
     const item =
-        getAllVideos()
-            .find(
-                video =>
-                    Number(video.id) ===
-                    Number(id)
-            );
+        currentItem();
 
 
     if(!item){
@@ -3518,7 +3343,8 @@ async function shareVideo(id){
 
 
     const text =
-        item.title +
+        item.title
+        +
         (
             item.description
             ?
@@ -3526,7 +3352,8 @@ async function shareVideo(id){
             item.description
             :
             ""
-        ) +
+        )
+        +
         (
             item.source
             ?
@@ -3574,78 +3401,8 @@ async function shareVideo(id){
             showToast(
                 "تعذرت المشاركة"
             );
-
         }
-
     }
-
-}
-
-
-/* =====================================================
-   SOUND
-===================================================== */
-
-function toggleMute(
-    button
-){
-
-    const card =
-        button.closest(
-            ".short"
-        );
-
-
-    const video =
-        card.querySelector(
-            "video"
-        );
-
-
-    video.muted =
-        !video.muted;
-
-
-    updateSoundButton(
-        card,
-        video.muted
-    );
-
-
-    showToast(
-        video.muted
-        ?
-        "تم كتم الصوت"
-        :
-        "تم تشغيل الصوت"
-    );
-
-}
-
-
-function updateSoundButton(
-    card,
-    muted
-){
-
-    const button =
-        card.querySelector(
-            "[data-sound-button]"
-        );
-
-
-    if(!button){
-        return;
-    }
-
-
-    button.innerHTML =
-        muted
-        ?
-        ICONS.mute
-        :
-        ICONS.volume;
-
 }
 
 
@@ -3653,15 +3410,10 @@ function updateSoundButton(
    SOURCE
 ===================================================== */
 
-function showSource(id){
+function showSource(){
 
     const item =
-        getAllVideos()
-            .find(
-                video =>
-                    Number(video.id) ===
-                    Number(id)
-            );
+        currentItem();
 
 
     if(!item){
@@ -3669,14 +3421,7 @@ function showSource(id){
     }
 
 
-    const text =
-        item.source ||
-        "لم يتم إضافة مصدر لهذا المقطع.";
-
-
-    currentSourceURL =
-        item.sourceURL ||
-        "";
+    pauseAll();
 
 
     document
@@ -3684,18 +3429,18 @@ function showSource(id){
             "sourceText"
         )
         .textContent =
-        text;
+        item.source ||
+        "لم يتم إضافة مصدر لهذا المقطع.";
 
 
-    const openButton =
-        document
-            .getElementById(
-                "openSourceButton"
-            );
+    const button =
+        document.getElementById(
+            "sourceOpenButton"
+        );
 
 
-    openButton.style.display =
-        currentSourceURL
+    button.style.display =
+        item.sourceURL
         ?
         "block"
         :
@@ -3706,23 +3451,54 @@ function showSource(id){
         .getElementById(
             "sourceModal"
         )
-        .classList.add(
+        .classList
+        .add(
+            "show"
+        );
+}
+
+
+function closeSource(){
+
+    document
+        .getElementById(
+            "sourceModal"
+        )
+        .classList
+        .remove(
             "show"
         );
 
 
-    pauseAll();
-
+    playCurrentVideo();
 }
 
 
-/* =====================================================
-   OPEN SOURCE
-===================================================== */
+function closeSourceBackground(
+    event
+){
 
-function openSourceURL(){
+    if(
+        event.target.id ===
+        "sourceModal"
+    ){
 
-    if(!currentSourceURL){
+        closeSource();
+    }
+}
+
+
+function openSource(){
+
+    const item =
+        currentItem();
+
+
+    if(
+        !item ||
+        !item.sourceURL
+    ){
+
         return;
     }
 
@@ -3731,7 +3507,7 @@ function openSourceURL(){
 
         const url =
             new URL(
-                currentSourceURL
+                item.sourceURL
             );
 
 
@@ -3740,12 +3516,7 @@ function openSourceURL(){
             url.protocol !== "http:"
         ){
 
-            showToast(
-                "رابط المصدر غير صالح"
-            );
-
-            return;
-
+            throw new Error();
         }
 
 
@@ -3759,47 +3530,216 @@ function openSourceURL(){
     catch(error){
 
         showToast(
-            "رابط المصدر غير صالح"
+            "رابط المصدر غير صحيح"
         );
-
     }
-
 }
 
 
 /* =====================================================
-   CLOSE SOURCE
+   KEYBOARD
 ===================================================== */
 
-function closeSource(){
+document.addEventListener(
+    "keydown",
+    event =>{
 
-    document
-        .getElementById(
-            "sourceModal"
-        )
-        .classList.remove(
-            "show"
+        if(
+            event.key ===
+            "ArrowDown"
+        ){
+
+            nextVideo();
+        }
+
+
+        if(
+            event.key ===
+            "ArrowUp"
+        ){
+
+            previousVideo();
+        }
+
+
+        if(
+            event.key === " "
+        ){
+
+            event.preventDefault();
+
+
+            const video =
+                currentVideo();
+
+
+            if(!video){
+                return;
+            }
+
+
+            if(video.paused){
+
+                video.play()
+                    .catch(
+                        ()=>{}
+                    );
+
+                showPlayIndicator(
+                    true
+                );
+            }
+            else{
+
+                video.pause();
+
+                showPlayIndicator(
+                    false
+                );
+            }
+        }
+
+    }
+);
+
+
+/* =====================================================
+   PLAY INDICATOR
+===================================================== */
+
+let playIndicatorTimer;
+
+
+function showPlayIndicator(
+    playing
+){
+
+    const element =
+        document.getElementById(
+            "playIndicator"
         );
 
 
-    playCurrentVideo();
+    element.innerHTML =
+        playing
+        ?
+        `
 
+        <svg viewBox="0 0 24 24">
+            <path d="m8 5 11 7-11 7Z"/>
+        </svg>
+
+        `
+        :
+        `
+
+        <svg viewBox="0 0 24 24">
+            <path d="M9 5v14"/>
+            <path d="M15 5v14"/>
+        </svg>
+
+        `;
+
+
+    element.classList.add(
+        "show"
+    );
+
+
+    clearTimeout(
+        playIndicatorTimer
+    );
+
+
+    playIndicatorTimer =
+        setTimeout(
+            ()=>{
+
+                element
+                    .classList
+                    .remove(
+                        "show"
+                    );
+
+            },
+            430
+        );
 }
 
 
-function closeSourceByBackground(
-    event
+/* =====================================================
+   MESSAGE
+===================================================== */
+
+function renderMessage(
+    title,
+    message
 ){
 
-    if(
-        event.target.id ===
-        "sourceModal"
-    ){
+    document
+        .getElementById(
+            "feed"
+        )
+        .innerHTML = `
 
-        closeSource();
+        <div class="messagePage">
 
+            <div>
+
+                <h2>
+                    ${escapeHTML(title)}
+                </h2>
+
+                <p>
+                    ${escapeHTML(message)}
+                </p>
+
+                <button
+                    class="retryButton"
+                    onclick="loadVideos(true)">
+
+                    إعادة المحاولة
+
+                </button>
+
+            </div>
+
+        </div>
+
+        `;
+}
+
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+function showLoading(
+    show
+){
+
+    const element =
+        document.getElementById(
+            "loadingScreen"
+        );
+
+
+    if(show){
+
+        element
+            .classList
+            .remove(
+                "hide"
+            );
     }
+    else{
 
+        element
+            .classList
+            .add(
+                "hide"
+            );
+    }
 }
 
 
@@ -3815,10 +3755,9 @@ function showToast(
 ){
 
     const toast =
-        document
-            .getElementById(
-                "toast"
-            );
+        document.getElementById(
+            "toast"
+        );
 
 
     toast.textContent =
@@ -3839,26 +3778,29 @@ function showToast(
         setTimeout(
             ()=>{
 
-                toast.classList.remove(
-                    "show"
-                );
+                toast
+                    .classList
+                    .remove(
+                        "show"
+                    );
 
             },
             1700
         );
-
 }
 
 
 /* =====================================================
-   STORAGE HELPER
+   STORAGE
 ===================================================== */
 
-function readArray(key){
+function readStorageArray(
+    key
+){
 
     try{
 
-        const data =
+        const value =
             JSON.parse(
                 localStorage.getItem(
                     key
@@ -3866,77 +3808,86 @@ function readArray(key){
             );
 
 
-        return Array.isArray(data)
+        return Array.isArray(value)
             ?
-            data.map(Number)
+            value
             :
             [];
-
     }
     catch(error){
 
         return [];
-
     }
-
 }
 
 
 /* =====================================================
-   ESCAPE
+   HELPERS
 ===================================================== */
 
-function escapeHTML(value){
+function clean(value){
 
-    const div =
+    return String(
+        value ?? ""
+    ).trim();
+}
+
+
+function escapeHTML(
+    value
+){
+
+    const element =
         document.createElement(
             "div"
         );
 
 
-    div.textContent =
-        String(value);
+    element.textContent =
+        String(value ?? "");
 
 
-    return div.innerHTML;
-
+    return element.innerHTML;
 }
 
 
-function safeAttribute(value){
+function safeAttribute(
+    value
+){
 
-    return String(value || "")
+    return String(
+        value ?? ""
+    )
 
-        .replace(
-            /&/g,
-            "&amp;"
-        )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
 
-        .replace(
-            /"/g,
-            "&quot;"
-        )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
 
-        .replace(
-            /'/g,
-            "&#39;"
-        )
+    .replace(
+        /'/g,
+        "&#39;"
+    )
 
-        .replace(
-            /</g,
-            "&lt;"
-        )
+    .replace(
+        /</g,
+        "&lt;"
+    )
 
-        .replace(
-            />/g,
-            "&gt;"
-        );
-
+    .replace(
+        />/g,
+        "&gt;"
+    );
 }
 
 
 /* =====================================================
-   TOUCH EVENTS
+   TOUCH
 ===================================================== */
 
 const feed =
@@ -3981,10 +3932,6 @@ feed.addEventListener(
 );
 
 
-/* =====================================================
-   MOUSE WHEEL
-===================================================== */
-
 feed.addEventListener(
     "wheel",
     wheelNavigation,
@@ -3995,166 +3942,31 @@ feed.addEventListener(
 
 
 /* =====================================================
-   KEYBOARD
-===================================================== */
-
-document.addEventListener(
-    "keydown",
-    keyboardNavigation
-);
-
-
-/* =====================================================
    PREVENT ZOOM
 ===================================================== */
 
 document.addEventListener(
     "gesturestart",
-    event=>{
-
-        event.preventDefault();
-
-    }
+    event =>
+        event.preventDefault()
 );
-
-
-document.addEventListener(
-    "gesturechange",
-    event=>{
-
-        event.preventDefault();
-
-    }
-);
-
-
-document.addEventListener(
-    "gestureend",
-    event=>{
-
-        event.preventDefault();
-
-    }
-);
-
-
-/* =====================================================
-   DOUBLE TAP ZOOM
-===================================================== */
-
-let lastTouchEnd =
-    0;
-
-
-document.addEventListener(
-    "touchend",
-    event=>{
-
-        const now =
-            Date.now();
-
-
-        if(
-            now -
-            lastTouchEnd <
-            280
-        ){
-
-            /*
-               لا نمنع touchend الخاص
-               بالتنقل، فقط zoom المتكرر.
-            */
-
-        }
-
-
-        lastTouchEnd =
-            now;
-
-    },
-    {
-        passive:true
-    }
-);
-
-
-/* =====================================================
-   RESIZE
-
-   يمنع الهبوط عند تغير ارتفاع
-   شريط المتصفح في الجوال.
-===================================================== */
-
-let resizeTimer;
-
-
-function handleResize(){
-
-    clearTimeout(
-        resizeTimer
-    );
-
-
-    resizeTimer =
-        setTimeout(
-            ()=>{
-
-                if(!dragging){
-
-                    clearInlineTransforms();
-
-                    updateCards();
-
-                }
-
-            },
-            100
-        );
-
-}
-
-
-window.addEventListener(
-    "resize",
-    handleResize
-);
-
-
-if(
-    window.visualViewport
-){
-
-    window.visualViewport
-        .addEventListener(
-            "resize",
-            handleResize
-        );
-
-}
 
 
 /* =====================================================
    VISIBILITY
-
-   إذا خرج المستخدم من الصفحة
-   نوقف الفيديو.
 ===================================================== */
 
 document.addEventListener(
     "visibilitychange",
     ()=>{
 
-        if(
-            document.hidden
-        ){
+        if(document.hidden){
 
             pauseAll();
-
         }
         else{
 
             playCurrentVideo();
-
         }
 
     }
@@ -4165,7 +3977,7 @@ document.addEventListener(
    START
 ===================================================== */
 
-render();
+loadVideos();
 
 </script>
 
