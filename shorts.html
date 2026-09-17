@@ -4,10 +4,11 @@
 <meta charset="UTF-8">
 
 <meta
-    name="viewport"
-    content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+  name="viewport"
+  content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 
 <meta name="theme-color" content="#000000">
+<link rel="manifest" href="manifest.json">
 
 <title>المقاطع | زاد</title>
 
@@ -27,8 +28,7 @@
     -webkit-tap-highlight-color:transparent;
 }
 
-html,
-body{
+html,body{
     width:100%;
     height:100%;
     overflow:hidden;
@@ -42,8 +42,7 @@ body{
     user-select:none;
 }
 
-button,
-a{
+button,input{
     font:inherit;
 }
 
@@ -78,13 +77,8 @@ button{
     height:100%;
     overflow:hidden;
     background:#000;
-
     transform:translate3d(0,100%,0);
-
-    transition:
-        transform 320ms
-        cubic-bezier(.22,.61,.36,1);
-
+    transition:transform 320ms cubic-bezier(.22,.61,.36,1);
     will-change:transform;
     backface-visibility:hidden;
 }
@@ -107,54 +101,38 @@ button{
 .short video{
     position:absolute;
     inset:0;
-
     width:100%;
     height:100%;
-
     object-fit:cover;
-
     background:#000;
 }
 
 .videoShade{
     position:absolute;
     inset:0;
-
     pointer-events:none;
-
     background:
         linear-gradient(
             to bottom,
-            rgba(0,0,0,.20) 0%,
-            rgba(0,0,0,.04) 40%,
-            rgba(0,0,0,.17) 62%,
-            rgba(0,0,0,.91) 100%
+            rgba(0,0,0,.22) 0%,
+            rgba(0,0,0,.04) 38%,
+            rgba(0,0,0,.18) 63%,
+            rgba(0,0,0,.94) 100%
         );
 }
 
 /* =========================
-   MOVING VIDEO INFORMATION
+   VIDEO CONTENT
 ========================= */
 
 .videoContent{
     position:absolute;
     z-index:8;
-
     right:16px;
     left:84px;
-
-    bottom:
-        calc(
-            78px
-            + env(safe-area-inset-bottom)
-        );
-
-    color:white;
-
-    text-shadow:
-        0 2px 12px
-        rgba(0,0,0,.55);
-
+    bottom:calc(78px + env(safe-area-inset-bottom));
+    color:#fff;
+    text-shadow:0 2px 12px rgba(0,0,0,.55);
     pointer-events:none;
 }
 
@@ -166,33 +144,67 @@ button{
 }
 
 .publisherAvatar{
-    width:37px;
-    height:37px;
+    width:38px;
+    height:38px;
+    flex:none;
     border-radius:50%;
-
     display:grid;
     place-items:center;
-
-    flex:none;
-
     font-size:14px;
     font-weight:900;
-
-    color:white;
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--primary-dark),
-            var(--primary)
-        );
-
+    color:#fff;
+    background:linear-gradient(135deg,var(--primary-dark),var(--primary));
     border:1px solid rgba(255,255,255,.32);
 }
 
+.publisherAvatar img{width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;}
+.publisherAvatar.hasImage{background:#fff;overflow:hidden;}
+.downloadState{font-size:8px;color:#fff;text-align:center;max-width:54px;}
+.publisherDetails{
+    min-width:0;
+}
+
 .publisherName{
+    display:flex;
+    align-items:center;
+    gap:5px;
     font-size:13px;
-    font-weight:bold;
+    font-weight:800;
+}
+
+.publisherNameText{
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+/* التوثيق */
+
+.verifiedBadge{
+    width:17px;
+    height:17px;
+    flex:none;
+    display:inline-grid;
+    place-items:center;
+}
+
+.verifiedBadge svg{
+    width:17px;
+    height:17px;
+    overflow:visible;
+}
+
+.verifiedBadge .verifyShape{
+    fill:#1da1f2;
+    stroke:none;
+}
+
+.verifiedBadge .verifyCheck{
+    fill:none;
+    stroke:#fff;
+    stroke-width:2.2;
+    stroke-linecap:round;
+    stroke-linejoin:round;
 }
 
 .publisherCategory{
@@ -203,25 +215,18 @@ button{
 
 .videoTitle{
     margin-bottom:5px;
-
     font-size:16px;
     line-height:1.5;
-
     font-weight:900;
 }
 
 .videoDescription{
-    max-width:100%;
-
     font-size:11px;
     line-height:1.75;
-
     color:#f2f7f9;
-
     display:-webkit-box;
     -webkit-box-orient:vertical;
     -webkit-line-clamp:2;
-
     overflow:hidden;
 }
 
@@ -229,59 +234,39 @@ button{
     display:flex;
     align-items:center;
     gap:5px;
-
     margin-top:8px;
-
     width:max-content;
     max-width:100%;
-
     padding:7px 9px;
-
     border-radius:9px;
-
     background:rgba(0,0,0,.34);
-
     border:1px solid rgba(255,255,255,.13);
-
     font-size:9px;
-
     color:#edf7fa;
 }
 
 .sourceInfo svg{
     width:13px;
     height:13px;
-
     stroke:currentColor;
     fill:none;
     stroke-width:2;
 }
 
 /* =========================
-   FIXED HEADER
+   HEADER
 ========================= */
 
 .fixedHeader{
     position:absolute;
-
     z-index:50;
-
     top:0;
     right:0;
     left:0;
-
-    padding:
-        calc(
-            env(safe-area-inset-top)
-            + 10px
-        )
-        14px
-        8px;
-
+    padding:calc(env(safe-area-inset-top) + 10px) 14px 8px;
     display:flex;
-    justify-content:space-between;
     align-items:center;
-
+    justify-content:space-between;
     pointer-events:none;
 }
 
@@ -289,60 +274,38 @@ button{
     display:flex;
     align-items:center;
     gap:9px;
-
-    color:white;
-
+    color:#fff;
     font-size:18px;
     font-weight:900;
-
     pointer-events:auto;
 }
 
 .brandLogo{
     width:39px;
     height:39px;
-
     border-radius:13px;
-
     display:grid;
     place-items:center;
-
-    color:white;
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--primary-dark),
-            var(--primary)
-        );
-
-    box-shadow:
-        0 8px 25px
-        rgba(0,0,0,.26);
+    color:#fff;
+    background:linear-gradient(135deg,var(--primary-dark),var(--primary));
+    box-shadow:0 8px 25px rgba(0,0,0,.26);
 }
 
 .fixedHeaderActions{
     display:flex;
     gap:7px;
-
     pointer-events:auto;
 }
 
 .glassButton{
     width:41px;
     height:41px;
-
     border-radius:13px;
-
     display:grid;
     place-items:center;
-
     border:1px solid var(--border);
-
-    color:white;
-
+    color:#fff;
     background:var(--glass);
-
     backdrop-filter:blur(13px);
     -webkit-backdrop-filter:blur(13px);
 }
@@ -350,42 +313,28 @@ button{
 .glassButton svg{
     width:20px;
     height:20px;
-
     fill:none;
     stroke:currentColor;
-
     stroke-width:1.9;
     stroke-linecap:round;
     stroke-linejoin:round;
 }
 
 /* =========================
-   FIXED CATEGORIES
+   CATEGORIES
 ========================= */
 
 .fixedCategories{
     position:absolute;
-
     z-index:49;
-
-    top:
-        calc(
-            env(safe-area-inset-top)
-            + 61px
-        );
-
+    top:calc(env(safe-area-inset-top) + 61px);
     right:0;
     left:0;
-
     display:flex;
     gap:7px;
-
     padding:7px 14px 10px;
-
     overflow-x:auto;
-
     scrollbar-width:none;
-
     touch-action:pan-x;
 }
 
@@ -395,54 +344,36 @@ button{
 
 .categoryButton{
     flex:none;
-
-    border-radius:999px;
-
     padding:8px 14px;
-
+    border-radius:999px;
     border:1px solid var(--border);
-
-    color:white;
-
-    background:
-        rgba(5,17,23,.38);
-
+    color:#fff;
+    background:rgba(5,17,23,.38);
     backdrop-filter:blur(10px);
     -webkit-backdrop-filter:blur(10px);
-
     font-size:11px;
-
     white-space:nowrap;
 }
 
 .categoryButton.active{
-    background:white;
+    background:#fff;
     color:#062d40;
-    border-color:white;
+    border-color:#fff;
     font-weight:bold;
 }
 
 /* =========================
-   FIXED SIDE ACTIONS
+   ACTIONS
 ========================= */
 
 .fixedActions{
     position:absolute;
-
     z-index:52;
-
     left:12px;
-
-    bottom:
-        calc(
-            82px
-            + env(safe-area-inset-bottom)
-        );
-
+    bottom:calc(82px + env(safe-area-inset-bottom));
     display:flex;
     flex-direction:column;
     align-items:center;
-
     gap:13px;
 }
 
@@ -450,211 +381,336 @@ button{
     display:flex;
     flex-direction:column;
     align-items:center;
-
     gap:4px;
-
-    color:white;
-
+    color:#fff;
     font-size:8px;
 }
 
 .actionButton{
     width:46px;
     height:46px;
-
     border-radius:50%;
-
     display:grid;
     place-items:center;
-
     border:1px solid rgba(255,255,255,.17);
-
-    color:white;
-
-    background:
-        rgba(4,17,23,.50);
-
+    color:#fff;
+    background:rgba(4,17,23,.50);
     backdrop-filter:blur(12px);
     -webkit-backdrop-filter:blur(12px);
-
     transition:.15s;
 }
 
 .actionButton:active{
-    transform:scale(.88);
+    transform:scale(.87);
 }
 
 .actionButton svg{
     width:21px;
     height:21px;
-
     fill:none;
     stroke:currentColor;
-
     stroke-width:1.9;
     stroke-linecap:round;
     stroke-linejoin:round;
 }
 
 .actionItem.active .actionButton{
-    background:white;
+    background:#fff;
     color:var(--primary-dark);
 }
 
 /* =========================
-   FIXED BOTTOM NAV
-========================= */
-
-.fixedBottomNav{
-    position:absolute;
-
-    z-index:55;
-
-    right:0;
-    left:0;
-    bottom:0;
-
-    height:
-        calc(
-            64px
-            + env(safe-area-inset-bottom)
-        );
-
-    padding-bottom:
-        env(safe-area-inset-bottom);
-
-    display:grid;
-    grid-template-columns:repeat(5,1fr);
-
-    background:
-        linear-gradient(
-            transparent,
-            rgba(0,0,0,.92)
-        );
-}
-
-.navItem{
-    border:0;
-
-    background:none;
-
-    color:#cbd9de;
-
-    text-decoration:none;
-
-    display:flex;
-    flex-direction:column;
-
-    align-items:center;
-    justify-content:center;
-
-    gap:3px;
-
-    font-size:8px;
-}
-
-.navItem svg{
-    width:20px;
-    height:20px;
-
-    fill:none;
-    stroke:currentColor;
-
-    stroke-width:1.8;
-    stroke-linecap:round;
-    stroke-linejoin:round;
-}
-
-.navItem.active{
-    color:white;
-    font-weight:bold;
-}
-
-/* =========================
-   VIDEO PROGRESS
+   PROGRESS
 ========================= */
 
 .videoProgress{
     position:absolute;
-
     z-index:48;
-
     right:0;
     left:0;
-
-    bottom:
-        calc(
-            64px
-            + env(safe-area-inset-bottom)
-        );
-
+    bottom:calc(64px + env(safe-area-inset-bottom));
     height:2px;
-
-    background:
-        rgba(255,255,255,.16);
-
+    background:rgba(255,255,255,.16);
     pointer-events:none;
 }
 
 .videoProgressFill{
     width:0;
     height:100%;
-
     background:#fff;
 }
 
 /* =========================
-   PLAY INDICATOR
+   BOTTOM NAV
 ========================= */
 
-.playIndicator{
+.fixedBottomNav{
     position:absolute;
+    z-index:55;
+    right:0;
+    left:0;
+    bottom:0;
+    height:calc(64px + env(safe-area-inset-bottom));
+    padding-bottom:env(safe-area-inset-bottom);
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    background:linear-gradient(transparent,rgba(0,0,0,.94));
+}
 
-    z-index:40;
+.navItem{
+    border:0;
+    background:none;
+    color:#cbd9de;
+    text-decoration:none;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:3px;
+    font-size:8px;
+}
 
-    top:50%;
-    left:50%;
+.navItem svg{
+    width:20px;
+    height:20px;
+    fill:none;
+    stroke:currentColor;
+    stroke-width:1.8;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+}
 
-    width:72px;
-    height:72px;
+.navItem.active{
+    color:#fff;
+    font-weight:bold;
+}
 
-    border-radius:50%;
+/* =========================
+   SEARCH
+========================= */
 
-    transform:
-        translate(-50%,-50%)
-        scale(.85);
+.searchOverlay{
+    position:absolute;
+    z-index:500;
+    inset:0;
+    display:none;
+    color:#fff;
+    background:#071218;
+}
 
+.searchOverlay.show{
+    display:block;
+}
+
+.searchTop{
+    padding:calc(env(safe-area-inset-top) + 12px) 14px 12px;
+    display:flex;
+    align-items:center;
+    gap:9px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.searchClose{
+    width:42px;
+    height:42px;
+    flex:none;
+    border:0;
+    border-radius:13px;
     display:grid;
     place-items:center;
+    color:#fff;
+    background:rgba(255,255,255,.08);
+}
 
-    background:rgba(0,0,0,.44);
+.searchClose svg{
+    width:21px;
+    height:21px;
+    fill:none;
+    stroke:currentColor;
+    stroke-width:2;
+}
 
-    color:white;
+.searchInputBox{
+    height:44px;
+    flex:1;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:0 13px;
+    border-radius:14px;
+    background:rgba(255,255,255,.09);
+    border:1px solid rgba(255,255,255,.08);
+}
 
-    backdrop-filter:blur(10px);
-    -webkit-backdrop-filter:blur(10px);
+.searchInputBox svg{
+    width:19px;
+    height:19px;
+    fill:none;
+    stroke:#a9c0ca;
+    stroke-width:2;
+}
 
+.searchInputBox input{
+    width:100%;
+    border:0;
+    outline:0;
+    color:#fff;
+    background:transparent;
+    font-size:13px;
+    -webkit-user-select:text;
+    user-select:text;
+}
+
+.searchInputBox input::placeholder{
+    color:#8299a3;
+}
+
+.searchResults{
+    height:calc(100% - 70px - env(safe-area-inset-top));
+    overflow-y:auto;
+    padding:14px;
+}
+
+.searchStart{
+    min-height:65vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:#91a8b2;
+}
+
+.searchStart svg{
+    width:45px;
+    height:45px;
+    margin-bottom:14px;
+    fill:none;
+    stroke:#668692;
+    stroke-width:1.4;
+}
+
+.searchStart h3{
+    color:#fff;
+    margin-bottom:6px;
+}
+
+.searchStart p{
+    font-size:11px;
+}
+
+.searchResult{
+    width:100%;
+    margin-bottom:9px;
+    padding:11px;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:15px;
+    display:flex;
+    align-items:center;
+    gap:11px;
+    color:#fff;
+    text-align:right;
+    background:rgba(255,255,255,.055);
+}
+
+.searchResultIcon{
+    width:48px;
+    height:58px;
+    flex:none;
+    border-radius:11px;
+    display:grid;
+    place-items:center;
+    background:linear-gradient(135deg,var(--primary-dark),var(--primary));
+}
+
+.searchResultIcon svg{
+    width:21px;
+    height:21px;
+    fill:none;
+    stroke:#fff;
+    stroke-width:1.8;
+}
+
+.searchResultContent{
+    flex:1;
+    min-width:0;
+}
+
+.searchResultTitle{
+    margin-bottom:5px;
+    font-size:12px;
+    font-weight:bold;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.searchResultPublisher{
+    display:flex;
+    align-items:center;
+    gap:4px;
+    color:#9db2bb;
+    font-size:9px;
+}
+
+.searchVerified{
+    width:14px;
+    height:14px;
+    display:inline-flex;
+}
+
+.searchVerified svg{
+    width:14px;
+    height:14px;
+}
+
+.searchVerified .verifyShape{
+    fill:#1da1f2;
+}
+
+.searchVerified .verifyCheck{
+    fill:none;
+    stroke:#fff;
+    stroke-width:2.2;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+}
+
+.noSearchResults{
+    padding:80px 20px;
+    text-align:center;
+    color:#9eb1b9;
+    font-size:12px;
+}
+
+
+/* =========================
+   SOUND
+========================= */
+
+.soundNotice{
+    position:absolute;
+    z-index:80;
+    top:calc(env(safe-area-inset-top) + 116px);
+    left:50%;
+    transform:translate(-50%,-10px);
+    width:max-content;
+    max-width:calc(100% - 30px);
+    padding:9px 13px;
+    border-radius:999px;
+    color:#fff;
+    background:rgba(5,18,24,.75);
+    border:1px solid rgba(255,255,255,.15);
+    backdrop-filter:blur(12px);
+    font-size:10px;
     opacity:0;
-
     pointer-events:none;
-
-    transition:.18s;
+    transition:.2s;
 }
 
-.playIndicator.show{
+.soundNotice.show{
     opacity:1;
-
-    transform:
-        translate(-50%,-50%)
-        scale(1);
-}
-
-.playIndicator svg{
-    width:28px;
-    height:28px;
-
-    stroke:white;
-    fill:white;
+    transform:translate(-50%,0);
 }
 
 /* =========================
@@ -664,21 +720,11 @@ button{
 .loadingScreen{
     position:absolute;
     inset:0;
-
     z-index:100;
-
     display:grid;
     place-items:center;
-
-    color:white;
-
-    background:
-        radial-gradient(
-            circle at top,
-            #133d4d,
-            #050d11 70%
-        );
-
+    color:#fff;
+    background:radial-gradient(circle at top,#133d4d,#050d11 70%);
     transition:.25s;
 }
 
@@ -694,25 +740,14 @@ button{
 .loaderLogo{
     width:67px;
     height:67px;
-
     margin:0 auto 15px;
-
     border-radius:22px;
-
     display:grid;
     place-items:center;
-
-    color:white;
-
+    color:#fff;
     font-size:27px;
     font-weight:900;
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--primary-dark),
-            var(--primary)
-        );
+    background:linear-gradient(135deg,var(--primary-dark),var(--primary));
 }
 
 .loaderText{
@@ -721,58 +756,38 @@ button{
 }
 
 /* =========================
-   ERROR / EMPTY
+   MESSAGE
 ========================= */
 
 .messagePage{
     position:absolute;
     inset:0;
-
     z-index:15;
-
     display:grid;
     place-items:center;
-
     padding:30px;
-
-    color:white;
-
+    color:#fff;
     text-align:center;
-
-    background:
-        radial-gradient(
-            circle at top,
-            #12394a,
-            #050d11 68%
-        );
+    background:radial-gradient(circle at top,#12394a,#050d11 68%);
 }
 
 .messagePage h2{
     margin-bottom:8px;
-    font-size:20px;
 }
 
 .messagePage p{
-    max-width:330px;
-
     font-size:11px;
     line-height:1.8;
-
     color:#bfd3db;
 }
 
 .retryButton{
     margin-top:15px;
-
     padding:10px 18px;
-
     border:0;
     border-radius:12px;
-
     color:#063045;
-
-    background:white;
-
+    background:#fff;
     font-weight:bold;
 }
 
@@ -782,20 +797,13 @@ button{
 
 .modal{
     position:fixed;
-
     z-index:1000;
-
     inset:0;
-
     display:none;
     align-items:flex-end;
     justify-content:center;
-
     padding:14px;
-
-    background:
-        rgba(0,0,0,.62);
-
+    background:rgba(0,0,0,.62);
     backdrop-filter:blur(5px);
 }
 
@@ -805,24 +813,17 @@ button{
 
 .modalCard{
     width:min(480px,100%);
-
     padding:20px;
-
     border-radius:23px;
-
-    background:white;
-
+    background:#fff;
     color:#15323d;
 }
 
 .modalHandle{
     width:43px;
     height:4px;
-
     margin:0 auto 16px;
-
     border-radius:999px;
-
     background:#dce4e7;
 }
 
@@ -832,14 +833,12 @@ button{
 
 .modalCard p{
     color:#71848c;
-
     font-size:11px;
     line-height:1.8;
 }
 
 .modalButtons{
     margin-top:17px;
-
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:8px;
@@ -847,18 +846,14 @@ button{
 
 .modalButton{
     padding:11px;
-
     border-radius:12px;
-
     border:1px solid #dfeaec;
-
     color:#193640;
-
     background:#f7fbfc;
 }
 
 .modalPrimary{
-    color:white;
+    color:#fff;
     background:var(--primary-dark);
     border-color:var(--primary-dark);
 }
@@ -869,42 +864,20 @@ button{
 
 .toast{
     position:fixed;
-
     z-index:2000;
-
-    top:
-        calc(
-            env(safe-area-inset-top)
-            + 72px
-        );
-
+    top:calc(env(safe-area-inset-top) + 72px);
     left:50%;
-
-    transform:
-        translate(-50%,-15px);
-
-    max-width:
-        calc(100% - 30px);
-
+    transform:translate(-50%,-15px);
+    max-width:calc(100% - 30px);
     padding:10px 15px;
-
     border-radius:999px;
-
     color:#073248;
-
-    background:white;
-
-    box-shadow:
-        0 10px 35px
-        rgba(0,0,0,.25);
-
+    background:#fff;
+    box-shadow:0 10px 35px rgba(0,0,0,.25);
     font-size:10px;
     font-weight:bold;
-
     opacity:0;
-
     pointer-events:none;
-
     transition:.2s;
 }
 
@@ -913,20 +886,7 @@ button{
     transform:translate(-50%,0);
 }
 
-/* =========================
-   MOBILE SMALL HEIGHT
-========================= */
-
 @media(max-height:680px){
-
-    .fixedCategories{
-        top:
-            calc(
-                env(safe-area-inset-top)
-                + 53px
-            );
-    }
-
     .fixedActions{
         gap:8px;
     }
@@ -941,12 +901,7 @@ button{
     }
 }
 
-/* =========================
-   DESKTOP
-========================= */
-
 @media(min-width:700px){
-
     body{
         background:#061319;
     }
@@ -954,12 +909,8 @@ button{
     .app{
         width:500px;
         max-width:100%;
-
         margin:auto;
-
-        box-shadow:
-            0 0 90px
-            rgba(0,0,0,.85);
+        box-shadow:0 0 90px rgba(0,0,0,.85);
     }
 }
 </style>
@@ -969,39 +920,26 @@ button{
 
 <div class="app" id="app">
 
-    <!-- الفيديوهات فقط تتحرك -->
-    <main
-        class="feed"
-        id="feed">
-    </main>
+    <main class="feed" id="feed"></main>
 
-
-    <!-- الهيدر ثابت -->
+    <!-- العناصر العلوية ثابتة -->
     <header class="fixedHeader">
 
         <div class="brand">
-
-            <div class="brandLogo">
-                ز
-            </div>
-
-            <span>
-                زاد
-            </span>
-
+            <div class="brandLogo">ز</div>
+            <span>زاد</span>
         </div>
-
 
         <div class="fixedHeaderActions">
 
             <button
                 class="glassButton"
-                aria-label="تحديث"
-                onclick="loadVideos(true)">
+                aria-label="بحث"
+                onclick="openSearch()">
 
                 <svg viewBox="0 0 24 24">
-                    <path d="M20 11a8 8 0 1 0-2.3 5.7"/>
-                    <path d="M20 4v7h-7"/>
+                    <circle cx="11" cy="11" r="7"/>
+                    <path d="m20 20-4-4"/>
                 </svg>
 
             </button>
@@ -1010,20 +948,15 @@ button{
 
     </header>
 
-
-    <!-- التصنيفات ثابتة -->
     <div
         class="fixedCategories"
         id="categories">
     </div>
 
-
-    <!-- أزرار الجانب ثابتة -->
+    <!-- الأزرار ثابتة -->
     <aside class="fixedActions">
 
-        <div
-            class="actionItem"
-            id="likeAction">
+        <div class="actionItem" id="likeAction">
 
             <button
                 class="actionButton"
@@ -1035,16 +968,11 @@ button{
 
             </button>
 
-            <span>
-                إعجاب
-            </span>
+            <span>إعجاب</span>
 
         </div>
 
-
-        <div
-            class="actionItem"
-            id="saveAction">
+        <div class="actionItem" id="saveAction">
 
             <button
                 class="actionButton"
@@ -1056,12 +984,16 @@ button{
 
             </button>
 
-            <span>
-                حفظ
-            </span>
+            <span>حفظ</span>
 
         </div>
 
+        <div class="actionItem" id="downloadAction">
+            <button class="actionButton" id="downloadButton" onclick="downloadCurrentVideo()" aria-label="تنزيل بدون شبكة">
+                <svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+            </button>
+            <span class="downloadState" id="downloadLabel">تنزيل</span>
+        </div>
 
         <div class="actionItem">
 
@@ -1079,12 +1011,9 @@ button{
 
             </button>
 
-            <span>
-                مشاركة
-            </span>
+            <span>مشاركة</span>
 
         </div>
-
 
         <div class="actionItem">
 
@@ -1101,12 +1030,9 @@ button{
 
             </button>
 
-            <span>
-                الصوت
-            </span>
+            <span>الصوت</span>
 
         </div>
-
 
         <div class="actionItem">
 
@@ -1121,32 +1047,22 @@ button{
 
             </button>
 
-            <span>
-                المصدر
-            </span>
+            <span>المصدر</span>
 
         </div>
 
     </aside>
 
-
-    <!-- مؤشر التقدم ثابت -->
     <div class="videoProgress">
-
         <div
             class="videoProgressFill"
             id="progressFill">
         </div>
-
     </div>
 
-
-    <!-- الشريط السفلي ثابت -->
     <nav class="fixedBottomNav">
 
-        <a
-            href="index.html"
-            class="navItem">
+        <a href="index.html" class="navItem">
 
             <svg viewBox="0 0 24 24">
                 <path d="M3 10.5 12 3l9 7.5"/>
@@ -1154,27 +1070,20 @@ button{
                 <path d="M9 21v-7h6v7"/>
             </svg>
 
-            <span>
-                الرئيسية
-            </span>
+            <span>الرئيسية</span>
 
         </a>
 
-
-        <button
-            class="navItem active">
+        <button class="navItem active">
 
             <svg viewBox="0 0 24 24">
                 <rect x="4" y="3" width="16" height="18" rx="4"/>
                 <path d="m10 9 5 3-5 3Z"/>
             </svg>
 
-            <span>
-                المقاطع
-            </span>
+            <span>المقاطع</span>
 
         </button>
-
 
         <button
             class="navItem"
@@ -1185,12 +1094,9 @@ button{
                 <path d="M20 5.5A3.5 3.5 0 0 0 16.5 2H13v17h3.5A3.5 3.5 0 0 1 20 22Z"/>
             </svg>
 
-            <span>
-                القرآن
-            </span>
+            <span>القرآن</span>
 
         </button>
-
 
         <button
             class="navItem"
@@ -1201,44 +1107,71 @@ button{
                 <path d="M12 7v5l3 2"/>
             </svg>
 
-            <span>
-                الأذكار
-            </span>
+            <span>الأذكار</span>
 
         </button>
 
-
-        <button
-            class="navItem"
-            onclick="showToast('قسم حسابي قريبًا')">
+        <a href="account.html" class="navItem">
 
             <svg viewBox="0 0 24 24">
                 <circle cx="12" cy="8" r="4"/>
                 <path d="M4 21a8 8 0 0 1 16 0"/>
             </svg>
 
-            <span>
-                حسابي
-            </span>
+            <span>حسابي</span>
 
-        </button>
+        </a>
 
     </nav>
 
-
-    <!-- أيقونة تشغيل/إيقاف -->
     <div
-        class="playIndicator"
-        id="playIndicator">
+        class="soundNotice"
+        id="soundNotice">
+        🔊 المس الشاشة لتشغيل الصوت
+    </div>
 
-        <svg viewBox="0 0 24 24">
-            <path d="m8 5 11 7-11 7Z"/>
-        </svg>
+    <!-- البحث -->
+    <div
+        class="searchOverlay"
+        id="searchOverlay">
+
+        <div class="searchTop">
+
+            <button
+                class="searchClose"
+                onclick="closeSearch()">
+
+                <svg viewBox="0 0 24 24">
+                    <path d="m15 18-6-6 6-6"/>
+                </svg>
+
+            </button>
+
+            <div class="searchInputBox">
+
+                <svg viewBox="0 0 24 24">
+                    <circle cx="11" cy="11" r="7"/>
+                    <path d="m20 20-4-4"/>
+                </svg>
+
+                <input
+                    id="searchInput"
+                    type="search"
+                    placeholder="ابحث في المقاطع..."
+                    autocomplete="off"
+                    oninput="searchVideos(this.value)">
+
+            </div>
+
+        </div>
+
+        <div
+            class="searchResults"
+            id="searchResults">
+        </div>
 
     </div>
 
-
-    <!-- التحميل -->
     <div
         class="loadingScreen"
         id="loadingScreen">
@@ -1259,7 +1192,6 @@ button{
 
 </div>
 
-
 <!-- المصدر -->
 
 <div
@@ -1271,9 +1203,7 @@ button{
 
         <div class="modalHandle"></div>
 
-        <h3>
-            مصدر المقطع
-        </h3>
+        <h3>مصدر المقطع</h3>
 
         <p id="sourceText">
             لا يوجد مصدر مضاف.
@@ -1284,18 +1214,14 @@ button{
             <button
                 class="modalButton"
                 onclick="closeSource()">
-
                 إغلاق
-
             </button>
 
             <button
                 class="modalButton modalPrimary"
                 id="sourceOpenButton"
                 onclick="openSource()">
-
                 فتح المصدر
-
             </button>
 
         </div>
@@ -1304,171 +1230,162 @@ button{
 
 </div>
 
-
 <div
     class="toast"
     id="toast">
 </div>
 
-
 <script>
+
+/* =========================
+   OFFLINE DOWNLOADS
+========================= */
+const ZAAD_DB = "zaadOfflineDB";
+const ZAAD_STORE = "videos";
+function openZaadDB(){
+    return new Promise((resolve,reject)=>{
+        const req=indexedDB.open(ZAAD_DB,1);
+        req.onupgradeneeded=()=>{ if(!req.result.objectStoreNames.contains(ZAAD_STORE)) req.result.createObjectStore(ZAAD_STORE,{keyPath:"id"}); };
+        req.onsuccess=()=>resolve(req.result); req.onerror=()=>reject(req.error);
+    });
+}
+async function offlineHas(id){
+    try{ const db=await openZaadDB(); return await new Promise(r=>{ const q=db.transaction(ZAAD_STORE,"readonly").objectStore(ZAAD_STORE).get(id); q.onsuccess=()=>r(!!q.result); q.onerror=()=>r(false); }); }catch(e){ return false; }
+}
+async function updateDownloadState(){
+    const item=currentItem(), action=document.getElementById("downloadAction"), label=document.getElementById("downloadLabel");
+    if(!item||!action||!label) return;
+    const yes=await offlineHas(item.id);
+    action.classList.toggle("active",yes); label.textContent=yes?"بدون شبكة":"تنزيل";
+}
+async function downloadCurrentVideo(){
+    const item=currentItem(); if(!item) return;
+    if(await offlineHas(item.id)){ showToast("المقطع محفوظ بدون شبكة"); return; }
+    const label=document.getElementById("downloadLabel"), btn=document.getElementById("downloadButton");
+    label.textContent="جاري..."; btn.disabled=true;
+    try{
+        const res=await fetch(item.video,{mode:"cors"});
+        if(!res.ok) throw new Error("HTTP "+res.status);
+        const blob=await res.blob();
+        if(!blob.size) throw new Error("EMPTY");
+        const db=await openZaadDB();
+        await new Promise((resolve,reject)=>{ const tx=db.transaction(ZAAD_STORE,"readwrite"); tx.objectStore(ZAAD_STORE).put({...item,blob,downloadedAt:Date.now()}); tx.oncomplete=resolve; tx.onerror=()=>reject(tx.error); });
+        showToast("تم تنزيل المقطع للعمل بدون شبكة");
+    }catch(error){
+        console.error(error); showToast("تعذر التنزيل؛ استخدم رابط MP4 مباشر يسمح بالتنزيل");
+    }finally{ btn.disabled=false; updateDownloadState(); }
+}
+
+
+
 
 /* =====================================================
    GOOGLE SHEETS
 
-   الأعمدة المتوقعة:
+   A = العنوان
+   B = الوصف
+   C = التصنيف
+   D = رابط الفيديو
+   E = الناشر
+   F = المصدر
+   G = رابط المصدر
+   H = الحالة
+   I = موثق
+   J = صورة الحساب
 
-   A العنوان
-   B الوصف
-   C التصنيف
-   D رابط الفيديو
-   E الناشر
-   F المصدر
-   G رابط المصدر
-   H الحالة
-
-   H:
-   yes = يظهر
-   no  = مخفي
+   مثال I:
+   yes
+   نعم
+   موثق
 ===================================================== */
 
 const SHEET_URL =
-    "https://docs.google.com/spreadsheets/d/e/2PACX-1vSx1Vn6B_mZ9qnQe7gJxqJAEhFrmYKQP8YG4VGOmKhR_Be7v8FzVFNLnQKp2XsF3AtG_r_gd9OhxFca/pub?gid=0&single=true&output=csv";
-
-
-/* =====================================================
-   DATA
-===================================================== */
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vSx1Vn6B_mZ9qnQe7gJxqJAEhFrmYKQP8YG4VGOmKhR_Be7v8FzVFNLnQKp2XsF3AtG_r_gd9OhxFca/pub?gid=0&single=true&output=csv";
 
 let allVideos = [];
-
 let visibleVideos = [];
 
 let currentIndex = 0;
-
 let currentCategory = "all";
 
 let moving = false;
 
 let soundMuted = false;
+let waitingForSoundInteraction = false;
 
-let liked = readStorageArray(
-    "zaadLikes"
-);
+let liked = readStorageArray("zaadLikes");
+let saved = readStorageArray("zaadSaved");
 
-let saved = readStorageArray(
-    "zaadSaved"
-);
-
-
-/* =====================================================
+/* =========================
    HEIGHT
-===================================================== */
+========================= */
 
 function setAppHeight(){
 
     const height =
         window.visualViewport
-        ?
-        window.visualViewport.height
-        :
-        window.innerHeight;
+        ? window.visualViewport.height
+        : window.innerHeight;
 
-
-    document
-        .documentElement
-        .style
-        .setProperty(
-            "--app-height",
-            Math.round(height) + "px"
-        );
+    document.documentElement.style.setProperty(
+        "--app-height",
+        Math.round(height) + "px"
+    );
 }
 
 setAppHeight();
 
-window.addEventListener(
-    "resize",
-    setAppHeight
-);
+window.addEventListener("resize",setAppHeight);
 
 if(window.visualViewport){
-
     window.visualViewport.addEventListener(
         "resize",
         setAppHeight
     );
 }
 
+/* =========================
+   LOAD
+========================= */
 
-/* =====================================================
-   LOAD SHEET
-===================================================== */
-
-async function loadVideos(
-    manual=false
-){
+async function loadVideos(){
 
     showLoading(true);
 
+    pauseAll();
 
     try{
 
-        /*
-            cache bust حتى تظهر تعديلات
-            Google Sheets الجديدة بسرعة أكبر
-        */
-
-        const url =
-            SHEET_URL +
-            "&t=" +
-            Date.now();
-
-
         const response =
             await fetch(
-                url,
+                SHEET_URL + "&_=" + Date.now(),
                 {
                     cache:"no-store"
                 }
             );
 
-
         if(!response.ok){
-
             throw new Error(
-                "HTTP " +
-                response.status
+                "HTTP " + response.status
             );
-
         }
-
 
         const text =
             await response.text();
 
-
         const rows =
             parseCSV(text);
 
-
-        if(!rows.length){
-
-            throw new Error(
-                "EMPTY"
-            );
-
+        if(rows.length < 2){
+            throw new Error("EMPTY");
         }
 
-
         allVideos =
-            convertRowsToVideos(
-                rows
-            );
+            convertRowsToVideos(rows);
 
+        try{ localStorage.setItem("zaadVideoCatalog", JSON.stringify(allVideos)); }catch(error){}
 
-        if(
-            !allVideos.length
-        ){
+        if(!allVideos.length){
 
             renderMessage(
                 "لا توجد مقاطع",
@@ -1480,44 +1397,30 @@ async function loadVideos(
             return;
         }
 
-
         currentIndex = 0;
+        currentCategory = "all";
 
         renderCategories();
 
         applyCategory();
-
-
-        if(manual){
-
-            showToast(
-                "تم تحديث المقاطع"
-            );
-        }
 
     }
     catch(error){
 
         console.error(error);
 
-
         renderMessage(
             "تعذر تحميل المقاطع",
-            "تأكد أن جدول Google Sheets منشور للعامة وأن روابط الفيديو مباشرة."
+            "تأكد من نشر Google Sheets وأن روابط الفيديو تعمل مباشرة."
         );
-
     }
-
 
     showLoading(false);
 }
 
-
-/* =====================================================
-   CSV PARSER
-
-   يدعم الفواصل والاقتباسات
-===================================================== */
+/* =========================
+   CSV
+========================= */
 
 function parseCSV(text){
 
@@ -1525,142 +1428,93 @@ function parseCSV(text){
 
     let row = [];
     let value = "";
+    let quoted = false;
 
-    let insideQuotes = false;
+    for(let i=0;i<text.length;i++){
 
-
-    for(
-        let i = 0;
-        i < text.length;
-        i++
-    ){
-
-        const char =
-            text[i];
-
-
-        const next =
-            text[i + 1];
-
+        const char = text[i];
+        const next = text[i+1];
 
         if(char === '"'){
 
             if(
-                insideQuotes &&
+                quoted &&
                 next === '"'
             ){
-
                 value += '"';
-
                 i++;
-
             }
             else{
-
-                insideQuotes =
-                    !insideQuotes;
-
+                quoted = !quoted;
             }
 
         }
         else if(
             char === "," &&
-            !insideQuotes
+            !quoted
         ){
 
             row.push(value);
-
             value = "";
 
         }
         else if(
-            (
-                char === "\n" ||
-                char === "\r"
-            )
+            (char === "\n" || char === "\r")
             &&
-            !insideQuotes
+            !quoted
         ){
 
             if(
                 char === "\r" &&
                 next === "\n"
             ){
-
                 i++;
             }
 
-
             row.push(value);
-
             value = "";
-
 
             if(
                 row.some(
-                    item =>
-                        String(item)
-                            .trim() !== ""
+                    cell =>
+                        String(cell).trim() !== ""
                 )
             ){
-
                 rows.push(row);
             }
-
 
             row = [];
 
         }
         else{
-
             value += char;
         }
     }
 
-
     row.push(value);
-
 
     if(
         row.some(
-            item =>
-                String(item)
-                    .trim() !== ""
+            cell =>
+                String(cell).trim() !== ""
         )
     ){
-
         rows.push(row);
     }
-
 
     return rows;
 }
 
+/* =========================
+   SHEET -> VIDEOS
+========================= */
 
-/* =====================================================
-   CONVERT ROWS
-===================================================== */
-
-function convertRowsToVideos(
-    rows
-){
-
-    /*
-       أول صف عناوين
-    */
-
-    const data =
-        rows.slice(1);
-
+function convertRowsToVideos(rows){
 
     const result = [];
 
-
-    data.forEach(
-        (
-            row,
-            index
-        )=>{
+    rows.slice(1).forEach(
+        (row,index)=>{
 
             const title =
                 clean(row[0]);
@@ -1668,15 +1522,14 @@ function convertRowsToVideos(
             const description =
                 clean(row[1]);
 
-            const category =
+            const categoryText =
                 clean(row[2]);
 
             const videoURL =
                 clean(row[3]);
 
             const publisher =
-                clean(row[4]) ||
-                "زاد";
+                clean(row[4]) || "زاد";
 
             const source =
                 clean(row[5]);
@@ -1686,12 +1539,24 @@ function convertRowsToVideos(
 
             const status =
                 clean(row[7])
-                    .toLowerCase();
-
+                .toLowerCase();
 
             /*
-                نخفي no / false / 0
+               العمود I
             */
+
+            const verifiedValue =
+                clean(row[8])
+                .toLowerCase();
+
+            const isVerified =
+                verifiedValue === "yes" ||
+                verifiedValue === "true" ||
+                verifiedValue === "1" ||
+                verifiedValue === "نعم" ||
+                verifiedValue === "موثق";
+
+            const avatar = clean(row[9]);
 
             if(
                 status === "no" ||
@@ -1699,131 +1564,96 @@ function convertRowsToVideos(
                 status === "0" ||
                 status === "مخفي"
             ){
-
                 return;
             }
-
 
             if(
                 !title ||
                 !videoURL
             ){
-
                 return;
             }
 
-
             result.push({
 
-                id:
-                    "sheet_" +
-                    index,
+                id:"sheet-" + index,
 
-                title:
-                    title,
-
-                description:
-                    description,
+                title,
+                description,
 
                 category:
                     normalizeCategory(
-                        category
+                        categoryText
                     ),
 
                 categoryLabel:
-                    category ||
-                    "محتوى",
+                    categoryText || "محتوى",
 
                 video:
                     normalizeVideoURL(
                         videoURL
                     ),
 
-                publisher:
-                    publisher,
+                publisher,
 
-                source:
-                    source,
+                source,
 
-                sourceURL:
-                    sourceURL
+                sourceURL,
+
+                verified:
+                    isVerified,
+
+                avatar: safeMediaURL(avatar)
             });
 
         }
     );
 
-
     return result;
 }
 
+/* =========================
+   DRIVE URL
+========================= */
 
-/* =====================================================
-   GOOGLE DRIVE VIDEO URL SUPPORT
+function normalizeVideoURL(url){
 
-   إذا وضعت رابط مشاركة Google Drive
-   يحاول تحويله إلى رابط مباشر.
-===================================================== */
+    url =
+        String(url || "")
+        .trim();
 
-function normalizeVideoURL(
-    url
-){
-
-    url = url.trim();
-
-
-    /*
-       مثال:
-       https://drive.google.com/file/d/FILE_ID/view
-    */
-
-    const driveMatch =
+    const match =
         url.match(
             /drive\.google\.com\/file\/d\/([^/]+)/i
         );
 
-
-    if(driveMatch){
-
-        const fileId =
-            driveMatch[1];
-
+    if(match){
 
         return (
-            "https://drive.google.com/uc?export=download&id=" +
-            encodeURIComponent(
-                fileId
-            )
+            "https://drive.google.com/uc?export=download&id="
+            +
+            encodeURIComponent(match[1])
         );
     }
-
-
-    /*
-       ?id=...
-    */
 
     try{
 
         const parsed =
             new URL(url);
 
-
         if(
-            parsed.hostname
-                .includes(
-                    "drive.google.com"
-                )
-            &&
-            parsed.searchParams.get(
-                "id"
+            parsed.hostname.includes(
+                "drive.google.com"
             )
+            &&
+            parsed.searchParams.get("id")
         ){
 
             return (
-                "https://drive.google.com/uc?export=download&id=" +
+                "https://drive.google.com/uc?export=download&id="
+                +
                 encodeURIComponent(
-                    parsed.searchParams.get(
-                        "id"
-                    )
+                    parsed.searchParams.get("id")
                 )
             );
         }
@@ -1831,121 +1661,80 @@ function normalizeVideoURL(
     }
     catch(error){}
 
-
     return url;
 }
 
+/* =========================
+   CATEGORY
+========================= */
 
-/* =====================================================
-   CATEGORIES
-===================================================== */
-
-function normalizeCategory(
-    value
-){
+function normalizeCategory(value){
 
     const text =
         String(value || "")
-            .trim()
-            .toLowerCase();
-
+        .trim()
+        .toLowerCase();
 
     if(
         text.includes("قرآن") ||
         text.includes("القران") ||
         text === "quran"
     ){
-
         return "quran";
     }
-
 
     if(
         text.includes("سنة") ||
         text.includes("حديث") ||
         text === "hadith"
     ){
-
         return "hadith";
     }
 
-
     if(
-        text.includes("ذكر") ||
         text.includes("أذكار") ||
-        text.includes("اذكار")
+        text.includes("اذكار") ||
+        text.includes("ذكر")
     ){
-
         return "adhkar";
     }
 
-
-    if(
-        text.includes("سيرة")
-    ){
-
+    if(text.includes("سيرة")){
         return "seerah";
     }
 
-
     if(
-        text.includes("قصة") ||
-        text.includes("قصص")
+        text.includes("قصص") ||
+        text.includes("قصة")
     ){
-
         return "stories";
     }
-
 
     if(
         text.includes("تعلم") ||
         text.includes("تعلّم")
     ){
-
         return "learning";
     }
-
 
     return "reminders";
 }
 
-
-function categoryLabel(
-    category
-){
+function categoryLabel(category){
 
     const labels = {
-
-        all:
-            "لك",
-
-        quran:
-            "القرآن",
-
-        hadith:
-            "السنة",
-
-        adhkar:
-            "الأذكار",
-
-        seerah:
-            "السيرة",
-
-        reminders:
-            "تذكير",
-
-        stories:
-            "قصص",
-
-        learning:
-            "تعلّم"
+        all:"لك",
+        quran:"القرآن",
+        hadith:"السنة",
+        adhkar:"الأذكار",
+        seerah:"السيرة",
+        reminders:"تذكير",
+        stories:"قصص",
+        learning:"تعلّم"
     };
 
-
-    return labels[category]
-        || category;
+    return labels[category] || category;
 }
-
 
 function renderCategories(){
 
@@ -1954,98 +1743,59 @@ function renderCategories(){
             "categories"
         );
 
-
     const found =
         new Set();
 
-
     allVideos.forEach(
-        item =>{
-
-            found.add(
-                item.category
-            );
-
-        }
+        item =>
+            found.add(item.category)
     );
 
-
     const categories =
-        [
-            "all",
-            ...found
-        ];
-
+        ["all",...found];
 
     container.innerHTML =
-        categories
-            .map(
-                category =>`
+        categories.map(
+            category => `
 
-        <button
-            class="
-                categoryButton
+            <button
+                class="categoryButton ${
+                    currentCategory === category
+                    ? "active"
+                    : ""
+                }"
+                onclick="changeCategory('${category}')">
+
                 ${
-                    category ===
-                    currentCategory
-                    ?
-                    "active"
-                    :
-                    ""
-                }
-            "
-            onclick="
-                changeCategory(
-                    '${category}'
-                )
-            ">
-
-            ${
-                escapeHTML(
-                    categoryLabel(
-                        category
+                    escapeHTML(
+                        categoryLabel(category)
                     )
-                )
-            }
+                }
 
-        </button>
+            </button>
 
-        `
-            )
-            .join("");
+            `
+        ).join("");
 }
 
-
-function changeCategory(
-    category
-){
-
-    currentCategory =
-        category;
-
-
-    currentIndex =
-        0;
-
+function changeCategory(category){
 
     pauseAll();
 
+    currentCategory = category;
+    currentIndex = 0;
 
     renderCategories();
-
     applyCategory();
 }
 
-
 function applyCategory(){
 
-    if(
-        currentCategory ===
-        "all"
-    ){
+    if(currentCategory === "all"){
 
         visibleVideos =
             [...allVideos];
+
     }
     else{
 
@@ -2057,158 +1807,146 @@ function applyCategory(){
             );
     }
 
-
     renderVideos();
 }
 
+/* =========================
+   VERIFIED HTML
+========================= */
 
-/* =====================================================
-   RENDER VIDEOS
-===================================================== */
+function verifiedHTML(item){
 
-function renderVideos(){
+    if(!item.verified){
+        return "";
+    }
 
-    const feed =
-        document.getElementById(
-            "feed"
-        );
+    return `
 
+    <span
+        class="verifiedBadge"
+        title="حساب موثق"
+        aria-label="حساب موثق">
 
-    if(
-        !visibleVideos.length
-    ){
+        <svg viewBox="0 0 24 24">
 
-        feed.innerHTML = `
+            <path
+                class="verifyShape"
+                d="M12 2.5l2.2 1.7 2.8-.3.9 2.7 2.4 1.5-.9 2.7.9 2.7-2.4 1.5-.9 2.7-2.8-.3-2.2 1.7-2.2-1.7-2.8.3-.9-2.7-2.4-1.5.9-2.7-.9-2.7 2.4-1.5.9-2.7 2.8.3Z"/>
 
-        <div class="messagePage">
+            <path
+                class="verifyCheck"
+                d="m8.7 12 2.1 2.1 4.7-4.8"/>
 
-            <div>
+        </svg>
 
-                <h2>
-                    لا توجد مقاطع
-                </h2>
+    </span>
 
-                <p>
-                    لا توجد مقاطع منشورة في هذا التصنيف حاليًا.
-                </p>
+    `;
+}
+
+function searchVerifiedHTML(item){
+
+    if(!item.verified){
+        return "";
+    }
+
+    return `
+
+    <span
+        class="searchVerified"
+        title="حساب موثق">
+
+        <svg viewBox="0 0 24 24">
+
+            <path
+                class="verifyShape"
+                d="M12 2.5l2.2 1.7 2.8-.3.9 2.7 2.4 1.5-.9 2.7.9 2.7-2.4 1.5-.9 2.7-2.8-.3-2.2 1.7-2.2-1.7-2.8.3-.9-2.7-2.4-1.5.9-2.7-.9-2.7 2.4-1.5.9-2.7 2.8.3Z"/>
+
+            <path
+                class="verifyCheck"
+                d="m8.7 12 2.1 2.1 4.7-4.8"/>
+
+        </svg>
+
+    </span>
+
+    `;
+}
+
+/* =========================
+   VIDEO TEMPLATE
+========================= */
+
+function videoTemplate(
+    item,
+    index
+){
+
+    return `
+
+    <section
+        class="short"
+        data-index="${index}">
+
+        <video
+            src="${safeAttribute(item.video)}"
+            playsinline
+            webkit-playsinline
+            loop
+            preload="${
+                index <= 1
+                ? "auto"
+                : "metadata"
+            }">
+        </video>
+
+        <div class="videoShade"></div>
+
+        <div class="videoContent">
+
+            <div class="publisher">
+
+                <div class="publisherAvatar ${item.avatar ? "hasImage" : ""}">
+                    ${item.avatar ? `<img src="${safeAttribute(item.avatar)}" alt="${safeAttribute(item.publisher)}" loading="lazy" onerror="this.parentElement.classList.remove('hasImage');this.remove();this.parentElement.textContent='ز';">` : "ز"}
+                </div>
+
+                <div class="publisherDetails">
+
+                    <div class="publisherName">
+
+                        <span class="publisherNameText">
+                            ${escapeHTML(item.publisher)}
+                        </span>
+
+                        ${verifiedHTML(item)}
+
+                    </div>
+
+                    <div class="publisherCategory">
+                        ${escapeHTML(item.categoryLabel)}
+                    </div>
+
+                </div>
 
             </div>
 
-        </div>
+            <div class="videoTitle">
+                ${escapeHTML(item.title)}
+            </div>
 
-        `;
-
-
-        updateFixedControls();
-
-        return;
-    }
-
-
-    feed.innerHTML =
-        visibleVideos
-            .map(
-                (
-                    item,
-                    index
-                ) =>`
-
-        <section
-            class="short"
-            data-index="${index}">
-
-            <video
-                src="${safeAttribute(item.video)}"
-                playsinline
-                webkit-playsinline
-                loop
-                preload="${
-                    index <= 1
-                    ?
-                    "auto"
-                    :
-                    "metadata"
-                }">
-            </video>
-
-
-            <div class="videoShade"></div>
-
-
-            <div class="videoContent">
-
-                <div class="publisher">
-
-                    <div class="publisherAvatar">
-                        ز
-                    </div>
-
-
-                    <div>
-
-                        <div class="publisherName">
-
-                            ${
-                                escapeHTML(
-                                    item.publisher
-                                )
-                            }
-
-                        </div>
-
-
-                        <div class="publisherCategory">
-
-                            ${
-                                escapeHTML(
-                                    item.categoryLabel
-                                )
-                            }
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="videoTitle">
-
-                    ${
-                        escapeHTML(
-                            item.title
-                        )
-                    }
-
-                </div>
-
-
-                ${
-                    item.description
-                    ?
-                    `
-
+            ${
+                item.description
+                ? `
                     <div class="videoDescription">
-
-                        ${
-                            escapeHTML(
-                                item.description
-                            )
-                        }
-
+                        ${escapeHTML(item.description)}
                     </div>
+                `
+                : ""
+            }
 
-                    `
-                    :
-                    ""
-                }
-
-
-                ${
-                    item.source
-                    ?
-                    `
-
+            ${
+                item.source
+                ? `
                     <div class="sourceInfo">
 
                         <svg viewBox="0 0 24 24">
@@ -2217,34 +1955,299 @@ function renderVideos(){
                         </svg>
 
                         <span>
+                            ${escapeHTML(item.source)}
+                        </span>
 
-                            ${
-                                escapeHTML(
-                                    item.source
-                                )
-                            }
+                    </div>
+                `
+                : ""
+            }
 
+        </div>
+
+    </section>
+
+    `;
+}
+
+/* =========================
+   RENDER
+========================= */
+
+function renderVideos(){
+
+    const feed =
+        document.getElementById("feed");
+
+    if(!visibleVideos.length){
+
+        feed.innerHTML = `
+
+        <div class="messagePage">
+
+            <div>
+                <h2>لا توجد مقاطع</h2>
+                <p>
+                    لا توجد مقاطع في هذا التصنيف حاليًا.
+                </p>
+            </div>
+
+        </div>
+
+        `;
+
+        return;
+    }
+
+    feed.innerHTML =
+        visibleVideos
+        .map(
+            (item,index) =>
+                videoTemplate(
+                    item,
+                    index
+                )
+        )
+        .join("");
+
+    currentIndex = 0;
+
+    initPositions();
+
+    bindVideoEvents();
+
+    updateFixedControls();
+
+    requestAnimationFrame(
+        ()=>{
+            playCurrentVideo(true);
+        }
+    );
+}
+
+/* =========================
+   SEARCH
+========================= */
+
+function openSearch(){
+
+    pauseAll();
+
+    document
+        .getElementById("searchOverlay")
+        .classList.add("show");
+
+    document
+        .getElementById("searchInput")
+        .value = "";
+
+    resetSearch();
+
+    setTimeout(
+        ()=>{
+            document
+                .getElementById("searchInput")
+                .focus();
+        },
+        100
+    );
+}
+
+function closeSearch(){
+
+    document
+        .getElementById("searchOverlay")
+        .classList.remove("show");
+
+    document
+        .getElementById("searchInput")
+        .blur();
+
+    playCurrentVideo();
+}
+
+function resetSearch(){
+
+    document
+        .getElementById("searchResults")
+        .innerHTML = `
+
+        <div class="searchStart">
+
+            <svg viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="7"/>
+                <path d="m20 20-4-4"/>
+            </svg>
+
+            <h3>
+                البحث في زاد
+            </h3>
+
+            <p>
+                ابحث بالمقطع أو الناشر أو التصنيف.
+            </p>
+
+        </div>
+
+        `;
+}
+
+function normalizeSearchText(value){
+
+    return String(value || "")
+        .trim()
+        .toLowerCase()
+        .replace(/[أإآ]/g,"ا")
+        .replace(/ة/g,"ه")
+        .replace(/ى/g,"ي")
+        .replace(/\s+/g," ");
+}
+
+function searchVideos(value){
+
+    const query =
+        normalizeSearchText(value);
+
+    const container =
+        document.getElementById(
+            "searchResults"
+        );
+
+    if(!query){
+
+        resetSearch();
+        return;
+    }
+
+    const results =
+        allVideos.filter(
+            item =>{
+
+                const searchable =
+                    normalizeSearchText(
+                        [
+                            item.title,
+                            item.description,
+                            item.categoryLabel,
+                            item.publisher,
+                            item.source,
+                            item.verified
+                                ? "موثق حساب موثق"
+                                : ""
+                        ].join(" ")
+                    );
+
+                return searchable.includes(
+                    query
+                );
+            }
+        );
+
+    if(!results.length){
+
+        container.innerHTML = `
+
+        <div class="noSearchResults">
+            لا توجد نتائج مطابقة لبحثك.
+        </div>
+
+        `;
+
+        return;
+    }
+
+    container.innerHTML =
+        results.map(
+            item => `
+
+            <button
+                class="searchResult"
+                onclick="openSearchResult('${safeAttribute(item.id)}')">
+
+                <div class="searchResultIcon">
+
+                    <svg viewBox="0 0 24 24">
+                        <rect
+                            x="4"
+                            y="3"
+                            width="16"
+                            height="18"
+                            rx="4"/>
+
+                        <path d="m10 9 5 3-5 3Z"/>
+                    </svg>
+
+                </div>
+
+                <div class="searchResultContent">
+
+                    <div class="searchResultTitle">
+                        ${escapeHTML(item.title)}
+                    </div>
+
+                    <div class="searchResultPublisher">
+
+                        <span>
+                            ${escapeHTML(item.publisher)}
+                        </span>
+
+                        ${searchVerifiedHTML(item)}
+
+                        <span>
+                            •
+                            ${escapeHTML(item.categoryLabel)}
                         </span>
 
                     </div>
 
-                    `
-                    :
-                    ""
-                }
+                </div>
 
-            </div>
+            </button>
 
-        </section>
+            `
+        ).join("");
+}
 
-        `
-            )
-            .join("");
+function openSearchResult(id){
 
+    const index =
+        allVideos.findIndex(
+            item =>
+                String(item.id) ===
+                String(id)
+        );
 
-    currentIndex =
-        0;
+    if(index === -1){
+        return;
+    }
 
+    pauseAll();
+
+    currentCategory = "all";
+    visibleVideos = [...allVideos];
+
+    document
+        .getElementById("searchOverlay")
+        .classList.remove("show");
+
+    document
+        .getElementById("searchInput")
+        .blur();
+
+    renderCategories();
+
+    const feed =
+        document.getElementById("feed");
+
+    feed.innerHTML =
+        visibleVideos
+        .map(
+            (item,i) =>
+                videoTemplate(item,i)
+        )
+        .join("");
+
+    currentIndex = index;
 
     initPositions();
 
@@ -2255,10 +2258,9 @@ function renderVideos(){
     playCurrentVideo();
 }
 
-
-/* =====================================================
-   CARD POSITIONS
-===================================================== */
+/* =========================
+   CARDS
+========================= */
 
 function getCards(){
 
@@ -2269,18 +2271,10 @@ function getCards(){
     ];
 }
 
-
 function initPositions(){
 
-    const cards =
-        getCards();
-
-
-    cards.forEach(
-        (
-            card,
-            index
-        )=>{
+    getCards().forEach(
+        (card,index)=>{
 
             card.classList.remove(
                 "previous",
@@ -2288,31 +2282,24 @@ function initPositions(){
                 "next"
             );
 
+            card.style.transform = "";
+            card.style.transition = "";
 
-            card.style.transform =
-                "";
-
-            card.style.transition =
-                "";
-
-
-            if(
-                index <
-                currentIndex
-            ){
+            if(index < currentIndex){
 
                 card.classList.add(
                     "previous"
                 );
+
             }
             else if(
-                index ===
-                currentIndex
+                index === currentIndex
             ){
 
                 card.classList.add(
                     "current"
                 );
+
             }
             else{
 
@@ -2325,7 +2312,6 @@ function initPositions(){
     );
 }
 
-
 function updatePositions(){
 
     initPositions();
@@ -2335,11 +2321,6 @@ function updatePositions(){
     playCurrentVideo();
 }
 
-
-/* =====================================================
-   CURRENT VIDEO
-===================================================== */
-
 function currentItem(){
 
     return visibleVideos[
@@ -2347,103 +2328,140 @@ function currentItem(){
     ] || null;
 }
 
-
 function currentVideo(){
 
-    const cards =
-        getCards();
-
-
     return (
-        cards[
-            currentIndex
-        ]
-        ?.querySelector(
-            "video"
-        )
+        getCards()[currentIndex]
+        ?.querySelector("video")
         ||
         null
     );
 }
 
+/* =========================
+   PLAY / SOUND
+========================= */
 
-/* =====================================================
-   VIDEO PLAY
-===================================================== */
+function playCurrentVideo(
+    firstAttempt=false
+){
 
-function playCurrentVideo(){
-
-    const cards =
-        getCards();
-
-
-    cards.forEach(
-        (
-            card,
-            index
-        )=>{
+    getCards().forEach(
+        (card,index)=>{
 
             const video =
                 card.querySelector(
                     "video"
                 );
 
-
             if(!video){
                 return;
             }
 
+            if(index !== currentIndex){
 
-            if(
-                index ===
-                currentIndex
-            ){
+                video.pause();
+                return;
+            }
 
-                video.muted =
-                    soundMuted;
+            if(firstAttempt){
 
-
-                const promise =
-                    video.play();
-
-
-                if(
-                    promise &&
-                    promise.catch
-                ){
-
-                    promise.catch(
-                        ()=>{
-
-                            soundMuted =
-                                true;
-
-                            video.muted =
-                                true;
-
-                            updateSoundIcon();
-
-                            video.play()
-                                .catch(
-                                    ()=>{}
-                                );
-                        }
-                    );
-                }
+                soundMuted = false;
+                video.muted = false;
 
             }
             else{
 
-                video.pause();
+                video.muted =
+                    soundMuted;
+            }
+
+            const promise =
+                video.play();
+
+            if(
+                promise &&
+                typeof promise.catch ===
+                "function"
+            ){
+
+                promise.catch(
+                    ()=>{
+
+                        /*
+                           Safari/Chrome قد يمنع
+                           التشغيل التلقائي بالصوت.
+                        */
+
+                        video.muted = true;
+
+                        video.play()
+                            .catch(()=>{});
+
+                        enableSoundOnFirstInteraction();
+
+                        updateSoundIcon();
+                    }
+                );
             }
 
         }
     );
 
-
     updateFixedControls();
 }
 
+function enableSoundOnFirstInteraction(){
+
+    if(waitingForSoundInteraction){
+        return;
+    }
+
+    waitingForSoundInteraction =
+        true;
+
+    document
+        .getElementById("soundNotice")
+        .classList.add("show");
+
+    const activateSound =
+        ()=>{
+
+            const video =
+                currentVideo();
+
+            if(video){
+
+                soundMuted = false;
+
+                video.muted = false;
+
+                video.play()
+                    .catch(()=>{});
+
+                updateSoundIcon();
+            }
+
+            waitingForSoundInteraction =
+                false;
+
+            document
+                .getElementById("soundNotice")
+                .classList.remove("show");
+
+            document.removeEventListener(
+                "pointerdown",
+                activateSound,
+                true
+            );
+        };
+
+    document.addEventListener(
+        "pointerdown",
+        activateSound,
+        true
+    );
+}
 
 function pauseAll(){
 
@@ -2452,15 +2470,13 @@ function pauseAll(){
             ".short video"
         )
         .forEach(
-            video =>
-                video.pause()
+            video => video.pause()
         );
 }
 
-
-/* =====================================================
+/* =========================
    VIDEO EVENTS
-===================================================== */
+========================= */
 
 function bindVideoEvents(){
 
@@ -2469,83 +2485,56 @@ function bindVideoEvents(){
             ".short video"
         )
         .forEach(
-            (
-                video,
-                index
-            )=>{
+            (video,index)=>{
 
                 video.addEventListener(
                     "timeupdate",
                     ()=>{
 
                         if(
-                            index !==
-                            currentIndex
-                        ){
-
-                            return;
-                        }
-
-
-                        if(
+                            index !== currentIndex ||
                             !video.duration
                         ){
-
                             return;
                         }
-
 
                         const percentage =
                             (
                                 video.currentTime /
                                 video.duration
-                            )
-                            * 100;
-
+                            ) * 100;
 
                         document
-                            .getElementById(
-                                "progressFill"
-                            )
-                            .style
-                            .width =
-                            percentage +
-                            "%";
+                            .getElementById("progressFill")
+                            .style.width =
+                            percentage + "%";
                     }
                 );
-
 
                 video.addEventListener(
                     "click",
                     ()=>{
 
-                        if(
-                            index !==
-                            currentIndex
-                        ){
-
+                        if(index !== currentIndex){
                             return;
                         }
 
+                        if(
+                            video.muted &&
+                            !soundMuted
+                        ){
+                            video.muted = false;
+                        }
 
                         if(video.paused){
 
                             video.play()
-                                .catch(
-                                    ()=>{}
-                                );
+                                .catch(()=>{});
 
-                            showPlayIndicator(
-                                true
-                            );
                         }
                         else{
 
                             video.pause();
-
-                            showPlayIndicator(
-                                false
-                            );
                         }
                     }
                 );
@@ -2554,78 +2543,46 @@ function bindVideoEvents(){
         );
 }
 
-
-/* =====================================================
-   FIXED CONTROLS STATE
-===================================================== */
+/* =========================
+   FIXED STATES
+========================= */
 
 function updateFixedControls(){
 
     const item =
         currentItem();
 
-
-    const likeAction =
-        document.getElementById(
-            "likeAction"
-        );
-
-
-    const saveAction =
-        document.getElementById(
-            "saveAction"
-        );
-
-
     if(!item){
-
-        likeAction.classList.remove(
-            "active"
-        );
-
-        saveAction.classList.remove(
-            "active"
-        );
-
         return;
     }
 
-
-    likeAction.classList.toggle(
-        "active",
-        liked.includes(
-            item.id
-        )
-    );
-
-
-    saveAction.classList.toggle(
-        "active",
-        saved.includes(
-            item.id
-        )
-    );
-
-
-    updateSoundIcon();
-
+    document
+        .getElementById("likeAction")
+        .classList.toggle(
+            "active",
+            liked.includes(item.id)
+        );
 
     document
-        .getElementById(
-            "progressFill"
-        )
-        .style
-        .width =
-        "0%";
+        .getElementById("saveAction")
+        .classList.toggle(
+            "active",
+            saved.includes(item.id)
+        );
+
+    updateSoundIcon();
+    updateDownloadState();
+
+    document
+        .getElementById("progressFill")
+        .style.width = "0%";
 }
 
-
-/* =====================================================
+/* =========================
    NEXT / PREVIOUS
-===================================================== */
+========================= */
 
 const TRANSITION_TIME = 320;
-
 
 function nextVideo(){
 
@@ -2633,36 +2590,28 @@ function nextVideo(){
         return;
     }
 
-
     if(
         currentIndex >=
         visibleVideos.length - 1
     ){
 
         edgeBounce(-1);
-
         return;
     }
-
 
     moving = true;
 
     currentIndex++;
 
-
     updatePositions();
-
 
     setTimeout(
         ()=>{
-
             moving = false;
-
         },
         TRANSITION_TIME
     );
 }
-
 
 function previousVideo(){
 
@@ -2670,48 +2619,34 @@ function previousVideo(){
         return;
     }
 
-
-    if(
-        currentIndex <= 0
-    ){
+    if(currentIndex <= 0){
 
         edgeBounce(1);
-
         return;
     }
-
 
     moving = true;
 
     currentIndex--;
 
-
     updatePositions();
-
 
     setTimeout(
         ()=>{
-
             moving = false;
-
         },
         TRANSITION_TIME
     );
 }
 
-
-/* =====================================================
-   DRAG
-===================================================== */
+/* =========================
+   TOUCH
+========================= */
 
 let dragging = false;
-
 let startY = 0;
-
 let currentY = 0;
-
 let startTime = 0;
-
 
 function touchStart(event){
 
@@ -2719,37 +2654,28 @@ function touchStart(event){
         moving ||
         event.touches.length !== 1
     ){
-
         return;
     }
-
 
     if(
         event.target.closest(
             "button,a,.fixedCategories,.fixedActions,.fixedBottomNav,.fixedHeader"
         )
     ){
-
         return;
     }
 
-
     dragging = true;
 
-
     startY =
-        event.touches[0]
-            .clientY;
-
+        event.touches[0].clientY;
 
     currentY =
         startY;
 
-
     startTime =
         performance.now();
 }
-
 
 function touchMove(event){
 
@@ -2757,44 +2683,32 @@ function touchMove(event){
         return;
     }
 
-
     currentY =
-        event.touches[0]
-            .clientY;
-
+        event.touches[0].clientY;
 
     let delta =
-        currentY -
-        startY;
-
+        currentY - startY;
 
     if(
         currentIndex === 0 &&
         delta > 0
     ){
-
-        delta *= .2;
+        delta *= .20;
     }
-
 
     if(
         currentIndex ===
-        visibleVideos.length - 1 &&
+        visibleVideos.length - 1
+        &&
         delta < 0
     ){
-
-        delta *= .2;
+        delta *= .20;
     }
 
-
-    moveCardsWithFinger(
-        delta
-    );
-
+    moveCardsWithFinger(delta);
 
     event.preventDefault();
 }
-
 
 function touchEnd(){
 
@@ -2802,64 +2716,55 @@ function touchEnd(){
         return;
     }
 
-
     dragging = false;
 
-
     const delta =
-        currentY -
-        startY;
-
+        currentY - startY;
 
     const elapsed =
         Math.max(
             1,
-            performance.now()
-            -
+            performance.now() -
             startTime
         );
-
 
     const velocity =
         Math.abs(delta) /
         elapsed;
 
-
     const threshold =
         Math.min(
             75,
-            getHeight() *
-            .10
+            getHeight() * .10
         );
 
-
-    const flick =
+    const fastSwipe =
         velocity > .42 &&
         Math.abs(delta) > 25;
 
-
     clearInlineTransforms();
-
 
     if(
         delta < -threshold ||
         (
             delta < 0 &&
-            flick
+            fastSwipe
         )
     ){
 
         nextVideo();
+
     }
     else if(
         delta > threshold ||
         (
             delta > 0 &&
-            flick
+            fastSwipe
         )
     ){
 
         previousVideo();
+
     }
     else{
 
@@ -2867,51 +2772,31 @@ function touchEnd(){
     }
 }
 
-
-function moveCardsWithFinger(
-    delta
-){
+function moveCardsWithFinger(delta){
 
     const cards =
         getCards();
 
-
     const current =
-        cards[
-            currentIndex
-        ];
-
+        cards[currentIndex];
 
     const previous =
-        cards[
-            currentIndex - 1
-        ];
-
+        cards[currentIndex - 1];
 
     const next =
-        cards[
-            currentIndex + 1
-        ];
-
+        cards[currentIndex + 1];
 
     const height =
         getHeight();
-
 
     if(current){
 
         current.style.transition =
             "none";
 
-
         current.style.transform =
-            `translate3d(
-                0,
-                ${delta}px,
-                0
-            )`;
+            `translate3d(0,${delta}px,0)`;
     }
-
 
     if(
         delta < 0 &&
@@ -2921,15 +2806,9 @@ function moveCardsWithFinger(
         next.style.transition =
             "none";
 
-
         next.style.transform =
-            `translate3d(
-                0,
-                ${height + delta}px,
-                0
-            )`;
+            `translate3d(0,${height + delta}px,0)`;
     }
-
 
     if(
         delta > 0 &&
@@ -2939,32 +2818,22 @@ function moveCardsWithFinger(
         previous.style.transition =
             "none";
 
-
         previous.style.transform =
-            `translate3d(
-                0,
-                ${-height + delta}px,
-                0
-            )`;
+            `translate3d(0,${-height + delta}px,0)`;
     }
 }
 
-
 function clearInlineTransforms(){
 
-    getCards()
-        .forEach(
-            card =>{
+    getCards().forEach(
+        card =>{
 
-                card.style.transition =
-                    "";
+            card.style.transition = "";
+            card.style.transform = "";
 
-                card.style.transform =
-                    "";
-            }
-        );
+        }
+    );
 }
-
 
 function getHeight(){
 
@@ -2976,37 +2845,20 @@ function getHeight(){
     );
 }
 
-
-/* =====================================================
-   EDGE
-===================================================== */
-
-function edgeBounce(
-    direction
-){
+function edgeBounce(direction){
 
     const card =
-        getCards()[
-            currentIndex
-        ];
-
+        getCards()[currentIndex];
 
     if(!card){
         return;
     }
 
-
     card.style.transition =
         "transform 120ms ease";
 
-
     card.style.transform =
-        `translate3d(
-            0,
-            ${direction * 16}px,
-            0
-        )`;
-
+        `translate3d(0,${direction * 16}px,0)`;
 
     setTimeout(
         ()=>{
@@ -3014,15 +2866,12 @@ function edgeBounce(
             card.style.transform =
                 "translate3d(0,0,0)";
 
-
             setTimeout(
                 ()=>{
 
-                    card.style.transition =
-                        "";
+                    card.style.transition = "";
+                    card.style.transform = "";
 
-                    card.style.transform =
-                        "";
                 },
                 130
             );
@@ -3032,164 +2881,124 @@ function edgeBounce(
     );
 }
 
-
-/* =====================================================
+/* =========================
    MOUSE WHEEL
-===================================================== */
+========================= */
 
 let wheelLocked = false;
-
 let wheelAmount = 0;
-
 let wheelTimer;
 
+function wheelNavigation(event){
 
-function wheelNavigation(
-    event
-){
+    if(
+        document
+        .getElementById("searchOverlay")
+        .classList.contains("show")
+    ){
+        return;
+    }
 
     event.preventDefault();
-
 
     if(wheelLocked){
         return;
     }
 
-
     wheelAmount +=
         event.deltaY;
 
-
-    clearTimeout(
-        wheelTimer
-    );
-
+    clearTimeout(wheelTimer);
 
     wheelTimer =
         setTimeout(
             ()=>{
-
-                wheelAmount =
-                    0;
+                wheelAmount = 0;
             },
             150
         );
 
-
     if(
-        Math.abs(
-            wheelAmount
-        ) < 45
+        Math.abs(wheelAmount) <
+        45
     ){
-
         return;
     }
 
-
     wheelLocked = true;
 
-
-    if(
-        wheelAmount > 0
-    ){
-
+    if(wheelAmount > 0){
         nextVideo();
     }
     else{
-
         previousVideo();
     }
 
-
     wheelAmount = 0;
-
 
     setTimeout(
         ()=>{
-
-            wheelLocked =
-                false;
-
+            wheelLocked = false;
         },
         390
     );
 }
 
-
-/* =====================================================
+/* =========================
    LIKE
-===================================================== */
+========================= */
 
 function toggleLike(){
 
     const item =
         currentItem();
 
-
     if(!item){
         return;
     }
 
-
-    if(
-        liked.includes(
-            item.id
-        )
-    ){
+    if(liked.includes(item.id)){
 
         liked =
             liked.filter(
                 id =>
                     id !== item.id
             );
+
     }
     else{
 
-        liked.push(
-            item.id
-        );
+        liked.push(item.id);
     }
-
 
     localStorage.setItem(
         "zaadLikes",
-        JSON.stringify(
-            liked
-        )
+        JSON.stringify(liked)
     );
-
 
     updateFixedControls();
 }
 
-
-/* =====================================================
+/* =========================
    SAVE
-===================================================== */
+========================= */
 
 function toggleSave(){
 
     const item =
         currentItem();
 
-
     if(!item){
         return;
     }
 
-
-    if(
-        saved.includes(
-            item.id
-        )
-    ){
+    if(saved.includes(item.id)){
 
         saved =
             saved.filter(
                 id =>
                     id !== item.id
             );
-
 
         showToast(
             "تم إلغاء الحفظ"
@@ -3198,10 +3007,7 @@ function toggleSave(){
     }
     else{
 
-        saved.push(
-            item.id
-        );
-
+        saved.push(item.id);
 
         let points =
             Number(
@@ -3210,78 +3016,73 @@ function toggleSave(){
                 ) || 0
             );
 
-
         points += 2;
-
 
         localStorage.setItem(
             "zaadPoints",
             points
         );
 
-
         showToast(
             "تم الحفظ +2 نقطة نشاط"
         );
     }
 
-
     localStorage.setItem(
         "zaadSaved",
-        JSON.stringify(
-            saved
-        )
+        JSON.stringify(saved)
     );
-
 
     updateFixedControls();
 }
 
-
-/* =====================================================
+/* =========================
    SOUND
-===================================================== */
+========================= */
 
 function toggleSound(){
-
-    soundMuted =
-        !soundMuted;
-
 
     const video =
         currentVideo();
 
-
-    if(video){
-
-        video.muted =
-            soundMuted;
-
-
-        if(!soundMuted){
-
-            video.play()
-                .catch(
-                    ()=>{
-
-                        soundMuted =
-                            true;
-
-                        video.muted =
-                            true;
-
-                        showToast(
-                            "اضغط على الفيديو لتفعيل الصوت"
-                        );
-                    }
-                );
-        }
+    if(!video){
+        return;
     }
 
+    if(
+        soundMuted ||
+        video.muted
+    ){
+
+        soundMuted = false;
+
+        video.muted = false;
+
+        video.play()
+            .catch(()=>{});
+
+        document
+            .getElementById("soundNotice")
+            .classList.remove("show");
+
+        showToast(
+            "تم تشغيل الصوت"
+        );
+
+    }
+    else{
+
+        soundMuted = true;
+
+        video.muted = true;
+
+        showToast(
+            "تم كتم الصوت"
+        );
+    }
 
     updateSoundIcon();
 }
-
 
 function updateSoundIcon(){
 
@@ -3290,90 +3091,67 @@ function updateSoundIcon(){
             "soundButton"
         );
 
+    const video =
+        currentVideo();
 
-    if(soundMuted){
+    const muted =
+        soundMuted ||
+        (
+            video &&
+            video.muted
+        );
 
-        button.innerHTML = `
-
-        <svg viewBox="0 0 24 24">
-
-            <path d="M11 5 6 9H3v6h3l5 4Z"/>
-
-            <path d="m16 9 5 6"/>
-
-            <path d="m21 9-5 6"/>
-
-        </svg>
-
+    button.innerHTML =
+        muted
+        ? `
+            <svg viewBox="0 0 24 24">
+                <path d="M11 5 6 9H3v6h3l5 4Z"/>
+                <path d="m16 9 5 6"/>
+                <path d="m21 9-5 6"/>
+            </svg>
+        `
+        : `
+            <svg viewBox="0 0 24 24">
+                <path d="M11 5 6 9H3v6h3l5 4Z"/>
+                <path d="M15 9a4 4 0 0 1 0 6"/>
+                <path d="M17.5 6.5a8 8 0 0 1 0 11"/>
+            </svg>
         `;
-
-    }
-    else{
-
-        button.innerHTML = `
-
-        <svg viewBox="0 0 24 24">
-
-            <path d="M11 5 6 9H3v6h3l5 4Z"/>
-
-            <path d="M15 9a4 4 0 0 1 0 6"/>
-
-            <path d="M17.5 6.5a8 8 0 0 1 0 11"/>
-
-        </svg>
-
-        `;
-    }
 }
 
-
-/* =====================================================
+/* =========================
    SHARE
-===================================================== */
+========================= */
 
 async function shareCurrentVideo(){
 
     const item =
         currentItem();
 
-
     if(!item){
         return;
     }
 
-
     const text =
-        item.title
-        +
+        item.title +
         (
             item.description
-            ?
-            "\n\n" +
-            item.description
-            :
-            ""
-        )
-        +
+            ? "\n\n" + item.description
+            : ""
+        ) +
         (
             item.source
-            ?
-            "\n\nالمصدر: " +
-            item.source
-            :
-            ""
+            ? "\n\nالمصدر: " + item.source
+            : ""
         );
-
 
     if(navigator.share){
 
         try{
 
             await navigator.share({
-                title:
-                    item.title,
-
-                text:
-                    text
+                title:item.title,
+                text:text
             });
 
         }
@@ -3384,12 +3162,8 @@ async function shareCurrentVideo(){
 
         try{
 
-            await navigator
-                .clipboard
-                .writeText(
-                    text
-                );
-
+            await navigator.clipboard
+                .writeText(text);
 
             showToast(
                 "تم نسخ معلومات المقطع"
@@ -3405,120 +3179,78 @@ async function shareCurrentVideo(){
     }
 }
 
-
-/* =====================================================
+/* =========================
    SOURCE
-===================================================== */
+========================= */
 
 function showSource(){
 
     const item =
         currentItem();
 
-
     if(!item){
         return;
     }
 
-
     pauseAll();
 
-
     document
-        .getElementById(
-            "sourceText"
-        )
+        .getElementById("sourceText")
         .textContent =
         item.source ||
         "لم يتم إضافة مصدر لهذا المقطع.";
 
-
-    const button =
-        document.getElementById(
-            "sourceOpenButton"
-        );
-
-
-    button.style.display =
+    document
+        .getElementById("sourceOpenButton")
+        .style.display =
         item.sourceURL
-        ?
-        "block"
-        :
-        "none";
-
+        ? "block"
+        : "none";
 
     document
-        .getElementById(
-            "sourceModal"
-        )
-        .classList
-        .add(
-            "show"
-        );
+        .getElementById("sourceModal")
+        .classList.add("show");
 }
-
 
 function closeSource(){
 
     document
-        .getElementById(
-            "sourceModal"
-        )
-        .classList
-        .remove(
-            "show"
-        );
-
+        .getElementById("sourceModal")
+        .classList.remove("show");
 
     playCurrentVideo();
 }
 
+function closeSourceBackground(event){
 
-function closeSourceBackground(
-    event
-){
-
-    if(
-        event.target.id ===
-        "sourceModal"
-    ){
-
+    if(event.target.id === "sourceModal"){
         closeSource();
     }
 }
-
 
 function openSource(){
 
     const item =
         currentItem();
 
-
     if(
         !item ||
         !item.sourceURL
     ){
-
         return;
     }
-
 
     try{
 
         const url =
-            new URL(
-                item.sourceURL
-            );
-
+            new URL(item.sourceURL);
 
         if(
             url.protocol !== "https:" &&
             url.protocol !== "http:"
         ){
-
             throw new Error();
         }
-
 
         window.open(
             url.href,
@@ -3535,141 +3267,9 @@ function openSource(){
     }
 }
 
-
-/* =====================================================
-   KEYBOARD
-===================================================== */
-
-document.addEventListener(
-    "keydown",
-    event =>{
-
-        if(
-            event.key ===
-            "ArrowDown"
-        ){
-
-            nextVideo();
-        }
-
-
-        if(
-            event.key ===
-            "ArrowUp"
-        ){
-
-            previousVideo();
-        }
-
-
-        if(
-            event.key === " "
-        ){
-
-            event.preventDefault();
-
-
-            const video =
-                currentVideo();
-
-
-            if(!video){
-                return;
-            }
-
-
-            if(video.paused){
-
-                video.play()
-                    .catch(
-                        ()=>{}
-                    );
-
-                showPlayIndicator(
-                    true
-                );
-            }
-            else{
-
-                video.pause();
-
-                showPlayIndicator(
-                    false
-                );
-            }
-        }
-
-    }
-);
-
-
-/* =====================================================
-   PLAY INDICATOR
-===================================================== */
-
-let playIndicatorTimer;
-
-
-function showPlayIndicator(
-    playing
-){
-
-    const element =
-        document.getElementById(
-            "playIndicator"
-        );
-
-
-    element.innerHTML =
-        playing
-        ?
-        `
-
-        <svg viewBox="0 0 24 24">
-            <path d="m8 5 11 7-11 7Z"/>
-        </svg>
-
-        `
-        :
-        `
-
-        <svg viewBox="0 0 24 24">
-            <path d="M9 5v14"/>
-            <path d="M15 5v14"/>
-        </svg>
-
-        `;
-
-
-    element.classList.add(
-        "show"
-    );
-
-
-    clearTimeout(
-        playIndicatorTimer
-    );
-
-
-    playIndicatorTimer =
-        setTimeout(
-            ()=>{
-
-                element
-                    .classList
-                    .remove(
-                        "show"
-                    );
-
-            },
-            430
-        );
-}
-
-
-/* =====================================================
-   MESSAGE
-===================================================== */
+/* =========================
+   MESSAGE / LOADING
+========================= */
 
 function renderMessage(
     title,
@@ -3677,9 +3277,7 @@ function renderMessage(
 ){
 
     document
-        .getElementById(
-            "feed"
-        )
+        .getElementById("feed")
         .innerHTML = `
 
         <div class="messagePage">
@@ -3696,7 +3294,7 @@ function renderMessage(
 
                 <button
                     class="retryButton"
-                    onclick="loadVideos(true)">
+                    onclick="loadVideos()">
 
                     إعادة المحاولة
 
@@ -3709,94 +3307,54 @@ function renderMessage(
         `;
 }
 
+function showLoading(show){
 
-/* =====================================================
-   LOADING
-===================================================== */
-
-function showLoading(
-    show
-){
-
-    const element =
-        document.getElementById(
-            "loadingScreen"
+    document
+        .getElementById("loadingScreen")
+        .classList.toggle(
+            "hide",
+            !show
         );
-
-
-    if(show){
-
-        element
-            .classList
-            .remove(
-                "hide"
-            );
-    }
-    else{
-
-        element
-            .classList
-            .add(
-                "hide"
-            );
-    }
 }
 
-
-/* =====================================================
+/* =========================
    TOAST
-===================================================== */
+========================= */
 
 let toastTimer;
 
-
-function showToast(
-    message
-){
+function showToast(message){
 
     const toast =
         document.getElementById(
             "toast"
         );
 
-
     toast.textContent =
         message;
-
 
     toast.classList.add(
         "show"
     );
 
-
-    clearTimeout(
-        toastTimer
-    );
-
+    clearTimeout(toastTimer);
 
     toastTimer =
         setTimeout(
             ()=>{
-
-                toast
-                    .classList
-                    .remove(
-                        "show"
-                    );
-
+                toast.classList.remove(
+                    "show"
+                );
             },
             1700
         );
 }
 
+/* =========================
+   HELPERS
+========================= */
 
-/* =====================================================
-   STORAGE
-===================================================== */
-
-function readStorageArray(
-    key
-){
+function readStorageArray(key){
 
     try{
 
@@ -3807,23 +3365,16 @@ function readStorageArray(
                 ) || "[]"
             );
 
-
         return Array.isArray(value)
-            ?
-            value
-            :
-            [];
+            ? value
+            : [];
+
     }
     catch(error){
 
         return [];
     }
 }
-
-
-/* =====================================================
-   HELPERS
-===================================================== */
 
 function clean(value){
 
@@ -3832,69 +3383,46 @@ function clean(value){
     ).trim();
 }
 
+function escapeHTML(value){
 
-function escapeHTML(
-    value
-){
-
-    const element =
+    const div =
         document.createElement(
             "div"
         );
 
-
-    element.textContent =
+    div.textContent =
         String(value ?? "");
 
-
-    return element.innerHTML;
+    return div.innerHTML;
 }
 
-
-function safeAttribute(
-    value
-){
-
-    return String(
-        value ?? ""
-    )
-
-    .replace(
-        /&/g,
-        "&amp;"
-    )
-
-    .replace(
-        /"/g,
-        "&quot;"
-    )
-
-    .replace(
-        /'/g,
-        "&#39;"
-    )
-
-    .replace(
-        /</g,
-        "&lt;"
-    )
-
-    .replace(
-        />/g,
-        "&gt;"
-    );
+function safeMediaURL(value){
+    const text = String(value || "").trim();
+    if(!text) return "";
+    try{
+        const url = new URL(text, location.href);
+        return (url.protocol === "https:" || url.protocol === "http:" || url.protocol === "data:") ? url.href : "";
+    }catch(error){ return ""; }
 }
 
+function safeAttribute(value){
 
-/* =====================================================
-   TOUCH
-===================================================== */
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#39;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;");
+}
+
+/* =========================
+   EVENTS
+========================= */
 
 const feed =
     document.getElementById(
         "feed"
     );
-
 
 feed.addEventListener(
     "touchstart",
@@ -3904,7 +3432,6 @@ feed.addEventListener(
     }
 );
 
-
 feed.addEventListener(
     "touchmove",
     touchMove,
@@ -3912,7 +3439,6 @@ feed.addEventListener(
         passive:false
     }
 );
-
 
 feed.addEventListener(
     "touchend",
@@ -3922,7 +3448,6 @@ feed.addEventListener(
     }
 );
 
-
 feed.addEventListener(
     "touchcancel",
     touchEnd,
@@ -3930,7 +3455,6 @@ feed.addEventListener(
         passive:true
     }
 );
-
 
 feed.addEventListener(
     "wheel",
@@ -3940,21 +3464,51 @@ feed.addEventListener(
     }
 );
 
+document.addEventListener(
+    "keydown",
+    event=>{
 
-/* =====================================================
-   PREVENT ZOOM
-===================================================== */
+        if(
+            event.key === "Escape" &&
+            document
+            .getElementById("searchOverlay")
+            .classList.contains("show")
+        ){
+
+            closeSearch();
+            return;
+        }
+
+        if(
+            document
+            .getElementById("searchOverlay")
+            .classList.contains("show")
+        ){
+            return;
+        }
+
+        if(event.key === "ArrowDown"){
+
+            event.preventDefault();
+            nextVideo();
+
+        }
+        else if(
+            event.key === "ArrowUp"
+        ){
+
+            event.preventDefault();
+            previousVideo();
+
+        }
+    }
+);
 
 document.addEventListener(
     "gesturestart",
     event =>
         event.preventDefault()
 );
-
-
-/* =====================================================
-   VISIBILITY
-===================================================== */
 
 document.addEventListener(
     "visibilitychange",
@@ -3963,19 +3517,26 @@ document.addEventListener(
         if(document.hidden){
 
             pauseAll();
+
         }
-        else{
+        else if(
+            !document
+            .getElementById("searchOverlay")
+            .classList.contains("show")
+        ){
 
             playCurrentVideo();
         }
-
     }
 );
 
+if("serviceWorker" in navigator && location.protocol !== "file:"){ window.addEventListener("load",()=>navigator.serviceWorker.register("service-worker.js").catch(()=>{})); }
 
-/* =====================================================
+/* =========================
    START
-===================================================== */
+========================= */
+
+resetSearch();
 
 loadVideos();
 
