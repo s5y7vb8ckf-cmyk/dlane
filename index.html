@@ -1,1982 +1,1906 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta charset="utf-8">
 
-<title>زاد | مقاطع نافعة</title>
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+
+<meta name="theme-color" content="#07161d">
+
+<title>المقاطع | زاد</title>
 
 <style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-
 :root{
-    --blue:#38bdf8;
-    --blue2:#0284c7;
-    --dark:#06141c;
-    --white:#fff;
+  --blue:#32b8eb;
+  --blue-dark:#0784b7;
+  --white:#fff;
+  --muted:#d9e5e9;
+  --glass:rgba(8,22,29,.48);
+  --border:rgba(255,255,255,.16);
 }
 
-html,body{
-    width:100%;
-    height:100%;
-    overflow:hidden;
-    font-family:Tahoma,Arial,sans-serif;
-    background:#000;
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
 }
 
-button,input{
-    font:inherit;
+html,
+body{
+  margin:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  overscroll-behavior:none;
+  background:#000;
+  font-family:Tahoma,Arial,sans-serif;
+}
+
+body{
+  touch-action:pan-y;
+  user-select:none;
+  -webkit-user-select:none;
+}
+
+button{
+  font:inherit;
 }
 
 /* =========================
-   التطبيق
+   APP
 ========================= */
 
 .app{
-    width:100%;
-    height:100dvh;
-    position:relative;
-    background:#000;
-    overflow:hidden;
+  position:relative;
+  width:100%;
+  height:100vh;
+  height:100dvh;
+  overflow:hidden;
+  background:#000;
 }
 
 /* =========================
-   الشريط العلوي
-========================= */
-
-.topbar{
-    position:fixed;
-    top:0;
-    right:0;
-    left:0;
-
-    height:70px;
-
-    z-index:100;
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    padding:
-        env(safe-area-inset-top)
-        18px 0;
-
-    padding-left:18px;
-    padding-right:18px;
-
-    color:white;
-
-    background:
-        linear-gradient(
-            rgba(0,0,0,.55),
-            transparent
-        );
-}
-
-.logo{
-    font-size:22px;
-    font-weight:900;
-
-    display:flex;
-    align-items:center;
-    gap:9px;
-}
-
-.logo-icon{
-    width:37px;
-    height:37px;
-
-    border-radius:12px;
-
-    display:grid;
-    place-items:center;
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--blue2),
-            var(--blue)
-        );
-}
-
-.searchBtn{
-    width:42px;
-    height:42px;
-
-    border:0;
-
-    border-radius:50%;
-
-    color:white;
-
-    background:
-        rgba(255,255,255,.15);
-
-    backdrop-filter:blur(10px);
-
-    font-size:19px;
-}
-
-/* =========================
-   التصنيفات
-========================= */
-
-.categories{
-    position:fixed;
-
-    top:64px;
-    right:0;
-    left:0;
-
-    z-index:90;
-
-    display:flex;
-
-    gap:7px;
-
-    padding:10px 15px;
-
-    overflow-x:auto;
-
-    scrollbar-width:none;
-
-    direction:rtl;
-
-    background:
-        linear-gradient(
-            rgba(0,0,0,.25),
-            transparent
-        );
-}
-
-.categories::-webkit-scrollbar{
-    display:none;
-}
-
-.category{
-    flex:none;
-
-    border:
-        1px solid rgba(255,255,255,.25);
-
-    color:white;
-
-    background:
-        rgba(0,0,0,.25);
-
-    backdrop-filter:
-        blur(12px);
-
-    padding:8px 15px;
-
-    border-radius:100px;
-
-    font-size:12px;
-}
-
-.category.active{
-    color:#082c3c;
-
-    background:white;
-
-    border-color:white;
-
-    font-weight:bold;
-}
-
-/* =========================
-   الفيديوهات
+   FEED
 ========================= */
 
 .feed{
-    width:100%;
-    height:100%;
+  width:100%;
+  height:100%;
+  overflow-y:auto;
+  overflow-x:hidden;
 
-    overflow-y:auto;
+  scroll-snap-type:y mandatory;
+  overscroll-behavior-y:contain;
 
-    scroll-snap-type:
-        y mandatory;
+  scrollbar-width:none;
 
-    scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
 }
 
 .feed::-webkit-scrollbar{
-    display:none;
+  display:none;
 }
 
-.video-card{
-    width:100%;
-    height:100dvh;
+.short{
+  position:relative;
 
-    position:relative;
+  width:100%;
+  height:100vh;
+  height:100dvh;
 
-    scroll-snap-align:start;
-    scroll-snap-stop:always;
+  min-height:100vh;
+  min-height:100dvh;
 
-    background:#000;
+  overflow:hidden;
 
-    overflow:hidden;
+  scroll-snap-align:start;
+  scroll-snap-stop:always;
+
+  background:#000;
 }
 
-.video-card video{
-    width:100%;
-    height:100%;
+.short video{
+  position:absolute;
+  inset:0;
 
-    object-fit:cover;
+  width:100%;
+  height:100%;
 
-    background:#000;
-}
+  object-fit:cover;
 
-/* طبقة التعتيم */
-
-.overlay{
-    position:absolute;
-
-    inset:0;
-
-    pointer-events:none;
-
-    background:
-        linear-gradient(
-            to bottom,
-            rgba(0,0,0,.15) 0%,
-            transparent 30%,
-            transparent 55%,
-            rgba(0,0,0,.85) 100%
-        );
+  background:#000;
 }
 
 /* =========================
-   معلومات المقطع
+   GRADIENT
 ========================= */
 
-.video-info{
-    position:absolute;
+.shade{
+  position:absolute;
+  inset:0;
 
-    right:18px;
+  pointer-events:none;
 
-    left:90px;
-
-    bottom:90px;
-
-    z-index:10;
-
-    color:white;
-
-    text-shadow:
-        0 2px 7px rgba(0,0,0,.55);
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(0,0,0,.52) 0%,
+      rgba(0,0,0,.08) 22%,
+      rgba(0,0,0,.02) 48%,
+      rgba(0,0,0,.2) 63%,
+      rgba(0,0,0,.9) 100%
+    );
 }
 
-.publisher{
-    display:flex;
-    align-items:center;
-    gap:8px;
+/* =========================
+   HEADER
+========================= */
 
-    margin-bottom:10px;
+.header{
+  position:absolute;
+
+  top:0;
+  right:0;
+  left:0;
+
+  z-index:20;
+
+  padding:
+    calc(env(safe-area-inset-top) + 12px)
+    15px
+    10px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  pointer-events:none;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+
+  color:white;
+
+  font-weight:900;
+  font-size:20px;
+
+  pointer-events:auto;
+}
+
+.brandMark{
+  width:38px;
+  height:38px;
+
+  display:grid;
+  place-items:center;
+
+  border-radius:13px;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--blue-dark),
+      var(--blue)
+    );
+
+  box-shadow:
+    0 7px 25px rgba(0,0,0,.25);
+}
+
+.headerActions{
+  display:flex;
+  gap:8px;
+
+  pointer-events:auto;
+}
+
+/* =========================
+   ICON BUTTON
+========================= */
+
+.iconBtn{
+  width:42px;
+  height:42px;
+
+  border:1px solid var(--border);
+  border-radius:14px;
+
+  display:grid;
+  place-items:center;
+
+  color:white;
+  background:var(--glass);
+
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+}
+
+.iconBtn svg{
+  width:21px;
+  height:21px;
+
+  stroke:currentColor;
+  fill:none;
+  stroke-width:1.9;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+/* =========================
+   CATEGORIES
+========================= */
+
+.categories{
+  position:absolute;
+
+  z-index:19;
+
+  top:calc(env(safe-area-inset-top) + 66px);
+  right:0;
+  left:0;
+
+  display:flex;
+  gap:7px;
+
+  overflow-x:auto;
+
+  padding:5px 14px 12px;
+
+  scrollbar-width:none;
+
+  pointer-events:auto;
+}
+
+.categories::-webkit-scrollbar{
+  display:none;
+}
+
+.category{
+  flex:none;
+
+  border:1px solid var(--border);
+
+  border-radius:999px;
+
+  padding:8px 14px;
+
+  color:white;
+
+  background:rgba(5,17,23,.36);
+
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+
+  font-size:12px;
+}
+
+.category.active{
+  color:#062a39;
+  background:white;
+  border-color:white;
+  font-weight:bold;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.content{
+  position:absolute;
+
+  right:17px;
+  left:88px;
+
+  bottom:
+    calc(
+      env(safe-area-inset-bottom) + 86px
+    );
+
+  z-index:15;
+
+  color:white;
+
+  text-shadow:
+    0 2px 12px rgba(0,0,0,.45);
+}
+
+.author{
+  display:flex;
+  align-items:center;
+  gap:9px;
+
+  margin-bottom:11px;
 }
 
 .avatar{
-    width:35px;
-    height:35px;
+  width:37px;
+  height:37px;
 
-    display:grid;
-    place-items:center;
+  display:grid;
+  place-items:center;
 
-    border-radius:50%;
+  border-radius:50%;
 
-    background:
-        linear-gradient(
-            135deg,
-            var(--blue2),
-            var(--blue)
-        );
+  color:white;
 
-    font-weight:bold;
+  background:
+    linear-gradient(
+      135deg,
+      var(--blue-dark),
+      var(--blue)
+    );
+
+  border:1px solid rgba(255,255,255,.35);
+
+  font-weight:bold;
 }
 
-.publisher strong{
-    font-size:14px;
+.authorText{
+  min-width:0;
 }
 
-.video-title{
-    font-size:17px;
+.authorName{
+  font-size:13px;
+  font-weight:bold;
+}
 
-    font-weight:bold;
+.contentType{
+  margin-top:2px;
 
-    margin-bottom:8px;
+  color:#d5e9f0;
 
-    line-height:1.5;
+  font-size:10px;
+}
+
+.title{
+  font-size:17px;
+  line-height:1.6;
+
+  font-weight:800;
+
+  margin-bottom:6px;
 }
 
 .description{
-    font-size:13px;
+  color:#edf5f7;
 
-    line-height:1.7;
+  font-size:12px;
+  line-height:1.7;
 
-    color:#e8f5fa;
-
-    max-width:600px;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
 }
 
-.source{
-    display:inline-flex;
+.sourceBtn{
+  margin-top:10px;
 
-    margin-top:11px;
+  border:1px solid rgba(255,255,255,.18);
 
-    align-items:center;
+  color:white;
 
-    gap:6px;
+  background:rgba(7,22,29,.48);
 
-    padding:7px 10px;
+  border-radius:10px;
 
-    border-radius:10px;
+  padding:8px 10px;
 
-    background:
-        rgba(255,255,255,.14);
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
 
-    backdrop-filter:
-        blur(8px);
+  font-size:11px;
 
-    font-size:11px;
+  backdrop-filter:blur(10px);
+}
 
-    pointer-events:auto;
+.sourceBtn svg{
+  width:15px;
+  height:15px;
 
-    cursor:pointer;
+  stroke:currentColor;
+  fill:none;
+  stroke-width:2;
 }
 
 /* =========================
-   أزرار الجانب
+   ACTIONS
 ========================= */
 
 .actions{
-    position:absolute;
+  position:absolute;
 
-    left:14px;
+  left:13px;
 
-    bottom:105px;
+  bottom:
+    calc(
+      env(safe-area-inset-bottom) + 88px
+    );
 
-    z-index:20;
+  z-index:18;
 
-    display:flex;
+  display:flex;
+  flex-direction:column;
 
-    flex-direction:column;
+  align-items:center;
 
-    align-items:center;
-
-    gap:18px;
-
-    color:white;
+  gap:16px;
 }
 
 .action{
-    display:flex;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
 
-    flex-direction:column;
+  gap:4px;
 
-    align-items:center;
+  color:white;
 
-    gap:4px;
+  font-size:9px;
 }
 
-.action button{
-    width:48px;
-    height:48px;
+.actionButton{
+  width:47px;
+  height:47px;
 
-    border:0;
+  border:1px solid rgba(255,255,255,.16);
 
-    border-radius:50%;
+  border-radius:50%;
 
-    color:white;
+  display:grid;
+  place-items:center;
 
-    background:
-        rgba(15,24,30,.48);
+  color:white;
 
-    backdrop-filter:
-        blur(12px);
+  background:rgba(7,20,27,.48);
 
-    display:grid;
-    place-items:center;
+  backdrop-filter:blur(13px);
+  -webkit-backdrop-filter:blur(13px);
 
-    font-size:21px;
-
-    transition:.15s;
+  transition:
+    transform .15s,
+    background .15s;
 }
 
-.action button:active{
-    transform:scale(.88);
+.actionButton:active{
+  transform:scale(.88);
 }
 
-.action span{
-    font-size:10px;
+.actionButton svg{
+  width:22px;
+  height:22px;
+
+  stroke:currentColor;
+  fill:none;
+
+  stroke-width:1.9;
+  stroke-linecap:round;
+  stroke-linejoin:round;
 }
 
-.action.liked button{
-    background:
-        rgba(255,255,255,.95);
-
-    color:#e84160;
-}
-
-.action.saved button{
-    background:white;
-    color:#0284c7;
+.action.active .actionButton{
+  background:white;
+  color:var(--blue-dark);
 }
 
 /* =========================
-   زر التشغيل
+   PLAY
 ========================= */
 
-.playIndicator{
-    position:absolute;
+.playState{
+  position:absolute;
 
-    top:50%;
-    left:50%;
+  top:50%;
+  left:50%;
 
-    transform:
-        translate(-50%,-50%)
-        scale(.8);
+  z-index:25;
 
-    width:70px;
-    height:70px;
+  transform:
+    translate(-50%,-50%)
+    scale(.85);
 
-    border-radius:50%;
+  width:70px;
+  height:70px;
 
-    display:grid;
-    place-items:center;
+  display:grid;
+  place-items:center;
 
-    color:white;
+  border-radius:50%;
 
-    background:
-        rgba(0,0,0,.45);
+  color:white;
 
-    backdrop-filter:
-        blur(10px);
+  background:rgba(0,0,0,.45);
 
-    font-size:30px;
+  backdrop-filter:blur(10px);
 
-    opacity:0;
+  opacity:0;
 
-    pointer-events:none;
+  pointer-events:none;
 
-    transition:.2s;
-
-    z-index:30;
+  transition:.2s;
 }
 
-.playIndicator.show{
-    opacity:1;
+.playState.show{
+  opacity:1;
 
-    transform:
-        translate(-50%,-50%)
-        scale(1);
+  transform:
+    translate(-50%,-50%)
+    scale(1);
+}
+
+.playState svg{
+  width:30px;
+  height:30px;
+
+  stroke:white;
+  fill:white;
 }
 
 /* =========================
-   شريط سفلي
+   BOTTOM NAV
 ========================= */
 
 .bottomNav{
-    position:fixed;
+  position:absolute;
 
-    right:0;
-    left:0;
-    bottom:0;
+  right:0;
+  left:0;
+  bottom:0;
 
-    z-index:100;
+  z-index:30;
 
-    height:
-        calc(
-            68px +
-            env(safe-area-inset-bottom)
-        );
+  height:
+    calc(
+      68px +
+      env(safe-area-inset-bottom)
+    );
 
-    padding-bottom:
-        env(safe-area-inset-bottom);
+  padding:
+    0 8px
+    env(safe-area-inset-bottom);
 
-    display:flex;
+  display:grid;
 
-    justify-content:
-        space-around;
+  grid-template-columns:
+    repeat(5,1fr);
 
-    align-items:center;
+  align-items:center;
 
-    color:white;
+  background:
+    linear-gradient(
+      transparent,
+      rgba(0,0,0,.82)
+    );
 
-    background:
-        linear-gradient(
-            transparent,
-            rgba(0,0,0,.85)
-        );
+  pointer-events:auto;
 }
 
 .navItem{
-    border:0;
+  border:0;
 
-    color:#ddd;
+  color:#cdd9dd;
 
-    background:transparent;
+  background:transparent;
 
-    display:flex;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
 
-    flex-direction:column;
+  gap:4px;
 
-    align-items:center;
-
-    gap:5px;
-
-    font-size:11px;
+  font-size:9px;
 }
 
-.navIcon{
-    font-size:21px;
+.navItem svg{
+  width:21px;
+  height:21px;
+
+  stroke:currentColor;
+  fill:none;
+
+  stroke-width:1.8;
+  stroke-linecap:round;
+  stroke-linejoin:round;
 }
 
 .navItem.active{
-    color:white;
-    font-weight:bold;
+  color:white;
+  font-weight:bold;
 }
 
 /* =========================
-   البحث
+   POINT TOAST
 ========================= */
 
-.searchPage{
-    position:fixed;
+.toast{
+  position:absolute;
 
-    inset:0;
+  z-index:100;
 
-    z-index:500;
+  top:
+    calc(
+      env(safe-area-inset-top) + 75px
+    );
 
-    background:#f5fbfe;
+  left:50%;
 
-    display:none;
+  transform:
+    translate(-50%,-15px);
 
-    overflow-y:auto;
+  padding:10px 15px;
 
-    color:#16313d;
+  border-radius:999px;
+
+  color:#06384b;
+  background:white;
+
+  font-size:12px;
+  font-weight:bold;
+
+  opacity:0;
+
+  pointer-events:none;
+
+  transition:.25s;
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.2);
 }
 
-.searchHeader{
-    position:sticky;
+.toast.show{
+  opacity:1;
 
-    top:0;
+  transform:
+    translate(-50%,0);
+}
 
-    background:white;
+/* =========================
+   DESKTOP
+========================= */
 
-    padding:15px;
+@media(min-width:750px){
 
-    display:flex;
+  body{
+    background:#07141a;
+  }
+
+  .app{
+    max-width:500px;
+    margin:auto;
+
+    box-shadow:
+      0 0 70px rgba(0,0,0,.75);
+  }
+}
+
+/* =========================
+   SMALL PHONES
+========================= */
+
+@media(max-height:650px){
+
+  .categories{
+    top:
+      calc(
+        env(safe-area-inset-top) + 57px
+      );
+  }
+
+  .content{
+    bottom:
+      calc(
+        env(safe-area-inset-bottom) + 70px
+      );
+  }
+
+  .actions{
+    bottom:
+      calc(
+        env(safe-area-inset-bottom) + 73px
+      );
 
     gap:10px;
+  }
 
-    align-items:center;
+  .actionButton{
+    width:42px;
+    height:42px;
+  }
 
-    border-bottom:
-        1px solid #dceef5;
-}
-
-.searchHeader input{
-    flex:1;
-
-    border:
-        1px solid #dceef5;
-
-    outline:none;
-
-    background:#f4fafc;
-
-    padding:14px 15px;
-
-    border-radius:14px;
-}
-
-.closeSearch{
-    border:0;
-
-    width:44px;
-    height:44px;
-
-    border-radius:13px;
-
-    background:#e8f7fd;
-
-    color:#087ba9;
-
-    font-size:20px;
-}
-
-.searchContent{
-    width:min(700px,92%);
-
-    margin:25px auto;
-}
-
-.searchContent h2{
-    margin-bottom:17px;
-}
-
-.search-result{
-    background:white;
-
-    border:
-        1px solid #dceef5;
-
-    border-radius:17px;
-
-    padding:17px;
-
-    margin-bottom:10px;
-
-    cursor:pointer;
-}
-
-.search-result strong{
-    display:block;
-
-    margin-bottom:7px;
-}
-
-.search-result p{
-    color:#71838b;
-
-    font-size:12px;
-
-    line-height:1.6;
-}
-
-.empty{
-    padding:50px 20px;
-
-    text-align:center;
-
-    color:#71838b;
-}
-
-/* =========================
-   Desktop
-========================= */
-
-@media(min-width:800px){
-
-    body{
-        background:#07141a;
-    }
-
-    .app{
-        max-width:520px;
-
-        margin:auto;
-
-        box-shadow:
-            0 0 80px rgba(0,0,0,.8);
-    }
-
-    .topbar,
-    .categories,
-    .bottomNav{
-        width:520px;
-
-        right:50%;
-
-        left:auto;
-
-        transform:
-            translateX(50%);
-    }
-
-}
-
-/* =========================
-   Landscape
-========================= */
-
-@media(
-    orientation:landscape
-)
-and
-(max-height:550px){
-
-    .categories{
-        display:none;
-    }
-
-    .video-info{
-        bottom:60px;
-    }
-
-    .actions{
-        bottom:70px;
-    }
-
+  .description{
+    -webkit-line-clamp:1;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div class="app">
+<div class="app" id="app">
 
-<!-- TOP -->
+  <main class="feed" id="feed"></main>
 
-<header class="topbar">
-
-    <div class="logo">
-
-        <div class="logo-icon">
-            ز
-        </div>
-
-        زاد
-
-    </div>
-
-    <button
-        class="searchBtn"
-        onclick="openSearch()">
-        🔍
-    </button>
-
-</header>
-
-
-<!-- CATEGORIES -->
-
-<div
-    class="categories"
-    id="categories">
-
-    <button
-        class="category active"
-        data-category="all">
-
-        لك
-
-    </button>
-
-    <button
-        class="category"
-        data-category="quran">
-
-        القرآن
-
-    </button>
-
-    <button
-        class="category"
-        data-category="hadith">
-
-        السنة
-
-    </button>
-
-    <button
-        class="category"
-        data-category="adhkar">
-
-        أذكار
-
-    </button>
-
-    <button
-        class="category"
-        data-category="seerah">
-
-        السيرة
-
-    </button>
-
-    <button
-        class="category"
-        data-category="stories">
-
-        قصص
-
-    </button>
-
-    <button
-        class="category"
-        data-category="lessons">
-
-        مواعظ
-
-    </button>
+  <div class="toast" id="toast"></div>
 
 </div>
-
-
-<!-- FEED -->
-
-<main
-    class="feed"
-    id="feed">
-</main>
-
-
-<!-- BOTTOM -->
-
-<nav class="bottomNav">
-
-    <button
-        class="navItem active"
-        onclick="showAll()">
-
-        <span class="navIcon">
-            ⌂
-        </span>
-
-        الرئيسية
-
-    </button>
-
-
-    <button
-        class="navItem"
-        onclick="openSearch()">
-
-        <span class="navIcon">
-            ⌕
-        </span>
-
-        بحث
-
-    </button>
-
-
-    <button
-        class="navItem"
-        onclick="showSaved()">
-
-        <span class="navIcon">
-            ♧
-        </span>
-
-        المحفوظات
-
-    </button>
-
-</nav>
-
-</div>
-
-
-<!-- SEARCH PAGE -->
-
-<div
-    class="searchPage"
-    id="searchPage">
-
-    <div class="searchHeader">
-
-        <button
-            class="closeSearch"
-            onclick="closeSearch()">
-
-            ×
-
-        </button>
-
-        <input
-            id="searchInput"
-            type="text"
-            placeholder="ابحث في المقاطع..."
-            oninput="searchVideos()">
-
-    </div>
-
-    <div class="searchContent">
-
-        <h2>
-            البحث
-        </h2>
-
-        <div
-            id="searchResults">
-
-            <div class="empty">
-                اكتب كلمة للبحث في المقاطع
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
 
 <script>
 
-/* ===================================
-   المقاطع
+/* =====================================================
+   بيانات المقاطع التجريبية
 
-   هذه بيانات تجريبية.
-   غيّر رابط src إلى مقاطعك.
-=================================== */
+   لاحقًا admin.html سيضيف هذه البيانات تلقائيًا.
+===================================================== */
 
-const videos = [
+const VIDEO_DATA = [
 
-{
+  {
     id:1,
 
     title:
-        "مقطع تجريبي للقرآن الكريم",
+      "ضع عنوان المقطع الديني هنا",
 
     description:
-        "يمكنك وضع وصف المقطع هنا وإضافة مرجعه أو مصدره.",
+      "وصف مختصر وواضح للمقطع يظهر للمستخدم.",
 
-    publisher:
-        "زاد",
+    author:
+      "زاد",
+
+    type:
+      "القرآن",
 
     category:
-        "quran",
-
-    categoryName:
-        "القرآن",
+      "quran",
 
     source:
-        "أضف مصدر المقطع",
+      "أضف المصدر",
 
-    src:
-        "https://www.w3schools.com/html/mov_bbb.mp4"
-},
+    video:
+      "https://www.w3schools.com/html/mov_bbb.mp4"
+  },
 
-{
+  {
     id:2,
 
     title:
-        "تذكير نافع",
+      "تذكير نافع",
 
     description:
-        "هذا مقطع تجريبي لاختبار التنقل بين المقاطع.",
+      "هذه بيانات تجريبية فقط، ويمكن استبدالها بمقاطعك.",
 
-    publisher:
-        "زاد",
+    author:
+      "زاد",
+
+    type:
+      "مواعظ",
 
     category:
-        "lessons",
-
-    categoryName:
-        "مواعظ",
+      "reminders",
 
     source:
-        "أضف المصدر",
+      "أضف مصدر المحتوى",
 
-    src:
-        "https://www.w3schools.com/html/movie.mp4"
-},
+    video:
+      "https://www.w3schools.com/html/movie.mp4"
+  },
 
-{
+  {
     id:3,
 
     title:
-        "من السيرة",
+      "مقطع من السيرة",
 
     description:
-        "ضع هنا مقطعًا موثقًا عن السيرة مع ذكر المصدر.",
+      "يمكن إضافة اسم الكتاب أو المرجع المرتبط بالمقطع.",
 
-    publisher:
-        "زاد",
+    author:
+      "زاد",
+
+    type:
+      "السيرة",
 
     category:
-        "seerah",
-
-    categoryName:
-        "السيرة",
+      "seerah",
 
     source:
-        "أضف المصدر",
+      "أضف المصدر",
 
-    src:
-        "https://www.w3schools.com/html/mov_bbb.mp4"
-}
+    video:
+      "https://www.w3schools.com/html/mov_bbb.mp4"
+  }
 
 ];
 
 
-/* ===================================
-   STORAGE
-=================================== */
+/* =====================================================
+   SVG
+===================================================== */
+
+const ICONS = {
+
+home:`
+<svg viewBox="0 0 24 24">
+<path d="M3 10.5 12 3l9 7.5"/>
+<path d="M5 9.5V21h14V9.5"/>
+<path d="M9 21v-7h6v7"/>
+</svg>
+`,
+
+video:`
+<svg viewBox="0 0 24 24">
+<rect x="3" y="5" width="18" height="14" rx="3"/>
+<path d="m10 9 5 3-5 3Z"/>
+</svg>
+`,
+
+book:`
+<svg viewBox="0 0 24 24">
+<path d="M4 5.5A3.5 3.5 0 0 1 7.5 2H11v17H7.5A3.5 3.5 0 0 0 4 22Z"/>
+<path d="M20 5.5A3.5 3.5 0 0 0 16.5 2H13v17h3.5A3.5 3.5 0 0 1 20 22Z"/>
+</svg>
+`,
+
+heart:`
+<svg viewBox="0 0 24 24">
+<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/>
+</svg>
+`,
+
+bookmark:`
+<svg viewBox="0 0 24 24">
+<path d="M6 3h12v18l-6-4-6 4Z"/>
+</svg>
+`,
+
+share:`
+<svg viewBox="0 0 24 24">
+<circle cx="18" cy="5" r="3"/>
+<circle cx="6" cy="12" r="3"/>
+<circle cx="18" cy="19" r="3"/>
+<path d="m8.6 10.5 6.8-4"/>
+<path d="m8.6 13.5 6.8 4"/>
+</svg>
+`,
+
+volume:`
+<svg viewBox="0 0 24 24">
+<path d="M11 5 6 9H3v6h3l5 4Z"/>
+<path d="M15 9a4 4 0 0 1 0 6"/>
+<path d="M17.5 6.5a8 8 0 0 1 0 11"/>
+</svg>
+`,
+
+search:`
+<svg viewBox="0 0 24 24">
+<circle cx="11" cy="11" r="7"/>
+<path d="m20 20-4-4"/>
+</svg>
+`,
+
+user:`
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="8" r="4"/>
+<path d="M4 21a8 8 0 0 1 16 0"/>
+</svg>
+`,
+
+source:`
+<svg viewBox="0 0 24 24">
+<path d="M4 4h12a4 4 0 0 1 4 4v12H8a4 4 0 0 1-4-4Z"/>
+<path d="M8 4v16"/>
+</svg>
+`,
+
+play:`
+<svg viewBox="0 0 24 24">
+<path d="m8 5 11 7-11 7Z"/>
+</svg>
+`
+
+};
+
+
+/* =====================================================
+   STATE
+===================================================== */
+
+let currentCategory = "all";
 
 let liked =
-    JSON.parse(
-        localStorage.getItem(
-            "zaad_liked"
-        ) || "[]"
-    );
-
+  JSON.parse(
+    localStorage.getItem(
+      "zaadLikes"
+    ) || "[]"
+  );
 
 let saved =
-    JSON.parse(
-        localStorage.getItem(
-            "zaad_saved"
-        ) || "[]"
-    );
+  JSON.parse(
+    localStorage.getItem(
+      "zaadSaved"
+    ) || "[]"
+  );
 
+let activityPoints =
+  Number(
+    localStorage.getItem(
+      "zaadPoints"
+    ) || 0
+  );
 
-let currentVideos =
-    [...videos];
 
+/* =====================================================
+   HEADER
+===================================================== */
 
-/* ===================================
-   RENDER
-=================================== */
+function headerHTML(){
 
-function renderVideos(list){
+return `
 
-    const feed =
-        document.getElementById(
-            "feed"
-        );
+<header class="header">
 
-    feed.innerHTML = "";
+  <div class="brand">
 
+    <div class="brandMark">
+      ز
+    </div>
 
-    if(!list.length){
+    زاد
 
-        feed.innerHTML = `
+  </div>
 
-        <div
-            style="
-                height:100dvh;
-                color:white;
-                display:grid;
-                place-items:center;
-                text-align:center;
-                padding:30px;
-            ">
 
-            لا توجد مقاطع هنا حاليًا.
+  <div class="headerActions">
 
-        </div>
+    <button
+      class="iconBtn"
+      aria-label="بحث"
+      onclick="showToast('سيتم إضافة البحث في الصفحة الرئيسية')">
 
-        `;
+      ${ICONS.search}
 
-        return;
-    }
+    </button>
 
+  </div>
 
-    list.forEach(item=>{
+</header>
 
-        const card =
-            document.createElement(
-                "section"
-            );
 
-        card.className =
-            "video-card";
+<div class="categories">
 
-        card.dataset.id =
-            item.id;
+  ${categoryButton(
+    "all",
+    "لك"
+  )}
 
+  ${categoryButton(
+    "quran",
+    "القرآن"
+  )}
 
-        const isLiked =
-            liked.includes(
-                item.id
-            );
+  ${categoryButton(
+    "reminders",
+    "تذكير"
+  )}
 
-        const isSaved =
-            saved.includes(
-                item.id
-            );
+  ${categoryButton(
+    "seerah",
+    "السيرة"
+  )}
 
+</div>
 
-        card.innerHTML = `
-
-        <video
-            src="${escapeAttribute(item.src)}"
-            playsinline
-            preload="metadata"
-            loop
-        ></video>
-
-        <div class="overlay"></div>
-
-
-        <div class="playIndicator">
-            ▶
-        </div>
-
-
-        <div class="video-info">
-
-            <div class="publisher">
-
-                <div class="avatar">
-                    ز
-                </div>
-
-                <strong>
-                    ${escapeHTML(
-                        item.publisher
-                    )}
-                </strong>
-
-            </div>
-
-
-            <div class="video-title">
-
-                ${escapeHTML(
-                    item.title
-                )}
-
-            </div>
-
-
-            <div class="description">
-
-                ${escapeHTML(
-                    item.description
-                )}
-
-            </div>
-
-
-            <div
-                class="source"
-                onclick="showSource(
-                    ${item.id}
-                )">
-
-                📖
-                ${escapeHTML(
-                    item.source
-                )}
-
-            </div>
-
-        </div>
-
-
-        <div class="actions">
-
-
-            <div
-                class="
-                    action
-                    ${
-                        isLiked
-                        ?
-                        "liked"
-                        :
-                        ""
-                    }
-                "
-                id="like-${item.id}">
-
-                <button
-                    onclick="toggleLike(
-                        ${item.id}
-                    )">
-
-                    ♡
-
-                </button>
-
-                <span>
-                    إعجاب
-                </span>
-
-            </div>
-
-
-            <div
-                class="
-                    action
-                    ${
-                        isSaved
-                        ?
-                        "saved"
-                        :
-                        ""
-                    }
-                "
-                id="save-${item.id}">
-
-                <button
-                    onclick="toggleSave(
-                        ${item.id}
-                    )">
-
-                    ♧
-
-                </button>
-
-                <span>
-                    حفظ
-                </span>
-
-            </div>
-
-
-            <div class="action">
-
-                <button
-                    onclick="shareVideo(
-                        ${item.id}
-                    )">
-
-                    ↗
-
-                </button>
-
-                <span>
-                    مشاركة
-                </span>
-
-            </div>
-
-
-            <div class="action">
-
-                <button
-                    onclick="toggleMute(
-                        this
-                    )">
-
-                    🔊
-
-                </button>
-
-                <span>
-                    الصوت
-                </span>
-
-            </div>
-
-        </div>
-
-        `;
-
-
-        const video =
-            card.querySelector(
-                "video"
-            );
-
-
-        const indicator =
-            card.querySelector(
-                ".playIndicator"
-            );
-
-
-        video.addEventListener(
-            "click",
-            ()=>{
-
-                if(video.paused){
-
-                    video.play()
-                        .catch(()=>{});
-
-                    indicator.textContent =
-                        "▶";
-
-                }
-                else{
-
-                    video.pause();
-
-                    indicator.textContent =
-                        "Ⅱ";
-
-                }
-
-
-                indicator.classList.add(
-                    "show"
-                );
-
-
-                setTimeout(()=>{
-
-                    indicator
-                        .classList
-                        .remove(
-                            "show"
-                        );
-
-                },500);
-
-            }
-        );
-
-
-        feed.appendChild(
-            card
-        );
-
-    });
-
-
-    setupObserver();
+`;
 
 }
 
 
-/* ===================================
-   AUTO PLAY
-=================================== */
+function categoryButton(
+  value,
+  title
+){
+
+return `
+
+<button
+  class="category
+  ${
+    currentCategory === value
+      ? "active"
+      : ""
+  }"
+  onclick="changeCategory('${value}')">
+
+  ${title}
+
+</button>
+
+`;
+
+}
+
+
+/* =====================================================
+   BOTTOM NAV
+===================================================== */
+
+function bottomNavHTML(){
+
+return `
+
+<nav class="bottomNav">
+
+  <button class="navItem">
+    ${ICONS.home}
+    <span>الرئيسية</span>
+  </button>
+
+  <button class="navItem active">
+    ${ICONS.video}
+    <span>المقاطع</span>
+  </button>
+
+  <button class="navItem">
+    ${ICONS.book}
+    <span>القرآن</span>
+  </button>
+
+  <button class="navItem">
+    ${ICONS.book}
+    <span>الأذكار</span>
+  </button>
+
+  <button class="navItem">
+    ${ICONS.user}
+    <span>حسابي</span>
+  </button>
+
+</nav>
+
+`;
+
+}
+
+
+/* =====================================================
+   CARD
+===================================================== */
+
+function videoCard(item){
+
+const isLiked =
+  liked.includes(item.id);
+
+const isSaved =
+  saved.includes(item.id);
+
+
+return `
+
+<section
+  class="short"
+  data-id="${item.id}">
+
+
+  <video
+    src="${safeAttribute(item.video)}"
+    playsinline
+    loop
+    preload="metadata"
+  ></video>
+
+
+  <div class="shade"></div>
+
+
+  ${headerHTML()}
+
+
+  <div class="playState">
+
+    ${ICONS.play}
+
+  </div>
+
+
+  <div class="content">
+
+    <div class="author">
+
+      <div class="avatar">
+        ز
+      </div>
+
+      <div class="authorText">
+
+        <div class="authorName">
+          ${escapeHTML(item.author)}
+        </div>
+
+        <div class="contentType">
+          ${escapeHTML(item.type)}
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="title">
+      ${escapeHTML(item.title)}
+    </div>
+
+
+    <div class="description">
+      ${escapeHTML(item.description)}
+    </div>
+
+
+    <button
+      class="sourceBtn"
+      onclick="event.stopPropagation();showSource(${item.id})">
+
+      ${ICONS.source}
+
+      المصدر
+
+    </button>
+
+  </div>
+
+
+  <aside class="actions">
+
+
+    <div
+      class="action
+      ${isLiked ? "active" : ""}"
+      id="like-${item.id}">
+
+      <button
+        class="actionButton"
+        aria-label="إعجاب"
+        onclick="
+          event.stopPropagation();
+          toggleLike(${item.id})
+        ">
+
+        ${ICONS.heart}
+
+      </button>
+
+      <span>إعجاب</span>
+
+    </div>
+
+
+    <div
+      class="action
+      ${isSaved ? "active" : ""}"
+      id="save-${item.id}">
+
+      <button
+        class="actionButton"
+        aria-label="حفظ"
+        onclick="
+          event.stopPropagation();
+          toggleSave(${item.id})
+        ">
+
+        ${ICONS.bookmark}
+
+      </button>
+
+      <span>حفظ</span>
+
+    </div>
+
+
+    <div class="action">
+
+      <button
+        class="actionButton"
+        aria-label="مشاركة"
+        onclick="
+          event.stopPropagation();
+          shareVideo(${item.id})
+        ">
+
+        ${ICONS.share}
+
+      </button>
+
+      <span>مشاركة</span>
+
+    </div>
+
+
+    <div class="action">
+
+      <button
+        class="actionButton"
+        aria-label="الصوت"
+        onclick="
+          event.stopPropagation();
+          toggleMute(this)
+        ">
+
+        ${ICONS.volume}
+
+      </button>
+
+      <span>الصوت</span>
+
+    </div>
+
+  </aside>
+
+
+  ${bottomNavHTML()}
+
+</section>
+
+`;
+
+}
+
+
+/* =====================================================
+   RENDER
+===================================================== */
+
+function render(){
+
+  const feed =
+    document.getElementById(
+      "feed"
+    );
+
+
+  let list =
+    VIDEO_DATA;
+
+
+  if(
+    currentCategory !== "all"
+  ){
+
+    list =
+      VIDEO_DATA.filter(
+        item =>
+          item.category ===
+          currentCategory
+      );
+
+  }
+
+
+  if(!list.length){
+
+    feed.innerHTML = `
+
+    <section class="short">
+
+      ${headerHTML()}
+
+      <div
+        style="
+          height:100%;
+          display:grid;
+          place-items:center;
+          color:white;
+          text-align:center;
+          padding:30px;
+        ">
+
+        لا توجد مقاطع
+        في هذا القسم حاليًا.
+
+      </div>
+
+      ${bottomNavHTML()}
+
+    </section>
+
+    `;
+
+    return;
+
+  }
+
+
+  feed.innerHTML =
+    list
+      .map(videoCard)
+      .join("");
+
+
+  bindVideoClicks();
+
+  setupAutoplay();
+
+}
+
+
+/* =====================================================
+   PLAY / PAUSE
+===================================================== */
+
+function bindVideoClicks(){
+
+  document
+    .querySelectorAll(
+      ".short video"
+    )
+    .forEach(video=>{
+
+      video.addEventListener(
+        "click",
+        ()=>{
+
+          const card =
+            video.closest(
+              ".short"
+            );
+
+          const state =
+            card.querySelector(
+              ".playState"
+            );
+
+
+          if(video.paused){
+
+            pauseAll(video);
+
+            video.play()
+              .catch(()=>{});
+
+          }
+          else{
+
+            video.pause();
+
+          }
+
+
+          state.classList.add(
+            "show"
+          );
+
+
+          setTimeout(
+            ()=>{
+
+              state.classList.remove(
+                "show"
+              );
+
+            },
+            450
+          );
+
+        }
+      );
+
+    });
+
+}
+
+
+/* =====================================================
+   AUTOPLAY
+===================================================== */
 
 let observer;
 
-function setupObserver(){
+function setupAutoplay(){
 
-    if(observer){
-        observer.disconnect();
-    }
-
-
-    observer =
-        new IntersectionObserver(
-
-        entries=>{
-
-            entries.forEach(
-                entry=>{
-
-                    const video =
-                        entry.target
-                        .querySelector(
-                            "video"
-                        );
+  if(observer){
+    observer.disconnect();
+  }
 
 
-                    if(
-                        entry.isIntersecting &&
-                        entry.intersectionRatio > .65
-                    ){
+  observer =
+    new IntersectionObserver(
 
-                        pauseAll(
-                            video
-                        );
+      entries=>{
+
+        entries.forEach(
+          entry=>{
+
+            const video =
+              entry.target
+                .querySelector(
+                  "video"
+                );
+
+            if(!video){
+              return;
+            }
 
 
-                        video.play()
-                            .catch(()=>{});
+            if(
+              entry.isIntersecting &&
+              entry.intersectionRatio >= .72
+            ){
 
-                    }
-                    else{
+              pauseAll(video);
 
-                        video.pause();
+              video.play()
+                .catch(()=>{});
 
-                    }
+            }
+            else{
 
-                }
-            );
+              video.pause();
 
-        },
+            }
 
-        {
-            threshold:[
-                .25,
-                .65,
-                .9
-            ]
-        }
+          }
+        );
+
+      },
+
+      {
+        threshold:[
+          .25,
+          .72,
+          .95
+        ]
+      }
 
     );
 
 
-    document
-        .querySelectorAll(
-            ".video-card"
-        )
-        .forEach(card=>{
+  document
+    .querySelectorAll(
+      ".short"
+    )
+    .forEach(card=>{
 
-            observer.observe(
-                card
-            );
+      observer.observe(
+        card
+      );
 
-        });
+    });
 
 }
 
 
 function pauseAll(
-    except=null
+  except=null
 ){
 
-    document
-        .querySelectorAll(
-            "video"
-        )
-        .forEach(video=>{
-
-            if(
-                video !== except
-            ){
-                video.pause();
-            }
-
-        });
-
-}
-
-
-/* ===================================
-   LIKE
-=================================== */
-
-function toggleLike(id){
-
-    if(
-        liked.includes(id)
-    ){
-
-        liked =
-            liked.filter(
-                x=>x!==id
-            );
-
-    }
-    else{
-
-        liked.push(id);
-
-    }
-
-
-    localStorage.setItem(
-
-        "zaad_liked",
-
-        JSON.stringify(
-            liked
-        )
-
-    );
-
-
-    const element =
-        document.getElementById(
-            "like-"+id
-        );
-
-
-    if(element){
-
-        element.classList.toggle(
-            "liked",
-            liked.includes(id)
-        );
-
-    }
-
-}
-
-
-/* ===================================
-   SAVE
-=================================== */
-
-function toggleSave(id){
-
-    if(
-        saved.includes(id)
-    ){
-
-        saved =
-            saved.filter(
-                x=>x!==id
-            );
-
-    }
-    else{
-
-        saved.push(id);
-
-    }
-
-
-    localStorage.setItem(
-
-        "zaad_saved",
-
-        JSON.stringify(
-            saved
-        )
-
-    );
-
-
-    const element =
-        document.getElementById(
-            "save-"+id
-        );
-
-
-    if(element){
-
-        element.classList.toggle(
-            "saved",
-            saved.includes(id)
-        );
-
-    }
-
-}
-
-
-/* ===================================
-   SAVED PAGE
-=================================== */
-
-function showSaved(){
-
-    const list =
-        videos.filter(
-            video=>
-                saved.includes(
-                    video.id
-                )
-        );
-
-
-    currentVideos =
-        list;
-
-
-    renderVideos(
-        list
-    );
-
-
-    document
-        .getElementById(
-            "feed"
-        )
-        .scrollTo({
-            top:0
-        });
-
-}
-
-
-/* ===================================
-   ALL
-=================================== */
-
-function showAll(){
-
-    currentVideos =
-        [...videos];
-
-    renderVideos(
-        currentVideos
-    );
-
-}
-
-
-/* ===================================
-   CATEGORIES
-=================================== */
-
-document
+  document
     .querySelectorAll(
-        ".category"
+      ".short video"
     )
-    .forEach(button=>{
+    .forEach(video=>{
 
-        button.addEventListener(
-            "click",
-            ()=>{
-
-                document
-                    .querySelectorAll(
-                        ".category"
-                    )
-                    .forEach(btn=>{
-
-                        btn.classList
-                            .remove(
-                                "active"
-                            );
-
-                    });
-
-
-                button.classList.add(
-                    "active"
-                );
-
-
-                const category =
-                    button.dataset.category;
-
-
-                if(
-                    category === "all"
-                ){
-
-                    currentVideos =
-                        [...videos];
-
-                }
-                else{
-
-                    currentVideos =
-                        videos.filter(
-                            item=>
-                                item.category ===
-                                category
-                        );
-
-                }
-
-
-                renderVideos(
-                    currentVideos
-                );
-
-            }
-        );
+      if(video !== except){
+        video.pause();
+      }
 
     });
 
-
-/* ===================================
-   MUTE
-=================================== */
-
-function toggleMute(button){
-
-    const card =
-        button.closest(
-            ".video-card"
-        );
-
-    const video =
-        card.querySelector(
-            "video"
-        );
+}
 
 
-    video.muted =
-        !video.muted;
+/* =====================================================
+   CATEGORY
+===================================================== */
 
+function changeCategory(
+  category
+){
 
-    button.textContent =
-        video.muted
-        ?
-        "🔇"
-        :
-        "🔊";
+  currentCategory =
+    category;
+
+  pauseAll();
+
+  render();
+
+  document
+    .getElementById(
+      "feed"
+    )
+    .scrollTo({
+      top:0,
+      behavior:"auto"
+    });
 
 }
 
 
-/* ===================================
+/* =====================================================
+   LIKE
+===================================================== */
+
+function toggleLike(id){
+
+  const element =
+    document.getElementById(
+      "like-"+id
+    );
+
+
+  if(
+    liked.includes(id)
+  ){
+
+    liked =
+      liked.filter(
+        value =>
+          value !== id
+      );
+
+  }
+  else{
+
+    liked.push(id);
+
+  }
+
+
+  localStorage.setItem(
+    "zaadLikes",
+    JSON.stringify(liked)
+  );
+
+
+  if(element){
+
+    element.classList.toggle(
+      "active",
+      liked.includes(id)
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   SAVE
+===================================================== */
+
+function toggleSave(id){
+
+  const alreadySaved =
+    saved.includes(id);
+
+
+  if(alreadySaved){
+
+    saved =
+      saved.filter(
+        value =>
+          value !== id
+      );
+
+  }
+  else{
+
+    saved.push(id);
+
+    addPoints(
+      2,
+      "+2 نقطة نشاط للحفظ"
+    );
+
+  }
+
+
+  localStorage.setItem(
+    "zaadSaved",
+    JSON.stringify(saved)
+  );
+
+
+  const element =
+    document.getElementById(
+      "save-"+id
+    );
+
+
+  if(element){
+
+    element.classList.toggle(
+      "active",
+      saved.includes(id)
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   POINTS
+===================================================== */
+
+function addPoints(
+  amount,
+  message
+){
+
+  activityPoints +=
+    amount;
+
+
+  localStorage.setItem(
+    "zaadPoints",
+    activityPoints
+  );
+
+
+  showToast(message);
+
+}
+
+
+/* =====================================================
    SHARE
-=================================== */
+===================================================== */
 
 async function shareVideo(id){
 
-    const item =
-        videos.find(
-            x=>x.id===id
-        );
-
-    if(!item){
-        return;
-    }
+  const item =
+    VIDEO_DATA.find(
+      video =>
+        video.id === id
+    );
 
 
-    const text =
-        item.title +
-        "\n\n" +
-        item.description;
+  if(!item){
+    return;
+  }
 
 
-    if(
-        navigator.share
-    ){
+  const text =
+    item.title +
+    "\n\n" +
+    item.description +
+    "\n\nالمصدر: " +
+    item.source;
 
-        try{
 
-            await navigator.share({
-                title:item.title,
-                text:text
-            });
+  if(navigator.share){
 
-        }
-        catch(e){}
+    try{
 
-    }
-    else{
-
-        try{
-
-            await navigator.clipboard
-                .writeText(text);
-
-            alert(
-                "تم نسخ معلومات المقطع"
-            );
-
-        }
-        catch(e){
-
-            alert(
-                "تعذرت المشاركة"
-            );
-
-        }
+      await navigator.share({
+        title:item.title,
+        text:text
+      });
 
     }
+    catch(error){}
+
+  }
+  else{
+
+    try{
+
+      await navigator.clipboard
+        .writeText(text);
+
+      showToast(
+        "تم نسخ معلومات المقطع"
+      );
+
+    }
+    catch(error){
+
+      showToast(
+        "تعذرت المشاركة"
+      );
+
+    }
+
+  }
 
 }
 
 
-/* ===================================
+/* =====================================================
+   MUTE
+===================================================== */
+
+function toggleMute(button){
+
+  const card =
+    button.closest(
+      ".short"
+    );
+
+  const video =
+    card.querySelector(
+      "video"
+    );
+
+
+  video.muted =
+    !video.muted;
+
+
+  showToast(
+    video.muted
+      ? "تم كتم الصوت"
+      : "تم تشغيل الصوت"
+  );
+
+}
+
+
+/* =====================================================
    SOURCE
-=================================== */
+===================================================== */
 
 function showSource(id){
 
-    const item =
-        videos.find(
-            x=>x.id===id
-        );
+  const item =
+    VIDEO_DATA.find(
+      video =>
+        video.id === id
+    );
 
-    if(item){
 
-        alert(
-            "المصدر:\n\n" +
-            item.source
-        );
+  if(!item){
+    return;
+  }
 
-    }
+
+  alert(
+    "مصدر المحتوى:\n\n" +
+    item.source
+  );
 
 }
 
 
-/* ===================================
-   SEARCH
-=================================== */
+/* =====================================================
+   TOAST
+===================================================== */
 
-function openSearch(){
+let toastTimer;
 
-    pauseAll();
+function showToast(message){
 
+  const toast =
     document.getElementById(
-        "searchPage"
-    ).style.display =
-        "block";
+      "toast"
+    );
 
 
-    setTimeout(()=>{
-
-        document.getElementById(
-            "searchInput"
-        ).focus();
-
-    },100);
-
-}
+  toast.textContent =
+    message;
 
 
-function closeSearch(){
-
-    document.getElementById(
-        "searchPage"
-    ).style.display =
-        "none";
-
-}
+  toast.classList.add(
+    "show"
+  );
 
 
-function searchVideos(){
+  clearTimeout(
+    toastTimer
+  );
 
-    const query =
-        normalize(
-            document
-                .getElementById(
-                    "searchInput"
-                )
-                .value
+
+  toastTimer =
+    setTimeout(
+      ()=>{
+
+        toast.classList.remove(
+          "show"
         );
 
-
-    const results =
-        document.getElementById(
-            "searchResults"
-        );
-
-
-    if(!query){
-
-        results.innerHTML = `
-
-        <div class="empty">
-
-            اكتب كلمة للبحث
-            في المقاطع
-
-        </div>
-
-        `;
-
-        return;
-    }
-
-
-    const found =
-        videos.filter(
-            video=>{
-
-                const text =
-                    normalize(
-                        video.title +
-                        " " +
-                        video.description +
-                        " " +
-                        video.categoryName
-                    );
-
-                return text.includes(
-                    query
-                );
-
-            }
-        );
-
-
-    if(!found.length){
-
-        results.innerHTML = `
-
-        <div class="empty">
-
-            لم نجد مقاطع
-            مطابقة للبحث.
-
-        </div>
-
-        `;
-
-        return;
-    }
-
-
-    results.innerHTML =
-        found.map(item=>`
-
-        <div
-            class="search-result"
-            onclick="openVideo(
-                ${item.id}
-            )">
-
-            <strong>
-
-                ${escapeHTML(
-                    item.title
-                )}
-
-            </strong>
-
-            <p>
-
-                ${escapeHTML(
-                    item.description
-                )}
-
-            </p>
-
-        </div>
-
-        `).join("");
-
-}
-
-
-/* ===================================
-   OPEN SEARCH RESULT
-=================================== */
-
-function openVideo(id){
-
-    const item =
-        videos.find(
-            video=>
-                video.id===id
-        );
-
-    if(!item){
-        return;
-    }
-
-
-    closeSearch();
-
-
-    currentVideos =
-        [item];
-
-
-    renderVideos(
-        currentVideos
+      },
+      1800
     );
 
 }
 
 
-/* ===================================
-   HELPERS
-=================================== */
+/* =====================================================
+   SECURITY HELPERS
+===================================================== */
 
-function normalize(text){
+function escapeHTML(value){
 
-    return text
-        .toLowerCase()
-        .trim()
-        .replace(/[أإآ]/g,"ا")
-        .replace(/ة/g,"ه")
-        .replace(/ى/g,"ي")
-        .replace(/[ًٌٍَُِّْ]/g,"");
+  const div =
+    document.createElement(
+      "div"
+    );
 
-}
+  div.textContent =
+    String(value);
 
-
-function escapeHTML(text){
-
-    const div =
-        document.createElement(
-            "div"
-        );
-
-    div.textContent =
-        text;
-
-    return div.innerHTML;
+  return div.innerHTML;
 
 }
 
 
-function escapeAttribute(text){
+function safeAttribute(value){
 
-    return String(text)
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#39;");
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#39;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;");
 
 }
 
 
-/* ===================================
-   START
-=================================== */
+/* =====================================================
+   منع Zoom
+===================================================== */
 
-renderVideos(
-    videos
+document.addEventListener(
+  "gesturestart",
+  event=>{
+    event.preventDefault();
+  }
 );
+
+
+document.addEventListener(
+  "gesturechange",
+  event=>{
+    event.preventDefault();
+  }
+);
+
+
+document.addEventListener(
+  "gestureend",
+  event=>{
+    event.preventDefault();
+  }
+);
+
+
+/* منع double tap zoom */
+
+let lastTouchEnd = 0;
+
+document.addEventListener(
+  "touchend",
+  event=>{
+
+    const now =
+      Date.now();
+
+    if(
+      now - lastTouchEnd <= 300
+    ){
+
+      event.preventDefault();
+
+    }
+
+    lastTouchEnd =
+      now;
+
+  },
+  {
+    passive:false
+  }
+);
+
+
+/* =====================================================
+   START
+===================================================== */
+
+render();
 
 </script>
 
