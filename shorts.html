@@ -2611,6 +2611,38 @@ function currentVideo(){
 }
 
 /* =========================
+   SCREEN WAKE LOCK
+   إبقاء شاشة الجوال مستيقظة أثناء تشغيل المقطع
+========================= */
+
+let zaadWakeLock = null;
+
+async function requestZaadWakeLock(){
+    if (!("wakeLock" in navigator) || document.hidden) return;
+
+    const video = currentVideo();
+    if (!video || video.paused || video.ended) return;
+
+    try{
+        if (!zaadWakeLock){
+            zaadWakeLock = await navigator.wakeLock.request("screen");
+            zaadWakeLock.addEventListener("release", ()=>{
+                zaadWakeLock = null;
+            });
+        }
+    }catch(error){
+        console.log("Wake Lock غير متاح:", error);
+        zaadWakeLock = null;
+    }
+}
+
+async function releaseZaadWakeLock(){
+    if (!zaadWakeLock) return;
+    try{ await zaadWakeLock.release(); }catch(error){}
+    zaadWakeLock = null;
+}
+
+/* =========================
    PLAY / SOUND
 ========================= */
 
@@ -2650,6 +2682,8 @@ function playCurrentVideo(
 
             const promise =
                 video.play();
+
+            requestZaadWakeLock();
 
             if(
                 promise &&
@@ -2744,6 +2778,8 @@ function pauseAll(){
         .forEach(
             video => video.pause()
         );
+
+    releaseZaadWakeLock();
 }
 
 /* =========================
@@ -2758,6 +2794,19 @@ function bindVideoEvents(){
         )
         .forEach(
             (video,index)=>{
+
+                // طالما الفيديو الحالي يعمل، اطلب من الجوال إبقاء الشاشة مستيقظة.
+                video.addEventListener("play", ()=>{
+                    if(index === currentIndex) requestZaadWakeLock();
+                });
+
+                video.addEventListener("pause", ()=>{
+                    if(index === currentIndex) releaseZaadWakeLock();
+                });
+
+                video.addEventListener("ended", ()=>{
+                    if(index === currentIndex) releaseZaadWakeLock();
+                });
 
                 video.addEventListener(
                     "timeupdate",
@@ -3807,6 +3856,7 @@ document.addEventListener(
         ){
 
             playCurrentVideo();
+            requestZaadWakeLock();
         }
     }
 );
