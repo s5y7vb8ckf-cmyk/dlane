@@ -1049,12 +1049,14 @@ button{
 .commentsError.show{display:block}
 
 
-.pwaSoundGate{position:fixed;z-index:5000;inset:0;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(3,18,25,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.pwaSoundGate{position:fixed;z-index:5000;inset:0;display:none;align-items:center;justify-content:center;padding:22px;background:linear-gradient(180deg,rgba(4,17,24,.82),rgba(4,24,34,.94));backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
 .pwaSoundGate.show{display:flex}
-.pwaSoundCard{width:min(100%,390px);padding:24px 20px;border-radius:25px;background:#fff;color:#15323d;text-align:center;box-shadow:0 25px 80px rgba(0,0,0,.28)}
-.pwaSoundIcon{width:62px;height:62px;margin:0 auto 14px;border-radius:19px;display:grid;place-items:center;background:#eaf8fd;font-size:28px}
-.pwaSoundCard h3{margin:0 0 7px;font-size:17px}.pwaSoundCard p{margin:0;color:#78909a;font-size:10px;line-height:1.8}
-.pwaSoundCard button{width:100%;height:48px;margin-top:17px;border:0;border-radius:14px;background:var(--primary);color:#fff;font-weight:900;cursor:pointer}
+.pwaSoundCard{position:relative;overflow:hidden;width:min(100%,410px);padding:34px 24px 25px;border:1px solid rgba(255,255,255,.8);border-radius:30px;background:linear-gradient(160deg,#fff 0%,#f5fcff 100%);color:#15323d;text-align:center;box-shadow:0 30px 90px rgba(0,0,0,.34)}
+.pwaSoundCard:before{content:"";position:absolute;width:180px;height:180px;border-radius:50%;background:rgba(50,183,232,.12);top:-95px;right:-75px}
+.pwaSoundIcon{position:relative;width:76px;height:76px;margin:0 auto 18px;border-radius:24px;display:grid;place-items:center;background:linear-gradient(145deg,#e9f9ff,#d9f3ff);box-shadow:0 12px 32px rgba(50,183,232,.18);font-size:32px}
+.pwaSoundCard h3{position:relative;margin:0 0 9px;font-size:22px;font-weight:900;letter-spacing:-.3px}.pwaSoundCard p{position:relative;margin:0 auto;max-width:310px;color:#70858e;font-size:13px;line-height:1.9}
+.pwaSoundCard button{position:relative;width:100%;height:54px;margin-top:22px;border:0;border-radius:17px;background:linear-gradient(135deg,var(--primary),#179fd4);color:#fff;font-size:15px;font-weight:900;box-shadow:0 12px 30px rgba(50,183,232,.28);cursor:pointer}
+.pwaSoundHint{position:relative;margin-top:17px;color:#8aa0a9;font-size:11px;font-weight:700}.pwaSoundArrow{position:relative;width:38px;height:38px;margin:7px auto 0;display:grid;place-items:center;color:var(--primary);animation:pwaArrow 1.25s ease-in-out infinite}.pwaSoundArrow svg{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}@keyframes pwaArrow{0%,100%{transform:translateY(0);opacity:.65}50%{transform:translateY(7px);opacity:1}}
 
 </style>
 </head>
@@ -1562,10 +1564,12 @@ updateInternetStatus();
 
 <div class="pwaSoundGate" id="pwaSoundGate" aria-hidden="true">
   <div class="pwaSoundCard">
-    <div class="pwaSoundIcon">🔊</div>
-    <h3>تشغيل المقاطع بالصوت</h3>
-    <p>اضغط السماح مرة واحدة لتشغيل صوت المقاطع تلقائيًا أثناء استخدام التطبيق.</p>
-    <button type="button" id="enablePwaSound">السماح وتشغيل الصوت</button>
+    <div class="pwaSoundIcon">▶️</div>
+    <h3>استمتع بالمقاطع المفيدة</h3>
+    <p>اضغط للبدء وتشغيل المقطع الأول بالصوت، وبعدها تنقّل بين المقاطع واستمتع بالصوت مباشرة.</p>
+    <button type="button" id="enablePwaSound">ابدأ المشاهدة بالصوت</button>
+    <div class="pwaSoundHint">اضغط للمتابعة</div>
+    <div class="pwaSoundArrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div>
   </div>
 </div>
 
