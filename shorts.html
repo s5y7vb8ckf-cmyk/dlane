@@ -1558,6 +1558,33 @@ let liked = readStorageArray("zaadLikes");
 let saved = readStorageArray("zaadSaved");
 
 /* =========================
+   RANDOM FEED
+   ترتيب جديد للمقاطع في كل دخول
+========================= */
+function shuffleVideos(list){
+    const arr = [...list];
+    for(let i = arr.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+}
+
+function avoidSameFirstVideo(list){
+    if(list.length < 2) return list;
+    try{
+        const lastFirst = localStorage.getItem("zaadLastFirstVideo");
+        if(lastFirst && list[0]?.id === lastFirst){
+            const swapIndex = 1 + Math.floor(Math.random() * (list.length - 1));
+            [list[0], list[swapIndex]] = [list[swapIndex], list[0]];
+        }
+        localStorage.setItem("zaadLastFirstVideo", list[0]?.id || "");
+    }catch(error){}
+    return list;
+}
+
+
+/* =========================
    HEIGHT
 ========================= */
 
@@ -1623,6 +1650,10 @@ async function loadVideos(){
 
         allVideos =
             convertRowsToVideos(rows);
+
+        // ترتيب عشوائي جديد في كل مرة تفتح فيها صفحة المقاطع.
+        // وبما أن التصنيفات تُستخرج من allVideos، فترتيب المقاطع داخل كل تصنيف يتغير أيضًا.
+        allVideos = avoidSameFirstVideo(shuffleVideos(allVideos));
 
         try{ localStorage.setItem("zaadVideoCatalog", JSON.stringify(allVideos)); }catch(error){}
 
