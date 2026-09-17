@@ -1,236 +1,4341 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<meta name="theme-color" content="#ffffff">
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+
+<meta name="theme-color" content="#000000">
 <link rel="manifest" href="manifest.json">
-<title>زاد | رفيق المسلم اليومي</title>
+
+<title>المقاطع | زاد</title>
+
 <style>
-*{box-sizing:border-box}html{scroll-behavior:smooth}
-:root{--p:#22b5e7;--pd:#087fa9;--ink:#102d3a;--muted:#6f858f;--line:#dceef5;--soft:#eefaff;--bg:#f7fcfe}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:Tahoma,Arial,sans-serif;-webkit-tap-highlight-color:transparent;padding-bottom:84px}
-a{text-decoration:none;color:inherit}button{font:inherit}.wrap{max-width:1120px;margin:auto;padding:0 18px}
-header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
-.head{height:70px;display:flex;align-items:center;justify-content:space-between}.brand{display:flex;align-items:center;gap:11px;font-weight:900;font-size:23px}.logo{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,var(--pd),var(--p));box-shadow:0 9px 25px #22b5e72c}.brand small{display:block;font-size:10px;color:var(--muted);font-weight:600;margin-top:2px}.account{width:43px;height:43px;border-radius:14px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;color:var(--pd)}
-.hero{margin-top:22px;min-height:350px;border-radius:30px;border:1px solid var(--line);background:linear-gradient(135deg,#fff 20%,#e9f9ff);position:relative;overflow:hidden;display:flex;align-items:center;padding:42px}
-.hero:before{content:"";position:absolute;width:330px;height:330px;border-radius:50%;left:-100px;top:-130px;background:#b9ecfc80}.hero:after{content:"";position:absolute;width:170px;height:170px;border-radius:50%;left:120px;bottom:-110px;background:#d5f4fd}
-.heroText{position:relative;z-index:2;max-width:670px}.label{display:inline-flex;align-items:center;gap:7px;padding:8px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:11px;font-weight:900;color:var(--pd)}
-h1{font-size:40px;line-height:1.45;margin:15px 0 10px;letter-spacing:-1px}.hero p{font-size:14px;color:var(--muted);line-height:2;max-width:610px;margin:0}.heroBtns{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}.btn{min-height:51px;padding:0 21px;border-radius:15px;display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:900;font-size:13px;border:1px solid transparent}.primary{background:var(--p);color:#fff;box-shadow:0 10px 25px #22b5e72b}.secondary{background:#fff;border-color:var(--line)}
-.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-top:15px}.quick a{background:#fff;border:1px solid var(--line);border-radius:19px;padding:16px;display:flex;align-items:center;gap:12px;min-height:78px}.ico{width:44px;height:44px;flex:none;border-radius:14px;background:var(--soft);color:var(--pd);display:grid;place-items:center;font-size:20px;font-weight:900}.quick b{font-size:13px}.quick span{display:block;color:var(--muted);font-size:9px;margin-top:4px}
-.section{margin-top:31px}.sectionHead{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:14px}.sectionHead h2{margin:0;font-size:21px}.sectionHead p{margin:5px 0 0;color:var(--muted);font-size:11px}.more{font-size:11px;color:var(--pd);font-weight:900}
-.dailyGrid{display:grid;grid-template-columns:1.15fr .85fr;gap:13px}.dailyMain,.panel{background:#fff;border:1px solid var(--line);border-radius:23px;padding:22px}
-.dailyMain{background:linear-gradient(135deg,#0b526b,#087fa9);color:#fff}.dailyMain small{color:#aeeaff}.dailyMain h3{font-size:21px;margin:8px 0}.dailyMain p{font-size:12px;line-height:1.9;color:#d9f1f8}.dailyMain .btn{background:#fff;color:#075a78;margin-top:8px}
-.pointsRow{display:flex;align-items:center;gap:13px}.pointsIcon{width:54px;height:54px;border-radius:17px;background:var(--soft);display:grid;place-items:center;font-size:24px}.pointsNum{font-size:27px;font-weight:900;color:var(--pd)}.level{margin-right:auto;background:var(--soft);color:var(--pd);font-size:10px;font-weight:900;padding:8px 11px;border-radius:11px}.notice{font-size:9px;color:var(--muted);line-height:1.8;margin-top:13px}
-.services{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.service{background:#fff;border:1px solid var(--line);border-radius:21px;padding:19px;min-height:165px;transition:.18s}.service:hover{transform:translateY(-2px);border-color:#9cddf2}.service b{display:block;margin:15px 0 7px;font-size:14px}.service p{margin:0;color:var(--muted);font-size:10px;line-height:1.8}
-.tasks{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.task{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px}.taskTop{display:flex;align-items:center;gap:10px}.task h3{font-size:13px;margin:0}.task p{font-size:10px;color:var(--muted);line-height:1.7;min-height:34px}.task button{width:100%;height:43px;border:0;border-radius:12px;background:var(--soft);color:var(--pd);font-weight:900;cursor:pointer}.task button.done{background:#eaf8ef;color:#25834b}
-.tip{background:#fff;border:1px solid var(--line);border-radius:23px;padding:22px;display:flex;gap:17px;align-items:center}.tipIcon{width:58px;height:58px;flex:none;border-radius:18px;background:var(--soft);display:grid;place-items:center;color:var(--pd);font-size:25px}.tip small{color:var(--pd);font-weight:900}.tip h3{margin:5px 0;font-size:16px}.tip p{margin:0;color:var(--muted);font-size:11px;line-height:1.8}
-footer{margin-top:35px;border-top:1px solid var(--line);padding:25px 0;color:var(--muted);font-size:10px}.footerIn{display:flex;justify-content:space-between;gap:15px}
-.bottom{position:fixed;z-index:150;bottom:0;left:0;right:0;background:rgba(255,255,255,.97);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}.nav{max-width:560px;margin:auto;height:66px;display:grid;grid-template-columns:repeat(5,1fr)}.nav a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#82949d;font-size:9px}.nav .active{color:var(--pd);font-weight:900}.nav i{font-style:normal;font-size:19px}
-.toast{position:fixed;z-index:300;right:50%;bottom:92px;transform:translateX(50%) translateY(10px);background:#102d3a;color:#fff;padding:10px 15px;border-radius:12px;font-size:11px;opacity:0;transition:.2s;pointer-events:none}.toast.show{opacity:1;transform:translateX(50%)}
-.offline{position:fixed;inset:0;z-index:9999;background:#fff;display:none;align-items:center;justify-content:center;padding:25px}.offline.show{display:flex}.offlineBox{text-align:center;max-width:360px}.face{width:108px;height:108px;margin:auto;border-radius:34px;background:var(--soft);border:1px solid #ccecf7;position:relative}.eye{position:absolute;top:38px;width:9px;height:9px;border-radius:50%;background:var(--p)}.eye.r{right:30px}.eye.l{left:30px}.mouth{position:absolute;bottom:24px;left:50%;width:38px;height:20px;transform:translateX(-50%);border:4px solid var(--p);border-left-color:transparent;border-right-color:transparent;border-bottom-color:transparent;border-radius:50%}.offline h2{margin:20px 0 8px}.offline p{color:var(--muted);font-size:12px;line-height:1.8}.retry{height:47px;padding:0 22px;border:0;border-radius:13px;background:var(--p);color:#fff;font-weight:900;margin-top:12px}
-@media(max-width:760px){.wrap{padding:0 14px}.hero{margin-top:14px;padding:27px 20px;min-height:320px;border-radius:24px}h1{font-size:29px}.hero p{font-size:12px}.quick{grid-template-columns:repeat(2,1fr)}.dailyGrid{grid-template-columns:1fr}.services{grid-template-columns:repeat(2,1fr)}.tasks{grid-template-columns:1fr}.service{min-height:150px}.footerIn{display:block;text-align:center}.footerIn div+div{margin-top:8px}}
-@media(min-width:900px){body{padding-bottom:0}.bottom{display:none}}
+:root{
+    --primary:#28b6eb;
+    --primary-dark:#087da9;
+    --glass:rgba(4,17,23,.52);
+    --border:rgba(255,255,255,.16);
+    --app-height:100dvh;
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:#000;
+    font-family:Tahoma,Arial,sans-serif;
+    overscroll-behavior:none;
+}
+
+body{
+    -webkit-user-select:none;
+    user-select:none;
+}
+
+button,input{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.app{
+    position:relative;
+    width:100%;
+    height:var(--app-height);
+    overflow:hidden;
+    background:#000;
+}
+
+/* =========================
+   FEED
+========================= */
+
+.feed{
+    position:absolute;
+    inset:0;
+    overflow:hidden;
+    background:#000;
+    touch-action:none;
+}
+
+.short{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:#000;
+    transform:translate3d(0,100%,0);
+    transition:transform 320ms cubic-bezier(.22,.61,.36,1);
+    will-change:transform;
+    backface-visibility:hidden;
+}
+
+.short.current{
+    transform:translate3d(0,0,0);
+    z-index:3;
+}
+
+.short.previous{
+    transform:translate3d(0,-100%,0);
+    z-index:2;
+}
+
+.short.next{
+    transform:translate3d(0,100%,0);
+    z-index:2;
+}
+
+.short video{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center;
+    background:#000;
+
+    /* يحافظ على عرض الفيديو بأفضل جودة يوفرها الملف الأصلي */
+    image-rendering:auto;
+    transform:translateZ(0);
+    backface-visibility:hidden;
+    -webkit-backface-visibility:hidden;
+}
+
+.videoShade{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(0,0,0,.22) 0%,
+            rgba(0,0,0,.04) 38%,
+            rgba(0,0,0,.18) 63%,
+            rgba(0,0,0,.94) 100%
+        );
+}
+
+/* =========================
+   VIDEO CONTENT
+========================= */
+
+.videoContent{
+    position:absolute;
+    z-index:8;
+    right:16px;
+    left:84px;
+    bottom:calc(78px + env(safe-area-inset-bottom));
+    color:#fff;
+    text-shadow:0 2px 12px rgba(0,0,0,.55);
+    pointer-events:none;
+}
+
+.publisher{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    margin-bottom:9px;
+}
+
+.publisherAvatar{
+    width:38px;
+    height:38px;
+    flex:none;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    font-size:14px;
+    font-weight:900;
+    color:#fff;
+    background:linear-gradient(135deg,var(--primary-dark),var(--primary));
+    border:1px solid rgba(255,255,255,.32);
+}
+
+.publisherAvatar img{width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;}
+.publisherAvatar.hasImage{background:#fff;overflow:hidden;}
+.downloadState{font-size:8px;color:#fff;text-align:center;max-width:54px;}
+.publisherDetails{
+    min-width:0;
+}
+
+.publisherName{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    font-size:13px;
+    font-weight:800;
+}
+
+.publisherNameText{
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+/* التوثيق */
+
+.verifiedBadge{
+    width:17px;
+    height:17px;
+    flex:none;
+    display:inline-grid;
+    place-items:center;
+}
+
+.verifiedBadge svg{
+    width:17px;
+    height:17px;
+    overflow:visible;
+}
+
+.verifiedBadge .verifyShape{
+    fill:#1da1f2;
+    stroke:none;
+}
+
+.verifiedBadge .verifyCheck{
+    fill:none;
+    stroke:#fff;
+    stroke-width:2.2;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+}
+
+.publisherCategory{
+    margin-top:3px;
+    font-size:9px;
+    color:#d1eaf4;
+}
+
+.videoTitle{
+    margin-bottom:5px;
+    font-size:16px;
+    line-height:1.5;
+    font-weight:900;
+}
+
+.videoDescription{
+    font-size:11px;
+    line-height:1.75;
+    color:#f2f7f9;
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:2;
+    overflow:hidden;
+}
+
+.sourceInfo{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    margin-top:8px;
+    width:max-content;
+    max-width:100%;
+    padding:7px 9px;
+    border-radius:9px;
+    background:rgba(0,0,0,.34);
+    border:1px solid rgba(255,255,255,.13);
+    font-size:9px;
+    color:#edf7fa;
+}
+
+.sourceInfo svg{
+    width:13px;
+    height:13px;
+    stroke:currentColor;
+    fill:none;
+    stroke-width:2;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.fixedHeader{
+    position:absolute;
+    z-index:50;
+    top:0;
+    right:0;
+    left:0;
+    padding:calc(env(safe-area-inset-top) + 10px) 14px 8px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    pointer-events:none;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    color:#fff;
+    font-size:18px;
+    font-weight:900;
+    pointer-events:auto;
+}
+
+.brandLogo{
+    width:39px;
+    height:39px;
+    border-radius:13px;
+    display:grid;
+    place-items:center;
+    color:#fff;
+    background:linear-gradient(135deg,var(--primary-dark),var(--primary));
+    box-shadow:0 8px 25px rgba(0,0,0,.26);
+}
+
+.fixedHeaderActions{
+    display:flex;
+    gap:7px;
+    pointer-events:auto;
+}
+
+.glassButton{
+    width:41px;
+    height:41px;
+    border-radius:13px;
+    display:grid;
+    place-items:center;
+    border:1px solid var(--border);
+    color:#fff;
+    background:var(--glass);
+    backdrop-filter:blur(13px);
+    -webkit-backdrop-filter:blur(13px);
+}
+
+.glassButton svg{
+    width:20px;
+    height:20px;
+    fill:none;
+    stroke:currentColor;
+    stroke-width:1.9;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+}
+
+/* =========================
+   CATEGORIES
+========================= */
+
+.fixedCategories{
+    position:absolute;
+    z-index:49;
+    top:calc(env(safe-area-inset-top) + 61px);
+    right:0;
+    left:0;
+    display:flex;
+    gap:7px;
+    padding:7px 14px 10px;
+    overflow-x:auto;
+    scrollbar-width:none;
+    touch-action:pan-x;
+}
+
+.fixedCategories::-webkit-scrollbar{
+    display:none;
+}
+
+.categoryButton{
+    flex:none;
+    padding:8px 14px;
+    border-radius:999px;
+    border:1px solid var(--border);
+    color:#fff;
+    background:rgba(5,17,23,.38);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    font-size:11px;
+    white-space:nowrap;
+}
+
+.categoryButton.active{
+    background:#fff;
+    color:#062d40;
+    border-color:#fff;
+    font-weight:bold;
+}
+
+/* =========================
+   ACTIONS
+========================= */
+
+.fixedActions{
+    position:absolute;
+    z-index:52;
+    left:12px;
+    bottom:calc(82px + env(safe-area-inset-bottom));
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:13px;
+}
+
+.actionItem{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:4px;
+    color:#fff;
+    font-size:8px;
+}
+
+.actionButton{
+    width:46px;
+    height:46px;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    border:1px solid rgba(255,255,255,.17);
+    color:#fff;
+    background:rgba(4,17,23,.50);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    transition:.15s;
+}
+
+.actionButton:active{
+    transform:scale(.87);
+}
+
+.actionButton svg{
+    width:21px;
+    height:21px;
+    fill:none;
+    stroke:currentColor;
+    stroke-width:1.9;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+}
+
+.actionItem.active .actionButton{
+    background:#fff;
+    color:var(--primary-dark);
+}
+
+/* =========================
+   PROGRESS
+========================= */
+
+.videoProgress{
+    position:absolute;
+    z-index:48;
+    right:0;
+    left:0;
+    bottom:calc(64px + env(safe-area-inset-bottom));
+    height:2px;
+    background:rgba(255,255,255,.16);
+    pointer-events:none;
+}
+
+.videoProgressFill{
+    width:0;
+    height:100%;
+    background:#fff;
+}
+
+/* =========================
+   BOTTOM NAV
+========================= */
+
+.fixedBottomNav{
+    position:absolute;
+    z-index:55;
+    right:0;
+    left:0;
+    bottom:0;
+    height:calc(64px + env(safe-area-inset-bottom));
+    padding-bottom:env(safe-area-inset-bottom);
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    background:linear-gradient(transparent,rgba(0,0,0,.94));
+}
+
+.navItem{
+    border:0;
+    background:none;
+    color:#cbd9de;
+    text-decoration:none;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:3px;
+    font-size:8px;
+}
+
+.navItem svg{
+    width:20px;
+    height:20px;
+    fill:none;
+    stroke:currentColor;
+    stroke-width:1.8;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+}
+
+.navItem.active{
+    color:#fff;
+    font-weight:bold;
+}
+
+/* =========================
+   SEARCH
+========================= */
+
+.searchOverlay{
+    position:absolute;
+    z-index:500;
+    inset:0;
+    display:none;
+    color:#fff;
+    background:#071218;
+}
+
+.searchOverlay.show{
+    display:block;
+}
+
+.searchTop{
+    padding:calc(env(safe-area-inset-top) + 12px) 14px 12px;
+    display:flex;
+    align-items:center;
+    gap:9px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.searchClose{
+    width:42px;
+    height:42px;
+    flex:none;
+    border:0;
+    border-radius:13px;
+    display:grid;
+    place-items:center;
+    color:#fff;
+    background:rgba(255,255,255,.08);
+}
+
+.searchClose svg{
+    width:21px;
+    height:21px;
+    fill:none;
+    stroke:currentColor;
+    stroke-width:2;
+}
+
+.searchInputBox{
+    height:44px;
+    flex:1;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:0 13px;
+    border-radius:14px;
+    background:rgba(255,255,255,.09);
+    border:1px solid rgba(255,255,255,.08);
+}
+
+.searchInputBox svg{
+    width:19px;
+    height:19px;
+    fill:none;
+    stroke:#a9c0ca;
+    stroke-width:2;
+}
+
+.searchInputBox input{
+    width:100%;
+    border:0;
+    outline:0;
+    color:#fff;
+    background:transparent;
+    font-size:13px;
+    -webkit-user-select:text;
+    user-select:text;
+}
+
+.searchInputBox input::placeholder{
+    color:#8299a3;
+}
+
+.searchResults{
+    height:calc(100% - 70px - env(safe-area-inset-top));
+    overflow-y:auto;
+    padding:14px;
+}
+
+.searchStart{
+    min-height:65vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:#91a8b2;
+}
+
+.searchStart svg{
+    width:45px;
+    height:45px;
+    margin-bottom:14px;
+    fill:none;
+    stroke:#668692;
+    stroke-width:1.4;
+}
+
+.searchStart h3{
+    color:#fff;
+    margin-bottom:6px;
+}
+
+.searchStart p{
+    font-size:11px;
+}
+
+.searchResult{
+    width:100%;
+    margin-bottom:9px;
+    padding:11px;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:15px;
+    display:flex;
+    align-items:center;
+    gap:11px;
+    color:#fff;
+    text-align:right;
+    background:rgba(255,255,255,.055);
+}
+
+.searchResultIcon{
+    width:48px;
+    height:58px;
+    flex:none;
+    border-radius:11px;
+    display:grid;
+    place-items:center;
+    background:linear-gradient(135deg,var(--primary-dark),var(--primary));
+}
+
+.searchResultIcon svg{
+    width:21px;
+    height:21px;
+    fill:none;
+    stroke:#fff;
+    stroke-width:1.8;
+}
+
+.searchResultContent{
+    flex:1;
+    min-width:0;
+}
+
+.searchResultTitle{
+    margin-bottom:5px;
+    font-size:12px;
+    font-weight:bold;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.searchResultPublisher{
+    display:flex;
+    align-items:center;
+    gap:4px;
+    color:#9db2bb;
+    font-size:9px;
+}
+
+.searchVerified{
+    width:14px;
+    height:14px;
+    display:inline-flex;
+}
+
+.searchVerified svg{
+    width:14px;
+    height:14px;
+}
+
+.searchVerified .verifyShape{
+    fill:#1da1f2;
+}
+
+.searchVerified .verifyCheck{
+    fill:none;
+    stroke:#fff;
+    stroke-width:2.2;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+}
+
+.noSearchResults{
+    padding:80px 20px;
+    text-align:center;
+    color:#9eb1b9;
+    font-size:12px;
+}
+
+
+/* =========================
+   SOUND
+========================= */
+
+.soundNotice{
+    position:absolute;
+    z-index:80;
+    top:calc(env(safe-area-inset-top) + 116px);
+    left:50%;
+    transform:translate(-50%,-10px);
+    width:max-content;
+    max-width:calc(100% - 30px);
+    padding:9px 13px;
+    border-radius:999px;
+    color:#fff;
+    background:rgba(5,18,24,.75);
+    border:1px solid rgba(255,255,255,.15);
+    backdrop-filter:blur(12px);
+    font-size:10px;
+    opacity:0;
+    pointer-events:none;
+    transition:.2s;
+}
+
+.soundNotice.show{
+    opacity:1;
+    transform:translate(-50%,0);
+}
+
+/* =========================
+   LOADING
+========================= */
+
+.loadingScreen{
+    position:absolute;
+    inset:0;
+    z-index:100;
+    display:grid;
+    place-items:center;
+    color:#fff;
+    background:radial-gradient(circle at top,#133d4d,#050d11 70%);
+    transition:.25s;
+}
+
+.loadingScreen.hide{
+    opacity:0;
+    pointer-events:none;
+}
+
+.loaderContent{
+    text-align:center;
+}
+
+.loaderLogo{
+    width:67px;
+    height:67px;
+    margin:0 auto 15px;
+    border-radius:22px;
+    display:grid;
+    place-items:center;
+    color:#fff;
+    font-size:27px;
+    font-weight:900;
+    background:linear-gradient(135deg,var(--primary-dark),var(--primary));
+}
+
+.loaderText{
+    font-size:11px;
+    color:#c7dce4;
+}
+
+/* =========================
+   MESSAGE
+========================= */
+
+.messagePage{
+    position:absolute;
+    inset:0;
+    z-index:15;
+    display:grid;
+    place-items:center;
+    padding:30px;
+    color:#fff;
+    text-align:center;
+    background:radial-gradient(circle at top,#12394a,#050d11 68%);
+}
+
+.messagePage h2{
+    margin-bottom:8px;
+}
+
+.messagePage p{
+    font-size:11px;
+    line-height:1.8;
+    color:#bfd3db;
+}
+
+.retryButton{
+    margin-top:15px;
+    padding:10px 18px;
+    border:0;
+    border-radius:12px;
+    color:#063045;
+    background:#fff;
+    font-weight:bold;
+}
+
+/* =========================
+   SOURCE MODAL
+========================= */
+
+.modal{
+    position:fixed;
+    z-index:1000;
+    inset:0;
+    display:none;
+    align-items:flex-end;
+    justify-content:center;
+    padding:14px;
+    background:rgba(0,0,0,.62);
+    backdrop-filter:blur(5px);
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modalCard{
+    width:min(480px,100%);
+    padding:20px;
+    border-radius:23px;
+    background:#fff;
+    color:#15323d;
+}
+
+.modalHandle{
+    width:43px;
+    height:4px;
+    margin:0 auto 16px;
+    border-radius:999px;
+    background:#dce4e7;
+}
+
+.modalCard h3{
+    margin-bottom:8px;
+}
+
+.modalCard p{
+    color:#71848c;
+    font-size:11px;
+    line-height:1.8;
+}
+
+.modalButtons{
+    margin-top:17px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+}
+
+.modalButton{
+    padding:11px;
+    border-radius:12px;
+    border:1px solid #dfeaec;
+    color:#193640;
+    background:#f7fbfc;
+}
+
+.modalPrimary{
+    color:#fff;
+    background:var(--primary-dark);
+    border-color:var(--primary-dark);
+}
+
+/* =========================
+   TOAST
+========================= */
+
+.toast{
+    position:fixed;
+    z-index:2000;
+    top:calc(env(safe-area-inset-top) + 72px);
+    left:50%;
+    transform:translate(-50%,-15px);
+    max-width:calc(100% - 30px);
+    padding:10px 15px;
+    border-radius:999px;
+    color:#073248;
+    background:#fff;
+    box-shadow:0 10px 35px rgba(0,0,0,.25);
+    font-size:10px;
+    font-weight:bold;
+    opacity:0;
+    pointer-events:none;
+    transition:.2s;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translate(-50%,0);
+}
+
+@media(max-height:680px){
+    .fixedActions{
+        gap:8px;
+    }
+
+    .actionButton{
+        width:41px;
+        height:41px;
+    }
+
+    .videoDescription{
+        -webkit-line-clamp:1;
+    }
+}
+
+@media(min-width:700px){
+    body{
+        background:#061319;
+    }
+
+    .app{
+        width:500px;
+        max-width:100%;
+        margin:auto;
+        box-shadow:0 0 90px rgba(0,0,0,.85);
+    }
+}
+
+/* =========================
+   COMMENTS
+========================= */
+.commentCount{
+    min-width:18px;
+    text-align:center;
+    font-size:8px;
+    color:#fff;
+}
+.commentsSheet{
+    position:fixed;
+    z-index:1600;
+    inset:0;
+    display:none;
+    align-items:flex-end;
+    justify-content:center;
+    background:rgba(0,0,0,.55);
+    backdrop-filter:blur(4px);
+    -webkit-backdrop-filter:blur(4px);
+}
+.commentsSheet.show{display:flex}
+.commentsPanel{
+    width:min(500px,100%);
+    height:min(72dvh,680px);
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+    border-radius:25px 25px 0 0;
+    background:#fff;
+    color:#15323d;
+    box-shadow:0 -20px 60px rgba(0,0,0,.25);
+}
+.commentsHandle{
+    width:45px;height:4px;flex:none;
+    margin:9px auto 3px;border-radius:99px;background:#d8e3e7;
+}
+.commentsHeader{
+    min-height:55px;flex:none;
+    padding:8px 14px;
+    display:flex;align-items:center;justify-content:space-between;
+    border-bottom:1px solid #e8f0f3;
+}
+.commentsHeader h3{font-size:14px;margin:0}
+.commentsClose{
+    width:38px;height:38px;border:0;border-radius:12px;
+    background:#f2f7f9;color:#29434e;font-size:22px;
+}
+.commentsList{
+    flex:1;overflow-y:auto;padding:12px 14px;
+    -webkit-overflow-scrolling:touch;
+}
+.commentRow{
+    display:flex;gap:10px;padding:10px 0;
+    border-bottom:1px solid #eef3f5;
+}
+.commentAvatar{
+    width:36px;height:36px;flex:none;border-radius:50%;
+    display:grid;place-items:center;
+    background:linear-gradient(135deg,var(--primary-dark),var(--primary));
+    color:#fff;font-weight:900;font-size:13px;
+}
+.commentBody{flex:1;min-width:0}
+.commentMeta{display:flex;align-items:center;gap:7px;margin-bottom:5px}
+.commentName{font-size:11px;font-weight:900;color:#173743}
+.commentTime{font-size:8px;color:#9aaab1}
+.commentText{
+    font-size:11px;line-height:1.8;color:#405963;
+    white-space:pre-wrap;overflow-wrap:anywhere;user-select:text;
+    -webkit-user-select:text;
+}
+.commentsEmpty,.commentsLoading{
+    min-height:180px;display:grid;place-items:center;text-align:center;
+    color:#879aa3;font-size:11px;padding:25px;
+}
+.commentComposer{
+    flex:none;padding:10px 12px calc(10px + env(safe-area-inset-bottom));
+    border-top:1px solid #e5eef1;background:#fff;
+}
+.commentNameInput{
+    width:100%;height:38px;margin-bottom:7px;padding:0 12px;
+    border:1px solid #dce8ec;border-radius:11px;outline:0;
+    background:#f8fbfc;color:#15323d;font-size:11px;
+    user-select:text;-webkit-user-select:text;
+}
+
+.commentAccount{
+    display:flex;align-items:center;gap:9px;
+    margin-bottom:8px;padding:8px 9px;
+    border:1px solid #e2edf1;border-radius:13px;background:#f8fbfc;
+}
+.commentAccountAvatar{
+    width:34px;height:34px;flex:none;border-radius:50%;
+    display:grid;place-items:center;color:#fff;font-size:12px;font-weight:900;
+    background:linear-gradient(135deg,var(--primary-dark),var(--primary));
+}
+.commentAccountInfo{flex:1;min-width:0}
+.commentAccountInfo span{display:block;font-size:8px;color:#91a2aa;margin-bottom:2px}
+.commentAccountInfo strong{
+    display:block;font-size:11px;color:#173743;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.commentAccountEdit{
+    flex:none;padding:7px 9px;border-radius:9px;
+    background:#eaf8fd;color:var(--primary-dark);
+    text-decoration:none;font-size:9px;font-weight:900;
+}
+
+.commentSendRow{display:flex;align-items:flex-end;gap:7px}
+.commentInput{
+    flex:1;min-height:43px;max-height:95px;resize:none;
+    padding:11px 12px;border:1px solid #dce8ec;border-radius:13px;
+    outline:0;background:#f8fbfc;color:#15323d;font-size:11px;
+    line-height:1.6;user-select:text;-webkit-user-select:text;
+}
+.commentSend{
+    width:47px;height:43px;flex:none;border:0;border-radius:13px;
+    background:var(--primary);color:#fff;display:grid;place-items:center;
+}
+.commentSend:disabled{opacity:.55}
+.commentSend svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:2}
+.commentsError{
+    margin:8px 14px;padding:9px 11px;border-radius:11px;
+    background:#fff3f3;color:#a74444;font-size:9px;display:none;
+}
+.commentsError.show{display:block}
+
+
+.pwaSoundGate{position:fixed;z-index:5000;inset:0;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(3,18,25,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.pwaSoundGate.show{display:flex}
+.pwaSoundCard{width:min(100%,390px);padding:24px 20px;border-radius:25px;background:#fff;color:#15323d;text-align:center;box-shadow:0 25px 80px rgba(0,0,0,.28)}
+.pwaSoundIcon{width:62px;height:62px;margin:0 auto 14px;border-radius:19px;display:grid;place-items:center;background:#eaf8fd;font-size:28px}
+.pwaSoundCard h3{margin:0 0 7px;font-size:17px}.pwaSoundCard p{margin:0;color:#78909a;font-size:10px;line-height:1.8}
+.pwaSoundCard button{width:100%;height:48px;margin-top:17px;border:0;border-radius:14px;background:var(--primary);color:#fff;font-weight:900;cursor:pointer}
+
 </style>
 </head>
+
 <body>
-<header><div class="wrap head"><div class="brand"><div class="logo">ز</div><div>زاد<small>رفيق المسلم اليومي</small></div></div><a href="account.html" class="account" aria-label="حسابي">○</a></div></header>
-<main class="wrap">
-<section class="hero"><div class="heroText"><div class="label">✦ مساحة يومية للمحتوى النافع</div><h1>زاد يومك بما ينفعك</h1><p>منصة تجمع لك المقاطع الإسلامية النافعة، والقرآن، والأذكار، والتعلّم، والمحفوظات في تجربة هادئة وسريعة تناسب الجوال.</p><div class="heroBtns"><a href="shorts.html" class="btn primary">▶ مشاهدة المقاطع</a><a href="#today" class="btn secondary">زاد اليوم</a></div></div></section>
+<!-- شاشة عدم توفر الإنترنت -->
+<div id="offlineScreen" class="offline-screen">
+  <div class="offline-box">
+    <div class="offline-face">☹</div>
 
-<div class="quick">
-<a href="shorts.html"><div class="ico">▶</div><div><b>المقاطع</b><span>محتوى قصير ونافع</span></div></a>
-<a href="quran.html"><div class="ico">☰</div><div><b>القرآن</b><span>قراءة ومتابعة</span></div></a>
-<a href="adhkar.html"><div class="ico">◌</div><div><b>الأذكار</b><span>وصول سريع</span></div></a>
-<a href="account.html"><div class="ico">♡</div><div><b>المحفوظات</b><span>ارجع لما حفظته</span></div></a>
-</div>
+    <h2>لا يتوفر اتصال بالإنترنت</h2>
+    <p>تحقق من اتصالك بالشبكة ثم حاول مرة أخرى</p>
 
-<section class="section" id="today"><div class="sectionHead"><div><h2>زاد اليوم</h2><p>مساحة بسيطة تساعدك على الاستمرار يومًا بعد يوم</p></div></div>
-<div class="dailyGrid"><div class="dailyMain"><small>ابدأ بما تستطيع</small><h3>اجعل لك وردًا ثابتًا في يومك</h3><p>اختر وقتًا مناسبًا للقراءة والتعلّم، وسجّل نشاطك لتتابع استمراريتك داخل زاد.</p><a href="quran.html" class="btn">ابدأ الآن</a></div>
-<div class="panel"><div class="pointsRow"><div class="pointsIcon">✦</div><div><div class="pointsNum"><span id="points">0</span> نقطة</div><div class="muted">نشاطك داخل زاد</div></div><div class="level" id="level">البداية</div></div><div class="notice">هذه نقاط نشاط داخل المنصة لمتابعة الاستمرارية فقط، ولا تمثل مقدار الحسنات أو الأجر.</div></div></div></section>
+    <div class="offline-loader">
+      <span></span>
+    </div>
 
-<section class="section"><div class="sectionHead"><div><h2>ما الذي يفيدك اليوم؟</h2><p>أقسام مرتبة للوصول السريع إلى المحتوى</p></div></div><div class="services">
-<a class="service" href="quran.html"><div class="ico">☰</div><b>القرآن الكريم</b><p>صفحة مخصصة للقراءة والمتابعة والوصول السريع إلى وردك.</p></a>
-<a class="service" href="adhkar.html"><div class="ico">◌</div><b>الأذكار</b><p>مكان مرتب للأذكار اليومية ليسهل الرجوع إليها.</p></a>
-<a class="service" href="shorts.html"><div class="ico">▶</div><b>مقاطع نافعة</b><p>تصفّح المقاطع القصيرة من التصنيفات المختلفة والمصادر المضافة.</p></a>
-<a class="service" href="account.html"><div class="ico">♡</div><b>المفضلة وبدون شبكة</b><p>ارجع إلى المقاطع التي أعجبتك أو حفظتها للاستخدام دون اتصال.</p></a>
-<a class="service" href="shorts.html"><div class="ico">⌕</div><b>البحث والتعلّم</b><p>ابحث داخل محتوى زاد عن موضوع أو تصنيف تريد الاستفادة منه.</p></a>
-<a class="service" href="shorts.html"><div class="ico">✓</div><b>المصادر</b><p>اعرف المصدر المضاف للمقطع من داخل صفحة المشاهدة.</p></a>
-<a class="service" href="account.html"><div class="ico">↻</div><b>متابعة نشاطك</b><p>تابع نقاط النشاط واستمراريتك والمحتوى الذي حفظته.</p></a>
-<a class="service" href="#tasks"><div class="ico">＋</div><b>عمل نافع</b><p>ذكّر نفسك يوميًا بالقراءة والتعلّم وتقديم فائدة لمن حولك.</p></a>
-</div></section>
+    <div class="offline-status">جاري انتظار عودة الاتصال...</div>
 
-<section class="section" id="tasks"><div class="sectionHead"><div><h2>خطوات بسيطة لليوم</h2><p>يمكن تسجيل كل نشاط مرة واحدة يوميًا</p></div></div><div class="tasks">
-<div class="task"><div class="taskTop"><div class="ico">☰</div><h3>ورد القراءة</h3></div><p>خصص دقائق هادئة للقراءة اليوم.</p><button data-task="reading">تم اليوم +5</button></div>
-<div class="task"><div class="taskTop"><div class="ico">⌕</div><h3>تعلّم فائدة</h3></div><p>تعلّم مسألة نافعة من مصدر موثوق.</p><button data-task="learning">تم اليوم +5</button></div>
-<div class="task"><div class="taskTop"><div class="ico">♡</div><h3>انشر نفعًا</h3></div><p>قدّم مساعدة أو شارك فائدة نافعة مع من حولك.</p><button data-task="benefit">تم اليوم +5</button></div>
-</div></section>
-
-<section class="section"><div class="tip"><div class="tipIcon">✦</div><div><small>تذكير اليوم</small><h3 id="tipTitle">الاستمرار أهم من كثرة البداية</h3><p id="tipText">اختر شيئًا نافعًا تستطيع المحافظة عليه، واجعل زاد وسيلة تساعدك على تنظيم متابعتك.</p></div></div></section>
-<footer><div class="footerIn"><div><b>زاد</b> — رفيق المسلم اليومي</div><div>المحتوى الديني يحتاج إلى التثبت من المصدر قبل النشر أو الاعتماد عليه.</div></div></footer>
-</main>
-
-<nav class="bottom"><div class="nav"><a class="active" href="index.html"><i>⌂</i>الرئيسية</a><a href="shorts.html"><i>▶</i>المقاطع</a><a href="quran.html"><i>☰</i>القرآن</a><a href="adhkar.html"><i>◌</i>الأذكار</a><a href="account.html"><i>○</i>حسابي</a></div></nav>
-<div class="toast" id="toast"></div>
-<div class="offline" id="offline"><div class="offlineBox"><div class="face"><i class="eye r"></i><i class="eye l"></i><i class="mouth"></i></div><h2>لا يتوفر اتصال بالإنترنت</h2><p>تحقق من اتصالك بالشبكة. سيحاول زاد العودة تلقائيًا عند توفر الاتصال.</p><button class="retry" onclick="networkUI()">إعادة المحاولة</button></div></div>
-<script>
-const pointsEl=document.getElementById("points"),levelEl=document.getElementById("level"),toastEl=document.getElementById("toast");
-function points(){return Number(localStorage.getItem("zaadPoints")||0)}
-function renderPoints(){const n=points();pointsEl.textContent=n.toLocaleString("ar-SA");levelEl.textContent=n>=1000?"متقدم":n>=600?"نشيط":n>=300?"مستمر":"البداية"}
-function toast(s){toastEl.textContent=s;toastEl.classList.add("show");clearTimeout(window._zt);window._zt=setTimeout(()=>toastEl.classList.remove("show"),1700)}
-const today=new Date().toISOString().slice(0,10);
-document.querySelectorAll("[data-task]").forEach(b=>{const k="zaadTask_"+today+"_"+b.dataset.task;if(localStorage.getItem(k)==="1"){b.textContent="✓ تم اليوم";b.classList.add("done")}b.onclick=()=>{if(localStorage.getItem(k)==="1")return toast("تم تسجيل هذا النشاط اليوم");localStorage.setItem(k,"1");localStorage.setItem("zaadPoints",String(points()+5));b.textContent="✓ تم اليوم";b.classList.add("done");renderPoints();toast("تمت إضافة 5 نقاط نشاط")}});
-try{const x=JSON.parse(localStorage.getItem("zaadTip")||"null");if(x){if(x.title)document.getElementById("tipTitle").textContent=x.title;if(x.text)document.getElementById("tipText").textContent=x.text}}catch(e){}
-function networkUI(){document.getElementById("offline").classList.toggle("show",!navigator.onLine)}
-addEventListener("online",networkUI);addEventListener("offline",networkUI);networkUI();renderPoints();
-if("serviceWorker" in navigator)addEventListener("load",()=>navigator.serviceWorker.register("./service-worker.js").catch(()=>{}));
-</script>
-
-<!-- رسالة تثبيت تطبيق زاد -->
-<div class="installPrompt" id="installPrompt" aria-hidden="true">
-  <div class="installPromptIcon">ز</div>
-  <div class="installPromptText">
-    <strong>حمّل تطبيق زاد</strong>
-    <span id="installPromptDesc">ثبّت زاد على جهازك للوصول إليه بسرعة.</span>
-  </div>
-  <button class="installPromptBtn" id="installPromptBtn" type="button">تثبيت</button>
-  <button class="installPromptClose" id="installPromptClose" type="button" aria-label="إغلاق">×</button>
-</div>
-
-<div class="iosInstallSheet" id="iosInstallSheet" aria-hidden="true">
-  <div class="iosInstallCard">
-    <div class="iosHandle"></div>
-    <div class="iosAppIcon">ز</div>
-    <h3>إضافة زاد إلى الشاشة الرئيسية</h3>
-    <p>من Safari اضغط زر <b>المشاركة</b> ثم اختر <b>إضافة إلى الشاشة الرئيسية</b>.</p>
-    <button type="button" id="iosInstallClose">حسنًا</button>
+    <button type="button" onclick="checkInternet()">
+      إعادة المحاولة
+    </button>
   </div>
 </div>
 
 <style>
-.installPrompt{
-  position:fixed;z-index:8000;right:16px;left:16px;
-  bottom:calc(78px + env(safe-area-inset-bottom));
-  max-width:520px;margin:auto;padding:12px;
-  display:flex;align-items:center;gap:11px;
-  background:rgba(255,255,255,.97);
-  border:1px solid #dceef5;border-radius:18px;
-  box-shadow:0 18px 55px rgba(16,45,58,.18);
-  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-  opacity:0;transform:translateY(25px);pointer-events:none;
-  transition:.25s ease;
+.offline-screen{
+  position:fixed;
+  inset:0;
+  z-index:999999;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  background:#fff;
+  direction:rtl;
+  font-family:inherit;
 }
-.installPrompt.show{opacity:1;transform:none;pointer-events:auto}
-.installPromptIcon,.iosAppIcon{
-  width:48px;height:48px;flex:none;border-radius:15px;
-  display:grid;place-items:center;color:#fff;font-size:21px;font-weight:900;
-  background:linear-gradient(135deg,#087fa9,#22b5e7);
+
+.offline-screen.show{
+  display:flex;
 }
-.installPromptText{flex:1;min-width:0}
-.installPromptText strong{display:block;font-size:13px;color:#102d3a;margin-bottom:4px}
-.installPromptText span{display:block;font-size:9px;color:#6f858f;line-height:1.6}
-.installPromptBtn{
-  height:38px;padding:0 14px;border:0;border-radius:11px;
-  background:#22b5e7;color:#fff;font-size:11px;font-weight:900;cursor:pointer;
+
+.offline-box{
+  width:min(100%,420px);
+  text-align:center;
 }
-.installPromptClose{
-  width:28px;height:28px;border:0;background:transparent;color:#8799a1;
-  font-size:21px;cursor:pointer;
+
+.offline-face{
+  width:110px;
+  height:110px;
+  margin:0 auto 25px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:50%;
+  background:#f0faff;
+  border:2px solid #c9efff;
+
+  color:#32b7e8;
+  font-size:65px;
+  font-weight:400;
+  line-height:1;
 }
-.iosInstallSheet{
-  position:fixed;z-index:9000;inset:0;padding:15px;
-  display:none;align-items:flex-end;justify-content:center;
-  background:rgba(4,18,24,.52);backdrop-filter:blur(5px);
+
+.offline-box h2{
+  margin:0 0 10px;
+  color:#17232c;
+  font-size:23px;
+  font-weight:800;
 }
-.iosInstallSheet.show{display:flex}
-.iosInstallCard{
-  width:min(100%,460px);padding:18px 20px 22px;text-align:center;
-  border-radius:25px;background:#fff;color:#102d3a;
+
+.offline-box p{
+  margin:0 auto;
+  max-width:320px;
+  color:#75838c;
+  font-size:14px;
+  line-height:1.8;
 }
-.iosHandle{width:44px;height:4px;margin:0 auto 18px;border-radius:99px;background:#dce8ed}
-.iosAppIcon{margin:0 auto 13px;width:60px;height:60px;border-radius:19px}
-.iosInstallCard h3{font-size:17px;margin:0 0 8px}
-.iosInstallCard p{font-size:11px;line-height:1.9;color:#6f858f;margin:0}
-.iosInstallCard button{
-  width:100%;height:46px;margin-top:17px;border:0;border-radius:13px;
-  background:#22b5e7;color:#fff;font-weight:900;cursor:pointer;
+
+.offline-loader{
+  position:relative;
+  width:190px;
+  height:4px;
+  margin:30px auto 13px;
+  overflow:hidden;
+  border-radius:20px;
+  background:#e8f1f5;
 }
-@media(min-width:900px){
-  .installPrompt{bottom:22px}
+
+.offline-loader span{
+  position:absolute;
+  top:0;
+  bottom:0;
+  width:65px;
+  border-radius:20px;
+  background:#32b7e8;
+  animation:offlineLoading 1.2s ease-in-out infinite;
+}
+
+@keyframes offlineLoading{
+  0%{
+    right:-70px;
+  }
+  50%{
+    right:95px;
+  }
+  100%{
+    right:200px;
+  }
+}
+
+.offline-status{
+  margin-bottom:25px;
+  color:#9aa5ac;
+  font-size:12px;
+}
+
+.offline-box button{
+  width:100%;
+  max-width:260px;
+  min-height:48px;
+
+  border:0;
+  border-radius:14px;
+
+  background:#32b7e8;
+  color:#fff;
+
+  font-family:inherit;
+  font-size:15px;
+  font-weight:800;
+
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+
+.offline-box button:active{
+  transform:scale(.98);
+}
+
+/* الوضع الداكن إذا كان جهاز المستخدم داكن */
+@media (prefers-color-scheme:dark){
+  .offline-screen{
+    background:#080c0f;
+  }
+
+  .offline-face{
+    background:#101c22;
+    border-color:#173642;
+  }
+
+  .offline-box h2{
+    color:#fff;
+  }
+
+  .offline-box p{
+    color:#8f9ba2;
+  }
+
+  .offline-loader{
+    background:#182126;
+  }
 }
 </style>
 
 <script>
-(function(){
-  let deferredInstallPrompt = null;
-  const promptBox = document.getElementById("installPrompt");
-  const installBtn = document.getElementById("installPromptBtn");
-  const closeBtn = document.getElementById("installPromptClose");
-  const iosSheet = document.getElementById("iosInstallSheet");
-  const iosClose = document.getElementById("iosInstallClose");
-  const desc = document.getElementById("installPromptDesc");
+const offlineScreen = document.getElementById("offlineScreen");
 
-  const standalone =
-    window.matchMedia("(display-mode: standalone)").matches ||
-    window.navigator.standalone === true;
+function updateInternetStatus(){
+  if(navigator.onLine){
+    offlineScreen.classList.remove("show");
+  }else{
+    offlineScreen.classList.add("show");
 
-  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-
-  function showPrompt(){
-    if(standalone || sessionStorage.getItem("zaadInstallDismissed")==="1") return;
-    promptBox.classList.add("show");
-    promptBox.setAttribute("aria-hidden","false");
+    // إيقاف الفيديو عند انقطاع الإنترنت
+    document.querySelectorAll("video").forEach(video => {
+      try{
+        video.pause();
+      }catch(e){}
+    });
   }
-  function hidePrompt(){
-    promptBox.classList.remove("show");
-    promptBox.setAttribute("aria-hidden","true");
-  }
+}
 
-  window.addEventListener("beforeinstallprompt", function(e){
-    e.preventDefault();
-    deferredInstallPrompt = e;
-    installBtn.textContent = "تثبيت";
-    setTimeout(showPrompt, 1200);
-  });
+function checkInternet(){
+  updateInternetStatus();
 
-  if(isIOS && !standalone){
-    desc.textContent = "أضف زاد إلى الشاشة الرئيسية من Safari.";
-    installBtn.textContent = "الطريقة";
-    setTimeout(showPrompt, 1500);
-  }
+  if(navigator.onLine){
+    // محاولة تشغيل الفيديو الحالي من جديد
+    const currentVideo =
+      document.querySelector(".short.current video") ||
+      document.querySelector("video");
 
-  installBtn.addEventListener("click", async function(){
-    if(isIOS){
-      iosSheet.classList.add("show");
-      iosSheet.setAttribute("aria-hidden","false");
-      return;
+    if(currentVideo){
+      currentVideo.play().catch(() => {});
     }
-    if(!deferredInstallPrompt) return;
-    deferredInstallPrompt.prompt();
-    try{ await deferredInstallPrompt.userChoice; }catch(e){}
-    deferredInstallPrompt = null;
-    hidePrompt();
-  });
+  }
+}
 
-  closeBtn.addEventListener("click", function(){
-    hidePrompt();
-    sessionStorage.setItem("zaadInstallDismissed","1");
-  });
+/* عند انقطاع الشبكة */
+window.addEventListener("offline", updateInternetStatus);
 
-  iosClose.addEventListener("click", function(){
-    iosSheet.classList.remove("show");
-    iosSheet.setAttribute("aria-hidden","true");
-  });
+/* عند رجوع الشبكة */
+window.addEventListener("online", () => {
+  offlineScreen.classList.remove("show");
 
-  iosSheet.addEventListener("click", function(e){
-    if(e.target===iosSheet) iosClose.click();
-  });
+  setTimeout(() => {
+    const currentVideo =
+      document.querySelector(".short.current video") ||
+      document.querySelector("video");
 
-  window.addEventListener("appinstalled", function(){
-    hidePrompt();
-    deferredInstallPrompt = null;
-  });
-})();
+    if(currentVideo){
+      currentVideo.play().catch(() => {});
+    }
+  }, 400);
+});
+
+/* فحص أول ما تفتح الصفحة */
+updateInternetStatus();
 </script>
 
-</body></html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="app" id="app">
+
+    <main class="feed" id="feed"></main>
+
+    <!-- العناصر العلوية ثابتة -->
+    <header class="fixedHeader">
+
+        <div class="brand">
+            <div class="brandLogo">د</div>
+            <span> دلني</span>
+        </div>
+
+        <div class="fixedHeaderActions">
+
+            <button
+                class="glassButton"
+                aria-label="بحث"
+                onclick="openSearch()">
+
+                <svg viewBox="0 0 24 24">
+                    <circle cx="11" cy="11" r="7"/>
+                    <path d="m20 20-4-4"/>
+                </svg>
+
+            </button>
+
+        </div>
+
+    </header>
+
+    <div
+        class="fixedCategories"
+        id="categories">
+    </div>
+
+    <!-- الأزرار ثابتة -->
+    <aside class="fixedActions">
+
+        <div class="actionItem" id="likeAction">
+
+            <button
+                class="actionButton"
+                onclick="toggleLike()">
+
+                <svg viewBox="0 0 24 24">
+                    <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/>
+                </svg>
+
+            </button>
+
+            <span>إعجاب</span>
+
+        </div>
+
+        <div class="actionItem" id="saveAction">
+
+            <button
+                class="actionButton"
+                onclick="toggleSave()">
+
+                <svg viewBox="0 0 24 24">
+                    <path d="M6 3h12v18l-6-4-6 4Z"/>
+                </svg>
+
+            </button>
+
+            <span>حفظ</span>
+
+        </div>
+
+        <div class="actionItem" id="commentsAction">
+            <button class="actionButton" onclick="openComments()" aria-label="التعليقات">
+                <svg viewBox="0 0 24 24">
+                    <path d="M21 12a8 8 0 0 1-8 8H6l-4 2 1.5-4A9 9 0 1 1 21 12Z"/>
+                </svg>
+            </button>
+            <span>تعليق</span>
+            <span class="commentCount" id="commentCount">0</span>
+        </div>
+
+        <div class="actionItem">
+
+            <button
+                class="actionButton"
+                onclick="shareCurrentVideo()">
+
+                <svg viewBox="0 0 24 24">
+                    <circle cx="18" cy="5" r="3"/>
+                    <circle cx="6" cy="12" r="3"/>
+                    <circle cx="18" cy="19" r="3"/>
+                    <path d="m8.6 10.5 6.8-4"/>
+                    <path d="m8.6 13.5 6.8 4"/>
+                </svg>
+
+            </button>
+
+            <span>مشاركة</span>
+
+        </div>
+<div class="actionItem">
+
+            <button
+                class="actionButton"
+                onclick="showSource()">
+
+                <svg viewBox="0 0 24 24">
+                    <path d="M4 4h12a4 4 0 0 1 4 4v12H8a4 4 0 0 1-4-4Z"/>
+                    <path d="M8 4v16"/>
+                </svg>
+
+            </button>
+
+            <span>المصدر</span>
+
+        </div>
+
+    </aside>
+
+    <div class="videoProgress">
+        <div
+            class="videoProgressFill"
+            id="progressFill">
+        </div>
+    </div>
+
+    <nav class="fixedBottomNav">
+
+        <a href="index.html" class="navItem">
+
+            <svg viewBox="0 0 24 24">
+                <path d="M3 10.5 12 3l9 7.5"/>
+                <path d="M5 9.5V21h14V9.5"/>
+                <path d="M9 21v-7h6v7"/>
+            </svg>
+
+            <span>الرئيسية</span>
+
+        </a>
+
+        <button class="navItem active">
+
+            <svg viewBox="0 0 24 24">
+                <rect x="4" y="3" width="16" height="18" rx="4"/>
+                <path d="m10 9 5 3-5 3Z"/>
+            </svg>
+
+            <span>المقاطع</span>
+
+        </button>
+
+        <button
+            class="navItem"
+            onclick="showToast('قسم القرآن قريبًا')">
+
+            <svg viewBox="0 0 24 24">
+                <path d="M4 5.5A3.5 3.5 0 0 1 7.5 2H11v17H7.5A3.5 3.5 0 0 0 4 22Z"/>
+                <path d="M20 5.5A3.5 3.5 0 0 0 16.5 2H13v17h3.5A3.5 3.5 0 0 1 20 22Z"/>
+            </svg>
+
+            <span>القرآن</span>
+
+        </button>
+
+        <button
+            class="navItem"
+            onclick="showToast('قسم الأذكار قريبًا')">
+
+            <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="8"/>
+                <path d="M12 7v5l3 2"/>
+            </svg>
+
+            <span>الأذكار</span>
+
+        </button>
+
+        <a href="account.html" class="navItem">
+
+            <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M4 21a8 8 0 0 1 16 0"/>
+            </svg>
+
+            <span>حسابي</span>
+
+        </a>
+
+    </nav>
+
+    <div
+        class="soundNotice"
+        id="soundNotice">
+        🔊 المس الشاشة لتشغيل الصوت
+    </div>
+
+    <!-- البحث -->
+    <div
+        class="searchOverlay"
+        id="searchOverlay">
+
+        <div class="searchTop">
+
+            <button
+                class="searchClose"
+                onclick="closeSearch()">
+
+                <svg viewBox="0 0 24 24">
+                    <path d="m15 18-6-6 6-6"/>
+                </svg>
+
+            </button>
+
+            <div class="searchInputBox">
+
+                <svg viewBox="0 0 24 24">
+                    <circle cx="11" cy="11" r="7"/>
+                    <path d="m20 20-4-4"/>
+                </svg>
+
+                <input
+                    id="searchInput"
+                    type="search"
+                    placeholder="ابحث في المقاطع..."
+                    autocomplete="off"
+                    oninput="searchVideos(this.value)">
+
+            </div>
+
+        </div>
+
+        <div
+            class="searchResults"
+            id="searchResults">
+        </div>
+
+    </div>
+
+    <div
+        class="loadingScreen"
+        id="loadingScreen">
+
+        <div class="loaderContent">
+
+            <div class="loaderLogo">
+                ارحب
+            </div>
+
+            <div class="loaderText">
+                جاري تحميل المقاطع...
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- التعليقات -->
+
+<div class="pwaSoundGate" id="pwaSoundGate" aria-hidden="true">
+  <div class="pwaSoundCard">
+    <div class="pwaSoundIcon">🔊</div>
+    <h3>تشغيل المقاطع بالصوت</h3>
+    <p>اضغط السماح مرة واحدة لتشغيل صوت المقاطع تلقائيًا أثناء استخدام التطبيق.</p>
+    <button type="button" id="enablePwaSound">السماح وتشغيل الصوت</button>
+  </div>
+</div>
+
+<div class="commentsSheet" id="commentsSheet" onclick="closeCommentsBackground(event)">
+    <section class="commentsPanel" onclick="event.stopPropagation()">
+        <div class="commentsHandle"></div>
+        <header class="commentsHeader">
+            <h3 id="commentsTitle">التعليقات</h3>
+            <button class="commentsClose" type="button" onclick="closeComments()" aria-label="إغلاق">×</button>
+        </header>
+
+        <div class="commentsError" id="commentsError"></div>
+        <div class="commentsList" id="commentsList">
+            <div class="commentsLoading">جاري تحميل التعليقات...</div>
+        </div>
+
+        <form class="commentComposer" id="commentForm" onsubmit="submitComment(event)">
+            <div class="commentAccount">
+                <div class="commentAccountAvatar" id="commentAccountAvatar">ز</div>
+                <div class="commentAccountInfo">
+                    <span>التعليق باسم</span>
+                    <strong id="commentAccountName">حسابي</strong>
+                </div>
+                <a href="account.html" class="commentAccountEdit">تعديل</a>
+            </div>
+            <div class="commentSendRow">
+                <textarea class="commentInput" id="commentInput" maxlength="500"
+                          placeholder="اكتب تعليقًا نافعًا ومحترمًا..." required></textarea>
+                <button class="commentSend" id="commentSend" type="submit" aria-label="إرسال">
+                    <svg viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+                </button>
+            </div>
+        </form>
+    </section>
+</div>
+
+<!-- المصدر -->
+
+<div
+    class="modal"
+    id="sourceModal"
+    onclick="closeSourceBackground(event)">
+
+    <div class="modalCard">
+
+        <div class="modalHandle"></div>
+
+        <h3>مصدر المقطع</h3>
+
+        <p id="sourceText">
+            لا يوجد مصدر مضاف.
+        </p>
+
+        <div class="modalButtons">
+
+            <button
+                class="modalButton"
+                onclick="closeSource()">
+                إغلاق
+            </button>
+
+            <button
+                class="modalButton modalPrimary"
+                id="sourceOpenButton"
+                onclick="openSource()">
+                فتح المصدر
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div
+    class="toast"
+    id="toast">
+</div>
+
+<script>
+
+/* PWA: فتح الصوت بعد موافقة المستخدم */
+const isZaadPWA = window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+let pwaSoundUnlocked = localStorage.getItem("zaadPwaSoundUnlocked") === "1";
+
+function forceCurrentVideoSound(){
+  if(!isZaadPWA || !pwaSoundUnlocked) return;
+  document.querySelectorAll(".short video").forEach(v=>{ v.muted=false; v.volume=1; });
+}
+function showPwaSoundGate(){
+  if(!isZaadPWA || pwaSoundUnlocked) return;
+  const g=document.getElementById("pwaSoundGate");
+  if(g){g.classList.add("show");g.setAttribute("aria-hidden","false");}
+}
+function hidePwaSoundGate(){
+  const g=document.getElementById("pwaSoundGate");
+  if(g){g.classList.remove("show");g.setAttribute("aria-hidden","true");}
+}
+async function unlockPwaSound(){
+  pwaSoundUnlocked=true;
+  localStorage.setItem("zaadPwaSoundUnlocked","1");
+  soundMuted=false;
+  hidePwaSoundGate();
+  forceCurrentVideoSound();
+  const v=document.querySelector(".short.current video");
+  if(v){v.muted=false;v.volume=1;try{await v.play();}catch(e){}}
+}
+setTimeout(showPwaSoundGate,350);
+document.getElementById("enablePwaSound")?.addEventListener("click",unlockPwaSound);
+
+
+
+/* =========================
+   OFFLINE DOWNLOADS
+========================= */
+const ZAAD_DB = "zaadOfflineDB";
+const ZAAD_STORE = "videos";
+function openZaadDB(){
+    return new Promise((resolve,reject)=>{
+        const req=indexedDB.open(ZAAD_DB,1);
+        req.onupgradeneeded=()=>{ if(!req.result.objectStoreNames.contains(ZAAD_STORE)) req.result.createObjectStore(ZAAD_STORE,{keyPath:"id"}); };
+        req.onsuccess=()=>resolve(req.result); req.onerror=()=>reject(req.error);
+    });
+}
+async function offlineHas(id){
+    try{ const db=await openZaadDB(); return await new Promise(r=>{ const q=db.transaction(ZAAD_STORE,"readonly").objectStore(ZAAD_STORE).get(id); q.onsuccess=()=>r(!!q.result); q.onerror=()=>r(false); }); }catch(e){ return false; }
+}
+async function updateDownloadState(){
+    const item=currentItem(), action=document.getElementById("downloadAction"), label=document.getElementById("downloadLabel");
+    if(!item||!action||!label) return;
+    const yes=await offlineHas(item.id);
+    action.classList.toggle("active",yes); label.textContent=yes?"بدون شبكة":"تنزيل";
+}
+async function downloadCurrentVideo(){
+    const item=currentItem(); if(!item) return;
+    if(await offlineHas(item.id)){ showToast("المقطع محفوظ بدون شبكة"); return; }
+    const label=document.getElementById("downloadLabel"), btn=document.getElementById("downloadButton");
+    label.textContent="جاري..."; btn.disabled=true;
+    try{
+        const res=await fetch(item.video,{mode:"cors"});
+        if(!res.ok) throw new Error("HTTP "+res.status);
+        const blob=await res.blob();
+        if(!blob.size) throw new Error("EMPTY");
+        const db=await openZaadDB();
+        await new Promise((resolve,reject)=>{ const tx=db.transaction(ZAAD_STORE,"readwrite"); tx.objectStore(ZAAD_STORE).put({...item,blob,downloadedAt:Date.now()}); tx.oncomplete=resolve; tx.onerror=()=>reject(tx.error); });
+        showToast("تم تنزيل المقطع للعمل بدون شبكة");
+    }catch(error){
+        console.error(error); showToast("اعتذر قريبا باذن الله");
+    }finally{ btn.disabled=false; updateDownloadState(); }
+}
+
+
+
+
+
+/* =========================
+   COMMENTS API - GOOGLE SHEETS
+   ضع هنا رابط Web App بعد نشر Apps Script
+========================= */
+const COMMENTS_API_URL = "PUT_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
+
+let commentsCache = new Map();
+let commentCounts = new Map();
+let commentsLoadingVideoId = null;
+
+function commentsApiReady(){
+    return /^https:\/\/script\.google\.com\/macros\/s\/.+\/exec/i.test(COMMENTS_API_URL);
+}
+
+function escapeCommentHTML(value){
+    return escapeHTML(String(value || ""));
+}
+
+function commentInitial(name){
+    const text = String(name || "زائر").trim();
+    return escapeCommentHTML(text.charAt(0) || "ز");
+}
+
+function formatCommentDate(value){
+    if(!value) return "";
+    const d = new Date(value);
+    if(Number.isNaN(d.getTime())) return escapeCommentHTML(value);
+    try{
+        return new Intl.DateTimeFormat("ar-SA",{
+            year:"numeric",month:"short",day:"numeric",
+            hour:"numeric",minute:"2-digit"
+        }).format(d);
+    }catch(e){ return d.toLocaleString(); }
+}
+
+function renderComments(videoId){
+    const list = document.getElementById("commentsList");
+    const comments = commentsCache.get(videoId) || [];
+
+    if(!comments.length){
+        list.innerHTML = `<div class="commentsEmpty">لا توجد تعليقات بعد.<br>كن أول من يضيف تعليقًا نافعًا.</div>`;
+        return;
+    }
+
+    list.innerHTML = comments.map(c => `
+        <article class="commentRow">
+            <div class="commentAvatar">${commentInitial(c.name)}</div>
+            <div class="commentBody">
+                <div class="commentMeta">
+                    <span class="commentName">${escapeCommentHTML(c.name || "زائر")}</span>
+                    <span class="commentTime">${formatCommentDate(c.createdAt)}</span>
+                </div>
+                <div class="commentText">${escapeCommentHTML(c.comment)}</div>
+            </div>
+        </article>
+    `).join("");
+}
+
+function setCommentsError(message=""){
+    const el = document.getElementById("commentsError");
+    el.textContent = message;
+    el.classList.toggle("show", !!message);
+}
+
+async function fetchComments(videoId, force=false){
+    if(!videoId) return [];
+    if(!force && commentsCache.has(videoId)){
+        renderComments(videoId);
+        return commentsCache.get(videoId);
+    }
+
+    const list = document.getElementById("commentsList");
+    list.innerHTML = `<div class="commentsLoading">جاري تحميل التعليقات...</div>`;
+    setCommentsError("");
+
+    if(!commentsApiReady()){
+        setCommentsError("أضف رابط Apps Script في COMMENTS_API_URL أولًا.");
+        list.innerHTML = `<div class="commentsEmpty">قاعدة التعليقات غير مربوطة بعد.</div>`;
+        return [];
+    }
+
+    commentsLoadingVideoId = videoId;
+
+    try{
+        const url = COMMENTS_API_URL +
+            "?action=list&videoId=" + encodeURIComponent(videoId) +
+            "&_=" + Date.now();
+
+        const response = await fetch(url,{cache:"no-store"});
+        if(!response.ok) throw new Error("HTTP " + response.status);
+
+        const data = await response.json();
+        if(data.result !== "success") throw new Error(data.error || "تعذر تحميل التعليقات");
+
+        const comments = Array.isArray(data.comments) ? data.comments : [];
+        commentsCache.set(videoId, comments);
+        commentCounts.set(videoId, Number(data.count ?? comments.length));
+        updateCommentCount();
+
+        if(currentItem()?.id === videoId && document.getElementById("commentsSheet").classList.contains("show")){
+            renderComments(videoId);
+        }
+        return comments;
+    }catch(error){
+        console.error("Comments:",error);
+        if(currentItem()?.id === videoId){
+            setCommentsError("تعذر تحميل التعليقات حاليًا.");
+            list.innerHTML = `<div class="commentsEmpty">تحقق من الاتصال ثم حاول مرة أخرى.</div>`;
+        }
+        return [];
+    }
+}
+
+async function fetchCommentCount(videoId){
+    if(!videoId || !commentsApiReady()) return;
+    try{
+        const response = await fetch(
+            COMMENTS_API_URL + "?action=count&videoId=" + encodeURIComponent(videoId) + "&_=" + Date.now(),
+            {cache:"no-store"}
+        );
+        if(!response.ok) return;
+        const data = await response.json();
+        if(data.result === "success"){
+            commentCounts.set(videoId, Number(data.count || 0));
+            if(currentItem()?.id === videoId) updateCommentCount();
+        }
+    }catch(e){}
+}
+
+function updateCommentCount(){
+    const item = currentItem();
+    const el = document.getElementById("commentCount");
+    if(!item || !el) return;
+    const count = commentCounts.get(item.id);
+    el.textContent = Number.isFinite(count) ? String(count) : "…";
+    if(!Number.isFinite(count)) fetchCommentCount(item.id);
+}
+
+
+function getZaadAccountName(){
+    // المفتاح الرسمي المقترح لصفحة account.html:
+    // localStorage.setItem("zaadAccountProfile", JSON.stringify({name:"اسم المستخدم"}))
+    const jsonKeys = ["zaadAccountProfile","zaadProfile","zaadUser","userProfile"];
+    for(const key of jsonKeys){
+        try{
+            const data = JSON.parse(localStorage.getItem(key) || "null");
+            if(data && typeof data === "object"){
+                const name = String(data.name || data.fullName || data.username || data.displayName || "").trim();
+                if(name) return name;
+            }
+        }catch(e){}
+    }
+
+    const textKeys = ["zaadAccountName","zaadUserName","userName","profileName"];
+    for(const key of textKeys){
+        const value = String(localStorage.getItem(key) || "").trim();
+        if(value) return value;
+    }
+    return "";
+}
+
+function updateCommentAccountUI(){
+    const name = getZaadAccountName();
+    const nameEl = document.getElementById("commentAccountName");
+    const avatarEl = document.getElementById("commentAccountAvatar");
+    if(nameEl) nameEl.textContent = name || "لم يتم تحديد الاسم";
+    if(avatarEl) avatarEl.textContent = name ? (name.charAt(0) || "ز") : "؟";
+}
+
+function openComments(){
+    const item = currentItem();
+    if(!item) return;
+
+    pauseAll();
+
+    const sheet = document.getElementById("commentsSheet");
+    document.getElementById("commentsTitle").textContent = "التعليقات";
+    updateCommentAccountUI();
+
+    sheet.classList.add("show");
+    sheet.setAttribute("aria-hidden","false");
+
+    fetchComments(item.id);
+}
+
+function closeComments(){
+    document.getElementById("commentsSheet").classList.remove("show");
+    document.getElementById("commentsSheet").setAttribute("aria-hidden","true");
+    setCommentsError("");
+    playCurrentVideo();
+}
+
+function closeCommentsBackground(event){
+    if(event.target === document.getElementById("commentsSheet")) closeComments();
+}
+
+async function submitComment(event){
+    event.preventDefault();
+
+    const item = currentItem();
+    if(!item) return;
+
+    const commentInput = document.getElementById("commentInput");
+    const send = document.getElementById("commentSend");
+
+    const name = getZaadAccountName();
+    const comment = commentInput.value.trim();
+
+    if(!name){
+        setCommentsError("حدد اسمك أولًا من صفحة حسابي.");
+        return;
+    }
+
+    if(comment.length < 2){
+        setCommentsError("اكتب تعليقًا قبل الإرسال.");
+        return;
+    }
+    if(comment.length > 500){
+        setCommentsError("التعليق طويل جدًا.");
+        return;
+    }
+    if(!commentsApiReady()){
+        setCommentsError("أضف رابط Apps Script في COMMENTS_API_URL أولًا.");
+        return;
+    }
+
+    // منع الضغط المتكرر السريع من نفس الجهاز
+    const lastSend = Number(localStorage.getItem("zaadLastCommentAt") || 0);
+    if(Date.now() - lastSend < 5000){
+        setCommentsError("انتظر قليلًا قبل إرسال تعليق آخر.");
+        return;
+    }
+
+    setCommentsError("");
+    send.disabled = true;
+
+    try{
+        const body = new URLSearchParams();
+        body.set("action","add");
+        body.set("videoId",item.id);
+        body.set("videoTitle",item.title || "");
+        body.set("name",name);
+        body.set("comment",comment);
+
+        const response = await fetch(COMMENTS_API_URL,{
+            method:"POST",
+            body
+        });
+
+        if(!response.ok) throw new Error("HTTP " + response.status);
+        const data = await response.json();
+        if(data.result !== "success") throw new Error(data.error || "تعذر الإرسال");
+
+        localStorage.setItem("zaadLastCommentAt",String(Date.now()));
+        commentInput.value = "";
+
+        await fetchComments(item.id,true);
+        showToast("تم نشر تعليقك");
+    }catch(error){
+        console.error("Send comment:",error);
+        setCommentsError("تعذر إرسال التعليق حاليًا. حاول مرة أخرى.");
+    }finally{
+        send.disabled = false;
+    }
+}
+
+
+/* =====================================================
+   GOOGLE SHEETS
+
+   A = العنوان
+   B = الوصف
+   C = التصنيف
+   D = رابط الفيديو
+   E = الناشر
+   F = المصدر
+   G = رابط المصدر
+   H = الحالة
+   I = موثق
+   J = صورة الحساب
+   K = معرف المقطع (ثابت وفريد)
+
+   مثال I:
+   yes
+   نعم
+   موثق
+===================================================== */
+
+const SHEET_URL =
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vSx1Vn6B_mZ9qnQe7gJxqJAEhFrmYKQP8YG4VGOmKhR_Be7v8FzVFNLnQKp2XsF3AtG_r_gd9OhxFca/pub?gid=0&single=true&output=csv";
+
+let allVideos = [];
+let visibleVideos = [];
+
+let currentIndex = 0;
+let currentCategory = "all";
+
+let moving = false;
+
+let soundMuted = false;
+let waitingForSoundInteraction = false;
+
+let liked = readStorageArray("zaadLikes");
+let saved = readStorageArray("zaadSaved");
+
+/* =========================
+   RANDOM FEED
+   ترتيب جديد للمقاطع في كل دخول
+========================= */
+function shuffleVideos(list){
+    const arr = [...list];
+    for(let i = arr.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+}
+
+function avoidSameFirstVideo(list){
+    if(list.length < 2) return list;
+    try{
+        const lastFirst = localStorage.getItem("zaadLastFirstVideo");
+        if(lastFirst && list[0]?.id === lastFirst){
+            const swapIndex = 1 + Math.floor(Math.random() * (list.length - 1));
+            [list[0], list[swapIndex]] = [list[swapIndex], list[0]];
+        }
+        localStorage.setItem("zaadLastFirstVideo", list[0]?.id || "");
+    }catch(error){}
+    return list;
+}
+
+
+/* =========================
+   HEIGHT
+========================= */
+
+function setAppHeight(){
+
+    const height =
+        window.visualViewport
+        ? window.visualViewport.height
+        : window.innerHeight;
+
+    document.documentElement.style.setProperty(
+        "--app-height",
+        Math.round(height) + "px"
+    );
+}
+
+setAppHeight();
+
+window.addEventListener("resize",setAppHeight);
+
+if(window.visualViewport){
+    window.visualViewport.addEventListener(
+        "resize",
+        setAppHeight
+    );
+}
+
+/* =========================
+   LOAD
+========================= */
+
+async function loadVideos(){
+
+    showLoading(true);
+
+    pauseAll();
+
+    try{
+
+        const response =
+            await fetch(
+                SHEET_URL + "&_=" + Date.now(),
+                {
+                    cache:"no-store"
+                }
+            );
+
+        if(!response.ok){
+            throw new Error(
+                "HTTP " + response.status
+            );
+        }
+
+        const text =
+            await response.text();
+
+        const rows =
+            parseCSV(text);
+
+        if(rows.length < 2){
+            throw new Error("EMPTY");
+        }
+
+        allVideos =
+            convertRowsToVideos(rows);
+
+        // ترتيب عشوائي جديد في كل مرة تفتح فيها صفحة المقاطع.
+        // وبما أن التصنيفات تُستخرج من allVideos، فترتيب المقاطع داخل كل تصنيف يتغير أيضًا.
+        allVideos = avoidSameFirstVideo(shuffleVideos(allVideos));
+
+        try{ localStorage.setItem("zaadVideoCatalog", JSON.stringify(allVideos)); }catch(error){}
+
+        if(!allVideos.length){
+
+            renderMessage(
+                "لا توجد مقاطع",
+                "لايوجد مقاطع"
+            );
+
+            showLoading(false);
+
+            return;
+        }
+
+        currentIndex = 0;
+        currentCategory = "all";
+
+        renderCategories();
+
+        applyCategory();
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        renderMessage(
+            "لا توجد مقاطع",
+            "لايوجد مقاطع"
+        );
+    }
+
+    showLoading(false);
+}
+
+/* =========================
+   CSV
+========================= */
+
+function parseCSV(text){
+
+    const rows = [];
+
+    let row = [];
+    let value = "";
+    let quoted = false;
+
+    for(let i=0;i<text.length;i++){
+
+        const char = text[i];
+        const next = text[i+1];
+
+        if(char === '"'){
+
+            if(
+                quoted &&
+                next === '"'
+            ){
+                value += '"';
+                i++;
+            }
+            else{
+                quoted = !quoted;
+            }
+
+        }
+        else if(
+            char === "," &&
+            !quoted
+        ){
+
+            row.push(value);
+            value = "";
+
+        }
+        else if(
+            (char === "\n" || char === "\r")
+            &&
+            !quoted
+        ){
+
+            if(
+                char === "\r" &&
+                next === "\n"
+            ){
+                i++;
+            }
+
+            row.push(value);
+            value = "";
+
+            if(
+                row.some(
+                    cell =>
+                        String(cell).trim() !== ""
+                )
+            ){
+                rows.push(row);
+            }
+
+            row = [];
+
+        }
+        else{
+            value += char;
+        }
+    }
+
+    row.push(value);
+
+    if(
+        row.some(
+            cell =>
+                String(cell).trim() !== ""
+        )
+    ){
+        rows.push(row);
+    }
+
+    return rows;
+}
+
+/* =========================
+   SHEET -> VIDEOS
+========================= */
+
+function convertRowsToVideos(rows){
+
+    const result = [];
+
+    rows.slice(1).forEach(
+        (row,index)=>{
+
+            const title =
+                clean(row[0]);
+
+            const description =
+                clean(row[1]);
+
+            const categoryText =
+                clean(row[2]);
+
+            const videoURL =
+                clean(row[3]);
+
+            const publisher =
+                clean(row[4]) || "زاد";
+
+            const source =
+                clean(row[5]);
+
+            const sourceURL =
+                clean(row[6]);
+
+            const status =
+                clean(row[7])
+                .toLowerCase();
+
+            /*
+               العمود I
+            */
+
+            const verifiedValue =
+                clean(row[8])
+                .toLowerCase();
+
+            const isVerified =
+                verifiedValue === "yes" ||
+                verifiedValue === "true" ||
+                verifiedValue === "1" ||
+                verifiedValue === "نعم" ||
+                verifiedValue === "موثق";
+
+            const avatar = clean(row[9]);
+
+            // العمود K: معرف ثابت للمقطع حتى تبقى التعليقات معه مهما تغيّر الترتيب
+            const videoId = clean(row[10]);
+
+            if(
+                status === "no" ||
+                status === "false" ||
+                status === "0" ||
+                status === "مخفي"
+            ){
+                return;
+            }
+
+            if(
+                !title ||
+                !videoURL
+            ){
+                return;
+            }
+
+            result.push({
+
+                id: videoId || ("sheet-" + index),
+
+                title,
+                description,
+
+                category:
+                    normalizeCategory(
+                        categoryText
+                    ),
+
+                categoryLabel:
+                    categoryText || "محتوى",
+
+                video:
+                    normalizeVideoURL(
+                        videoURL
+                    ),
+
+                publisher,
+
+                source,
+
+                sourceURL,
+
+                verified:
+                    isVerified,
+
+                avatar: safeMediaURL(avatar)
+            });
+
+        }
+    );
+
+    return result;
+}
+
+/* =========================
+   DRIVE URL
+========================= */
+
+function normalizeVideoURL(url){
+
+    url =
+        String(url || "")
+        .trim();
+
+    const match =
+        url.match(
+            /drive\.google\.com\/file\/d\/([^/]+)/i
+        );
+
+    if(match){
+
+        return (
+            "https://drive.google.com/uc?export=download&id="
+            +
+            encodeURIComponent(match[1])
+        );
+    }
+
+    try{
+
+        const parsed =
+            new URL(url);
+
+        if(
+            parsed.hostname.includes(
+                "drive.google.com"
+            )
+            &&
+            parsed.searchParams.get("id")
+        ){
+
+            return (
+                "https://drive.google.com/uc?export=download&id="
+                +
+                encodeURIComponent(
+                    parsed.searchParams.get("id")
+                )
+            );
+        }
+
+    }
+    catch(error){}
+
+    return url;
+}
+
+/* =========================
+   CATEGORY
+========================= */
+
+function normalizeCategory(value){
+
+    const text =
+        String(value || "")
+        .trim()
+        .toLowerCase();
+
+    if(
+        text.includes("قرآن") ||
+        text.includes("القران") ||
+        text === "quran"
+    ){
+        return "quran";
+    }
+
+    if(
+        text.includes("سنة") ||
+        text.includes("حديث") ||
+        text === "hadith"
+    ){
+        return "hadith";
+    }
+
+    if(
+        text.includes("أذكار") ||
+        text.includes("اذكار") ||
+        text.includes("ذكر")
+    ){
+        return "adhkar";
+    }
+
+    if(text.includes("سيرة")){
+        return "seerah";
+    }
+
+    if(
+        text.includes("قصص") ||
+        text.includes("قصة")
+    ){
+        return "stories";
+    }
+
+    if(
+        text.includes("تعلم") ||
+        text.includes("تعلّم")
+    ){
+        return "learning";
+    }
+
+    return "reminders";
+}
+
+function categoryLabel(category){
+
+    const labels = {
+        all:"لك",
+        quran:"القرآن",
+        hadith:"السنة",
+        adhkar:"الأذكار",
+        seerah:"السيرة",
+        reminders:"تذكير",
+        stories:"قصص",
+        learning:"تعلّم"
+    };
+
+    return labels[category] || category;
+}
+
+function renderCategories(){
+
+    const container =
+        document.getElementById(
+            "categories"
+        );
+
+    const found =
+        new Set();
+
+    allVideos.forEach(
+        item =>
+            found.add(item.category)
+    );
+
+    const categories =
+        ["all",...found];
+
+    container.innerHTML =
+        categories.map(
+            category => `
+
+            <button
+                class="categoryButton ${
+                    currentCategory === category
+                    ? "active"
+                    : ""
+                }"
+                onclick="changeCategory('${category}')">
+
+                ${
+                    escapeHTML(
+                        categoryLabel(category)
+                    )
+                }
+
+            </button>
+
+            `
+        ).join("");
+}
+
+function changeCategory(category){
+
+    pauseAll();
+
+    currentCategory = category;
+    currentIndex = 0;
+
+    renderCategories();
+    applyCategory();
+}
+
+function applyCategory(){
+
+    if(currentCategory === "all"){
+
+        visibleVideos =
+            [...allVideos];
+
+    }
+    else{
+
+        visibleVideos =
+            allVideos.filter(
+                item =>
+                    item.category ===
+                    currentCategory
+            );
+    }
+
+    renderVideos();
+}
+
+/* =========================
+   VERIFIED HTML
+========================= */
+
+function verifiedHTML(item){
+
+    if(!item.verified){
+        return "";
+    }
+
+    return `
+
+    <span
+        class="verifiedBadge"
+        title="حساب موثق"
+        aria-label="حساب موثق">
+
+        <svg viewBox="0 0 24 24">
+
+            <path
+                class="verifyShape"
+                d="M12 2.5l2.2 1.7 2.8-.3.9 2.7 2.4 1.5-.9 2.7.9 2.7-2.4 1.5-.9 2.7-2.8-.3-2.2 1.7-2.2-1.7-2.8.3-.9-2.7-2.4-1.5.9-2.7-.9-2.7 2.4-1.5.9-2.7 2.8.3Z"/>
+
+            <path
+                class="verifyCheck"
+                d="m8.7 12 2.1 2.1 4.7-4.8"/>
+
+        </svg>
+
+    </span>
+
+    `;
+}
+
+function searchVerifiedHTML(item){
+
+    if(!item.verified){
+        return "";
+    }
+
+    return `
+
+    <span
+        class="searchVerified"
+        title="حساب موثق">
+
+        <svg viewBox="0 0 24 24">
+
+            <path
+                class="verifyShape"
+                d="M12 2.5l2.2 1.7 2.8-.3.9 2.7 2.4 1.5-.9 2.7.9 2.7-2.4 1.5-.9 2.7-2.8-.3-2.2 1.7-2.2-1.7-2.8.3-.9-2.7-2.4-1.5.9-2.7-.9-2.7 2.4-1.5.9-2.7 2.8.3Z"/>
+
+            <path
+                class="verifyCheck"
+                d="m8.7 12 2.1 2.1 4.7-4.8"/>
+
+        </svg>
+
+    </span>
+
+    `;
+}
+
+/* =========================
+   VIDEO TEMPLATE
+========================= */
+
+function videoTemplate(
+    item,
+    index
+){
+
+    return `
+
+    <section
+        class="short"
+        data-index="${index}">
+
+        <video
+            src="${safeAttribute(item.video)}"
+            playsinline
+            webkit-playsinline
+            loop
+            preload="${
+                index <= 1
+                ? "auto"
+                : "metadata"
+            }">
+        </video>
+
+        <div class="videoShade"></div>
+
+        <div class="videoContent">
+
+            <div class="publisher">
+
+                <div class="publisherAvatar ${item.avatar ? "hasImage" : ""}">
+                    ${item.avatar ? `<img src="${safeAttribute(item.avatar)}" alt="${safeAttribute(item.publisher)}" loading="lazy" onerror="this.parentElement.classList.remove('hasImage');this.remove();this.parentElement.textContent='ز';">` : "ز"}
+                </div>
+
+                <div class="publisherDetails">
+
+                    <div class="publisherName">
+
+                        <span class="publisherNameText">
+                            ${escapeHTML(item.publisher)}
+                        </span>
+
+                        ${verifiedHTML(item)}
+
+                    </div>
+
+                    <div class="publisherCategory">
+                        ${escapeHTML(item.categoryLabel)}
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="videoTitle">
+                ${escapeHTML(item.title)}
+            </div>
+
+            ${
+                item.description
+                ? `
+                    <div class="videoDescription">
+                        ${escapeHTML(item.description)}
+                    </div>
+                `
+                : ""
+            }
+
+            ${
+                item.source
+                ? `
+                    <div class="sourceInfo">
+
+                        <svg viewBox="0 0 24 24">
+                            <path d="M4 4h12a4 4 0 0 1 4 4v12H8a4 4 0 0 1-4-4Z"/>
+                            <path d="M8 4v16"/>
+                        </svg>
+
+                        <span>
+                            ${escapeHTML(item.source)}
+                        </span>
+
+                    </div>
+                `
+                : ""
+            }
+
+        </div>
+
+    </section>
+
+    `;
+}
+
+/* =========================
+   RENDER
+========================= */
+
+function renderVideos(){
+
+    const feed =
+        document.getElementById("feed");
+
+    if(!visibleVideos.length){
+
+        feed.innerHTML = `
+
+        <div class="messagePage">
+
+            <div>
+                <h2>لا توجد مقاطع</h2>
+                <p>
+                    لا توجد مقاطع في هذا التصنيف حاليًا.
+                </p>
+            </div>
+
+        </div>
+
+        `;
+
+        return;
+    }
+
+    feed.innerHTML =
+        visibleVideos
+        .map(
+            (item,index) =>
+                videoTemplate(
+                    item,
+                    index
+                )
+        )
+        .join("");
+
+    currentIndex = 0;
+
+    initPositions();
+
+    bindVideoEvents();
+
+    updateFixedControls();
+
+    requestAnimationFrame(
+        ()=>{
+            playCurrentVideo(true);
+        }
+    );
+}
+
+/* =========================
+   SEARCH
+========================= */
+
+function openSearch(){
+
+    pauseAll();
+
+    document
+        .getElementById("searchOverlay")
+        .classList.add("show");
+
+    document
+        .getElementById("searchInput")
+        .value = "";
+
+    resetSearch();
+
+    setTimeout(
+        ()=>{
+            document
+                .getElementById("searchInput")
+                .focus();
+        },
+        100
+    );
+}
+
+function closeSearch(){
+
+    document
+        .getElementById("searchOverlay")
+        .classList.remove("show");
+
+    document
+        .getElementById("searchInput")
+        .blur();
+
+    playCurrentVideo();
+}
+
+function resetSearch(){
+
+    document
+        .getElementById("searchResults")
+        .innerHTML = `
+
+        <div class="searchStart">
+
+            <svg viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="7"/>
+                <path d="m20 20-4-4"/>
+            </svg>
+
+            <h3>
+                البحث في زاد
+            </h3>
+
+            <p>
+                ابحث بالمقطع أو الناشر أو التصنيف.
+            </p>
+
+        </div>
+
+        `;
+}
+
+function normalizeSearchText(value){
+
+    return String(value || "")
+        .trim()
+        .toLowerCase()
+        .replace(/[أإآ]/g,"ا")
+        .replace(/ة/g,"ه")
+        .replace(/ى/g,"ي")
+        .replace(/\s+/g," ");
+}
+
+function searchVideos(value){
+
+    const query =
+        normalizeSearchText(value);
+
+    const container =
+        document.getElementById(
+            "searchResults"
+        );
+
+    if(!query){
+
+        resetSearch();
+        return;
+    }
+
+    const results =
+        allVideos.filter(
+            item =>{
+
+                const searchable =
+                    normalizeSearchText(
+                        [
+                            item.title,
+                            item.description,
+                            item.categoryLabel,
+                            item.publisher,
+                            item.source,
+                            item.verified
+                                ? "موثق حساب موثق"
+                                : ""
+                        ].join(" ")
+                    );
+
+                return searchable.includes(
+                    query
+                );
+            }
+        );
+
+    if(!results.length){
+
+        container.innerHTML = `
+
+        <div class="noSearchResults">
+            لا توجد نتائج مطابقة لبحثك.
+        </div>
+
+        `;
+
+        return;
+    }
+
+    container.innerHTML =
+        results.map(
+            item => `
+
+            <button
+                class="searchResult"
+                onclick="openSearchResult('${safeAttribute(item.id)}')">
+
+                <div class="searchResultIcon">
+
+                    <svg viewBox="0 0 24 24">
+                        <rect
+                            x="4"
+                            y="3"
+                            width="16"
+                            height="18"
+                            rx="4"/>
+
+                        <path d="m10 9 5 3-5 3Z"/>
+                    </svg>
+
+                </div>
+
+                <div class="searchResultContent">
+
+                    <div class="searchResultTitle">
+                        ${escapeHTML(item.title)}
+                    </div>
+
+                    <div class="searchResultPublisher">
+
+                        <span>
+                            ${escapeHTML(item.publisher)}
+                        </span>
+
+                        ${searchVerifiedHTML(item)}
+
+                        <span>
+                            •
+                            ${escapeHTML(item.categoryLabel)}
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </button>
+
+            `
+        ).join("");
+}
+
+function openSearchResult(id){
+
+    const index =
+        allVideos.findIndex(
+            item =>
+                String(item.id) ===
+                String(id)
+        );
+
+    if(index === -1){
+        return;
+    }
+
+    pauseAll();
+
+    currentCategory = "all";
+    visibleVideos = [...allVideos];
+
+    document
+        .getElementById("searchOverlay")
+        .classList.remove("show");
+
+    document
+        .getElementById("searchInput")
+        .blur();
+
+    renderCategories();
+
+    const feed =
+        document.getElementById("feed");
+
+    feed.innerHTML =
+        visibleVideos
+        .map(
+            (item,i) =>
+                videoTemplate(item,i)
+        )
+        .join("");
+
+    currentIndex = index;
+
+    initPositions();
+
+    bindVideoEvents();
+
+    updateFixedControls();
+
+    playCurrentVideo();
+}
+
+/* =========================
+   CARDS
+========================= */
+
+function getCards(){
+
+    return [
+        ...document.querySelectorAll(
+            ".short"
+        )
+    ];
+}
+
+function initPositions(){
+
+    getCards().forEach(
+        (card,index)=>{
+
+            card.classList.remove(
+                "previous",
+                "current",
+                "next"
+            );
+
+            card.style.transform = "";
+            card.style.transition = "";
+
+            if(index < currentIndex){
+
+                card.classList.add(
+                    "previous"
+                );
+
+            }
+            else if(
+                index === currentIndex
+            ){
+
+                card.classList.add(
+                    "current"
+                );
+
+            }
+            else{
+
+                card.classList.add(
+                    "next"
+                );
+            }
+
+        }
+    );
+}
+
+function updatePositions(){
+
+    initPositions();
+
+    updateFixedControls();
+
+    playCurrentVideo();
+}
+
+function currentItem(){
+
+    return visibleVideos[
+        currentIndex
+    ] || null;
+}
+
+function currentVideo(){
+
+    return (
+        getCards()[currentIndex]
+        ?.querySelector("video")
+        ||
+        null
+    );
+}
+
+/* =========================
+   SCREEN WAKE LOCK
+   إبقاء شاشة الجوال مستيقظة أثناء تشغيل المقطع
+========================= */
+
+let zaadWakeLock = null;
+
+async function requestZaadWakeLock(){
+    if (!("wakeLock" in navigator) || document.hidden) return;
+
+    const video = currentVideo();
+    if (!video || video.paused || video.ended) return;
+
+    try{
+        if (!zaadWakeLock){
+            zaadWakeLock = await navigator.wakeLock.request("screen");
+            zaadWakeLock.addEventListener("release", ()=>{
+                zaadWakeLock = null;
+            });
+        }
+    }catch(error){
+        console.log("Wake Lock غير متاح:", error);
+        zaadWakeLock = null;
+    }
+}
+
+async function releaseZaadWakeLock(){
+    if (!zaadWakeLock) return;
+    try{ await zaadWakeLock.release(); }catch(error){}
+    zaadWakeLock = null;
+}
+
+/* =========================
+   PLAY / SOUND
+========================= */
+
+function playCurrentVideo(
+    firstAttempt=false
+){
+    forceCurrentVideoSound();
+
+    getCards().forEach(
+        (card,index)=>{
+
+            const video =
+                card.querySelector(
+                    "video"
+                );
+
+            if(!video){
+                return;
+            }
+
+            if(index !== currentIndex){
+
+                video.pause();
+                return;
+            }
+
+            if(firstAttempt){
+
+                soundMuted = false;
+                video.muted = false;
+
+            }
+            else{
+
+                video.muted =
+                    soundMuted;
+            }
+
+            const promise =
+                video.play();
+
+            requestZaadWakeLock();
+
+            if(
+                promise &&
+                typeof promise.catch ===
+                "function"
+            ){
+
+                promise.catch(
+                    ()=>{
+
+                        /*
+                           Safari/Chrome قد يمنع
+                           التشغيل التلقائي بالصوت.
+                        */
+
+                        video.muted = true;
+
+                        video.play()
+                            .catch(()=>{});
+
+                        enableSoundOnFirstInteraction();
+
+                                        }
+                );
+            }
+
+        }
+    );
+
+    updateFixedControls();
+}
+
+function enableSoundOnFirstInteraction(){
+
+    if(waitingForSoundInteraction){
+        return;
+    }
+
+    waitingForSoundInteraction =
+        true;
+
+    document
+        .getElementById("soundNotice")
+        .classList.add("show");
+
+    const activateSound =
+        ()=>{
+
+            const video =
+                currentVideo();
+
+            if(video){
+
+                soundMuted = false;
+
+                video.muted = false;
+
+                video.play()
+                    .catch(()=>{});
+
+                        }
+
+            waitingForSoundInteraction =
+                false;
+
+            document
+                .getElementById("soundNotice")
+                .classList.remove("show");
+
+            document.removeEventListener(
+                "pointerdown",
+                activateSound,
+                true
+            );
+        };
+
+    document.addEventListener(
+        "pointerdown",
+        activateSound,
+        true
+    );
+}
+
+function pauseAll(){
+
+    document
+        .querySelectorAll(
+            ".short video"
+        )
+        .forEach(
+            video => video.pause()
+        );
+
+    releaseZaadWakeLock();
+}
+
+/* =========================
+   VIDEO EVENTS
+========================= */
+
+function bindVideoEvents(){
+
+    document
+        .querySelectorAll(
+            ".short video"
+        )
+        .forEach(
+            (video,index)=>{
+
+                // طالما الفيديو الحالي يعمل، اطلب من الجوال إبقاء الشاشة مستيقظة.
+                video.addEventListener("play", ()=>{
+                    if(index === currentIndex) requestZaadWakeLock();
+                });
+
+                video.addEventListener("pause", ()=>{
+                    if(index === currentIndex) releaseZaadWakeLock();
+                });
+
+                video.addEventListener("ended", ()=>{
+                    if(index === currentIndex) releaseZaadWakeLock();
+                });
+
+                video.addEventListener(
+                    "timeupdate",
+                    ()=>{
+
+                        if(
+                            index !== currentIndex ||
+                            !video.duration
+                        ){
+                            return;
+                        }
+
+                        const percentage =
+                            (
+                                video.currentTime /
+                                video.duration
+                            ) * 100;
+
+                        document
+                            .getElementById("progressFill")
+                            .style.width =
+                            percentage + "%";
+                    }
+                );
+
+                video.addEventListener(
+                    "click",
+                    ()=>{
+
+                        if(index !== currentIndex){
+                            return;
+                        }
+
+                        if(
+                            video.muted &&
+                            !soundMuted
+                        ){
+                            video.muted = false;
+                        }
+
+                        if(video.paused){
+
+                            video.play()
+                                .catch(()=>{});
+
+                        }
+                        else{
+
+                            video.pause();
+                        }
+                    }
+                );
+
+            }
+        );
+}
+
+/* =========================
+   FIXED STATES
+========================= */
+
+function updateFixedControls(){
+    forceCurrentVideoSound();
+
+    const item =
+        currentItem();
+
+    if(!item){
+        return;
+    }
+
+    document
+        .getElementById("likeAction")
+        .classList.toggle(
+            "active",
+            liked.includes(item.id)
+        );
+
+    document
+        .getElementById("saveAction")
+        .classList.toggle(
+            "active",
+            saved.includes(item.id)
+        );
+
+    updateCommentCount();
+
+    document
+        .getElementById("progressFill")
+        .style.width = "0%";
+}
+
+/* =========================
+   NEXT / PREVIOUS
+========================= */
+
+const TRANSITION_TIME = 320;
+
+function nextVideo(){
+
+    if(moving){
+        return;
+    }
+
+    if(
+        currentIndex >=
+        visibleVideos.length - 1
+    ){
+
+        edgeBounce(-1);
+        return;
+    }
+
+    moving = true;
+
+    currentIndex++;
+
+    updatePositions();
+
+    setTimeout(
+        ()=>{
+            moving = false;
+        },
+        TRANSITION_TIME
+    );
+}
+
+function previousVideo(){
+
+    if(moving){
+        return;
+    }
+
+    if(currentIndex <= 0){
+
+        edgeBounce(1);
+        return;
+    }
+
+    moving = true;
+
+    currentIndex--;
+
+    updatePositions();
+
+    setTimeout(
+        ()=>{
+            moving = false;
+        },
+        TRANSITION_TIME
+    );
+}
+
+/* =========================
+   TOUCH
+========================= */
+
+let dragging = false;
+let startY = 0;
+let currentY = 0;
+let startTime = 0;
+
+function touchStart(event){
+
+    if(
+        moving ||
+        event.touches.length !== 1
+    ){
+        return;
+    }
+
+    if(
+        event.target.closest(
+            "button,a,.fixedCategories,.fixedActions,.fixedBottomNav,.fixedHeader"
+        )
+    ){
+        return;
+    }
+
+    dragging = true;
+
+    startY =
+        event.touches[0].clientY;
+
+    currentY =
+        startY;
+
+    startTime =
+        performance.now();
+}
+
+function touchMove(event){
+
+    if(!dragging){
+        return;
+    }
+
+    currentY =
+        event.touches[0].clientY;
+
+    let delta =
+        currentY - startY;
+
+    if(
+        currentIndex === 0 &&
+        delta > 0
+    ){
+        delta *= .20;
+    }
+
+    if(
+        currentIndex ===
+        visibleVideos.length - 1
+        &&
+        delta < 0
+    ){
+        delta *= .20;
+    }
+
+    moveCardsWithFinger(delta);
+
+    event.preventDefault();
+}
+
+function touchEnd(){
+
+    if(!dragging){
+        return;
+    }
+
+    dragging = false;
+
+    const delta =
+        currentY - startY;
+
+    const elapsed =
+        Math.max(
+            1,
+            performance.now() -
+            startTime
+        );
+
+    const velocity =
+        Math.abs(delta) /
+        elapsed;
+
+    const threshold =
+        Math.min(
+            75,
+            getHeight() * .10
+        );
+
+    const fastSwipe =
+        velocity > .42 &&
+        Math.abs(delta) > 25;
+
+    clearInlineTransforms();
+
+    /*
+       اللمسة العادية ليست سحبًا.
+       لا نستدعي updatePositions هنا لأنها تشغّل الفيديو تلقائيًا،
+       ونترك حدث click على الفيديو يتولى إيقافه/تشغيله.
+    */
+    if(Math.abs(delta) < 8){
+        return;
+    }
+
+    if(
+        delta < -threshold ||
+        (
+            delta < 0 &&
+            fastSwipe
+        )
+    ){
+
+        nextVideo();
+
+    }
+    else if(
+        delta > threshold ||
+        (
+            delta > 0 &&
+            fastSwipe
+        )
+    ){
+
+        previousVideo();
+
+    }
+    else{
+
+        updatePositions();
+    }
+}
+
+function moveCardsWithFinger(delta){
+
+    const cards =
+        getCards();
+
+    const current =
+        cards[currentIndex];
+
+    const previous =
+        cards[currentIndex - 1];
+
+    const next =
+        cards[currentIndex + 1];
+
+    const height =
+        getHeight();
+
+    if(current){
+
+        current.style.transition =
+            "none";
+
+        current.style.transform =
+            `translate3d(0,${delta}px,0)`;
+    }
+
+    if(
+        delta < 0 &&
+        next
+    ){
+
+        next.style.transition =
+            "none";
+
+        next.style.transform =
+            `translate3d(0,${height + delta}px,0)`;
+    }
+
+    if(
+        delta > 0 &&
+        previous
+    ){
+
+        previous.style.transition =
+            "none";
+
+        previous.style.transform =
+            `translate3d(0,${-height + delta}px,0)`;
+    }
+}
+
+function clearInlineTransforms(){
+
+    getCards().forEach(
+        card =>{
+
+            card.style.transition = "";
+            card.style.transform = "";
+
+        }
+    );
+}
+
+function getHeight(){
+
+    return (
+        window.visualViewport
+        ?.height
+        ||
+        window.innerHeight
+    );
+}
+
+function edgeBounce(direction){
+
+    const card =
+        getCards()[currentIndex];
+
+    if(!card){
+        return;
+    }
+
+    card.style.transition =
+        "transform 120ms ease";
+
+    card.style.transform =
+        `translate3d(0,${direction * 16}px,0)`;
+
+    setTimeout(
+        ()=>{
+
+            card.style.transform =
+                "translate3d(0,0,0)";
+
+            setTimeout(
+                ()=>{
+
+                    card.style.transition = "";
+                    card.style.transform = "";
+
+                },
+                130
+            );
+
+        },
+        120
+    );
+}
+
+/* =========================
+   MOUSE WHEEL
+========================= */
+
+let wheelLocked = false;
+let wheelAmount = 0;
+let wheelTimer;
+
+function wheelNavigation(event){
+
+    if(
+        document
+        .getElementById("searchOverlay")
+        .classList.contains("show")
+    ){
+        return;
+    }
+
+    event.preventDefault();
+
+    if(wheelLocked){
+        return;
+    }
+
+    wheelAmount +=
+        event.deltaY;
+
+    clearTimeout(wheelTimer);
+
+    wheelTimer =
+        setTimeout(
+            ()=>{
+                wheelAmount = 0;
+            },
+            150
+        );
+
+    if(
+        Math.abs(wheelAmount) <
+        45
+    ){
+        return;
+    }
+
+    wheelLocked = true;
+
+    if(wheelAmount > 0){
+        nextVideo();
+    }
+    else{
+        previousVideo();
+    }
+
+    wheelAmount = 0;
+
+    setTimeout(
+        ()=>{
+            wheelLocked = false;
+        },
+        390
+    );
+}
+
+/* =========================
+   LIKE
+========================= */
+
+function toggleLike(){
+
+    const item =
+        currentItem();
+
+    if(!item){
+        return;
+    }
+
+    if(liked.includes(item.id)){
+
+        liked =
+            liked.filter(
+                id =>
+                    id !== item.id
+            );
+
+    }
+    else{
+
+        liked.push(item.id);
+    }
+
+    localStorage.setItem(
+        "zaadLikes",
+        JSON.stringify(liked)
+    );
+
+    updateFixedControls();
+}
+
+/* =========================
+   SAVE
+========================= */
+
+function toggleSave(){
+
+    const item =
+        currentItem();
+
+    if(!item){
+        return;
+    }
+
+    if(saved.includes(item.id)){
+
+        saved =
+            saved.filter(
+                id =>
+                    id !== item.id
+            );
+
+        showToast(
+            "تم إلغاء الحفظ"
+        );
+
+    }
+    else{
+
+        saved.push(item.id);
+
+        let points =
+            Number(
+                localStorage.getItem(
+                    "zaadPoints"
+                ) || 0
+            );
+
+        points += 2;
+
+        localStorage.setItem(
+            "zaadPoints",
+            points
+        );
+
+        showToast(
+            "تم الحفظ +2 نقطة نشاط"
+        );
+    }
+
+    localStorage.setItem(
+        "zaadSaved",
+        JSON.stringify(saved)
+    );
+
+    updateFixedControls();
+}
+
+/* =========================
+   SOUND
+========================= */
+
+function toggleSound(){
+
+    const video =
+        currentVideo();
+
+    if(!video){
+        return;
+    }
+
+    if(
+        soundMuted ||
+        video.muted
+    ){
+
+        soundMuted = false;
+
+        video.muted = false;
+
+        video.play()
+            .catch(()=>{});
+
+        document
+            .getElementById("soundNotice")
+            .classList.remove("show");
+
+        showToast(
+            "تم تشغيل الصوت"
+        );
+
+    }
+    else{
+
+        soundMuted = true;
+
+        video.muted = true;
+
+        showToast(
+            "تم كتم الصوت"
+        );
+    }
+
+}
+
+function updateSoundIcon(){
+
+    const button =
+        document.getElementById(
+            "soundButton"
+        );
+
+    const video =
+        currentVideo();
+
+    const muted =
+        soundMuted ||
+        (
+            video &&
+            video.muted
+        );
+
+    button.innerHTML =
+        muted
+        ? `
+            <svg viewBox="0 0 24 24">
+                <path d="M11 5 6 9H3v6h3l5 4Z"/>
+                <path d="m16 9 5 6"/>
+                <path d="m21 9-5 6"/>
+            </svg>
+        `
+        : `
+            <svg viewBox="0 0 24 24">
+                <path d="M11 5 6 9H3v6h3l5 4Z"/>
+                <path d="M15 9a4 4 0 0 1 0 6"/>
+                <path d="M17.5 6.5a8 8 0 0 1 0 11"/>
+            </svg>
+        `;
+}
+
+/* =========================
+   SHARE
+========================= */
+
+async function shareCurrentVideo(){
+
+    const item =
+        currentItem();
+
+    if(!item){
+        return;
+    }
+
+    const text =
+        item.title +
+        (
+            item.description
+            ? "\n\n" + item.description
+            : ""
+        ) +
+        (
+            item.source
+            ? "\n\nالمصدر: " + item.source
+            : ""
+        );
+
+    if(navigator.share){
+
+        try{
+
+            await navigator.share({
+                title:item.title,
+                text:text
+            });
+
+        }
+        catch(error){}
+
+    }
+    else{
+
+        try{
+
+            await navigator.clipboard
+                .writeText(text);
+
+            showToast(
+                "تم نسخ معلومات المقطع"
+            );
+
+        }
+        catch(error){
+
+            showToast(
+                "تعذرت المشاركة"
+            );
+        }
+    }
+}
+
+/* =========================
+   SOURCE
+========================= */
+
+function showSource(){
+
+    const item =
+        currentItem();
+
+    if(!item){
+        return;
+    }
+
+    pauseAll();
+
+    document
+        .getElementById("sourceText")
+        .textContent =
+        item.source ||
+        "لم يتم إضافة مصدر لهذا المقطع.";
+
+    document
+        .getElementById("sourceOpenButton")
+        .style.display =
+        item.sourceURL
+        ? "block"
+        : "none";
+
+    document
+        .getElementById("sourceModal")
+        .classList.add("show");
+}
+
+function closeSource(){
+
+    document
+        .getElementById("sourceModal")
+        .classList.remove("show");
+
+    playCurrentVideo();
+}
+
+function closeSourceBackground(event){
+
+    if(event.target.id === "sourceModal"){
+        closeSource();
+    }
+}
+
+function openSource(){
+
+    const item =
+        currentItem();
+
+    if(
+        !item ||
+        !item.sourceURL
+    ){
+        return;
+    }
+
+    try{
+
+        const url =
+            new URL(item.sourceURL);
+
+        if(
+            url.protocol !== "https:" &&
+            url.protocol !== "http:"
+        ){
+            throw new Error();
+        }
+
+        window.open(
+            url.href,
+            "_blank",
+            "noopener,noreferrer"
+        );
+
+    }
+    catch(error){
+
+        showToast(
+            "رابط المصدر غير صحيح"
+        );
+    }
+}
+
+/* =========================
+   MESSAGE / LOADING
+========================= */
+
+function renderMessage(
+    title,
+    message
+){
+
+    document
+        .getElementById("feed")
+        .innerHTML = `
+
+        <div class="messagePage">
+
+            <div>
+
+                <h2>
+                    ${escapeHTML(title)}
+                </h2>
+
+                <p>
+                    ${escapeHTML(message)}
+                </p>
+
+                <button
+                    class="retryButton"
+                    onclick="loadVideos()">
+
+                    إعادة المحاولة
+
+                </button>
+
+            </div>
+
+        </div>
+
+        `;
+}
+
+function showLoading(show){
+
+    document
+        .getElementById("loadingScreen")
+        .classList.toggle(
+            "hide",
+            !show
+        );
+}
+
+/* =========================
+   TOAST
+========================= */
+
+let toastTimer;
+
+function showToast(message){
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+    toast.textContent =
+        message;
+
+    toast.classList.add(
+        "show"
+    );
+
+    clearTimeout(toastTimer);
+
+    toastTimer =
+        setTimeout(
+            ()=>{
+                toast.classList.remove(
+                    "show"
+                );
+            },
+            1700
+        );
+}
+
+/* =========================
+   HELPERS
+========================= */
+
+function readStorageArray(key){
+
+    try{
+
+        const value =
+            JSON.parse(
+                localStorage.getItem(
+                    key
+                ) || "[]"
+            );
+
+        return Array.isArray(value)
+            ? value
+            : [];
+
+    }
+    catch(error){
+
+        return [];
+    }
+}
+
+function clean(value){
+
+    return String(
+        value ?? ""
+    ).trim();
+}
+
+function escapeHTML(value){
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+    div.textContent =
+        String(value ?? "");
+
+    return div.innerHTML;
+}
+
+function safeMediaURL(value){
+    const text = String(value || "").trim();
+    if(!text) return "";
+    try{
+        const url = new URL(text, location.href);
+        return (url.protocol === "https:" || url.protocol === "http:" || url.protocol === "data:") ? url.href : "";
+    }catch(error){ return ""; }
+}
+
+function safeAttribute(value){
+
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#39;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;");
+}
+
+/* =========================
+   EVENTS
+========================= */
+
+const feed =
+    document.getElementById(
+        "feed"
+    );
+
+feed.addEventListener(
+    "touchstart",
+    touchStart,
+    {
+        passive:true
+    }
+);
+
+feed.addEventListener(
+    "touchmove",
+    touchMove,
+    {
+        passive:false
+    }
+);
+
+feed.addEventListener(
+    "touchend",
+    touchEnd,
+    {
+        passive:true
+    }
+);
+
+feed.addEventListener(
+    "touchcancel",
+    touchEnd,
+    {
+        passive:true
+    }
+);
+
+feed.addEventListener(
+    "wheel",
+    wheelNavigation,
+    {
+        passive:false
+    }
+);
+
+document.addEventListener(
+    "keydown",
+    event=>{
+
+        if(
+            event.key === "Escape" &&
+            document
+            .getElementById("searchOverlay")
+            .classList.contains("show")
+        ){
+
+            closeSearch();
+            return;
+        }
+
+        if(
+            document
+            .getElementById("searchOverlay")
+            .classList.contains("show")
+        ){
+            return;
+        }
+
+        if(event.key === "ArrowDown"){
+
+            event.preventDefault();
+            nextVideo();
+
+        }
+        else if(
+            event.key === "ArrowUp"
+        ){
+
+            event.preventDefault();
+            previousVideo();
+
+        }
+    }
+);
+
+document.addEventListener(
+    "gesturestart",
+    event =>
+        event.preventDefault()
+);
+
+document.addEventListener(
+    "visibilitychange",
+    ()=>{
+
+        if(document.hidden){
+
+            pauseAll();
+
+        }
+        else if(
+            !document
+            .getElementById("searchOverlay")
+            .classList.contains("show")
+        ){
+
+            playCurrentVideo();
+            requestZaadWakeLock();
+        }
+    }
+);
+
+if("serviceWorker" in navigator && location.protocol !== "file:"){ window.addEventListener("load",()=>navigator.serviceWorker.register("service-worker.js").catch(()=>{})); }
+
+/* =========================
+   START
+========================= */
+
+resetSearch();
+
+loadVideos();
+
+</script>
+
+</body>
+</html>

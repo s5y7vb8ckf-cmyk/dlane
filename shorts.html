@@ -1663,7 +1663,7 @@ updateInternetStatus();
 
 /* PWA: فتح الصوت بعد موافقة المستخدم */
 const isZaadPWA = window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
-let pwaSoundUnlocked = sessionStorage.getItem("zaadPwaSoundUnlocked") === "1";
+let pwaSoundUnlocked = localStorage.getItem("zaadPwaSoundUnlocked") === "1";
 
 function forceCurrentVideoSound(){
   if(!isZaadPWA || !pwaSoundUnlocked) return;
@@ -1680,13 +1680,12 @@ function hidePwaSoundGate(){
 }
 async function unlockPwaSound(){
   pwaSoundUnlocked=true;
-  sessionStorage.setItem("zaadPwaSoundUnlocked","1");
+  localStorage.setItem("zaadPwaSoundUnlocked","1");
   soundMuted=false;
   hidePwaSoundGate();
   forceCurrentVideoSound();
   const v=document.querySelector(".short.current video");
   if(v){v.muted=false;v.volume=1;try{await v.play();}catch(e){}}
-  if(typeof updateSoundIcon==="function") updateSoundIcon();
 }
 setTimeout(showPwaSoundGate,350);
 document.getElementById("enablePwaSound")?.addEventListener("click",unlockPwaSound);
@@ -3194,8 +3193,7 @@ function playCurrentVideo(
 
                         enableSoundOnFirstInteraction();
 
-                        updateSoundIcon();
-                    }
+                                        }
                 );
             }
 
@@ -3233,8 +3231,7 @@ function enableSoundOnFirstInteraction(){
                 video.play()
                     .catch(()=>{});
 
-                updateSoundIcon();
-            }
+                        }
 
             waitingForSoundInteraction =
                 false;
@@ -3380,7 +3377,6 @@ function updateFixedControls(){
             saved.includes(item.id)
         );
 
-    updateSoundIcon();
     updateCommentCount();
 
     document
@@ -3900,7 +3896,6 @@ function toggleSound(){
         );
     }
 
-    updateSoundIcon();
 }
 
 function updateSoundIcon(){
