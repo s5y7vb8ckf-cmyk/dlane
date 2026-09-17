@@ -104,7 +104,14 @@ button{
     width:100%;
     height:100%;
     object-fit:cover;
+    object-position:center;
     background:#000;
+
+    /* يحافظ على عرض الفيديو بأفضل جودة يوفرها الملف الأصلي */
+    image-rendering:auto;
+    transform:translateZ(0);
+    backface-visibility:hidden;
+    -webkit-backface-visibility:hidden;
 }
 
 .videoShade{
@@ -2743,6 +2750,15 @@ function touchEnd(){
         Math.abs(delta) > 25;
 
     clearInlineTransforms();
+
+    /*
+       اللمسة العادية ليست سحبًا.
+       لا نستدعي updatePositions هنا لأنها تشغّل الفيديو تلقائيًا،
+       ونترك حدث click على الفيديو يتولى إيقافه/تشغيله.
+    */
+    if(Math.abs(delta) < 8){
+        return;
+    }
 
     if(
         delta < -threshold ||
