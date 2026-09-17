@@ -1047,6 +1047,14 @@ button{
 }
 .commentsError.show{display:block}
 
+
+.pwaSoundGate{position:fixed;z-index:5000;inset:0;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(3,18,25,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.pwaSoundGate.show{display:flex}
+.pwaSoundCard{width:min(100%,390px);padding:24px 20px;border-radius:25px;background:#fff;color:#15323d;text-align:center;box-shadow:0 25px 80px rgba(0,0,0,.28)}
+.pwaSoundIcon{width:62px;height:62px;margin:0 auto 14px;border-radius:19px;display:grid;place-items:center;background:#eaf8fd;font-size:28px}
+.pwaSoundCard h3{margin:0 0 7px;font-size:17px}.pwaSoundCard p{margin:0;color:#78909a;font-size:10px;line-height:1.8}
+.pwaSoundCard button{width:100%;height:48px;margin-top:17px;border:0;border-radius:14px;background:var(--primary);color:#fff;font-weight:900;cursor:pointer}
+
 </style>
 </head>
 
@@ -1565,6 +1573,16 @@ updateInternetStatus();
 
 
 <!-- التعليقات -->
+
+<div class="pwaSoundGate" id="pwaSoundGate" aria-hidden="true">
+  <div class="pwaSoundCard">
+    <div class="pwaSoundIcon">🔊</div>
+    <h3>تشغيل المقاطع بالصوت</h3>
+    <p>اضغط السماح مرة واحدة لتشغيل صوت المقاطع تلقائيًا أثناء استخدام التطبيق.</p>
+    <button type="button" id="enablePwaSound">السماح وتشغيل الصوت</button>
+  </div>
+</div>
+
 <div class="commentsSheet" id="commentsSheet" onclick="closeCommentsBackground(event)">
     <section class="commentsPanel" onclick="event.stopPropagation()">
         <div class="commentsHandle"></div>
@@ -1642,6 +1660,38 @@ updateInternetStatus();
 </div>
 
 <script>
+
+/* PWA: فتح الصوت بعد موافقة المستخدم */
+const isZaadPWA = window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+let pwaSoundUnlocked = sessionStorage.getItem("zaadPwaSoundUnlocked") === "1";
+
+function forceCurrentVideoSound(){
+  if(!isZaadPWA || !pwaSoundUnlocked) return;
+  document.querySelectorAll(".short video").forEach(v=>{ v.muted=false; v.volume=1; });
+}
+function showPwaSoundGate(){
+  if(!isZaadPWA || pwaSoundUnlocked) return;
+  const g=document.getElementById("pwaSoundGate");
+  if(g){g.classList.add("show");g.setAttribute("aria-hidden","false");}
+}
+function hidePwaSoundGate(){
+  const g=document.getElementById("pwaSoundGate");
+  if(g){g.classList.remove("show");g.setAttribute("aria-hidden","true");}
+}
+async function unlockPwaSound(){
+  pwaSoundUnlocked=true;
+  sessionStorage.setItem("zaadPwaSoundUnlocked","1");
+  soundMuted=false;
+  hidePwaSoundGate();
+  forceCurrentVideoSound();
+  const v=document.querySelector(".short.current video");
+  if(v){v.muted=false;v.volume=1;try{await v.play();}catch(e){}}
+  if(typeof updateSoundIcon==="function") updateSoundIcon();
+}
+setTimeout(showPwaSoundGate,350);
+document.getElementById("enablePwaSound")?.addEventListener("click",unlockPwaSound);
+
+
 
 /* =========================
    OFFLINE DOWNLOADS
@@ -3086,6 +3136,7 @@ async function releaseZaadWakeLock(){
 function playCurrentVideo(
     firstAttempt=false
 ){
+    forceCurrentVideoSound();
 
     getCards().forEach(
         (card,index)=>{
@@ -3306,6 +3357,7 @@ function bindVideoEvents(){
 ========================= */
 
 function updateFixedControls(){
+    forceCurrentVideoSound();
 
     const item =
         currentItem();
