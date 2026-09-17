@@ -924,6 +924,240 @@ button{
 </head>
 
 <body>
+<!-- شاشة عدم توفر الإنترنت -->
+<div id="offlineScreen" class="offline-screen">
+  <div class="offline-box">
+    <div class="offline-face">☹</div>
+
+    <h2>لا يتوفر اتصال بالإنترنت</h2>
+    <p>تحقق من اتصالك بالشبكة ثم حاول مرة أخرى</p>
+
+    <div class="offline-loader">
+      <span></span>
+    </div>
+
+    <div class="offline-status">جاري انتظار عودة الاتصال...</div>
+
+    <button type="button" onclick="checkInternet()">
+      إعادة المحاولة
+    </button>
+  </div>
+</div>
+
+<style>
+.offline-screen{
+  position:fixed;
+  inset:0;
+  z-index:999999;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  background:#fff;
+  direction:rtl;
+  font-family:inherit;
+}
+
+.offline-screen.show{
+  display:flex;
+}
+
+.offline-box{
+  width:min(100%,420px);
+  text-align:center;
+}
+
+.offline-face{
+  width:110px;
+  height:110px;
+  margin:0 auto 25px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:50%;
+  background:#f0faff;
+  border:2px solid #c9efff;
+
+  color:#32b7e8;
+  font-size:65px;
+  font-weight:400;
+  line-height:1;
+}
+
+.offline-box h2{
+  margin:0 0 10px;
+  color:#17232c;
+  font-size:23px;
+  font-weight:800;
+}
+
+.offline-box p{
+  margin:0 auto;
+  max-width:320px;
+  color:#75838c;
+  font-size:14px;
+  line-height:1.8;
+}
+
+.offline-loader{
+  position:relative;
+  width:190px;
+  height:4px;
+  margin:30px auto 13px;
+  overflow:hidden;
+  border-radius:20px;
+  background:#e8f1f5;
+}
+
+.offline-loader span{
+  position:absolute;
+  top:0;
+  bottom:0;
+  width:65px;
+  border-radius:20px;
+  background:#32b7e8;
+  animation:offlineLoading 1.2s ease-in-out infinite;
+}
+
+@keyframes offlineLoading{
+  0%{
+    right:-70px;
+  }
+  50%{
+    right:95px;
+  }
+  100%{
+    right:200px;
+  }
+}
+
+.offline-status{
+  margin-bottom:25px;
+  color:#9aa5ac;
+  font-size:12px;
+}
+
+.offline-box button{
+  width:100%;
+  max-width:260px;
+  min-height:48px;
+
+  border:0;
+  border-radius:14px;
+
+  background:#32b7e8;
+  color:#fff;
+
+  font-family:inherit;
+  font-size:15px;
+  font-weight:800;
+
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+
+.offline-box button:active{
+  transform:scale(.98);
+}
+
+/* الوضع الداكن إذا كان جهاز المستخدم داكن */
+@media (prefers-color-scheme:dark){
+  .offline-screen{
+    background:#080c0f;
+  }
+
+  .offline-face{
+    background:#101c22;
+    border-color:#173642;
+  }
+
+  .offline-box h2{
+    color:#fff;
+  }
+
+  .offline-box p{
+    color:#8f9ba2;
+  }
+
+  .offline-loader{
+    background:#182126;
+  }
+}
+</style>
+
+<script>
+const offlineScreen = document.getElementById("offlineScreen");
+
+function updateInternetStatus(){
+  if(navigator.onLine){
+    offlineScreen.classList.remove("show");
+  }else{
+    offlineScreen.classList.add("show");
+
+    // إيقاف الفيديو عند انقطاع الإنترنت
+    document.querySelectorAll("video").forEach(video => {
+      try{
+        video.pause();
+      }catch(e){}
+    });
+  }
+}
+
+function checkInternet(){
+  updateInternetStatus();
+
+  if(navigator.onLine){
+    // محاولة تشغيل الفيديو الحالي من جديد
+    const currentVideo =
+      document.querySelector(".short.current video") ||
+      document.querySelector("video");
+
+    if(currentVideo){
+      currentVideo.play().catch(() => {});
+    }
+  }
+}
+
+/* عند انقطاع الشبكة */
+window.addEventListener("offline", updateInternetStatus);
+
+/* عند رجوع الشبكة */
+window.addEventListener("online", () => {
+  offlineScreen.classList.remove("show");
+
+  setTimeout(() => {
+    const currentVideo =
+      document.querySelector(".short.current video") ||
+      document.querySelector("video");
+
+    if(currentVideo){
+      currentVideo.play().catch(() => {});
+    }
+  }, 400);
+});
+
+/* فحص أول ما تفتح الصفحة */
+updateInternetStatus();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <div class="app" id="app">
 
@@ -1417,8 +1651,8 @@ async function loadVideos(){
         console.error(error);
 
         renderMessage(
-            "تعذر تحميل المقاطع",
-            "تأكد من نشر Google Sheets وأن روابط الفيديو تعمل مباشرة."
+            "لا توجد مقاطع",
+            "لايوجد مقاطع"
         );
     }
 
