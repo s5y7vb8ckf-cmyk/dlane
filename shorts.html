@@ -3117,73 +3117,36 @@ async function releaseZaadWakeLock(){
    PLAY / SOUND
 ========================= */
 
-function playCurrentVideo(
-    firstAttempt=false
-){
-    forceCurrentVideoSound();
+function playCurrentVideo(firstAttempt=false){
+    getCards().forEach((card,index)=>{
+        const video = card.querySelector("video");
+        if(!video) return;
 
-    getCards().forEach(
-        (card,index)=>{
-
-            const video =
-                card.querySelector(
-                    "video"
-                );
-
-            if(!video){
-                return;
-            }
-
-            if(index !== currentIndex){
-
-                video.pause();
-                return;
-            }
-
-            if(firstAttempt){
-
-                soundMuted = false;
-                video.muted = false;
-
-            }
-            else{
-
-                video.muted =
-                    soundMuted;
-            }
-
-            const promise =
-                video.play();
-
-            requestZaadWakeLock();
-
-            if(
-                promise &&
-                typeof promise.catch ===
-                "function"
-            ){
-
-                promise.catch(
-                    ()=>{
-
-                        /*
-                           Safari/Chrome قد يمنع
-                           التشغيل التلقائي بالصوت.
-                        */
-
-                        video.muted = true;
-
-                        video.play()
-                            .catch(()=>{});
-
-                        enableSoundOnFirstInteraction();
-
-                                        }
-                );
-            }
-
+        if(index !== currentIndex){
+            video.pause();
+            return;
         }
-    );
+
+        // الصوت مطلوب دائمًا. إذا منع المتصفح التشغيل بالصوت،
+        // ننتظر أول تفاعل فقط ثم نعيد تشغيله بالصوت.
+        soundMuted = false;
+        video.muted = false;
+        video.defaultMuted = false;
+        video.volume = 1;
+
+        const promise = video.play();
+        requestZaadWakeLock();
+
+        if(promise && typeof promise.catch === "function"){
+            promise.catch(()=>{
+                // قيود Safari/Chrome قد تمنع autoplay بالصوت قبل أول تفاعل.
+                // نشغّل الفيديو مؤقتًا بدون صوت كي لا يتوقف، ثم نطلب تفاعلًا واحدًا.
+                video.muted = true;
+                video.play().catch(()=>{});
+                enableSoundOnFirstInteraction();
+            });
+        }
+    });
 
     updateFixedControls();
 }
@@ -3841,46 +3804,26 @@ function toggleSave(){
 ========================= */
 
 function toggleSound(){
+    const video = currentVideo();
+    if(!video) return;
 
-    const video =
-        currentVideo();
+    // لا يوجد كتم يدوي: الزر يعيد تأكيد تشغيل الصوت فقط.
+    soundMuted = false;
+    waitingForSoundInteraction = false;
 
-    if(!video){
-        return;
-    }
+    document.querySelectorAll(".short video").forEach(v=>{
+        v.muted = false;
+        v.defaultMuted = false;
+        v.volume = 1;
+    });
 
-    if(
-        soundMuted ||
-        video.muted
-    ){
+    video.play().catch(()=>{
+        enableSoundOnFirstInteraction();
+    });
 
-        soundMuted = false;
-
-        video.muted = false;
-
-        video.play()
-            .catch(()=>{});
-
-        document
-            .getElementById("soundNotice")
-            .classList.remove("show");
-
-        showToast(
-            "تم تشغيل الصوت"
-        );
-
-    }
-    else{
-
-        soundMuted = true;
-
-        video.muted = true;
-
-        showToast(
-            "تم كتم الصوت"
-        );
-    }
-
+    document.getElementById("soundNotice")?.classList.remove("show");
+    showToast("الصوت يعمل دائمًا");
+    updateSoundIcon();
 }
 
 function updateSoundIcon(){
@@ -3893,12 +3836,7 @@ function updateSoundIcon(){
     const video =
         currentVideo();
 
-    const muted =
-        soundMuted ||
-        (
-            video &&
-            video.muted
-        );
+    const muted = false;
 
     button.innerHTML =
         muted
@@ -4331,6 +4269,57 @@ document.addEventListener(
 );
 
 if("serviceWorker" in navigator && location.protocol !== "file:"){ window.addEventListener("load",()=>navigator.serviceWorker.register("service-worker.js").catch(()=>{})); }
+
+/* =========================
+   FORCE SOUND ALWAYS
+   بعد أول سماح من المستخدم، لا نسمح للموقع بكتم الصوت مرة أخرى.
+========================= */
+function forceSoundAlways(){
+    soundMuted = false;
+
+    document.querySelectorAll(".short video").forEach(video=>{
+        // لا نفك الكتم المؤقت أثناء انتظار أول تفاعل؛ حتى لا ندخل في حلقة منع autoplay.
+        if(waitingForSoundInteraction) return;
+        video.muted = false;
+        video.defaultMuted = false;
+        video.volume = 1;
+    });
+}
+
+["pointerdown","touchstart","click","keydown"].forEach(eventName=>{
+    document.addEventListener(eventName, ()=>{
+        if(waitingForSoundInteraction) return;
+        forceSoundAlways();
+    }, {capture:true, passive:eventName !== "keydown"});
+});
+
+document.addEventListener("play", event=>{
+    const video = event.target;
+    if(video && video.tagName === "VIDEO" && !waitingForSoundInteraction){
+        video.muted = false;
+        video.defaultMuted = false;
+        video.volume = 1;
+        soundMuted = false;
+    }
+}, true);
+
+document.addEventListener("volumechange", event=>{
+    const video = event.target;
+    if(video && video.tagName === "VIDEO" && !waitingForSoundInteraction){
+        if(video.muted || video.volume !== 1){
+            video.muted = false;
+            video.defaultMuted = false;
+            video.volume = 1;
+            soundMuted = false;
+        }
+    }
+}, true);
+
+setInterval(()=>{
+    if(!document.hidden && !waitingForSoundInteraction){
+        forceSoundAlways();
+    }
+}, 750);
 
 /* =========================
    START
