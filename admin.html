@@ -1,0 +1,2910 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+
+<meta name="theme-color" content="#ffffff">
+
+<title>إدارة زاد</title>
+
+<style>
+:root{
+    --primary:#22afe6;
+    --primary-dark:#087fae;
+    --primary-soft:#eaf8fe;
+
+    --bg:#f5f9fb;
+    --card:#fff;
+
+    --text:#17313d;
+    --muted:#71858e;
+
+    --border:#dcebf0;
+
+    --danger:#d84c4c;
+    --danger-soft:#fff0f0;
+
+    --success:#168c5d;
+    --success-soft:#eaf8f1;
+
+    --warning:#b97a14;
+    --warning-soft:#fff8e8;
+
+    --shadow:
+        0 10px 35px
+        rgba(20,80,105,.07);
+}
+
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+    margin:0;
+    min-height:100%;
+    font-family:Tahoma,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+}
+
+body{
+    background:
+        radial-gradient(
+            circle at 90% 0,
+            rgba(34,175,230,.09),
+            transparent 25%
+        ),
+        var(--bg);
+}
+
+button,
+input,
+textarea,
+select{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+input,
+textarea,
+select{
+    font-size:16px;
+}
+
+.container{
+    width:min(1250px,94%);
+    margin:auto;
+}
+
+/* LOGIN */
+
+.loginPage{
+    min-height:100dvh;
+    display:grid;
+    place-items:center;
+    padding:20px;
+}
+
+.loginCard{
+    width:min(430px,100%);
+    padding:30px;
+    border:1px solid var(--border);
+    border-radius:28px;
+    background:white;
+    box-shadow:var(--shadow);
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:11px;
+    margin-bottom:30px;
+}
+
+.logoMark{
+    width:48px;
+    height:48px;
+    border-radius:16px;
+
+    display:grid;
+    place-items:center;
+
+    color:white;
+    font-size:21px;
+    font-weight:900;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary-dark),
+            var(--primary)
+        );
+}
+
+.logo strong{
+    display:block;
+    font-size:20px;
+}
+
+.logo small{
+    color:var(--muted);
+}
+
+.loginCard h1{
+    font-size:24px;
+    margin:0 0 7px;
+}
+
+.loginCard > p{
+    margin:0 0 25px;
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.8;
+}
+
+.field{
+    margin-bottom:15px;
+}
+
+.field label{
+    display:block;
+    margin-bottom:7px;
+    font-size:11px;
+    font-weight:bold;
+}
+
+.control{
+    width:100%;
+    border:1px solid var(--border);
+    outline:none;
+    padding:13px 14px;
+    border-radius:13px;
+    color:var(--text);
+    background:#fbfdfe;
+    transition:.15s;
+}
+
+.control:focus{
+    border-color:#83d2ef;
+    background:white;
+    box-shadow:0 0 0 4px rgba(34,175,230,.08);
+}
+
+textarea.control{
+    min-height:105px;
+    resize:vertical;
+}
+
+.primaryBtn{
+    border:0;
+    border-radius:13px;
+    padding:13px 17px;
+    color:white;
+    font-weight:bold;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary-dark),
+            var(--primary)
+        );
+}
+
+.loginButton{
+    width:100%;
+    margin-top:5px;
+}
+
+/* APP */
+
+.adminApp{
+    display:none;
+}
+
+.header{
+    position:sticky;
+    top:0;
+    z-index:100;
+
+    background:rgba(255,255,255,.94);
+    backdrop-filter:blur(16px);
+
+    border-bottom:1px solid var(--border);
+}
+
+.headerInner{
+    min-height:70px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:15px;
+}
+
+.headerActions{
+    display:flex;
+    gap:8px;
+}
+
+.headerBtn{
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:10px 13px;
+    background:white;
+    color:var(--text);
+}
+
+.dashboard{
+    padding:27px 0 60px;
+}
+
+.pageTitle{
+    margin-bottom:22px;
+}
+
+.pageTitle h1{
+    margin:0 0 7px;
+    font-size:27px;
+}
+
+.pageTitle p{
+    margin:0;
+    color:var(--muted);
+    font-size:12px;
+}
+
+/* STATS */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+    margin-bottom:20px;
+}
+
+.stat{
+    padding:20px;
+    border:1px solid var(--border);
+    border-radius:19px;
+    background:white;
+    box-shadow:0 5px 20px rgba(20,80,100,.03);
+}
+
+.statLabel{
+    color:var(--muted);
+    font-size:11px;
+}
+
+.statValue{
+    margin-top:7px;
+    font-size:28px;
+    font-weight:900;
+}
+
+.statSmall{
+    margin-top:5px;
+    color:var(--muted);
+    font-size:10px;
+}
+
+/* NAV */
+
+.tabs{
+    display:flex;
+    gap:7px;
+
+    overflow-x:auto;
+
+    margin-bottom:18px;
+
+    padding-bottom:3px;
+
+    scrollbar-width:none;
+}
+
+.tabs::-webkit-scrollbar{
+    display:none;
+}
+
+.tab{
+    flex:none;
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:10px 15px;
+    background:white;
+    color:var(--muted);
+}
+
+.tab.active{
+    color:white;
+    border-color:var(--primary-dark);
+    background:var(--primary-dark);
+}
+
+/* PANEL */
+
+.panel{
+    display:none;
+}
+
+.panel.active{
+    display:block;
+}
+
+.card{
+    border:1px solid var(--border);
+    border-radius:21px;
+    background:white;
+    box-shadow:var(--shadow);
+}
+
+.cardHeader{
+    padding:19px 20px;
+    border-bottom:1px solid var(--border);
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+}
+
+.cardHeader h2{
+    margin:0;
+    font-size:17px;
+}
+
+.cardHeader p{
+    margin:5px 0 0;
+    color:var(--muted);
+    font-size:10px;
+}
+
+.cardBody{
+    padding:20px;
+}
+
+/* FORM */
+
+.formGrid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+}
+
+.full{
+    grid-column:1/-1;
+}
+
+.formActions{
+    grid-column:1/-1;
+
+    display:flex;
+    justify-content:flex-end;
+    gap:8px;
+
+    padding-top:5px;
+}
+
+.secondaryBtn{
+    border:1px solid var(--border);
+    border-radius:13px;
+    padding:12px 16px;
+    background:white;
+    color:var(--text);
+}
+
+/* VIDEO PREVIEW */
+
+.previewBox{
+    display:none;
+
+    position:relative;
+
+    width:min(270px,100%);
+    aspect-ratio:9/16;
+
+    margin-top:10px;
+
+    overflow:hidden;
+    border-radius:17px;
+
+    background:#07141a;
+}
+
+.previewBox video{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+/* VIDEO LIST */
+
+.toolbar{
+    display:flex;
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.toolbar input{
+    flex:1;
+}
+
+.videoList{
+    display:grid;
+    gap:10px;
+}
+
+.videoItem{
+    display:grid;
+    grid-template-columns:75px 1fr auto;
+    gap:14px;
+    align-items:center;
+
+    padding:11px;
+
+    border:1px solid var(--border);
+    border-radius:17px;
+
+    background:white;
+}
+
+.videoThumb{
+    width:75px;
+    height:105px;
+
+    overflow:hidden;
+
+    border-radius:12px;
+
+    background:#08161c;
+}
+
+.videoThumb video{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.videoInfo{
+    min-width:0;
+}
+
+.videoInfo strong{
+    display:block;
+
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+
+    font-size:13px;
+}
+
+.videoMeta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+
+    margin-top:8px;
+}
+
+.badge{
+    padding:5px 8px;
+    border-radius:999px;
+
+    color:var(--primary-dark);
+    background:var(--primary-soft);
+
+    font-size:9px;
+}
+
+.badge.live{
+    color:var(--success);
+    background:var(--success-soft);
+}
+
+.badge.hidden{
+    color:var(--warning);
+    background:var(--warning-soft);
+}
+
+.videoActions{
+    display:flex;
+    gap:5px;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+}
+
+.smallBtn{
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:8px 10px;
+    background:#fff;
+    color:var(--text);
+    font-size:10px;
+}
+
+.dangerBtn{
+    color:var(--danger);
+    background:var(--danger-soft);
+    border-color:#f5d2d2;
+}
+
+/* TIP */
+
+.tipPreview{
+    margin-top:17px;
+    padding:20px;
+    border:1px solid var(--border);
+    border-radius:17px;
+    background:#f9fcfd;
+}
+
+.tipPreview small{
+    color:var(--success);
+    font-weight:bold;
+}
+
+.tipPreview h3{
+    margin:8px 0;
+    line-height:1.6;
+}
+
+.tipPreview p{
+    margin:0;
+    color:var(--muted);
+    line-height:1.8;
+    font-size:12px;
+}
+
+/* EMPTY */
+
+.empty{
+    padding:50px 20px;
+    text-align:center;
+    color:var(--muted);
+    font-size:12px;
+}
+
+/* TOAST */
+
+.toast{
+    position:fixed;
+    z-index:1000;
+
+    left:50%;
+    bottom:25px;
+
+    transform:translate(-50%,20px);
+
+    padding:11px 17px;
+
+    border-radius:999px;
+
+    color:white;
+    background:#17313d;
+
+    font-size:11px;
+
+    opacity:0;
+    pointer-events:none;
+
+    transition:.2s;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translate(-50%,0);
+}
+
+/* MOBILE */
+
+@media(max-width:850px){
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+}
+
+@media(max-width:600px){
+
+    .container{
+        width:93%;
+    }
+
+    .headerInner{
+        min-height:64px;
+    }
+
+    .logoMark{
+        width:39px;
+        height:39px;
+        border-radius:13px;
+    }
+
+    .logo strong{
+        font-size:16px;
+    }
+
+    .logo small{
+        display:none;
+    }
+
+    .headerBtn span{
+        display:none;
+    }
+
+    .dashboard{
+        padding-top:20px;
+    }
+
+    .pageTitle h1{
+        font-size:23px;
+    }
+
+    .stats{
+        gap:8px;
+    }
+
+    .stat{
+        padding:15px;
+    }
+
+    .statValue{
+        font-size:23px;
+    }
+
+    .formGrid{
+        grid-template-columns:1fr;
+    }
+
+    .full{
+        grid-column:auto;
+    }
+
+    .formActions{
+        grid-column:auto;
+        flex-direction:column;
+    }
+
+    .formActions button{
+        width:100%;
+    }
+
+    .videoItem{
+        grid-template-columns:65px 1fr;
+    }
+
+    .videoThumb{
+        width:65px;
+        height:92px;
+    }
+
+    .videoActions{
+        grid-column:1/-1;
+    }
+
+    .smallBtn{
+        flex:1;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+
+<section class="loginPage" id="loginPage">
+
+    <div class="loginCard">
+
+        <div class="logo">
+
+            <div class="logoMark">
+                ز
+            </div>
+
+            <div>
+                <strong>زاد</strong>
+                <small>لوحة الإدارة</small>
+            </div>
+
+        </div>
+
+        <h1>تسجيل الدخول</h1>
+
+        <p>
+            هذه الصفحة مخصصة لإدارة محتوى منصة زاد.
+        </p>
+
+        <div class="field">
+
+            <label>
+                رمز الدخول
+            </label>
+
+            <input
+                class="control"
+                id="password"
+                type="password"
+                inputmode="numeric"
+                maxlength="4"
+                placeholder="••••">
+
+        </div>
+
+        <button
+            class="primaryBtn loginButton"
+            onclick="login()">
+
+            دخول لوحة الإدارة
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ADMIN -->
+
+<div class="adminApp" id="adminApp">
+
+<header class="header">
+
+<div class="container headerInner">
+
+    <div class="logo" style="margin:0">
+
+        <div class="logoMark">
+            ز
+        </div>
+
+        <div>
+            <strong>إدارة زاد</strong>
+            <small>إدارة المحتوى</small>
+        </div>
+
+    </div>
+
+
+    <div class="headerActions">
+
+        <button
+            class="headerBtn"
+            onclick="window.open('index.html','_blank')">
+
+            <span>عرض الموقع</span>
+            ↗
+
+        </button>
+
+        <button
+            class="headerBtn"
+            onclick="logout()">
+
+            خروج
+
+        </button>
+
+    </div>
+
+</div>
+
+</header>
+
+
+<main class="dashboard">
+
+<div class="container">
+
+    <div class="pageTitle">
+
+        <h1>
+            لوحة التحكم
+        </h1>
+
+        <p>
+            إدارة المقاطع والنصائح ومحتوى زاد.
+        </p>
+
+    </div>
+
+
+    <!-- STATS -->
+
+    <div class="stats">
+
+        <div class="stat">
+            <div class="statLabel">
+                جميع المقاطع
+            </div>
+
+            <div
+                class="statValue"
+                id="totalVideos">
+                0
+            </div>
+
+            <div class="statSmall">
+                مقطع
+            </div>
+        </div>
+
+
+        <div class="stat">
+
+            <div class="statLabel">
+                المنشورة
+            </div>
+
+            <div
+                class="statValue"
+                id="publishedVideos">
+                0
+            </div>
+
+            <div class="statSmall">
+                ظاهر للمستخدم
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="statLabel">
+                المخفية
+            </div>
+
+            <div
+                class="statValue"
+                id="hiddenVideos">
+                0
+            </div>
+
+            <div class="statSmall">
+                غير منشورة
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="statLabel">
+                التصنيفات
+            </div>
+
+            <div
+                class="statValue"
+                id="categoriesCount">
+                0
+            </div>
+
+            <div class="statSmall">
+                تصنيف مستخدم
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- TABS -->
+
+    <div class="tabs">
+
+        <button
+            class="tab active"
+            onclick="openTab('videos',this)">
+
+            المقاطع
+
+        </button>
+
+        <button
+            class="tab"
+            onclick="openTab('add',this)">
+
+            إضافة مقطع
+
+        </button>
+
+        <button
+            class="tab"
+            onclick="openTab('tip',this)">
+
+            نصيحة اليوم
+
+        </button>
+
+        <button
+            class="tab"
+            onclick="openTab('settings',this)">
+
+            الإعدادات
+
+        </button>
+
+    </div>
+
+
+    <!-- VIDEOS -->
+
+    <section
+        class="panel active"
+        id="panel-videos">
+
+        <div class="card">
+
+            <div class="cardHeader">
+
+                <div>
+
+                    <h2>
+                        المقاطع
+                    </h2>
+
+                    <p>
+                        إدارة المقاطع المنشورة والمخفية.
+                    </p>
+
+                </div>
+
+                <button
+                    class="primaryBtn"
+                    onclick="openAddTab()">
+
+                    + إضافة مقطع
+
+                </button>
+
+            </div>
+
+
+            <div class="cardBody">
+
+                <div class="toolbar">
+
+                    <input
+                        class="control"
+                        id="videoSearch"
+                        placeholder="ابحث عن مقطع..."
+                        oninput="renderVideos()">
+
+                </div>
+
+                <div
+                    class="videoList"
+                    id="videoList">
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ADD / EDIT -->
+
+    <section
+        class="panel"
+        id="panel-add">
+
+        <div class="card">
+
+            <div class="cardHeader">
+
+                <div>
+
+                    <h2 id="formTitle">
+                        إضافة مقطع جديد
+                    </h2>
+
+                    <p>
+                        أضف معلومات المقطع ومصدر المحتوى.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="cardBody">
+
+                <div class="formGrid">
+
+                    <div class="field">
+
+                        <label>
+                            عنوان المقطع *
+                        </label>
+
+                        <input
+                            class="control"
+                            id="videoTitle"
+                            placeholder="مثال: عنوان المقطع">
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            التصنيف *
+                        </label>
+
+                        <select
+                            class="control"
+                            id="videoCategory">
+
+                            <option value="quran">
+                                القرآن
+                            </option>
+
+                            <option value="hadith">
+                                السنة
+                            </option>
+
+                            <option value="adhkar">
+                                الأذكار
+                            </option>
+
+                            <option value="seerah">
+                                السيرة
+                            </option>
+
+                            <option value="reminders">
+                                تذكير
+                            </option>
+
+                            <option value="stories">
+                                قصص
+                            </option>
+
+                            <option value="learning">
+                                تعلّم
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="field full">
+
+                        <label>
+                            وصف المقطع
+                        </label>
+
+                        <textarea
+                            class="control"
+                            id="videoDescription"
+                            placeholder="اكتب وصفًا مختصرًا للمقطع..."></textarea>
+
+                    </div>
+
+
+                    <div class="field full">
+
+                        <label>
+                            رابط الفيديو MP4 *
+                        </label>
+
+                        <input
+                            class="control"
+                            id="videoURL"
+                            type="url"
+                            placeholder="https://..."
+                            oninput="updatePreview()">
+
+                        <div
+                            class="previewBox"
+                            id="previewBox">
+
+                            <video
+                                id="videoPreview"
+                                controls
+                                playsinline>
+                            </video>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            اسم الناشر
+                        </label>
+
+                        <input
+                            class="control"
+                            id="videoAuthor"
+                            value="زاد">
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            حالة المقطع
+                        </label>
+
+                        <select
+                            class="control"
+                            id="videoStatus">
+
+                            <option value="published">
+                                منشور
+                            </option>
+
+                            <option value="hidden">
+                                مخفي
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            اسم المصدر
+                        </label>
+
+                        <input
+                            class="control"
+                            id="sourceName"
+                            placeholder="مثال: اسم الكتاب أو الموقع">
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            رابط المصدر
+                        </label>
+
+                        <input
+                            class="control"
+                            id="sourceURL"
+                            type="url"
+                            placeholder="https://...">
+
+                    </div>
+
+
+                    <div class="formActions">
+
+                        <button
+                            class="secondaryBtn"
+                            onclick="resetForm()">
+
+                            إلغاء
+
+                        </button>
+
+                        <button
+                            class="primaryBtn"
+                            onclick="saveVideo()">
+
+                            حفظ المقطع
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- TIP -->
+
+    <section
+        class="panel"
+        id="panel-tip">
+
+        <div class="card">
+
+            <div class="cardHeader">
+
+                <div>
+
+                    <h2>
+                        نصيحة اليوم
+                    </h2>
+
+                    <p>
+                        إدارة النص الذي يظهر في الرئيسية.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="cardBody">
+
+                <div class="field">
+
+                    <label>
+                        عنوان النصيحة
+                    </label>
+
+                    <input
+                        class="control"
+                        id="tipTitle"
+                        placeholder="عنوان النصيحة">
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        النص
+                    </label>
+
+                    <textarea
+                        class="control"
+                        id="tipText"
+                        placeholder="اكتب النصيحة..."></textarea>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        المصدر - إن وجد
+                    </label>
+
+                    <input
+                        class="control"
+                        id="tipSource"
+                        placeholder="المصدر">
+
+                </div>
+
+
+                <button
+                    class="primaryBtn"
+                    onclick="saveTip()">
+
+                    حفظ النصيحة
+
+                </button>
+
+
+                <div class="tipPreview">
+
+                    <small>
+                        معاينة
+                    </small>
+
+                    <h3 id="tipPreviewTitle">
+                        نصيحة اليوم
+                    </h3>
+
+                    <p id="tipPreviewText">
+                        ستظهر النصيحة هنا.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- SETTINGS -->
+
+    <section
+        class="panel"
+        id="panel-settings">
+
+        <div class="card">
+
+            <div class="cardHeader">
+
+                <div>
+
+                    <h2>
+                        إعدادات المحتوى
+                    </h2>
+
+                    <p>
+                        أدوات النسخ الاحتياطي وإدارة البيانات المحلية.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="cardBody">
+
+                <div class="field">
+
+                    <label>
+                        نسخة احتياطية
+                    </label>
+
+                    <button
+                        class="secondaryBtn"
+                        onclick="exportData()">
+
+                        تصدير البيانات JSON
+
+                    </button>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        استيراد نسخة احتياطية
+                    </label>
+
+                    <input
+                        class="control"
+                        type="file"
+                        accept=".json,application/json"
+                        onchange="importData(event)">
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        ملاحظة
+                    </label>
+
+                    <div
+                        style="
+                        padding:15px;
+                        border-radius:13px;
+                        background:var(--warning-soft);
+                        color:#876018;
+                        font-size:11px;
+                        line-height:1.8">
+
+                        هذه النسخة تحفظ البيانات في هذا المتصفح فقط.
+                        عندما نربط زاد بقاعدة بيانات، ستظهر المقاطع
+                        لجميع المستخدمين ويمكن رفع ملفات الفيديو
+                        مباشرة من الجهاز.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+</div>
+
+</main>
+
+</div>
+
+
+<div
+    class="toast"
+    id="toast">
+</div>
+
+
+<script>
+
+/* =====================================================
+   LOGIN
+   حماية تجريبية فقط
+===================================================== */
+
+const ADMIN_PASSWORD = "1234";
+
+function login(){
+
+    const password =
+        document
+            .getElementById("password")
+            .value;
+
+    if(password !== ADMIN_PASSWORD){
+
+        showToast(
+            "رمز الدخول غير صحيح"
+        );
+
+        return;
+    }
+
+    sessionStorage.setItem(
+        "zaadAdmin",
+        "1"
+    );
+
+    showAdmin();
+
+}
+
+
+function logout(){
+
+    sessionStorage.removeItem(
+        "zaadAdmin"
+    );
+
+    location.reload();
+
+}
+
+
+function showAdmin(){
+
+    document
+        .getElementById("loginPage")
+        .style.display =
+        "none";
+
+    document
+        .getElementById("adminApp")
+        .style.display =
+        "block";
+
+    renderVideos();
+
+    loadTip();
+
+}
+
+
+if(
+    sessionStorage.getItem(
+        "zaadAdmin"
+    ) === "1"
+){
+
+    showAdmin();
+
+}
+
+
+/* =====================================================
+   DATA
+===================================================== */
+
+function getVideos(){
+
+    try{
+
+        return JSON.parse(
+            localStorage.getItem(
+                "zaadVideos"
+            ) || "[]"
+        );
+
+    }
+    catch(error){
+
+        return [];
+
+    }
+
+}
+
+
+function setVideos(videos){
+
+    localStorage.setItem(
+        "zaadVideos",
+        JSON.stringify(videos)
+    );
+
+}
+
+
+let editingID = null;
+
+
+/* =====================================================
+   TABS
+===================================================== */
+
+function openTab(
+    name,
+    button
+){
+
+    document
+        .querySelectorAll(".panel")
+        .forEach(panel=>{
+
+            panel.classList.remove(
+                "active"
+            );
+
+        });
+
+
+    document
+        .querySelectorAll(".tab")
+        .forEach(tab=>{
+
+            tab.classList.remove(
+                "active"
+            );
+
+        });
+
+
+    document
+        .getElementById(
+            "panel-"+name
+        )
+        .classList.add(
+            "active"
+        );
+
+
+    if(button){
+
+        button.classList.add(
+            "active"
+        );
+
+    }
+
+}
+
+
+function openAddTab(){
+
+    resetForm();
+
+    const tabs =
+        document.querySelectorAll(
+            ".tab"
+        );
+
+    openTab(
+        "add",
+        tabs[1]
+    );
+
+}
+
+
+/* =====================================================
+   SAVE VIDEO
+===================================================== */
+
+function saveVideo(){
+
+    const title =
+        document
+            .getElementById("videoTitle")
+            .value
+            .trim();
+
+    const description =
+        document
+            .getElementById("videoDescription")
+            .value
+            .trim();
+
+    const video =
+        document
+            .getElementById("videoURL")
+            .value
+            .trim();
+
+    const category =
+        document
+            .getElementById("videoCategory")
+            .value;
+
+    const author =
+        document
+            .getElementById("videoAuthor")
+            .value
+            .trim() || "زاد";
+
+    const status =
+        document
+            .getElementById("videoStatus")
+            .value;
+
+    const source =
+        document
+            .getElementById("sourceName")
+            .value
+            .trim();
+
+    const sourceURL =
+        document
+            .getElementById("sourceURL")
+            .value
+            .trim();
+
+
+    if(!title){
+
+        showToast(
+            "اكتب عنوان المقطع"
+        );
+
+        return;
+
+    }
+
+
+    if(!video){
+
+        showToast(
+            "أضف رابط الفيديو"
+        );
+
+        return;
+
+    }
+
+
+    let videos =
+        getVideos();
+
+
+    if(editingID){
+
+        const index =
+            videos.findIndex(
+                item =>
+                    item.id === editingID
+            );
+
+
+        if(index !== -1){
+
+            videos[index] = {
+
+                ...videos[index],
+
+                title,
+                description,
+                video,
+                category,
+                type:
+                    categoryName(category),
+                author,
+                status,
+                source,
+                sourceURL,
+
+                updatedAt:
+                    Date.now()
+
+            };
+
+        }
+
+        showToast(
+            "تم تحديث المقطع"
+        );
+
+    }
+    else{
+
+        const item = {
+
+            id:
+                Date.now(),
+
+            title,
+            description,
+            video,
+            category,
+
+            type:
+                categoryName(category),
+
+            author,
+            status,
+
+            source,
+            sourceURL,
+
+            createdAt:
+                Date.now()
+
+        };
+
+
+        videos.unshift(
+            item
+        );
+
+
+        showToast(
+            "تم إضافة المقطع"
+        );
+
+    }
+
+
+    setVideos(
+        videos
+    );
+
+
+    resetForm();
+
+    renderVideos();
+
+
+    const tabs =
+        document.querySelectorAll(
+            ".tab"
+        );
+
+
+    openTab(
+        "videos",
+        tabs[0]
+    );
+
+}
+
+
+/* =====================================================
+   RENDER VIDEOS
+===================================================== */
+
+function renderVideos(){
+
+    const videos =
+        getVideos();
+
+
+    const query =
+        (
+            document
+                .getElementById(
+                    "videoSearch"
+                )
+                ?.value || ""
+        )
+        .trim()
+        .toLowerCase();
+
+
+    const filtered =
+        videos.filter(item=>{
+
+            const text =
+                (
+                    item.title +
+                    " " +
+                    item.description +
+                    " " +
+                    item.type
+                )
+                .toLowerCase();
+
+            return text.includes(
+                query
+            );
+
+        });
+
+
+    const list =
+        document.getElementById(
+            "videoList"
+        );
+
+
+    if(!list){
+        return;
+    }
+
+
+    if(!filtered.length){
+
+        list.innerHTML = `
+
+        <div class="empty">
+
+            لا توجد مقاطع حتى الآن.
+            <br><br>
+
+            اضغط «إضافة مقطع»
+            لإضافة أول مقطع.
+
+        </div>
+
+        `;
+
+    }
+    else{
+
+        list.innerHTML =
+            filtered
+                .map(item=>`
+
+        <div class="videoItem">
+
+            <div class="videoThumb">
+
+                <video
+                    src="${safeAttribute(item.video)}"
+                    muted
+                    playsinline
+                    preload="metadata">
+                </video>
+
+            </div>
+
+
+            <div class="videoInfo">
+
+                <strong>
+
+                    ${escapeHTML(
+                        item.title
+                    )}
+
+                </strong>
+
+
+                <div class="videoMeta">
+
+                    <span class="badge">
+
+                        ${escapeHTML(
+                            item.type
+                        )}
+
+                    </span>
+
+
+                    <span
+                        class="badge
+                        ${
+                            item.status ===
+                            "published"
+                            ?
+                            "live"
+                            :
+                            "hidden"
+                        }">
+
+                        ${
+                            item.status ===
+                            "published"
+                            ?
+                            "منشور"
+                            :
+                            "مخفي"
+                        }
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="videoActions">
+
+                <button
+                    class="smallBtn"
+                    onclick="
+                        toggleStatus(
+                            ${item.id}
+                        )
+                    ">
+
+                    ${
+                        item.status ===
+                        "published"
+                        ?
+                        "إخفاء"
+                        :
+                        "نشر"
+                    }
+
+                </button>
+
+
+                <button
+                    class="smallBtn"
+                    onclick="
+                        editVideo(
+                            ${item.id}
+                        )
+                    ">
+
+                    تعديل
+
+                </button>
+
+
+                <button
+                    class="
+                        smallBtn
+                        dangerBtn
+                    "
+                    onclick="
+                        deleteVideo(
+                            ${item.id}
+                        )
+                    ">
+
+                    حذف
+
+                </button>
+
+            </div>
+
+        </div>
+
+        `)
+        .join("");
+
+    }
+
+
+    updateStats();
+
+}
+
+
+/* =====================================================
+   EDIT
+===================================================== */
+
+function editVideo(id){
+
+    const videos =
+        getVideos();
+
+
+    const item =
+        videos.find(
+            video =>
+                video.id === id
+        );
+
+
+    if(!item){
+        return;
+    }
+
+
+    editingID =
+        id;
+
+
+    document
+        .getElementById(
+            "formTitle"
+        )
+        .textContent =
+        "تعديل المقطع";
+
+
+    document
+        .getElementById(
+            "videoTitle"
+        )
+        .value =
+        item.title || "";
+
+
+    document
+        .getElementById(
+            "videoDescription"
+        )
+        .value =
+        item.description || "";
+
+
+    document
+        .getElementById(
+            "videoURL"
+        )
+        .value =
+        item.video || "";
+
+
+    document
+        .getElementById(
+            "videoCategory"
+        )
+        .value =
+        item.category || "quran";
+
+
+    document
+        .getElementById(
+            "videoAuthor"
+        )
+        .value =
+        item.author || "زاد";
+
+
+    document
+        .getElementById(
+            "videoStatus"
+        )
+        .value =
+        item.status || "published";
+
+
+    document
+        .getElementById(
+            "sourceName"
+        )
+        .value =
+        item.source || "";
+
+
+    document
+        .getElementById(
+            "sourceURL"
+        )
+        .value =
+        item.sourceURL || "";
+
+
+    updatePreview();
+
+
+    const tabs =
+        document.querySelectorAll(
+            ".tab"
+        );
+
+
+    openTab(
+        "add",
+        tabs[1]
+    );
+
+}
+
+
+/* =====================================================
+   DELETE
+===================================================== */
+
+function deleteVideo(id){
+
+    const videos =
+        getVideos();
+
+
+    const item =
+        videos.find(
+            video =>
+                video.id === id
+        );
+
+
+    if(!item){
+        return;
+    }
+
+
+    if(
+        !confirm(
+            "هل تريد حذف المقطع؟\n\n"+
+            item.title
+        )
+    ){
+
+        return;
+
+    }
+
+
+    const updated =
+        videos.filter(
+            video =>
+                video.id !== id
+        );
+
+
+    setVideos(
+        updated
+    );
+
+
+    renderVideos();
+
+
+    showToast(
+        "تم حذف المقطع"
+    );
+
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+function toggleStatus(id){
+
+    const videos =
+        getVideos();
+
+
+    const index =
+        videos.findIndex(
+            video =>
+                video.id === id
+        );
+
+
+    if(index === -1){
+        return;
+    }
+
+
+    videos[index].status =
+        videos[index].status ===
+        "published"
+        ?
+        "hidden"
+        :
+        "published";
+
+
+    setVideos(
+        videos
+    );
+
+
+    renderVideos();
+
+
+    showToast(
+        videos[index].status ===
+        "published"
+        ?
+        "تم نشر المقطع"
+        :
+        "تم إخفاء المقطع"
+    );
+
+}
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+function resetForm(){
+
+    editingID =
+        null;
+
+
+    document
+        .getElementById(
+            "formTitle"
+        )
+        .textContent =
+        "إضافة مقطع جديد";
+
+
+    document
+        .getElementById(
+            "videoTitle"
+        )
+        .value = "";
+
+
+    document
+        .getElementById(
+            "videoDescription"
+        )
+        .value = "";
+
+
+    document
+        .getElementById(
+            "videoURL"
+        )
+        .value = "";
+
+
+    document
+        .getElementById(
+            "videoCategory"
+        )
+        .value =
+        "quran";
+
+
+    document
+        .getElementById(
+            "videoAuthor"
+        )
+        .value =
+        "زاد";
+
+
+    document
+        .getElementById(
+            "videoStatus"
+        )
+        .value =
+        "published";
+
+
+    document
+        .getElementById(
+            "sourceName"
+        )
+        .value = "";
+
+
+    document
+        .getElementById(
+            "sourceURL"
+        )
+        .value = "";
+
+
+    document
+        .getElementById(
+            "previewBox"
+        )
+        .style.display =
+        "none";
+
+}
+
+
+/* =====================================================
+   PREVIEW
+===================================================== */
+
+function updatePreview(){
+
+    const url =
+        document
+            .getElementById(
+                "videoURL"
+            )
+            .value
+            .trim();
+
+
+    const box =
+        document
+            .getElementById(
+                "previewBox"
+            );
+
+
+    const video =
+        document
+            .getElementById(
+                "videoPreview"
+            );
+
+
+    if(!url){
+
+        box.style.display =
+            "none";
+
+        video.removeAttribute(
+            "src"
+        );
+
+        return;
+
+    }
+
+
+    video.src =
+        url;
+
+
+    box.style.display =
+        "block";
+
+}
+
+
+/* =====================================================
+   STATS
+===================================================== */
+
+function updateStats(){
+
+    const videos =
+        getVideos();
+
+
+    const published =
+        videos.filter(
+            item =>
+                item.status ===
+                "published"
+        ).length;
+
+
+    const hidden =
+        videos.length -
+        published;
+
+
+    const categories =
+        new Set(
+            videos.map(
+                item =>
+                    item.category
+            )
+        );
+
+
+    document
+        .getElementById(
+            "totalVideos"
+        )
+        .textContent =
+        videos.length;
+
+
+    document
+        .getElementById(
+            "publishedVideos"
+        )
+        .textContent =
+        published;
+
+
+    document
+        .getElementById(
+            "hiddenVideos"
+        )
+        .textContent =
+        hidden;
+
+
+    document
+        .getElementById(
+            "categoriesCount"
+        )
+        .textContent =
+        categories.size;
+
+}
+
+
+/* =====================================================
+   CATEGORY
+===================================================== */
+
+function categoryName(
+    category
+){
+
+    const categories = {
+
+        quran:
+            "القرآن",
+
+        hadith:
+            "السنة",
+
+        adhkar:
+            "الأذكار",
+
+        seerah:
+            "السيرة",
+
+        reminders:
+            "تذكير",
+
+        stories:
+            "قصص",
+
+        learning:
+            "تعلّم"
+
+    };
+
+
+    return categories[category]
+        || category;
+
+}
+
+
+/* =====================================================
+   TIP
+===================================================== */
+
+function saveTip(){
+
+    const tip = {
+
+        title:
+            document
+                .getElementById(
+                    "tipTitle"
+                )
+                .value
+                .trim(),
+
+        text:
+            document
+                .getElementById(
+                    "tipText"
+                )
+                .value
+                .trim(),
+
+        source:
+            document
+                .getElementById(
+                    "tipSource"
+                )
+                .value
+                .trim()
+
+    };
+
+
+    if(
+        !tip.title ||
+        !tip.text
+    ){
+
+        showToast(
+            "أكمل عنوان ونص النصيحة"
+        );
+
+        return;
+
+    }
+
+
+    localStorage.setItem(
+        "zaadTip",
+        JSON.stringify(tip)
+    );
+
+
+    updateTipPreview();
+
+
+    showToast(
+        "تم حفظ نصيحة اليوم"
+    );
+
+}
+
+
+function loadTip(){
+
+    let tip;
+
+
+    try{
+
+        tip =
+            JSON.parse(
+                localStorage.getItem(
+                    "zaadTip"
+                ) || "null"
+            );
+
+    }
+    catch(error){
+
+        tip = null;
+
+    }
+
+
+    if(!tip){
+        return;
+    }
+
+
+    document
+        .getElementById(
+            "tipTitle"
+        )
+        .value =
+        tip.title || "";
+
+
+    document
+        .getElementById(
+            "tipText"
+        )
+        .value =
+        tip.text || "";
+
+
+    document
+        .getElementById(
+            "tipSource"
+        )
+        .value =
+        tip.source || "";
+
+
+    updateTipPreview();
+
+}
+
+
+function updateTipPreview(){
+
+    document
+        .getElementById(
+            "tipPreviewTitle"
+        )
+        .textContent =
+        document
+            .getElementById(
+                "tipTitle"
+            )
+            .value ||
+        "نصيحة اليوم";
+
+
+    document
+        .getElementById(
+            "tipPreviewText"
+        )
+        .textContent =
+        document
+            .getElementById(
+                "tipText"
+            )
+            .value ||
+        "ستظهر النصيحة هنا.";
+
+}
+
+
+/* تحديث المعاينة أثناء الكتابة */
+
+document
+    .getElementById(
+        "tipTitle"
+    )
+    .addEventListener(
+        "input",
+        updateTipPreview
+    );
+
+
+document
+    .getElementById(
+        "tipText"
+    )
+    .addEventListener(
+        "input",
+        updateTipPreview
+    );
+
+
+/* =====================================================
+   EXPORT
+===================================================== */
+
+function exportData(){
+
+    const data = {
+
+        videos:
+            getVideos(),
+
+        tip:
+            JSON.parse(
+                localStorage.getItem(
+                    "zaadTip"
+                ) || "null"
+            ),
+
+        exportedAt:
+            new Date()
+                .toISOString()
+
+    };
+
+
+    const blob =
+        new Blob(
+
+            [
+                JSON.stringify(
+                    data,
+                    null,
+                    2
+                )
+            ],
+
+            {
+                type:
+                    "application/json"
+            }
+
+        );
+
+
+    const url =
+        URL.createObjectURL(
+            blob
+        );
+
+
+    const a =
+        document.createElement(
+            "a"
+        );
+
+
+    a.href =
+        url;
+
+
+    a.download =
+        "zaad-backup.json";
+
+
+    a.click();
+
+
+    URL.revokeObjectURL(
+        url
+    );
+
+
+    showToast(
+        "تم تصدير النسخة الاحتياطية"
+    );
+
+}
+
+
+/* =====================================================
+   IMPORT
+===================================================== */
+
+function importData(event){
+
+    const file =
+        event.target
+            .files[0];
+
+
+    if(!file){
+        return;
+    }
+
+
+    const reader =
+        new FileReader();
+
+
+    reader.onload =
+        ()=>{
+
+            try{
+
+                const data =
+                    JSON.parse(
+                        reader.result
+                    );
+
+
+                if(
+                    Array.isArray(
+                        data.videos
+                    )
+                ){
+
+                    setVideos(
+                        data.videos
+                    );
+
+                }
+
+
+                if(data.tip){
+
+                    localStorage.setItem(
+                        "zaadTip",
+                        JSON.stringify(
+                            data.tip
+                        )
+                    );
+
+                }
+
+
+                renderVideos();
+
+                loadTip();
+
+
+                showToast(
+                    "تم استيراد البيانات"
+                );
+
+            }
+            catch(error){
+
+                showToast(
+                    "ملف النسخة غير صالح"
+                );
+
+            }
+
+        };
+
+
+    reader.readAsText(
+        file
+    );
+
+}
+
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+function escapeHTML(value){
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+    div.textContent =
+        String(value);
+
+    return div.innerHTML;
+
+}
+
+
+function safeAttribute(value){
+
+    return String(value)
+
+        .replace(/&/g,"&amp;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#39;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;");
+
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+let toastTimer;
+
+
+function showToast(message){
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    toast.textContent =
+        message;
+
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    clearTimeout(
+        toastTimer
+    );
+
+
+    toastTimer =
+        setTimeout(
+            ()=>{
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            },
+            1900
+        );
+
+}
+
+
+/* =====================================================
+   ENTER LOGIN
+===================================================== */
+
+document
+    .getElementById(
+        "password"
+    )
+    .addEventListener(
+        "keydown",
+        event=>{
+
+            if(
+                event.key ===
+                "Enter"
+            ){
+
+                login();
+
+            }
+
+        }
+    );
+
+
+/* =====================================================
+   NO ZOOM
+===================================================== */
+
+document.addEventListener(
+    "gesturestart",
+    event=>
+        event.preventDefault()
+);
+
+</script>
+
+</body>
+</html>

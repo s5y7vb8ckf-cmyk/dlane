@@ -1,847 +1,1291 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 
 <meta
   name="viewport"
   content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 
-<meta name="theme-color" content="#07161d">
+<meta name="theme-color" content="#000000">
 
 <title>المقاطع | زاد</title>
 
 <style>
 :root{
-  --blue:#32b8eb;
-  --blue-dark:#0784b7;
-  --white:#fff;
-  --muted:#d9e5e9;
-  --glass:rgba(8,22,29,.48);
-  --border:rgba(255,255,255,.16);
+    --primary:#2eb7eb;
+    --primary-dark:#087fae;
+    --white:#ffffff;
+    --glass:rgba(5,17,23,.50);
+    --border:rgba(255,255,255,.17);
 }
 
 *{
-  box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+
+    -webkit-tap-highlight-color:transparent;
 }
 
 html,
 body{
-  margin:0;
-  width:100%;
-  height:100%;
-  overflow:hidden;
-  overscroll-behavior:none;
-  background:#000;
-  font-family:Tahoma,Arial,sans-serif;
-}
+    width:100%;
+    height:100%;
 
-body{
-  touch-action:pan-y;
-  user-select:none;
-  -webkit-user-select:none;
+    overflow:hidden;
+
+    background:#000;
+
+    font-family:
+        Tahoma,
+        Arial,
+        sans-serif;
+
+    overscroll-behavior:none;
+
+    -webkit-user-select:none;
+    user-select:none;
 }
 
 button{
-  font:inherit;
+    font:inherit;
 }
 
-/* =========================
+button,
+a{
+    -webkit-tap-highlight-color:transparent;
+}
+
+/* =====================================================
    APP
-========================= */
+===================================================== */
 
 .app{
-  position:relative;
-  width:100%;
-  height:100vh;
-  height:100dvh;
-  overflow:hidden;
-  background:#000;
+    position:relative;
+
+    width:100%;
+    height:100vh;
+    height:100dvh;
+
+    overflow:hidden;
+
+    background:#000;
 }
 
-/* =========================
+/* =====================================================
    FEED
-========================= */
+===================================================== */
 
 .feed{
-  width:100%;
-  height:100%;
-  overflow-y:auto;
-  overflow-x:hidden;
+    position:relative;
 
-  scroll-snap-type:y mandatory;
-  overscroll-behavior-y:contain;
+    width:100%;
+    height:100%;
 
-  scrollbar-width:none;
+    overflow:hidden;
 
-  -webkit-overflow-scrolling:touch;
+    background:#000;
+
+    touch-action:none;
+
+    overscroll-behavior:none;
 }
 
-.feed::-webkit-scrollbar{
-  display:none;
-}
+/* =====================================================
+   SHORT
+===================================================== */
 
 .short{
-  position:relative;
+    position:absolute;
 
-  width:100%;
-  height:100vh;
-  height:100dvh;
+    inset:0;
 
-  min-height:100vh;
-  min-height:100dvh;
+    width:100%;
 
-  overflow:hidden;
+    height:100vh;
+    height:100dvh;
 
-  scroll-snap-align:start;
-  scroll-snap-stop:always;
+    overflow:hidden;
 
-  background:#000;
+    background:#000;
+
+    transform:
+        translate3d(
+            0,
+            100%,
+            0
+        );
+
+    transition:
+        transform
+        320ms
+        cubic-bezier(
+            .22,
+            .61,
+            .36,
+            1
+        );
+
+    will-change:transform;
+
+    backface-visibility:hidden;
+
+    -webkit-backface-visibility:hidden;
 }
+
+.short.current{
+    transform:
+        translate3d(
+            0,
+            0,
+            0
+        );
+
+    z-index:3;
+}
+
+.short.previous{
+    transform:
+        translate3d(
+            0,
+            -100%,
+            0
+        );
+
+    z-index:2;
+}
+
+.short.next{
+    transform:
+        translate3d(
+            0,
+            100%,
+            0
+        );
+
+    z-index:2;
+}
+
+/* =====================================================
+   VIDEO
+===================================================== */
 
 .short video{
-  position:absolute;
-  inset:0;
+    position:absolute;
 
-  width:100%;
-  height:100%;
+    inset:0;
 
-  object-fit:cover;
+    width:100%;
+    height:100%;
 
-  background:#000;
+    object-fit:cover;
+
+    background:#000;
 }
 
-/* =========================
-   GRADIENT
-========================= */
+/* =====================================================
+   SHADE
+===================================================== */
 
 .shade{
-  position:absolute;
-  inset:0;
+    position:absolute;
 
-  pointer-events:none;
+    inset:0;
 
-  background:
-    linear-gradient(
-      to bottom,
-      rgba(0,0,0,.52) 0%,
-      rgba(0,0,0,.08) 22%,
-      rgba(0,0,0,.02) 48%,
-      rgba(0,0,0,.2) 63%,
-      rgba(0,0,0,.9) 100%
-    );
+    pointer-events:none;
+
+    background:
+        linear-gradient(
+            to bottom,
+
+            rgba(0,0,0,.48)
+            0%,
+
+            rgba(0,0,0,.10)
+            20%,
+
+            rgba(0,0,0,.02)
+            48%,
+
+            rgba(0,0,0,.18)
+            65%,
+
+            rgba(0,0,0,.90)
+            100%
+        );
 }
 
-/* =========================
+/* =====================================================
    HEADER
-========================= */
+===================================================== */
 
 .header{
-  position:absolute;
+    position:absolute;
 
-  top:0;
-  right:0;
-  left:0;
+    top:0;
+    right:0;
+    left:0;
 
-  z-index:20;
+    z-index:25;
 
-  padding:
-    calc(env(safe-area-inset-top) + 12px)
-    15px
-    10px;
+    padding:
+        calc(
+            env(safe-area-inset-top)
+            + 11px
+        )
+        14px
+        8px;
 
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
+    display:flex;
 
-  pointer-events:none;
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+    pointer-events:none;
 }
 
 .brand{
-  display:flex;
-  align-items:center;
-  gap:10px;
+    display:flex;
 
-  color:white;
+    align-items:center;
 
-  font-weight:900;
-  font-size:20px;
+    gap:9px;
 
-  pointer-events:auto;
+    color:white;
+
+    font-size:18px;
+
+    font-weight:900;
+
+    pointer-events:auto;
 }
 
 .brandMark{
-  width:38px;
-  height:38px;
+    width:38px;
+    height:38px;
 
-  display:grid;
-  place-items:center;
+    border-radius:13px;
 
-  border-radius:13px;
+    display:grid;
 
-  background:
-    linear-gradient(
-      135deg,
-      var(--blue-dark),
-      var(--blue)
-    );
+    place-items:center;
 
-  box-shadow:
-    0 7px 25px rgba(0,0,0,.25);
+    color:white;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary-dark),
+            var(--primary)
+        );
+
+    box-shadow:
+        0 8px 25px
+        rgba(0,0,0,.25);
 }
 
 .headerActions{
-  display:flex;
-  gap:8px;
+    display:flex;
 
-  pointer-events:auto;
+    align-items:center;
+
+    gap:7px;
+
+    pointer-events:auto;
 }
 
-/* =========================
-   ICON BUTTON
-========================= */
-
 .iconBtn{
-  width:42px;
-  height:42px;
+    width:41px;
+    height:41px;
 
-  border:1px solid var(--border);
-  border-radius:14px;
+    border:
+        1px solid
+        var(--border);
 
-  display:grid;
-  place-items:center;
+    border-radius:13px;
 
-  color:white;
-  background:var(--glass);
+    display:grid;
 
-  backdrop-filter:blur(14px);
-  -webkit-backdrop-filter:blur(14px);
+    place-items:center;
+
+    color:white;
+
+    background:
+        var(--glass);
+
+    backdrop-filter:
+        blur(13px);
+
+    -webkit-backdrop-filter:
+        blur(13px);
 }
 
 .iconBtn svg{
-  width:21px;
-  height:21px;
+    width:20px;
+    height:20px;
 
-  stroke:currentColor;
-  fill:none;
-  stroke-width:1.9;
-  stroke-linecap:round;
-  stroke-linejoin:round;
+    stroke:
+        currentColor;
+
+    fill:none;
+
+    stroke-width:1.9;
+
+    stroke-linecap:round;
+
+    stroke-linejoin:round;
 }
 
-/* =========================
+/* =====================================================
    CATEGORIES
-========================= */
+===================================================== */
 
 .categories{
-  position:absolute;
+    position:absolute;
 
-  z-index:19;
+    z-index:24;
 
-  top:calc(env(safe-area-inset-top) + 66px);
-  right:0;
-  left:0;
+    top:
+        calc(
+            env(safe-area-inset-top)
+            + 62px
+        );
 
-  display:flex;
-  gap:7px;
+    right:0;
+    left:0;
 
-  overflow-x:auto;
+    display:flex;
 
-  padding:5px 14px 12px;
+    align-items:center;
 
-  scrollbar-width:none;
+    gap:7px;
 
-  pointer-events:auto;
+    padding:
+        7px
+        14px
+        10px;
+
+    overflow-x:auto;
+
+    scrollbar-width:none;
+
+    pointer-events:auto;
+
+    touch-action:pan-x;
 }
 
 .categories::-webkit-scrollbar{
-  display:none;
+    display:none;
 }
 
 .category{
-  flex:none;
+    flex:none;
 
-  border:1px solid var(--border);
+    border:
+        1px solid
+        var(--border);
 
-  border-radius:999px;
+    border-radius:999px;
 
-  padding:8px 14px;
+    padding:
+        8px
+        14px;
 
-  color:white;
+    color:white;
 
-  background:rgba(5,17,23,.36);
+    background:
+        rgba(5,17,23,.38);
 
-  backdrop-filter:blur(12px);
-  -webkit-backdrop-filter:blur(12px);
+    backdrop-filter:
+        blur(12px);
 
-  font-size:12px;
+    -webkit-backdrop-filter:
+        blur(12px);
+
+    font-size:11px;
+
+    white-space:nowrap;
 }
 
 .category.active{
-  color:#062a39;
-  background:white;
-  border-color:white;
-  font-weight:bold;
+    color:#062c3d;
+
+    background:white;
+
+    border-color:white;
+
+    font-weight:bold;
 }
 
-/* =========================
+/* =====================================================
    CONTENT
-========================= */
+===================================================== */
 
 .content{
-  position:absolute;
+    position:absolute;
 
-  right:17px;
-  left:88px;
+    z-index:18;
 
-  bottom:
-    calc(
-      env(safe-area-inset-bottom) + 86px
-    );
+    right:16px;
 
-  z-index:15;
+    left:85px;
 
-  color:white;
+    bottom:
+        calc(
+            env(safe-area-inset-bottom)
+            + 82px
+        );
 
-  text-shadow:
-    0 2px 12px rgba(0,0,0,.45);
+    color:white;
+
+    text-shadow:
+        0 2px 12px
+        rgba(0,0,0,.48);
 }
 
 .author{
-  display:flex;
-  align-items:center;
-  gap:9px;
+    display:flex;
 
-  margin-bottom:11px;
+    align-items:center;
+
+    gap:9px;
+
+    margin-bottom:10px;
 }
 
 .avatar{
-  width:37px;
-  height:37px;
+    width:37px;
+    height:37px;
 
-  display:grid;
-  place-items:center;
+    flex:none;
 
-  border-radius:50%;
+    border-radius:50%;
 
-  color:white;
+    display:grid;
 
-  background:
-    linear-gradient(
-      135deg,
-      var(--blue-dark),
-      var(--blue)
-    );
+    place-items:center;
 
-  border:1px solid rgba(255,255,255,.35);
+    color:white;
 
-  font-weight:bold;
-}
+    font-size:14px;
 
-.authorText{
-  min-width:0;
+    font-weight:bold;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary-dark),
+            var(--primary)
+        );
+
+    border:
+        1px solid
+        rgba(255,255,255,.35);
 }
 
 .authorName{
-  font-size:13px;
-  font-weight:bold;
+    font-size:13px;
+
+    font-weight:bold;
 }
 
-.contentType{
-  margin-top:2px;
+.type{
+    margin-top:3px;
 
-  color:#d5e9f0;
+    color:#cfeaf4;
 
-  font-size:10px;
+    font-size:9px;
 }
 
 .title{
-  font-size:17px;
-  line-height:1.6;
+    margin-bottom:5px;
 
-  font-weight:800;
+    font-size:16px;
 
-  margin-bottom:6px;
+    font-weight:800;
+
+    line-height:1.6;
 }
 
 .description{
-  color:#edf5f7;
+    color:#edf5f7;
 
-  font-size:12px;
-  line-height:1.7;
+    font-size:11px;
 
-  display:-webkit-box;
-  -webkit-line-clamp:2;
-  -webkit-box-orient:vertical;
-  overflow:hidden;
+    line-height:1.7;
+
+    display:-webkit-box;
+
+    -webkit-line-clamp:2;
+
+    -webkit-box-orient:vertical;
+
+    overflow:hidden;
 }
 
-.sourceBtn{
-  margin-top:10px;
+.sourceButton{
+    margin-top:9px;
 
-  border:1px solid rgba(255,255,255,.18);
+    border:
+        1px solid
+        rgba(255,255,255,.18);
 
-  color:white;
+    border-radius:10px;
 
-  background:rgba(7,22,29,.48);
+    padding:
+        8px
+        10px;
 
-  border-radius:10px;
+    display:inline-flex;
 
-  padding:8px 10px;
+    align-items:center;
 
-  display:inline-flex;
-  align-items:center;
-  gap:7px;
+    gap:6px;
 
-  font-size:11px;
+    color:white;
 
-  backdrop-filter:blur(10px);
+    background:
+        rgba(7,22,29,.48);
+
+    backdrop-filter:
+        blur(10px);
+
+    -webkit-backdrop-filter:
+        blur(10px);
+
+    font-size:10px;
 }
 
-.sourceBtn svg{
-  width:15px;
-  height:15px;
+.sourceButton svg{
+    width:14px;
+    height:14px;
 
-  stroke:currentColor;
-  fill:none;
-  stroke-width:2;
+    fill:none;
+
+    stroke:
+        currentColor;
+
+    stroke-width:2;
+
+    stroke-linecap:round;
+
+    stroke-linejoin:round;
 }
 
-/* =========================
+/* =====================================================
    ACTIONS
-========================= */
+===================================================== */
 
 .actions{
-  position:absolute;
+    position:absolute;
 
-  left:13px;
+    z-index:20;
 
-  bottom:
-    calc(
-      env(safe-area-inset-bottom) + 88px
-    );
+    left:12px;
 
-  z-index:18;
+    bottom:
+        calc(
+            env(safe-area-inset-bottom)
+            + 85px
+        );
 
-  display:flex;
-  flex-direction:column;
+    display:flex;
 
-  align-items:center;
+    flex-direction:column;
 
-  gap:16px;
+    align-items:center;
+
+    gap:14px;
 }
 
 .action{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
+    display:flex;
 
-  gap:4px;
+    flex-direction:column;
 
-  color:white;
+    align-items:center;
 
-  font-size:9px;
+    gap:4px;
+
+    color:white;
+
+    font-size:8px;
 }
 
 .actionButton{
-  width:47px;
-  height:47px;
+    width:46px;
+    height:46px;
 
-  border:1px solid rgba(255,255,255,.16);
+    border:
+        1px solid
+        rgba(255,255,255,.17);
 
-  border-radius:50%;
+    border-radius:50%;
 
-  display:grid;
-  place-items:center;
+    display:grid;
 
-  color:white;
+    place-items:center;
 
-  background:rgba(7,20,27,.48);
+    color:white;
 
-  backdrop-filter:blur(13px);
-  -webkit-backdrop-filter:blur(13px);
+    background:
+        rgba(5,17,23,.48);
 
-  transition:
-    transform .15s,
-    background .15s;
+    backdrop-filter:
+        blur(13px);
+
+    -webkit-backdrop-filter:
+        blur(13px);
+
+    transition:
+        transform .12s,
+        background .15s,
+        color .15s;
 }
 
 .actionButton:active{
-  transform:scale(.88);
+    transform:
+        scale(.87);
 }
 
 .actionButton svg{
-  width:22px;
-  height:22px;
+    width:21px;
+    height:21px;
 
-  stroke:currentColor;
-  fill:none;
+    stroke:
+        currentColor;
 
-  stroke-width:1.9;
-  stroke-linecap:round;
-  stroke-linejoin:round;
+    fill:none;
+
+    stroke-width:1.9;
+
+    stroke-linecap:round;
+
+    stroke-linejoin:round;
 }
 
-.action.active .actionButton{
-  background:white;
-  color:var(--blue-dark);
+.action.active
+.actionButton{
+    color:
+        var(--primary-dark);
+
+    background:white;
 }
 
-/* =========================
-   PLAY
-========================= */
+/* =====================================================
+   PLAY STATE
+===================================================== */
 
 .playState{
-  position:absolute;
+    position:absolute;
 
-  top:50%;
-  left:50%;
+    z-index:30;
 
-  z-index:25;
+    top:50%;
+    left:50%;
 
-  transform:
-    translate(-50%,-50%)
-    scale(.85);
+    width:70px;
+    height:70px;
 
-  width:70px;
-  height:70px;
+    transform:
+        translate(
+            -50%,
+            -50%
+        )
+        scale(.85);
 
-  display:grid;
-  place-items:center;
+    border-radius:50%;
 
-  border-radius:50%;
+    display:grid;
 
-  color:white;
+    place-items:center;
 
-  background:rgba(0,0,0,.45);
+    color:white;
 
-  backdrop-filter:blur(10px);
+    background:
+        rgba(0,0,0,.45);
 
-  opacity:0;
+    backdrop-filter:
+        blur(12px);
 
-  pointer-events:none;
+    -webkit-backdrop-filter:
+        blur(12px);
 
-  transition:.2s;
+    opacity:0;
+
+    pointer-events:none;
+
+    transition:.18s;
 }
 
 .playState.show{
-  opacity:1;
+    opacity:1;
 
-  transform:
-    translate(-50%,-50%)
-    scale(1);
+    transform:
+        translate(
+            -50%,
+            -50%
+        )
+        scale(1);
 }
 
 .playState svg{
-  width:30px;
-  height:30px;
+    width:29px;
+    height:29px;
 
-  stroke:white;
-  fill:white;
+    stroke:white;
+
+    fill:white;
 }
 
-/* =========================
+/* =====================================================
+   PROGRESS
+===================================================== */
+
+.videoProgress{
+    position:absolute;
+
+    z-index:27;
+
+    right:0;
+    left:0;
+
+    bottom:
+        calc(
+            64px
+            + env(safe-area-inset-bottom)
+        );
+
+    height:2px;
+
+    background:
+        rgba(255,255,255,.18);
+
+    pointer-events:none;
+}
+
+.videoProgressFill{
+    width:0;
+    height:100%;
+
+    background:white;
+
+    transition:
+        width .1s linear;
+}
+
+/* =====================================================
    BOTTOM NAV
-========================= */
+===================================================== */
 
 .bottomNav{
-  position:absolute;
+    position:absolute;
 
-  right:0;
-  left:0;
-  bottom:0;
+    z-index:26;
 
-  z-index:30;
+    right:0;
+    left:0;
+    bottom:0;
 
-  height:
-    calc(
-      68px +
-      env(safe-area-inset-bottom)
-    );
+    height:
+        calc(
+            64px
+            + env(safe-area-inset-bottom)
+        );
 
-  padding:
-    0 8px
-    env(safe-area-inset-bottom);
+    padding-bottom:
+        env(safe-area-inset-bottom);
 
-  display:grid;
+    display:grid;
 
-  grid-template-columns:
-    repeat(5,1fr);
+    grid-template-columns:
+        repeat(5,1fr);
 
-  align-items:center;
+    align-items:center;
 
-  background:
-    linear-gradient(
-      transparent,
-      rgba(0,0,0,.82)
-    );
+    background:
+        linear-gradient(
+            transparent,
+            rgba(0,0,0,.86)
+        );
 
-  pointer-events:auto;
+    pointer-events:auto;
 }
 
 .navItem{
-  border:0;
+    border:0;
 
-  color:#cdd9dd;
+    background:transparent;
 
-  background:transparent;
+    color:#cbd8dc;
 
-  display:flex;
-  flex-direction:column;
-  align-items:center;
+    display:flex;
 
-  gap:4px;
+    flex-direction:column;
 
-  font-size:9px;
+    align-items:center;
+
+    justify-content:center;
+
+    gap:3px;
+
+    font-size:8px;
+
+    text-decoration:none;
 }
 
 .navItem svg{
-  width:21px;
-  height:21px;
+    width:20px;
+    height:20px;
 
-  stroke:currentColor;
-  fill:none;
+    stroke:
+        currentColor;
 
-  stroke-width:1.8;
-  stroke-linecap:round;
-  stroke-linejoin:round;
+    fill:none;
+
+    stroke-width:1.8;
+
+    stroke-linecap:round;
+
+    stroke-linejoin:round;
 }
 
 .navItem.active{
-  color:white;
-  font-weight:bold;
+    color:white;
+
+    font-weight:bold;
 }
 
-/* =========================
-   POINT TOAST
-========================= */
+/* =====================================================
+   EMPTY
+===================================================== */
+
+.emptyPage{
+    width:100%;
+    height:100%;
+
+    display:grid;
+
+    place-items:center;
+
+    padding:30px;
+
+    text-align:center;
+
+    color:white;
+
+    background:
+        radial-gradient(
+            circle at top,
+            #103c4e,
+            #061117 65%
+        );
+}
+
+.emptyIcon{
+    width:75px;
+    height:75px;
+
+    margin:
+        0 auto
+        18px;
+
+    border-radius:24px;
+
+    display:grid;
+
+    place-items:center;
+
+    background:
+        rgba(255,255,255,.08);
+
+    border:
+        1px solid
+        rgba(255,255,255,.1);
+}
+
+.emptyIcon svg{
+    width:33px;
+    height:33px;
+
+    stroke:white;
+
+    fill:none;
+
+    stroke-width:1.7;
+}
+
+.emptyPage h2{
+    margin-bottom:8px;
+
+    font-size:21px;
+}
+
+.emptyPage p{
+    max-width:330px;
+
+    color:#bfd1d8;
+
+    font-size:11px;
+
+    line-height:1.8;
+}
+
+/* =====================================================
+   SOURCE MODAL
+===================================================== */
+
+.modal{
+    position:fixed;
+
+    z-index:1000;
+
+    inset:0;
+
+    display:none;
+
+    align-items:flex-end;
+
+    justify-content:center;
+
+    padding:15px;
+
+    background:
+        rgba(0,0,0,.58);
+
+    backdrop-filter:
+        blur(5px);
+
+    -webkit-backdrop-filter:
+        blur(5px);
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modalCard{
+    width:
+        min(480px,100%);
+
+    padding:20px;
+
+    border-radius:23px;
+
+    color:#17313d;
+
+    background:white;
+
+    animation:
+        modalUp .22s ease;
+}
+
+@keyframes modalUp{
+
+    from{
+        transform:
+            translateY(30px);
+
+        opacity:0;
+    }
+
+    to{
+        transform:
+            translateY(0);
+
+        opacity:1;
+    }
+
+}
+
+.modalHandle{
+    width:45px;
+    height:4px;
+
+    margin:
+        0 auto
+        17px;
+
+    border-radius:999px;
+
+    background:#d8e2e6;
+}
+
+.modalCard h3{
+    margin-bottom:7px;
+
+    font-size:18px;
+}
+
+.modalCard p{
+    color:#70838c;
+
+    font-size:11px;
+
+    line-height:1.8;
+}
+
+.modalButtons{
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:8px;
+
+    margin-top:17px;
+}
+
+.modalButton{
+    border:
+        1px solid
+        #dce9ee;
+
+    border-radius:12px;
+
+    padding:11px;
+
+    color:#17313d;
+
+    background:#f8fbfc;
+}
+
+.modalPrimary{
+    color:white;
+
+    border-color:
+        var(--primary-dark);
+
+    background:
+        var(--primary-dark);
+}
+
+/* =====================================================
+   TOAST
+===================================================== */
 
 .toast{
-  position:absolute;
+    position:fixed;
 
-  z-index:100;
+    z-index:2000;
 
-  top:
-    calc(
-      env(safe-area-inset-top) + 75px
-    );
+    top:
+        calc(
+            env(safe-area-inset-top)
+            + 72px
+        );
 
-  left:50%;
+    left:50%;
 
-  transform:
-    translate(-50%,-15px);
+    max-width:
+        calc(100% - 30px);
 
-  padding:10px 15px;
+    transform:
+        translate(
+            -50%,
+            -15px
+        );
 
-  border-radius:999px;
+    padding:
+        10px
+        15px;
 
-  color:#06384b;
-  background:white;
+    border-radius:999px;
 
-  font-size:12px;
-  font-weight:bold;
+    color:#073247;
 
-  opacity:0;
+    background:white;
 
-  pointer-events:none;
+    box-shadow:
+        0 10px 35px
+        rgba(0,0,0,.23);
 
-  transition:.25s;
+    font-size:10px;
 
-  box-shadow:
-    0 10px 30px rgba(0,0,0,.2);
+    font-weight:bold;
+
+    white-space:nowrap;
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transition:.22s;
 }
 
 .toast.show{
-  opacity:1;
+    opacity:1;
 
-  transform:
-    translate(-50%,0);
+    transform:
+        translate(
+            -50%,
+            0
+        );
 }
 
-/* =========================
+/* =====================================================
+   SMALL PHONE
+===================================================== */
+
+@media(max-height:680px){
+
+    .header{
+        padding-top:
+            calc(
+                env(safe-area-inset-top)
+                + 7px
+            );
+    }
+
+    .brandMark{
+        width:34px;
+        height:34px;
+    }
+
+    .categories{
+        top:
+            calc(
+                env(safe-area-inset-top)
+                + 52px
+            );
+    }
+
+    .content{
+        bottom:
+            calc(
+                env(safe-area-inset-bottom)
+                + 70px
+            );
+    }
+
+    .actions{
+        bottom:
+            calc(
+                env(safe-area-inset-bottom)
+                + 72px
+            );
+
+        gap:9px;
+    }
+
+    .actionButton{
+        width:41px;
+        height:41px;
+    }
+
+    .description{
+        -webkit-line-clamp:1;
+    }
+
+}
+
+/* =====================================================
    DESKTOP
-========================= */
+===================================================== */
 
-@media(min-width:750px){
+@media(min-width:700px){
 
-  body{
-    background:#07141a;
-  }
+    body{
+        background:#07141a;
+    }
 
-  .app{
-    max-width:500px;
-    margin:auto;
+    .app{
+        width:500px;
 
-    box-shadow:
-      0 0 70px rgba(0,0,0,.75);
-  }
-}
+        max-width:100%;
 
-/* =========================
-   SMALL PHONES
-========================= */
+        margin:auto;
 
-@media(max-height:650px){
+        box-shadow:
+            0 0 80px
+            rgba(0,0,0,.8);
+    }
 
-  .categories{
-    top:
-      calc(
-        env(safe-area-inset-top) + 57px
-      );
-  }
-
-  .content{
-    bottom:
-      calc(
-        env(safe-area-inset-bottom) + 70px
-      );
-  }
-
-  .actions{
-    bottom:
-      calc(
-        env(safe-area-inset-bottom) + 73px
-      );
-
-    gap:10px;
-  }
-
-  .actionButton{
-    width:42px;
-    height:42px;
-  }
-
-  .description{
-    -webkit-line-clamp:1;
-  }
 }
 </style>
 </head>
 
 <body>
 
-<div class="app" id="app">
+<div
+    class="app"
+    id="app">
 
-  <main class="feed" id="feed"></main>
-
-  <div class="toast" id="toast"></div>
+    <main
+        class="feed"
+        id="feed">
+    </main>
 
 </div>
+
+
+<!-- SOURCE MODAL -->
+
+<div
+    class="modal"
+    id="sourceModal"
+    onclick="closeSourceByBackground(event)">
+
+    <div class="modalCard">
+
+        <div class="modalHandle"></div>
+
+        <h3>
+            مصدر المحتوى
+        </h3>
+
+        <p id="sourceText">
+            لا يوجد مصدر مضاف.
+        </p>
+
+        <div class="modalButtons">
+
+            <button
+                class="modalButton"
+                onclick="closeSource()">
+
+                إغلاق
+
+            </button>
+
+            <button
+                class="modalButton modalPrimary"
+                id="openSourceButton"
+                onclick="openSourceURL()">
+
+                فتح المصدر
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div
+    class="toast"
+    id="toast">
+</div>
+
 
 <script>
 
 /* =====================================================
-   بيانات المقاطع التجريبية
-
-   لاحقًا admin.html سيضيف هذه البيانات تلقائيًا.
-===================================================== */
-
-const VIDEO_DATA = [
-
-  {
-    id:1,
-
-    title:
-      "ضع عنوان المقطع الديني هنا",
-
-    description:
-      "وصف مختصر وواضح للمقطع يظهر للمستخدم.",
-
-    author:
-      "زاد",
-
-    type:
-      "القرآن",
-
-    category:
-      "quran",
-
-    source:
-      "أضف المصدر",
-
-    video:
-      "https://www.w3schools.com/html/mov_bbb.mp4"
-  },
-
-  {
-    id:2,
-
-    title:
-      "تذكير نافع",
-
-    description:
-      "هذه بيانات تجريبية فقط، ويمكن استبدالها بمقاطعك.",
-
-    author:
-      "زاد",
-
-    type:
-      "مواعظ",
-
-    category:
-      "reminders",
-
-    source:
-      "أضف مصدر المحتوى",
-
-    video:
-      "https://www.w3schools.com/html/movie.mp4"
-  },
-
-  {
-    id:3,
-
-    title:
-      "مقطع من السيرة",
-
-    description:
-      "يمكن إضافة اسم الكتاب أو المرجع المرتبط بالمقطع.",
-
-    author:
-      "زاد",
-
-    type:
-      "السيرة",
-
-    category:
-      "seerah",
-
-    source:
-      "أضف المصدر",
-
-    video:
-      "https://www.w3schools.com/html/mov_bbb.mp4"
-  }
-
-];
-
-
-/* =====================================================
-   SVG
+   ICONS
 ===================================================== */
 
 const ICONS = {
 
-home:`
+search:`
 <svg viewBox="0 0 24 24">
-<path d="M3 10.5 12 3l9 7.5"/>
-<path d="M5 9.5V21h14V9.5"/>
-<path d="M9 21v-7h6v7"/>
-</svg>
-`,
-
-video:`
-<svg viewBox="0 0 24 24">
-<rect x="3" y="5" width="18" height="14" rx="3"/>
-<path d="m10 9 5 3-5 3Z"/>
-</svg>
-`,
-
-book:`
-<svg viewBox="0 0 24 24">
-<path d="M4 5.5A3.5 3.5 0 0 1 7.5 2H11v17H7.5A3.5 3.5 0 0 0 4 22Z"/>
-<path d="M20 5.5A3.5 3.5 0 0 0 16.5 2H13v17h3.5A3.5 3.5 0 0 1 20 22Z"/>
+<circle cx="11" cy="11" r="7"/>
+<path d="m20 20-4-4"/>
 </svg>
 `,
 
@@ -875,17 +1319,11 @@ volume:`
 </svg>
 `,
 
-search:`
+mute:`
 <svg viewBox="0 0 24 24">
-<circle cx="11" cy="11" r="7"/>
-<path d="m20 20-4-4"/>
-</svg>
-`,
-
-user:`
-<svg viewBox="0 0 24 24">
-<circle cx="12" cy="8" r="4"/>
-<path d="M4 21a8 8 0 0 1 16 0"/>
+<path d="M11 5 6 9H3v6h3l5 4Z"/>
+<path d="m16 9 5 6"/>
+<path d="m21 9-5 6"/>
 </svg>
 `,
 
@@ -900,37 +1338,271 @@ play:`
 <svg viewBox="0 0 24 24">
 <path d="m8 5 11 7-11 7Z"/>
 </svg>
+`,
+
+pause:`
+<svg viewBox="0 0 24 24">
+<path d="M9 5v14"/>
+<path d="M15 5v14"/>
+</svg>
+`,
+
+home:`
+<svg viewBox="0 0 24 24">
+<path d="M3 10.5 12 3l9 7.5"/>
+<path d="M5 9.5V21h14V9.5"/>
+<path d="M9 21v-7h6v7"/>
+</svg>
+`,
+
+video:`
+<svg viewBox="0 0 24 24">
+<rect x="4" y="3" width="16" height="18" rx="4"/>
+<path d="m10 9 5 3-5 3Z"/>
+</svg>
+`,
+
+book:`
+<svg viewBox="0 0 24 24">
+<path d="M4 5.5A3.5 3.5 0 0 1 7.5 2H11v17H7.5A3.5 3.5 0 0 0 4 22Z"/>
+<path d="M20 5.5A3.5 3.5 0 0 0 16.5 2H13v17h3.5A3.5 3.5 0 0 1 20 22Z"/>
+</svg>
+`,
+
+user:`
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="8" r="4"/>
+<path d="M4 21a8 8 0 0 1 16 0"/>
+</svg>
 `
 
 };
 
 
 /* =====================================================
+   DEMO DATA
+
+   تستخدم فقط إذا لم تضف مقاطع من admin.html
+===================================================== */
+
+const DEMO_VIDEOS = [
+
+{
+    id:101,
+
+    title:
+        "ضع عنوان المقطع الديني هنا",
+
+    description:
+        "هذه بيانات تجريبية. أضف مقاطعك من لوحة إدارة زاد.",
+
+    author:
+        "زاد",
+
+    type:
+        "القرآن",
+
+    category:
+        "quran",
+
+    source:
+        "مصدر تجريبي",
+
+    sourceURL:
+        "",
+
+    status:
+        "published",
+
+    video:
+        "https://www.w3schools.com/html/mov_bbb.mp4"
+},
+
+{
+    id:102,
+
+    title:
+        "تذكير نافع",
+
+    description:
+        "أضف وصفًا مختصرًا للمقطع مع مصدر المحتوى.",
+
+    author:
+        "زاد",
+
+    type:
+        "تذكير",
+
+    category:
+        "reminders",
+
+    source:
+        "أضف المصدر",
+
+    sourceURL:
+        "",
+
+    status:
+        "published",
+
+    video:
+        "https://www.w3schools.com/html/movie.mp4"
+},
+
+{
+    id:103,
+
+    title:
+        "من السيرة",
+
+    description:
+        "يمكنك إضافة مقاطع السيرة والمصادر من لوحة الإدارة.",
+
+    author:
+        "زاد",
+
+    type:
+        "السيرة",
+
+    category:
+        "seerah",
+
+    source:
+        "أضف المصدر",
+
+    sourceURL:
+        "",
+
+    status:
+        "published",
+
+    video:
+        "https://www.w3schools.com/html/mov_bbb.mp4"
+}
+
+];
+
+
+/* =====================================================
    STATE
 ===================================================== */
 
-let currentCategory = "all";
+let currentCategory =
+    "all";
+
+let currentIndex =
+    0;
+
+let visibleVideos =
+    [];
 
 let liked =
-  JSON.parse(
-    localStorage.getItem(
-      "zaadLikes"
-    ) || "[]"
-  );
+    readArray(
+        "zaadLikes"
+    );
 
 let saved =
-  JSON.parse(
-    localStorage.getItem(
-      "zaadSaved"
-    ) || "[]"
-  );
+    readArray(
+        "zaadSaved"
+    );
 
-let activityPoints =
-  Number(
-    localStorage.getItem(
-      "zaadPoints"
-    ) || 0
-  );
+let points =
+    Number(
+        localStorage.getItem(
+            "zaadPoints"
+        ) || 0
+    );
+
+let currentSourceURL =
+    "";
+
+
+/* =====================================================
+   GET VIDEOS FROM ADMIN
+===================================================== */
+
+function getAllVideos(){
+
+    let adminVideos = [];
+
+    try{
+
+        adminVideos =
+            JSON.parse(
+                localStorage.getItem(
+                    "zaadVideos"
+                ) || "[]"
+            );
+
+    }
+    catch(error){
+
+        adminVideos = [];
+
+    }
+
+
+    /*
+       إذا أضفت مقاطع من admin.html
+       نستخدمها بدل المقاطع التجريبية.
+    */
+
+    if(
+        Array.isArray(adminVideos) &&
+        adminVideos.length
+    ){
+
+        return adminVideos.filter(
+            item =>
+                item.status ===
+                "published"
+        );
+
+    }
+
+
+    return DEMO_VIDEOS;
+
+}
+
+
+/* =====================================================
+   CATEGORY NAME
+===================================================== */
+
+function categoryName(category){
+
+    const names = {
+
+        quran:
+            "القرآن",
+
+        hadith:
+            "السنة",
+
+        adhkar:
+            "الأذكار",
+
+        seerah:
+            "السيرة",
+
+        reminders:
+            "تذكير",
+
+        stories:
+            "قصص",
+
+        learning:
+            "تعلّم"
+
+    };
+
+
+    return names[category]
+        || category
+        || "محتوى";
+
+}
 
 
 /* =====================================================
@@ -943,54 +1615,79 @@ return `
 
 <header class="header">
 
-  <div class="brand">
+    <div class="brand">
 
-    <div class="brandMark">
-      ز
+        <div class="brandMark">
+            ز
+        </div>
+
+        <span>
+            زاد
+        </span>
+
     </div>
 
-    زاد
 
-  </div>
+    <div class="headerActions">
 
+        <button
+            class="iconBtn"
+            aria-label="بحث"
+            onclick="
+                event.stopPropagation();
+                showToast('سيتم إضافة البحث')
+            ">
 
-  <div class="headerActions">
+            ${ICONS.search}
 
-    <button
-      class="iconBtn"
-      aria-label="بحث"
-      onclick="showToast('سيتم إضافة البحث في الصفحة الرئيسية')">
+        </button>
 
-      ${ICONS.search}
-
-    </button>
-
-  </div>
+    </div>
 
 </header>
 
 
 <div class="categories">
 
-  ${categoryButton(
-    "all",
-    "لك"
-  )}
+    ${categoryButton(
+        "all",
+        "لك"
+    )}
 
-  ${categoryButton(
-    "quran",
-    "القرآن"
-  )}
+    ${categoryButton(
+        "quran",
+        "القرآن"
+    )}
 
-  ${categoryButton(
-    "reminders",
-    "تذكير"
-  )}
+    ${categoryButton(
+        "hadith",
+        "السنة"
+    )}
 
-  ${categoryButton(
-    "seerah",
-    "السيرة"
-  )}
+    ${categoryButton(
+        "adhkar",
+        "الأذكار"
+    )}
+
+    ${categoryButton(
+        "seerah",
+        "السيرة"
+    )}
+
+    ${categoryButton(
+        "reminders",
+        "تذكير"
+    )}
+
+    ${categoryButton(
+        "stories",
+        "قصص"
+    )}
+
+    ${categoryButton(
+        "learning",
+        "تعلّم"
+    )}
 
 </div>
 
@@ -1000,22 +1697,29 @@ return `
 
 
 function categoryButton(
-  value,
-  title
+    value,
+    title
 ){
 
 return `
 
 <button
-  class="category
-  ${
-    currentCategory === value
-      ? "active"
-      : ""
-  }"
-  onclick="changeCategory('${value}')">
+    class="
+        category
+        ${
+            currentCategory === value
+            ?
+            "active"
+            :
+            ""
+        }
+    "
+    onclick="
+        event.stopPropagation();
+        changeCategory('${value}')
+    ">
 
-  ${title}
+    ${title}
 
 </button>
 
@@ -1025,7 +1729,7 @@ return `
 
 
 /* =====================================================
-   BOTTOM NAV
+   NAVIGATION
 ===================================================== */
 
 function bottomNavHTML(){
@@ -1034,30 +1738,77 @@ return `
 
 <nav class="bottomNav">
 
-  <button class="navItem">
-    ${ICONS.home}
-    <span>الرئيسية</span>
-  </button>
+    <a
+        class="navItem"
+        href="index.html">
 
-  <button class="navItem active">
-    ${ICONS.video}
-    <span>المقاطع</span>
-  </button>
+        ${ICONS.home}
 
-  <button class="navItem">
-    ${ICONS.book}
-    <span>القرآن</span>
-  </button>
+        <span>
+            الرئيسية
+        </span>
 
-  <button class="navItem">
-    ${ICONS.book}
-    <span>الأذكار</span>
-  </button>
+    </a>
 
-  <button class="navItem">
-    ${ICONS.user}
-    <span>حسابي</span>
-  </button>
+
+    <button
+        class="navItem active">
+
+        ${ICONS.video}
+
+        <span>
+            المقاطع
+        </span>
+
+    </button>
+
+
+    <button
+        class="navItem"
+        onclick="
+            event.stopPropagation();
+            showToast('قسم القرآن سنكمله لاحقًا')
+        ">
+
+        ${ICONS.book}
+
+        <span>
+            القرآن
+        </span>
+
+    </button>
+
+
+    <button
+        class="navItem"
+        onclick="
+            event.stopPropagation();
+            showToast('قسم الأذكار سنكمله لاحقًا')
+        ">
+
+        ${ICONS.book}
+
+        <span>
+            الأذكار
+        </span>
+
+    </button>
+
+
+    <button
+        class="navItem"
+        onclick="
+            event.stopPropagation();
+            showToast('قسم حسابي سنكمله لاحقًا')
+        ">
+
+        ${ICONS.user}
+
+        <span>
+            حسابي
+        </span>
+
+    </button>
 
 </nav>
 
@@ -1067,180 +1818,268 @@ return `
 
 
 /* =====================================================
-   CARD
+   VIDEO CARD
 ===================================================== */
 
-function videoCard(item){
+function videoCard(
+    item,
+    index
+){
 
-const isLiked =
-  liked.includes(item.id);
+    const isLiked =
+        liked.includes(
+            Number(item.id)
+        );
 
-const isSaved =
-  saved.includes(item.id);
+    const isSaved =
+        saved.includes(
+            Number(item.id)
+        );
 
 
 return `
 
 <section
-  class="short"
-  data-id="${item.id}">
+    class="short"
+    data-index="${index}"
+    data-id="${item.id}">
 
 
-  <video
-    src="${safeAttribute(item.video)}"
-    playsinline
-    loop
-    preload="metadata"
-  ></video>
+    <video
+        src="${safeAttribute(item.video)}"
+        playsinline
+        webkit-playsinline
+        loop
+        preload="${
+            index < 2
+            ?
+            "auto"
+            :
+            "metadata"
+        }">
+    </video>
 
 
-  <div class="shade"></div>
+    <div class="shade"></div>
 
 
-  ${headerHTML()}
+    ${headerHTML()}
 
 
-  <div class="playState">
+    <div class="playState">
 
-    ${ICONS.play}
+        ${ICONS.play}
 
-  </div>
+    </div>
 
 
-  <div class="content">
+    <div class="content">
 
-    <div class="author">
+        <div class="author">
 
-      <div class="avatar">
-        ز
-      </div>
+            <div class="avatar">
+                ز
+            </div>
 
-      <div class="authorText">
 
-        <div class="authorName">
-          ${escapeHTML(item.author)}
+            <div>
+
+                <div class="authorName">
+
+                    ${escapeHTML(
+                        item.author ||
+                        "زاد"
+                    )}
+
+                </div>
+
+
+                <div class="type">
+
+                    ${escapeHTML(
+                        item.type ||
+                        categoryName(
+                            item.category
+                        )
+                    )}
+
+                </div>
+
+            </div>
+
         </div>
 
-        <div class="contentType">
-          ${escapeHTML(item.type)}
+
+        <div class="title">
+
+            ${escapeHTML(
+                item.title ||
+                "مقطع"
+            )}
+
         </div>
 
-      </div>
+
+        <div class="description">
+
+            ${escapeHTML(
+                item.description ||
+                ""
+            )}
+
+        </div>
+
+
+        <button
+            class="sourceButton"
+            onclick="
+                event.stopPropagation();
+                showSource(
+                    ${item.id}
+                )
+            ">
+
+            ${ICONS.source}
+
+            <span>
+                المصدر
+            </span>
+
+        </button>
 
     </div>
 
 
-    <div class="title">
-      ${escapeHTML(item.title)}
+    <aside class="actions">
+
+
+        <div
+            class="
+                action
+                ${
+                    isLiked
+                    ?
+                    "active"
+                    :
+                    ""
+                }
+            "
+            id="like-${item.id}">
+
+            <button
+                class="actionButton"
+                aria-label="إعجاب"
+                onclick="
+                    event.stopPropagation();
+                    toggleLike(
+                        ${item.id}
+                    )
+                ">
+
+                ${ICONS.heart}
+
+            </button>
+
+            <span>
+                إعجاب
+            </span>
+
+        </div>
+
+
+        <div
+            class="
+                action
+                ${
+                    isSaved
+                    ?
+                    "active"
+                    :
+                    ""
+                }
+            "
+            id="save-${item.id}">
+
+            <button
+                class="actionButton"
+                aria-label="حفظ"
+                onclick="
+                    event.stopPropagation();
+                    toggleSave(
+                        ${item.id}
+                    )
+                ">
+
+                ${ICONS.bookmark}
+
+            </button>
+
+            <span>
+                حفظ
+            </span>
+
+        </div>
+
+
+        <div class="action">
+
+            <button
+                class="actionButton"
+                aria-label="مشاركة"
+                onclick="
+                    event.stopPropagation();
+                    shareVideo(
+                        ${item.id}
+                    )
+                ">
+
+                ${ICONS.share}
+
+            </button>
+
+            <span>
+                مشاركة
+            </span>
+
+        </div>
+
+
+        <div class="action">
+
+            <button
+                class="actionButton"
+                aria-label="الصوت"
+                data-sound-button
+                onclick="
+                    event.stopPropagation();
+                    toggleMute(
+                        this
+                    )
+                ">
+
+                ${ICONS.volume}
+
+            </button>
+
+            <span>
+                الصوت
+            </span>
+
+        </div>
+
+    </aside>
+
+
+    <div class="videoProgress">
+
+        <div
+            class="videoProgressFill">
+        </div>
+
     </div>
 
 
-    <div class="description">
-      ${escapeHTML(item.description)}
-    </div>
-
-
-    <button
-      class="sourceBtn"
-      onclick="event.stopPropagation();showSource(${item.id})">
-
-      ${ICONS.source}
-
-      المصدر
-
-    </button>
-
-  </div>
-
-
-  <aside class="actions">
-
-
-    <div
-      class="action
-      ${isLiked ? "active" : ""}"
-      id="like-${item.id}">
-
-      <button
-        class="actionButton"
-        aria-label="إعجاب"
-        onclick="
-          event.stopPropagation();
-          toggleLike(${item.id})
-        ">
-
-        ${ICONS.heart}
-
-      </button>
-
-      <span>إعجاب</span>
-
-    </div>
-
-
-    <div
-      class="action
-      ${isSaved ? "active" : ""}"
-      id="save-${item.id}">
-
-      <button
-        class="actionButton"
-        aria-label="حفظ"
-        onclick="
-          event.stopPropagation();
-          toggleSave(${item.id})
-        ">
-
-        ${ICONS.bookmark}
-
-      </button>
-
-      <span>حفظ</span>
-
-    </div>
-
-
-    <div class="action">
-
-      <button
-        class="actionButton"
-        aria-label="مشاركة"
-        onclick="
-          event.stopPropagation();
-          shareVideo(${item.id})
-        ">
-
-        ${ICONS.share}
-
-      </button>
-
-      <span>مشاركة</span>
-
-    </div>
-
-
-    <div class="action">
-
-      <button
-        class="actionButton"
-        aria-label="الصوت"
-        onclick="
-          event.stopPropagation();
-          toggleMute(this)
-        ">
-
-        ${ICONS.volume}
-
-      </button>
-
-      <span>الصوت</span>
-
-    </div>
-
-  </aside>
-
-
-  ${bottomNavHTML()}
+    ${bottomNavHTML()}
 
 </section>
 
@@ -1255,238 +2094,1241 @@ return `
 
 function render(){
 
-  const feed =
-    document.getElementById(
-      "feed"
-    );
+    const allVideos =
+        getAllVideos();
 
 
-  let list =
-    VIDEO_DATA;
+    if(
+        currentCategory ===
+        "all"
+    ){
+
+        visibleVideos =
+            allVideos;
+
+    }
+    else{
+
+        visibleVideos =
+            allVideos.filter(
+                item =>
+                    item.category ===
+                    currentCategory
+            );
+
+    }
 
 
-  if(
-    currentCategory !== "all"
-  ){
-
-    list =
-      VIDEO_DATA.filter(
-        item =>
-          item.category ===
-          currentCategory
-      );
-
-  }
+    const feed =
+        document.getElementById(
+            "feed"
+        );
 
 
-  if(!list.length){
+    if(
+        !visibleVideos.length
+    ){
 
-    feed.innerHTML = `
+        feed.innerHTML = `
 
-    <section class="short">
+        <div class="emptyPage">
 
-      ${headerHTML()}
+            <div>
 
-      <div
-        style="
-          height:100%;
-          display:grid;
-          place-items:center;
-          color:white;
-          text-align:center;
-          padding:30px;
-        ">
+                <div class="emptyIcon">
 
-        لا توجد مقاطع
-        في هذا القسم حاليًا.
+                    ${ICONS.video}
 
-      </div>
+                </div>
 
-      ${bottomNavHTML()}
+                <h2>
+                    لا توجد مقاطع
+                </h2>
 
-    </section>
+                <p>
 
-    `;
+                    لا توجد مقاطع منشورة
+                    في هذا القسم حاليًا.
 
-    return;
+                </p>
 
-  }
+            </div>
 
+        </div>
 
-  feed.innerHTML =
-    list
-      .map(videoCard)
-      .join("");
+        `;
+
+        return;
+
+    }
 
 
-  bindVideoClicks();
+    feed.innerHTML =
+        visibleVideos
+            .map(
+                (
+                    item,
+                    index
+                ) =>
+                    videoCard(
+                        item,
+                        index
+                    )
+            )
+            .join("");
 
-  setupAutoplay();
+
+    currentIndex =
+        0;
+
+
+    initShortNavigation();
+
+    bindVideoEvents();
 
 }
 
 
 /* =====================================================
-   PLAY / PAUSE
+   INITIAL POSITIONS
 ===================================================== */
 
-function bindVideoClicks(){
+function initShortNavigation(){
 
-  document
-    .querySelectorAll(
-      ".short video"
-    )
-    .forEach(video=>{
+    const cards =
+        getCards();
 
-      video.addEventListener(
-        "click",
-        ()=>{
 
-          const card =
-            video.closest(
-              ".short"
-            );
+    cards.forEach(
+        (
+            card,
+            index
+        )=>{
 
-          const state =
-            card.querySelector(
-              ".playState"
+            card.classList.remove(
+                "current",
+                "previous",
+                "next"
             );
 
 
-          if(video.paused){
+            card.style.transition =
+                "";
 
-            pauseAll(video);
-
-            video.play()
-              .catch(()=>{});
-
-          }
-          else{
-
-            video.pause();
-
-          }
-
-
-          state.classList.add(
-            "show"
-          );
-
-
-          setTimeout(
-            ()=>{
-
-              state.classList.remove(
-                "show"
-              );
-
-            },
-            450
-          );
-
-        }
-      );
-
-    });
-
-}
-
-
-/* =====================================================
-   AUTOPLAY
-===================================================== */
-
-let observer;
-
-function setupAutoplay(){
-
-  if(observer){
-    observer.disconnect();
-  }
-
-
-  observer =
-    new IntersectionObserver(
-
-      entries=>{
-
-        entries.forEach(
-          entry=>{
-
-            const video =
-              entry.target
-                .querySelector(
-                  "video"
-                );
-
-            if(!video){
-              return;
-            }
+            card.style.transform =
+                "";
 
 
             if(
-              entry.isIntersecting &&
-              entry.intersectionRatio >= .72
+                index <
+                currentIndex
             ){
 
-              pauseAll(video);
+                card.classList.add(
+                    "previous"
+                );
 
-              video.play()
-                .catch(()=>{});
+            }
+            else if(
+                index ===
+                currentIndex
+            ){
+
+                card.classList.add(
+                    "current"
+                );
 
             }
             else{
 
-              video.pause();
+                card.classList.add(
+                    "next"
+                );
 
             }
 
-          }
-        );
-
-      },
-
-      {
-        threshold:[
-          .25,
-          .72,
-          .95
-        ]
-      }
-
+        }
     );
 
 
-  document
-    .querySelectorAll(
-      ".short"
-    )
-    .forEach(card=>{
-
-      observer.observe(
-        card
-      );
-
-    });
+    requestAnimationFrame(
+        ()=>{
+            playCurrentVideo();
+        }
+    );
 
 }
 
 
-function pauseAll(
-  except=null
+/* =====================================================
+   GET CARDS
+===================================================== */
+
+function getCards(){
+
+    return [
+        ...document
+            .querySelectorAll(
+                ".short"
+            )
+    ];
+
+}
+
+
+/* =====================================================
+   UPDATE CARDS
+===================================================== */
+
+function updateCards(){
+
+    const cards =
+        getCards();
+
+
+    cards.forEach(
+        (
+            card,
+            index
+        )=>{
+
+            card.classList.remove(
+                "current",
+                "previous",
+                "next"
+            );
+
+
+            card.style.transition =
+                "";
+
+            card.style.transform =
+                "";
+
+
+            if(
+                index <
+                currentIndex
+            ){
+
+                card.classList.add(
+                    "previous"
+                );
+
+            }
+            else if(
+                index ===
+                currentIndex
+            ){
+
+                card.classList.add(
+                    "current"
+                );
+
+            }
+            else{
+
+                card.classList.add(
+                    "next"
+                );
+
+            }
+
+        }
+    );
+
+
+    playCurrentVideo();
+
+}
+
+
+/* =====================================================
+   VIDEO EVENTS
+===================================================== */
+
+function bindVideoEvents(){
+
+    document
+        .querySelectorAll(
+            ".short video"
+        )
+        .forEach(video=>{
+
+            video.addEventListener(
+                "click",
+                ()=>{
+
+                    const card =
+                        video.closest(
+                            ".short"
+                        );
+
+
+                    if(
+                        !card.classList
+                            .contains(
+                                "current"
+                            )
+                    ){
+                        return;
+                    }
+
+
+                    if(video.paused){
+
+                        pauseAll(
+                            video
+                        );
+
+                        video.play()
+                            .catch(()=>{});
+
+                        showPlayState(
+                            card,
+                            "play"
+                        );
+
+                    }
+                    else{
+
+                        video.pause();
+
+                        showPlayState(
+                            card,
+                            "pause"
+                        );
+
+                    }
+
+                }
+            );
+
+
+            video.addEventListener(
+                "timeupdate",
+                ()=>{
+
+                    const card =
+                        video.closest(
+                            ".short"
+                        );
+
+
+                    const fill =
+                        card.querySelector(
+                            ".videoProgressFill"
+                        );
+
+
+                    if(
+                        !video.duration ||
+                        !fill
+                    ){
+                        return;
+                    }
+
+
+                    const progress =
+                        (
+                            video.currentTime /
+                            video.duration
+                        )
+                        *100;
+
+
+                    fill.style.width =
+                        progress+"%";
+
+                }
+            );
+
+        });
+
+}
+
+
+/* =====================================================
+   PLAY STATE
+===================================================== */
+
+function showPlayState(
+    card,
+    state
 ){
 
-  document
-    .querySelectorAll(
-      ".short video"
-    )
-    .forEach(video=>{
+    const element =
+        card.querySelector(
+            ".playState"
+        );
 
-      if(video !== except){
+
+    element.innerHTML =
+        state === "pause"
+        ?
+        ICONS.pause
+        :
+        ICONS.play;
+
+
+    element.classList.add(
+        "show"
+    );
+
+
+    setTimeout(
+        ()=>{
+
+            element.classList.remove(
+                "show"
+            );
+
+        },
+        450
+    );
+
+}
+
+
+/* =====================================================
+   PLAY CURRENT VIDEO
+===================================================== */
+
+function playCurrentVideo(){
+
+    const cards =
+        getCards();
+
+
+    cards.forEach(
+        (
+            card,
+            index
+        )=>{
+
+            const video =
+                card.querySelector(
+                    "video"
+                );
+
+
+            if(!video){
+                return;
+            }
+
+
+            if(
+                index ===
+                currentIndex
+            ){
+
+                /*
+                   نحاول التشغيل بالصوت أولاً.
+                   بعض المتصفحات ستمنعه.
+                   عندها نجرب muted.
+                */
+
+                const promise =
+                    video.play();
+
+
+                if(
+                    promise &&
+                    typeof promise.catch ===
+                    "function"
+                ){
+
+                    promise.catch(
+                        ()=>{
+
+                            video.muted =
+                                true;
+
+                            updateSoundButton(
+                                card,
+                                true
+                            );
+
+                            video.play()
+                                .catch(()=>{});
+
+                        }
+                    );
+
+                }
+
+            }
+            else{
+
+                video.pause();
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   PAUSE ALL
+===================================================== */
+
+function pauseAll(
+    except=null
+){
+
+    document
+        .querySelectorAll(
+            ".short video"
+        )
+        .forEach(video=>{
+
+            if(
+                video !==
+                except
+            ){
+
+                video.pause();
+
+            }
+
+        });
+
+}
+
+
+/* =====================================================
+   NEXT
+===================================================== */
+
+let moving =
+    false;
+
+
+const TRANSITION_TIME =
+    320;
+
+
+function nextVideo(){
+
+    const cards =
+        getCards();
+
+
+    if(moving){
+        return;
+    }
+
+
+    if(
+        currentIndex >=
+        cards.length - 1
+    ){
+
+        bounceEdge(-1);
+
+        return;
+    }
+
+
+    moving =
+        true;
+
+
+    currentIndex++;
+
+
+    updateCards();
+
+
+    setTimeout(
+        ()=>{
+
+            moving =
+                false;
+
+        },
+        TRANSITION_TIME
+    );
+
+}
+
+
+/* =====================================================
+   PREVIOUS
+===================================================== */
+
+function previousVideo(){
+
+    if(moving){
+        return;
+    }
+
+
+    if(
+        currentIndex <= 0
+    ){
+
+        bounceEdge(1);
+
+        return;
+    }
+
+
+    moving =
+        true;
+
+
+    currentIndex--;
+
+
+    updateCards();
+
+
+    setTimeout(
+        ()=>{
+
+            moving =
+                false;
+
+        },
+        TRANSITION_TIME
+    );
+
+}
+
+
+/* =====================================================
+   EDGE BOUNCE
+===================================================== */
+
+function bounceEdge(
+    direction
+){
+
+    const cards =
+        getCards();
+
+
+    const card =
+        cards[currentIndex];
+
+
+    if(!card){
+        return;
+    }
+
+
+    card.style.transition =
+        "transform 130ms ease";
+
+
+    card.style.transform =
+        `translate3d(
+            0,
+            ${direction * 17}px,
+            0
+        )`;
+
+
+    setTimeout(
+        ()=>{
+
+            card.style.transform =
+                "translate3d(0,0,0)";
+
+
+            setTimeout(
+                ()=>{
+
+                    card.style.transition =
+                        "";
+
+                    card.style.transform =
+                        "";
+
+                },
+                140
+            );
+
+        },
+        130
+    );
+
+}
+
+
+/* =====================================================
+   TOUCH NAVIGATION
+===================================================== */
+
+let startY =
+    0;
+
+let currentY =
+    0;
+
+let startTime =
+    0;
+
+let dragging =
+    false;
+
+
+/* TOUCH START */
+
+function touchStart(event){
+
+    if(moving){
+        return;
+    }
+
+
+    /*
+       لا نبدأ سحب الفيديو
+       إذا المستخدم يتعامل مع زر
+       أو التصنيفات.
+    */
+
+    if(
+        event.target.closest(
+            "button,a,.categories"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    if(
+        event.touches.length !==
+        1
+    ){
+
+        return;
+
+    }
+
+
+    startY =
+        event.touches[0]
+            .clientY;
+
+
+    currentY =
+        startY;
+
+
+    startTime =
+        performance.now();
+
+
+    dragging =
+        true;
+
+}
+
+
+/* TOUCH MOVE */
+
+function touchMove(event){
+
+    if(!dragging){
+        return;
+    }
+
+
+    if(
+        event.touches.length !==
+        1
+    ){
+
+        return;
+    }
+
+
+    currentY =
+        event.touches[0]
+            .clientY;
+
+
+    let delta =
+        currentY -
+        startY;
+
+
+    const cards =
+        getCards();
+
+
+    /*
+       مقاومة عند البداية والنهاية
+    */
+
+    if(
+        currentIndex === 0 &&
+        delta > 0
+    ){
+
+        delta *=
+            .20;
+
+    }
+
+
+    if(
+        currentIndex ===
+        cards.length - 1 &&
+        delta < 0
+    ){
+
+        delta *=
+            .20;
+
+    }
+
+
+    const height =
+        getScreenHeight();
+
+
+    delta =
+        Math.max(
+            -height,
+            Math.min(
+                height,
+                delta
+            )
+        );
+
+
+    moveCardsWithFinger(
+        delta
+    );
+
+
+    event.preventDefault();
+
+}
+
+
+/* TOUCH END */
+
+function touchEnd(){
+
+    if(!dragging){
+        return;
+    }
+
+
+    dragging =
+        false;
+
+
+    const delta =
+        currentY -
+        startY;
+
+
+    const elapsed =
+        Math.max(
+            1,
+            performance.now()
+            -
+            startTime
+        );
+
+
+    const velocity =
+        Math.abs(delta)
+        /
+        elapsed;
+
+
+    /*
+       السحب الطبيعي
+    */
+
+    const distanceThreshold =
+        Math.min(
+            75,
+            getScreenHeight()
+            * .10
+        );
+
+
+    /*
+       Flick سريع مثل تطبيقات الشورتز
+    */
+
+    const fastSwipe =
+        velocity > .42 &&
+        Math.abs(delta) > 25;
+
+
+    clearInlineTransforms();
+
+
+    if(
+        delta <
+        -distanceThreshold ||
+        (
+            delta < 0 &&
+            fastSwipe
+        )
+    ){
+
+        nextVideo();
+
+    }
+    else if(
+        delta >
+        distanceThreshold ||
+        (
+            delta > 0 &&
+            fastSwipe
+        )
+    ){
+
+        previousVideo();
+
+    }
+    else{
+
+        updateCards();
+
+    }
+
+}
+
+
+/* =====================================================
+   MOVE CARDS WITH FINGER
+===================================================== */
+
+function moveCardsWithFinger(
+    delta
+){
+
+    const cards =
+        getCards();
+
+
+    const current =
+        cards[
+            currentIndex
+        ];
+
+
+    const previous =
+        cards[
+            currentIndex - 1
+        ];
+
+
+    const next =
+        cards[
+            currentIndex + 1
+        ];
+
+
+    const height =
+        getScreenHeight();
+
+
+    if(current){
+
+        current.style.transition =
+            "none";
+
+
+        current.style.transform =
+            `translate3d(
+                0,
+                ${delta}px,
+                0
+            )`;
+
+    }
+
+
+    if(
+        delta < 0 &&
+        next
+    ){
+
+        next.style.transition =
+            "none";
+
+
+        next.style.transform =
+            `translate3d(
+                0,
+                ${height + delta}px,
+                0
+            )`;
+
+    }
+
+
+    if(
+        delta > 0 &&
+        previous
+    ){
+
+        previous.style.transition =
+            "none";
+
+
+        previous.style.transform =
+            `translate3d(
+                0,
+                ${-height + delta}px,
+                0
+            )`;
+
+    }
+
+}
+
+
+/* =====================================================
+   CLEAR DRAG
+===================================================== */
+
+function clearInlineTransforms(){
+
+    getCards()
+        .forEach(card=>{
+
+            card.style.transition =
+                "";
+
+            card.style.transform =
+                "";
+
+        });
+
+}
+
+
+/* =====================================================
+   SCREEN HEIGHT
+===================================================== */
+
+function getScreenHeight(){
+
+    if(
+        window.visualViewport
+    ){
+
+        return window
+            .visualViewport
+            .height;
+
+    }
+
+
+    return window.innerHeight;
+
+}
+
+
+/* =====================================================
+   WHEEL
+===================================================== */
+
+let wheelLocked =
+    false;
+
+let wheelAccumulator =
+    0;
+
+let wheelTimer;
+
+
+function wheelNavigation(
+    event
+){
+
+    event.preventDefault();
+
+
+    if(wheelLocked){
+        return;
+    }
+
+
+    wheelAccumulator +=
+        event.deltaY;
+
+
+    clearTimeout(
+        wheelTimer
+    );
+
+
+    wheelTimer =
+        setTimeout(
+            ()=>{
+
+                wheelAccumulator =
+                    0;
+
+            },
+            180
+        );
+
+
+    if(
+        Math.abs(
+            wheelAccumulator
+        ) < 45
+    ){
+
+        return;
+
+    }
+
+
+    wheelLocked =
+        true;
+
+
+    if(
+        wheelAccumulator > 0
+    ){
+
+        nextVideo();
+
+    }
+    else{
+
+        previousVideo();
+
+    }
+
+
+    wheelAccumulator =
+        0;
+
+
+    setTimeout(
+        ()=>{
+
+            wheelLocked =
+                false;
+
+        },
+        400
+    );
+
+}
+
+
+/* =====================================================
+   KEYBOARD
+===================================================== */
+
+function keyboardNavigation(
+    event
+){
+
+    if(
+        event.key ===
+        "ArrowDown" ||
+        event.key ===
+        "PageDown"
+    ){
+
+        event.preventDefault();
+
+        nextVideo();
+
+    }
+
+
+    if(
+        event.key ===
+        "ArrowUp" ||
+        event.key ===
+        "PageUp"
+    ){
+
+        event.preventDefault();
+
+        previousVideo();
+
+    }
+
+
+    if(
+        event.key ===
+        " "
+    ){
+
+        event.preventDefault();
+
+        toggleCurrentPlayback();
+
+    }
+
+}
+
+
+/* =====================================================
+   PLAY CURRENT
+===================================================== */
+
+function toggleCurrentPlayback(){
+
+    const cards =
+        getCards();
+
+
+    const card =
+        cards[currentIndex];
+
+
+    if(!card){
+        return;
+    }
+
+
+    const video =
+        card.querySelector(
+            "video"
+        );
+
+
+    if(!video){
+        return;
+    }
+
+
+    if(video.paused){
+
+        video.play()
+            .catch(()=>{});
+
+        showPlayState(
+            card,
+            "play"
+        );
+
+    }
+    else{
+
         video.pause();
-      }
 
-    });
+        showPlayState(
+            card,
+            "pause"
+        );
+
+    }
 
 }
 
@@ -1496,24 +3338,21 @@ function pauseAll(
 ===================================================== */
 
 function changeCategory(
-  category
+    category
 ){
 
-  currentCategory =
-    category;
+    pauseAll();
 
-  pauseAll();
 
-  render();
+    currentCategory =
+        category;
 
-  document
-    .getElementById(
-      "feed"
-    )
-    .scrollTo({
-      top:0,
-      behavior:"auto"
-    });
+
+    currentIndex =
+        0;
+
+
+    render();
 
 }
 
@@ -1524,44 +3363,50 @@ function changeCategory(
 
 function toggleLike(id){
 
-  const element =
-    document.getElementById(
-      "like-"+id
+    id =
+        Number(id);
+
+
+    if(
+        liked.includes(id)
+    ){
+
+        liked =
+            liked.filter(
+                value =>
+                    value !== id
+            );
+
+    }
+    else{
+
+        liked.push(id);
+
+    }
+
+
+    localStorage.setItem(
+        "zaadLikes",
+        JSON.stringify(
+            liked
+        )
     );
 
 
-  if(
-    liked.includes(id)
-  ){
-
-    liked =
-      liked.filter(
-        value =>
-          value !== id
-      );
-
-  }
-  else{
-
-    liked.push(id);
-
-  }
+    const element =
+        document.getElementById(
+            "like-"+id
+        );
 
 
-  localStorage.setItem(
-    "zaadLikes",
-    JSON.stringify(liked)
-  );
+    if(element){
 
+        element.classList.toggle(
+            "active",
+            liked.includes(id)
+        );
 
-  if(element){
-
-    element.classList.toggle(
-      "active",
-      liked.includes(id)
-    );
-
-  }
+    }
 
 }
 
@@ -1572,51 +3417,56 @@ function toggleLike(id){
 
 function toggleSave(id){
 
-  const alreadySaved =
-    saved.includes(id);
+    id =
+        Number(id);
 
 
-  if(alreadySaved){
+    if(
+        saved.includes(id)
+    ){
 
-    saved =
-      saved.filter(
-        value =>
-          value !== id
-      );
+        saved =
+            saved.filter(
+                value =>
+                    value !== id
+            );
 
-  }
-  else{
+    }
+    else{
 
-    saved.push(id);
+        saved.push(id);
 
-    addPoints(
-      2,
-      "+2 نقطة نشاط للحفظ"
+
+        addPoints(
+            2,
+            "+2 نقطة نشاط"
+        );
+
+    }
+
+
+    localStorage.setItem(
+        "zaadSaved",
+        JSON.stringify(
+            saved
+        )
     );
 
-  }
+
+    const element =
+        document.getElementById(
+            "save-"+id
+        );
 
 
-  localStorage.setItem(
-    "zaadSaved",
-    JSON.stringify(saved)
-  );
+    if(element){
 
+        element.classList.toggle(
+            "active",
+            saved.includes(id)
+        );
 
-  const element =
-    document.getElementById(
-      "save-"+id
-    );
-
-
-  if(element){
-
-    element.classList.toggle(
-      "active",
-      saved.includes(id)
-    );
-
-  }
+    }
 
 }
 
@@ -1626,21 +3476,23 @@ function toggleSave(id){
 ===================================================== */
 
 function addPoints(
-  amount,
-  message
+    amount,
+    message
 ){
 
-  activityPoints +=
-    amount;
+    points +=
+        amount;
 
 
-  localStorage.setItem(
-    "zaadPoints",
-    activityPoints
-  );
+    localStorage.setItem(
+        "zaadPoints",
+        points
+    );
 
 
-  showToast(message);
+    showToast(
+        message
+    );
 
 }
 
@@ -1651,90 +3503,148 @@ function addPoints(
 
 async function shareVideo(id){
 
-  const item =
-    VIDEO_DATA.find(
-      video =>
-        video.id === id
-    );
+    const item =
+        getAllVideos()
+            .find(
+                video =>
+                    Number(video.id) ===
+                    Number(id)
+            );
 
 
-  if(!item){
-    return;
-  }
-
-
-  const text =
-    item.title +
-    "\n\n" +
-    item.description +
-    "\n\nالمصدر: " +
-    item.source;
-
-
-  if(navigator.share){
-
-    try{
-
-      await navigator.share({
-        title:item.title,
-        text:text
-      });
-
-    }
-    catch(error){}
-
-  }
-  else{
-
-    try{
-
-      await navigator.clipboard
-        .writeText(text);
-
-      showToast(
-        "تم نسخ معلومات المقطع"
-      );
-
-    }
-    catch(error){
-
-      showToast(
-        "تعذرت المشاركة"
-      );
-
+    if(!item){
+        return;
     }
 
-  }
+
+    const text =
+        item.title +
+        (
+            item.description
+            ?
+            "\n\n" +
+            item.description
+            :
+            ""
+        ) +
+        (
+            item.source
+            ?
+            "\n\nالمصدر: " +
+            item.source
+            :
+            ""
+        );
+
+
+    if(navigator.share){
+
+        try{
+
+            await navigator.share({
+                title:
+                    item.title,
+
+                text:
+                    text
+            });
+
+        }
+        catch(error){}
+
+    }
+    else{
+
+        try{
+
+            await navigator
+                .clipboard
+                .writeText(
+                    text
+                );
+
+
+            showToast(
+                "تم نسخ معلومات المقطع"
+            );
+
+        }
+        catch(error){
+
+            showToast(
+                "تعذرت المشاركة"
+            );
+
+        }
+
+    }
 
 }
 
 
 /* =====================================================
-   MUTE
+   SOUND
 ===================================================== */
 
-function toggleMute(button){
+function toggleMute(
+    button
+){
 
-  const card =
-    button.closest(
-      ".short"
+    const card =
+        button.closest(
+            ".short"
+        );
+
+
+    const video =
+        card.querySelector(
+            "video"
+        );
+
+
+    video.muted =
+        !video.muted;
+
+
+    updateSoundButton(
+        card,
+        video.muted
     );
 
-  const video =
-    card.querySelector(
-      "video"
+
+    showToast(
+        video.muted
+        ?
+        "تم كتم الصوت"
+        :
+        "تم تشغيل الصوت"
     );
 
-
-  video.muted =
-    !video.muted;
+}
 
 
-  showToast(
-    video.muted
-      ? "تم كتم الصوت"
-      : "تم تشغيل الصوت"
-  );
+function updateSoundButton(
+    card,
+    muted
+){
+
+    const button =
+        card.querySelector(
+            "[data-sound-button]"
+        );
+
+
+    if(!button){
+        return;
+    }
+
+
+    button.innerHTML =
+        muted
+        ?
+        ICONS.mute
+        :
+        ICONS.volume;
 
 }
 
@@ -1745,22 +3655,150 @@ function toggleMute(button){
 
 function showSource(id){
 
-  const item =
-    VIDEO_DATA.find(
-      video =>
-        video.id === id
-    );
+    const item =
+        getAllVideos()
+            .find(
+                video =>
+                    Number(video.id) ===
+                    Number(id)
+            );
 
 
-  if(!item){
-    return;
-  }
+    if(!item){
+        return;
+    }
 
 
-  alert(
-    "مصدر المحتوى:\n\n" +
-    item.source
-  );
+    const text =
+        item.source ||
+        "لم يتم إضافة مصدر لهذا المقطع.";
+
+
+    currentSourceURL =
+        item.sourceURL ||
+        "";
+
+
+    document
+        .getElementById(
+            "sourceText"
+        )
+        .textContent =
+        text;
+
+
+    const openButton =
+        document
+            .getElementById(
+                "openSourceButton"
+            );
+
+
+    openButton.style.display =
+        currentSourceURL
+        ?
+        "block"
+        :
+        "none";
+
+
+    document
+        .getElementById(
+            "sourceModal"
+        )
+        .classList.add(
+            "show"
+        );
+
+
+    pauseAll();
+
+}
+
+
+/* =====================================================
+   OPEN SOURCE
+===================================================== */
+
+function openSourceURL(){
+
+    if(!currentSourceURL){
+        return;
+    }
+
+
+    try{
+
+        const url =
+            new URL(
+                currentSourceURL
+            );
+
+
+        if(
+            url.protocol !== "https:" &&
+            url.protocol !== "http:"
+        ){
+
+            showToast(
+                "رابط المصدر غير صالح"
+            );
+
+            return;
+
+        }
+
+
+        window.open(
+            url.href,
+            "_blank",
+            "noopener,noreferrer"
+        );
+
+    }
+    catch(error){
+
+        showToast(
+            "رابط المصدر غير صالح"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   CLOSE SOURCE
+===================================================== */
+
+function closeSource(){
+
+    document
+        .getElementById(
+            "sourceModal"
+        )
+        .classList.remove(
+            "show"
+        );
+
+
+    playCurrentVideo();
+
+}
+
+
+function closeSourceByBackground(
+    event
+){
+
+    if(
+        event.target.id ===
+        "sourceModal"
+    ){
+
+        closeSource();
+
+    }
 
 }
 
@@ -1771,128 +3809,355 @@ function showSource(id){
 
 let toastTimer;
 
-function showToast(message){
 
-  const toast =
-    document.getElementById(
-      "toast"
+function showToast(
+    message
+){
+
+    const toast =
+        document
+            .getElementById(
+                "toast"
+            );
+
+
+    toast.textContent =
+        message;
+
+
+    toast.classList.add(
+        "show"
     );
 
 
-  toast.textContent =
-    message;
+    clearTimeout(
+        toastTimer
+    );
 
 
-  toast.classList.add(
-    "show"
-  );
+    toastTimer =
+        setTimeout(
+            ()=>{
 
+                toast.classList.remove(
+                    "show"
+                );
 
-  clearTimeout(
-    toastTimer
-  );
-
-
-  toastTimer =
-    setTimeout(
-      ()=>{
-
-        toast.classList.remove(
-          "show"
+            },
+            1700
         );
-
-      },
-      1800
-    );
 
 }
 
 
 /* =====================================================
-   SECURITY HELPERS
+   STORAGE HELPER
+===================================================== */
+
+function readArray(key){
+
+    try{
+
+        const data =
+            JSON.parse(
+                localStorage.getItem(
+                    key
+                ) || "[]"
+            );
+
+
+        return Array.isArray(data)
+            ?
+            data.map(Number)
+            :
+            [];
+
+    }
+    catch(error){
+
+        return [];
+
+    }
+
+}
+
+
+/* =====================================================
+   ESCAPE
 ===================================================== */
 
 function escapeHTML(value){
 
-  const div =
-    document.createElement(
-      "div"
-    );
+    const div =
+        document.createElement(
+            "div"
+        );
 
-  div.textContent =
-    String(value);
 
-  return div.innerHTML;
+    div.textContent =
+        String(value);
+
+
+    return div.innerHTML;
 
 }
 
 
 function safeAttribute(value){
 
-  return String(value)
-    .replace(/&/g,"&amp;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#39;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;");
+    return String(value || "")
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#39;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        );
 
 }
 
 
 /* =====================================================
-   منع Zoom
+   TOUCH EVENTS
+===================================================== */
+
+const feed =
+    document.getElementById(
+        "feed"
+    );
+
+
+feed.addEventListener(
+    "touchstart",
+    touchStart,
+    {
+        passive:true
+    }
+);
+
+
+feed.addEventListener(
+    "touchmove",
+    touchMove,
+    {
+        passive:false
+    }
+);
+
+
+feed.addEventListener(
+    "touchend",
+    touchEnd,
+    {
+        passive:true
+    }
+);
+
+
+feed.addEventListener(
+    "touchcancel",
+    touchEnd,
+    {
+        passive:true
+    }
+);
+
+
+/* =====================================================
+   MOUSE WHEEL
+===================================================== */
+
+feed.addEventListener(
+    "wheel",
+    wheelNavigation,
+    {
+        passive:false
+    }
+);
+
+
+/* =====================================================
+   KEYBOARD
 ===================================================== */
 
 document.addEventListener(
-  "gesturestart",
-  event=>{
-    event.preventDefault();
-  }
+    "keydown",
+    keyboardNavigation
 );
 
 
-document.addEventListener(
-  "gesturechange",
-  event=>{
-    event.preventDefault();
-  }
-);
-
+/* =====================================================
+   PREVENT ZOOM
+===================================================== */
 
 document.addEventListener(
-  "gestureend",
-  event=>{
-    event.preventDefault();
-  }
-);
+    "gesturestart",
+    event=>{
 
-
-/* منع double tap zoom */
-
-let lastTouchEnd = 0;
-
-document.addEventListener(
-  "touchend",
-  event=>{
-
-    const now =
-      Date.now();
-
-    if(
-      now - lastTouchEnd <= 300
-    ){
-
-      event.preventDefault();
+        event.preventDefault();
 
     }
+);
 
-    lastTouchEnd =
-      now;
 
-  },
-  {
-    passive:false
-  }
+document.addEventListener(
+    "gesturechange",
+    event=>{
+
+        event.preventDefault();
+
+    }
+);
+
+
+document.addEventListener(
+    "gestureend",
+    event=>{
+
+        event.preventDefault();
+
+    }
+);
+
+
+/* =====================================================
+   DOUBLE TAP ZOOM
+===================================================== */
+
+let lastTouchEnd =
+    0;
+
+
+document.addEventListener(
+    "touchend",
+    event=>{
+
+        const now =
+            Date.now();
+
+
+        if(
+            now -
+            lastTouchEnd <
+            280
+        ){
+
+            /*
+               لا نمنع touchend الخاص
+               بالتنقل، فقط zoom المتكرر.
+            */
+
+        }
+
+
+        lastTouchEnd =
+            now;
+
+    },
+    {
+        passive:true
+    }
+);
+
+
+/* =====================================================
+   RESIZE
+
+   يمنع الهبوط عند تغير ارتفاع
+   شريط المتصفح في الجوال.
+===================================================== */
+
+let resizeTimer;
+
+
+function handleResize(){
+
+    clearTimeout(
+        resizeTimer
+    );
+
+
+    resizeTimer =
+        setTimeout(
+            ()=>{
+
+                if(!dragging){
+
+                    clearInlineTransforms();
+
+                    updateCards();
+
+                }
+
+            },
+            100
+        );
+
+}
+
+
+window.addEventListener(
+    "resize",
+    handleResize
+);
+
+
+if(
+    window.visualViewport
+){
+
+    window.visualViewport
+        .addEventListener(
+            "resize",
+            handleResize
+        );
+
+}
+
+
+/* =====================================================
+   VISIBILITY
+
+   إذا خرج المستخدم من الصفحة
+   نوقف الفيديو.
+===================================================== */
+
+document.addEventListener(
+    "visibilitychange",
+    ()=>{
+
+        if(
+            document.hidden
+        ){
+
+            pauseAll();
+
+        }
+        else{
+
+            playCurrentVideo();
+
+        }
+
+    }
 );
 
 
