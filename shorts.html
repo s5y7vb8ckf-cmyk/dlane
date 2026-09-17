@@ -696,6 +696,7 @@ button{
 ========================= */
 
 .soundNotice{
+    display:none !important;
     position:absolute;
     z-index:80;
     top:calc(env(safe-area-inset-top) + 116px);
@@ -1675,6 +1676,30 @@ async function unlockPwaSound(){
 setTimeout(showPwaSoundGate,350);
 document.getElementById("enablePwaSound")?.addEventListener("click",unlockPwaSound);
 
+// إذا سبق للمستخدم السماح بالصوت، لا تظهر شاشة الإذن مرة أخرى.
+if(pwaSoundUnlocked){
+  hidePwaSoundGate();
+}
+
+// حافظ على الصوت عند الانتقال بين المقاطع والعودة إلى الـ PWA.
+function keepPwaSoundOn(){
+  if(!pwaSoundUnlocked) return;
+  soundMuted = false;
+  document.getElementById("soundNotice")?.classList.remove("show");
+  document.querySelectorAll(".short video").forEach(v=>{
+    v.muted = false;
+    v.defaultMuted = false;
+    v.volume = 1;
+  });
+}
+
+document.addEventListener("visibilitychange", ()=>{
+  if(!document.hidden) setTimeout(keepPwaSoundOn, 50);
+});
+document.addEventListener("play", keepPwaSoundOn, true);
+document.addEventListener("loadedmetadata", keepPwaSoundOn, true);
+document.addEventListener("canplay", keepPwaSoundOn, true);
+setInterval(keepPwaSoundOn, 1000);
 
 
 /* =========================
@@ -3139,11 +3164,20 @@ function playCurrentVideo(firstAttempt=false){
 
         if(promise && typeof promise.catch === "function"){
             promise.catch(()=>{
-                // قيود Safari/Chrome قد تمنع autoplay بالصوت قبل أول تفاعل.
-                // نشغّل الفيديو مؤقتًا بدون صوت كي لا يتوقف، ثم نطلب تفاعلًا واحدًا.
-                video.muted = true;
-                video.play().catch(()=>{});
-                enableSoundOnFirstInteraction();
+                // لا نحول المقطع إلى مكتوم ولا نظهر رسالة "المس الشاشة".
+                // نبقي طلب الصوت مفعلاً ونحاول مرة أخرى عندما يصبح المقطع جاهزاً.
+                video.muted = false;
+                video.defaultMuted = false;
+                video.volume = 1;
+                const retry = ()=>{
+                    video.muted = false;
+                    video.defaultMuted = false;
+                    video.volume = 1;
+                    video.play().catch(()=>{});
+                };
+                video.addEventListener("canplay", retry, {once:true});
+                setTimeout(retry, 180);
+                setTimeout(retry, 650);
             });
         }
     });
@@ -3152,54 +3186,11 @@ function playCurrentVideo(firstAttempt=false){
 }
 
 function enableSoundOnFirstInteraction(){
-
-    if(waitingForSoundInteraction){
-        return;
-    }
-
-    waitingForSoundInteraction =
-        true;
-
-    document
-        .getElementById("soundNotice")
-        .classList.add("show");
-
-    const activateSound =
-        ()=>{
-
-            const video =
-                currentVideo();
-
-            if(video){
-
-                soundMuted = false;
-
-                video.muted = false;
-
-                video.play()
-                    .catch(()=>{});
-
-                        }
-
-            waitingForSoundInteraction =
-                false;
-
-            document
-                .getElementById("soundNotice")
-                .classList.remove("show");
-
-            document.removeEventListener(
-                "pointerdown",
-                activateSound,
-                true
-            );
-        };
-
-    document.addEventListener(
-        "pointerdown",
-        activateSound,
-        true
-    );
+    // تم إلغاء رسالة "المس الشاشة". بعد السماح الأول في PWA
+    // نحافظ على الصوت مفعلاً في جميع المقاطع.
+    waitingForSoundInteraction = false;
+    document.getElementById("soundNotice")?.classList.remove("show");
+    forceCurrentVideoSound();
 }
 
 function pauseAll(){
