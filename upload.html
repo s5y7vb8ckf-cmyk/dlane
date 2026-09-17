@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<title>إضافة مقطع | دلني</title>
+<style>
+:root{
+  --primary:#28b6eb;
+  --primary-dark:#087da9;
+  --text:#173743;
+  --muted:#78909a;
+  --border:#dfecef;
+  --soft:#f5fbfd;
+  --success:#129b68;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{min-height:100%;background:#f6fbfd;font-family:Tahoma,Arial,sans-serif;color:var(--text)}
+body{padding-bottom:30px}
+button,input,textarea,select{font:inherit}
+a{text-decoration:none;color:inherit}
+.topbar{
+  position:sticky;top:0;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 16px calc(12px + env(safe-area-inset-top));
+  background:rgba(255,255,255,.94);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid #e8f1f4;
+}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900}
+.logo{
+  width:42px;height:42px;border-radius:14px;display:grid;place-items:center;
+  color:#fff;background:linear-gradient(135deg,var(--primary-dark),var(--primary));
+  box-shadow:0 8px 24px rgba(40,182,235,.25);font-size:18px
+}
+.back{
+  width:42px;height:42px;border-radius:13px;border:1px solid #e2eef2;
+  background:#fff;display:grid;place-items:center;color:#31515e
+}
+.back svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2}
+.wrap{width:min(760px,100%);margin:auto;padding:18px 14px}
+.hero{
+  padding:22px;border:1px solid #e1eef2;border-radius:24px;background:#fff;
+  box-shadow:0 12px 35px rgba(14,71,92,.07);margin-bottom:14px
+}
+.hero h1{font-size:22px;margin-bottom:7px}
+.hero p{font-size:12px;line-height:1.9;color:var(--muted)}
+.notice{
+  margin-top:14px;padding:11px 12px;border-radius:14px;background:#eefaff;
+  color:#23627b;font-size:10px;line-height:1.8;border:1px solid #d7f1fb
+}
+.card{
+  background:#fff;border:1px solid #e1eef2;border-radius:24px;padding:18px;
+  box-shadow:0 12px 35px rgba(14,71,92,.06)
+}
+.sectionTitle{display:flex;align-items:center;gap:9px;margin-bottom:16px}
+.sectionIcon{
+  width:38px;height:38px;border-radius:12px;display:grid;place-items:center;
+  background:#eaf9fe;color:var(--primary-dark)
+}
+.sectionIcon svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2}
+.sectionTitle h2{font-size:15px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column;gap:7px}
+.field.full{grid-column:1/-1}
+label{font-size:10px;font-weight:900;color:#31515e}
+.req{color:#d44}
+input,textarea,select{
+  width:100%;border:1px solid var(--border);outline:0;border-radius:14px;
+  background:#fbfdfe;color:#173743;padding:12px 13px;font-size:12px;
+  transition:.18s;user-select:text;-webkit-user-select:text
+}
+input,select{height:48px}
+textarea{min-height:110px;resize:vertical;line-height:1.8}
+input:focus,textarea:focus,select:focus{
+  border-color:#7bd4f1;box-shadow:0 0 0 4px rgba(40,182,235,.08);background:#fff
+}
+.help{font-size:9px;color:#8b9da5;line-height:1.7}
+.preview{
+  margin-top:14px;border:1px dashed #cfe5ec;border-radius:18px;padding:13px;background:#fafdfe
+}
+.preview video{
+  width:100%;max-height:420px;border-radius:14px;background:#000;display:none
+}
+.preview.empty{
+  min-height:105px;display:grid;place-items:center;text-align:center;color:#93a4ab;font-size:10px
+}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:16px}
+.btn{
+  height:50px;border:0;border-radius:14px;font-weight:900;font-size:12px;cursor:pointer
+}
+.btn.primary{background:linear-gradient(135deg,var(--primary-dark),var(--primary));color:#fff}
+.btn.secondary{background:#f3f8fa;color:#34515d;border:1px solid #dfecef}
+.btn:disabled{opacity:.6;cursor:not-allowed}
+.status{
+  display:none;margin-top:13px;padding:11px 12px;border-radius:13px;font-size:10px;line-height:1.8
+}
+.status.show{display:block}
+.status.ok{background:#edf9f4;color:#167654;border:1px solid #ccecdf}
+.status.err{background:#fff3f3;color:#a94747;border:1px solid #f1d1d1}
+.status.info{background:#eef9fd;color:#2a657b;border:1px solid #d6eef7}
+.accountBox{
+  display:flex;align-items:center;gap:10px;margin-bottom:14px;padding:11px;
+  border-radius:15px;background:#f8fcfd;border:1px solid #e4eff2
+}
+.avatar{
+  width:42px;height:42px;border-radius:50%;display:grid;place-items:center;color:#fff;
+  background:linear-gradient(135deg,var(--primary-dark),var(--primary));font-weight:900;overflow:hidden
+}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.accountInfo{flex:1;min-width:0}
+.accountInfo span{display:block;font-size:8px;color:#8ca0a8;margin-bottom:3px}
+.accountInfo strong{display:block;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.smallLink{font-size:9px;font-weight:900;color:var(--primary-dark)}
+.footerNote{padding:16px 5px;text-align:center;color:#95a5ac;font-size:9px;line-height:1.8}
+@media(max-width:620px){
+  .grid{grid-template-columns:1fr}
+  .field.full{grid-column:auto}
+  .hero{padding:18px}.card{padding:15px}.hero h1{font-size:19px}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">د</div>
+    <div>
+      <div>دلني</div>
+      <small style="display:block;color:#8ca0a8;font-size:8px;margin-top:2px">إضافة مقطع</small>
+    </div>
+  </div>
+  <a class="back" href="shorts.html" aria-label="رجوع">
+    <svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+  </a>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <h1>إضافة مقطع جديد</h1>
+    <p>أضف مقطعًا نافعًا مع المصدر والتصنيف. بعد الإرسال يمكن أن يظهر في صفحة المقاطع حسب حالة النشر والمراجعة.</p>
+    <div class="notice">
+      هذه الصفحة لا ترفع ملف الفيديو نفسه إلى Google Sheets؛ الأفضل رفع الفيديو إلى تخزين مناسب ثم وضع الرابط المباشر هنا.
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="sectionTitle">
+      <div class="sectionIcon">
+        <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+      </div>
+      <h2>بيانات المقطع</h2>
+    </div>
+
+    <div class="accountBox">
+      <div class="avatar" id="userAvatar">م</div>
+      <div class="accountInfo">
+        <span>سيتم النشر باسم</span>
+        <strong id="publisherName">حساب المستخدم</strong>
+      </div>
+      <a class="smallLink" href="account.html">تعديل الحساب</a>
+    </div>
+
+    <form id="videoForm">
+      <div class="grid">
+
+        <div class="field full">
+          <label>عنوان المقطع <span class="req">*</span></label>
+          <input id="title" maxlength="120" required placeholder="مثال: فضل أذكار الصباح">
+        </div>
+
+        <div class="field full">
+          <label>الوصف <span class="req">*</span></label>
+          <textarea id="description" maxlength="700" required placeholder="اكتب وصفًا مختصرًا وواضحًا للمقطع"></textarea>
+        </div>
+
+        <div class="field">
+          <label>التصنيف <span class="req">*</span></label>
+          <select id="category" required>
+            <option value="">اختر التصنيف</option>
+            <option>تذكير</option>
+            <option>أذكار</option>
+            <option>قرآن</option>
+            <option>حديث</option>
+            <option>دعاء</option>
+            <option>سيرة</option>
+            <option>فقه</option>
+            <option>أخلاق</option>
+            <option>نصيحة</option>
+            <option>عام</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>اسم المصدر</label>
+          <input id="source" maxlength="120" placeholder="مثال: موقع الدرر السنية">
+        </div>
+
+        <div class="field full">
+          <label>رابط الفيديو المباشر <span class="req">*</span></label>
+          <input id="videoUrl" type="url" required inputmode="url" placeholder="https://.../video.mp4">
+          <div class="help">يفضل رابط MP4 مباشر أو تخزين يدعم تشغيل الفيديو وطلبات Range.</div>
+        </div>
+
+        <div class="field full">
+          <label>رابط المصدر</label>
+          <input id="sourceUrl" type="url" inputmode="url" placeholder="https://...">
+        </div>
+
+        <div class="field full">
+          <label>صورة الحساب</label>
+          <input id="avatarUrl" type="url" inputmode="url" placeholder="تُجلب تلقائيًا من صفحة الحساب إن وجدت">
+        </div>
+
+      </div>
+
+      <div class="preview empty" id="previewBox">
+        <span id="previewText">ستظهر معاينة الفيديو هنا بعد إدخال الرابط.</span>
+        <video id="videoPreview" playsinline controls preload="metadata"></video>
+      </div>
+
+      <div class="actions">
+        <button class="btn primary" id="submitBtn" type="submit">إرسال المقطع</button>
+        <button class="btn secondary" type="button" onclick="resetForm()">مسح الحقول</button>
+      </div>
+
+      <div class="status" id="statusBox"></div>
+    </form>
+  </section>
+
+  <div class="footerNote">
+    الحقول متوافقة مع جدول المقاطع: العنوان، الوصف، التصنيف، رابط الفيديو، الناشر، المصدر، رابط المصدر، الحالة، التوثيق، صورة الحساب، معرف المقطع.
+  </div>
+</main>
+
+<script>
+/*
+  مهم:
+  رابط CSV الذي أرسلته مناسب للقراءة فقط.
+  لكي تضيف صفوفًا من الموقع، انشر Google Apps Script كـ Web App
+  ثم ضع رابط /exec هنا.
+*/
+const ADD_VIDEO_API = "https://script.google.com/macros/s/AKfycbz3nufzxeart1J4J3INeLk6Tx4QrUDvxVm_cWZ1Ypgkn6bMn00CjWOKuCX4R18ZmWpo0g/exec";
+
+function getAccount(){
+  let name = "";
+  let avatar = localStorage.getItem("zaadProfileAvatar") || "";
+  const jsonKeys = ["zaadAccountProfile","zaadProfile","zaadUser","userProfile"];
+
+  for(const key of jsonKeys){
+    try{
+      const data = JSON.parse(localStorage.getItem(key) || "null");
+      if(data && typeof data === "object"){
+        name = String(data.name || data.fullName || data.username || data.displayName || "").trim() || name;
+        avatar = String(data.avatar || data.photo || data.image || avatar || "").trim();
+      }
+    }catch(e){}
+  }
+
+  if(!name){
+    const textKeys = ["zaadAccountName","zaadUserName","userName","profileName"];
+    for(const key of textKeys){
+      const v = String(localStorage.getItem(key) || "").trim();
+      if(v){ name=v; break; }
+    }
+  }
+
+  return {name:name || "مستخدم دلني", avatar};
+}
+
+function loadAccount(){
+  const acc = getAccount();
+  document.getElementById("publisherName").textContent = acc.name;
+  if(acc.avatar){
+    document.getElementById("userAvatar").innerHTML = `<img alt="" src="${escapeAttr(acc.avatar)}">`;
+    document.getElementById("avatarUrl").value = acc.avatar;
+  }else{
+    document.getElementById("userAvatar").textContent = (acc.name.trim().charAt(0) || "م");
+  }
+}
+
+function escapeAttr(v){
+  return String(v || "").replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+
+function newVideoId(){
+  if(window.crypto && crypto.randomUUID) return crypto.randomUUID();
+  return "vid-" + Date.now() + "-" + Math.random().toString(36).slice(2,9);
+}
+
+function showStatus(message,type="info"){
+  const box=document.getElementById("statusBox");
+  box.textContent=message;
+  box.className="status show " + type;
+}
+
+function apiReady(){
+  return /^https:\/\/script\.google\.com\/macros\/s\/.+\/exec/i.test(ADD_VIDEO_API);
+}
+
+function previewVideo(){
+  const url=document.getElementById("videoUrl").value.trim();
+  const box=document.getElementById("previewBox");
+  const video=document.getElementById("videoPreview");
+  const text=document.getElementById("previewText");
+
+  if(!url){
+    video.pause();
+    video.removeAttribute("src");
+    video.load();
+    video.style.display="none";
+    text.style.display="";
+    box.classList.add("empty");
+    return;
+  }
+
+  box.classList.remove("empty");
+  text.style.display="none";
+  video.style.display="block";
+  video.src=url;
+  video.load();
+}
+
+document.getElementById("videoUrl").addEventListener("change",previewVideo);
+document.getElementById("videoUrl").addEventListener("blur",previewVideo);
+
+document.getElementById("videoForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+
+  if(!apiReady()){
+    showStatus("أضف رابط Apps Script في المتغير ADD_VIDEO_API أولًا.","err");
+    return;
+  }
+
+  const acc=getAccount();
+  const btn=document.getElementById("submitBtn");
+
+  const payload={
+    action:"add",
+    title:document.getElementById("title").value.trim(),
+    description:document.getElementById("description").value.trim(),
+    category:document.getElementById("category").value.trim(),
+    videoUrl:document.getElementById("videoUrl").value.trim(),
+    publisher:acc.name,
+    source:document.getElementById("source").value.trim(),
+    sourceUrl:document.getElementById("sourceUrl").value.trim(),
+    status:"no",
+    verified:"no",
+    avatar:document.getElementById("avatarUrl").value.trim() || acc.avatar || "",
+    videoId:newVideoId()
+  };
+
+  if(!payload.title || !payload.description || !payload.category || !payload.videoUrl){
+    showStatus("أكمل الحقول المطلوبة.","err");
+    return;
+  }
+
+  btn.disabled=true;
+  btn.textContent="جاري الإرسال...";
+  showStatus("جاري إرسال المقطع للمراجعة...","info");
+
+  try{
+    const body=new URLSearchParams(payload);
+    const res=await fetch(ADD_VIDEO_API,{
+      method:"POST",
+      headers:{"Content-Type":"application/x-www-form-urlencoded;charset=UTF-8"},
+      body
+    });
+
+    const text=await res.text();
+    let data=null;
+    try{ data=JSON.parse(text); }catch(e){}
+
+    if(!res.ok) throw new Error("HTTP "+res.status);
+    if(data && data.result && data.result!=="success") throw new Error(data.error || "تعذر الإضافة");
+
+    showStatus("تم إرسال المقطع بنجاح، وهو الآن بانتظار المراجعة والنشر.","ok");
+    document.getElementById("videoForm").reset();
+    loadAccount();
+    previewVideo();
+  }catch(err){
+    console.error(err);
+    showStatus("تعذر إرسال المقطع. تحقق من رابط Apps Script وإعدادات النشر.","err");
+  }finally{
+    btn.disabled=false;
+    btn.textContent="إرسال المقطع";
+  }
+});
+
+function resetForm(){
+  document.getElementById("videoForm").reset();
+  loadAccount();
+  previewVideo();
+  document.getElementById("statusBox").className="status";
+}
+
+loadAccount();
+</script>
+</body>
+</html>
